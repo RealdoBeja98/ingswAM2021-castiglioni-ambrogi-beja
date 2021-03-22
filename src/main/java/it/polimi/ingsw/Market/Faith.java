@@ -1,7 +1,22 @@
 package it.polimi.ingsw.Market;
 
+import it.polimi.ingsw.Resource;
+
 public class Faith extends Marble{
-    public putResource(WarehouseDepots warehouseDepots, FaithTrack faithTrack, LeaderCard leaderCard){
-      faithTrack.goOn(1);
+
+    @Override
+    public void putResource(WarehouseDepots warehouseDepots, int pos) {
+        throw new RuntimeException();
     }
+
+    @Override
+    public void putResource(LeaderCard leaderCard) {
+        throw new RuntimeException();
+    }
+
+    @Override
+    public Resource whatIAm() {
+        return null;
+    }
+
 }
