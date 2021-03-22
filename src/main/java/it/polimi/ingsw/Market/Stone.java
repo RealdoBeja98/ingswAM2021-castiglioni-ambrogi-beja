@@ -14,6 +14,11 @@ public class Stone extends Marble{
     }
 
     @Override
+    public void putResource(FaithTrack faithTrack) {
+
+    }
+
+    @Override
     public Resource whatIAm() {
         return Resource.STONE;
     }

@@ -15,6 +15,11 @@ public class Faith extends Marble{
     }
 
     @Override
+    public void putResource(FaithTrack faithTrack) {
+
+    }
+
+    @Override
     public Resource whatIAm() {
         return null;
     }

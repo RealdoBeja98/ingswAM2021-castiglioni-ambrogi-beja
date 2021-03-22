@@ -7,9 +7,7 @@ public abstract class Marble {
 
     public abstract void putResource(LeaderCard leaderCard);
 
-    public void putResource(FaithTrack faithTrack){
-        faithTrack.goOn(1);
-    }
+    public abstract void putResource(FaithTrack faithTrack);
 
     public abstract Resource whatIAm();
 
