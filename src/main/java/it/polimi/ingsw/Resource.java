@@ -1,5 +1,5 @@
 package it.polimi.ingsw;
 
 public enum Resource {
-    COIN, STONE, SERVANT, SHIELD
+    FAITH, COIN, STONE, SERVANT, SHIELD, WHITE
 }
