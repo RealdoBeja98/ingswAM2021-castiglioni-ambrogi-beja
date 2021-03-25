@@ -1,5 +1,5 @@
 package it.polimi.ingsw.Market;
-
+import it.polimi.ingsw.PersonalBoard.WarehouseDepots;
 import it.polimi.ingsw.PersonalBoard.FaithTrack;
 
 public abstract class Marble {

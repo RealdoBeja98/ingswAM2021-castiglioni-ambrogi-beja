@@ -1,6 +1,7 @@
 package it.polimi.ingsw.Market;
 import it.polimi.ingsw.PersonalBoard.FaithTrack;
 import it.polimi.ingsw.Resource;
+import it.polimi.ingsw.PersonalBoard.WarehouseDepots;
 
 public class Stone extends Marble{
     private final Resource whatIAm = Resource.STONE;
