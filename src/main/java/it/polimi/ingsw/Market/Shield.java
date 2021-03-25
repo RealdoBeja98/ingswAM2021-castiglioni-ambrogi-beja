@@ -1,5 +1,7 @@
 package it.polimi.ingsw.Market;
 import it.polimi.ingsw.PersonalBoard.FaithTrack;
+import it.polimi.ingsw.PersonalBoard.PositionAlreadyOccupiedException;
+import it.polimi.ingsw.PersonalBoard.ResourceAlreadyPlacedException;
 import it.polimi.ingsw.Resource;
 import it.polimi.ingsw.PersonalBoard.WarehouseDepots;
 
@@ -8,12 +10,18 @@ public class Shield extends Marble {
 
     @Override
     public void putResource(WarehouseDepots warehouseDepots, int pos) {
-        WarehouseDepots.addResource(whatIAm, pos);
+        try {
+            warehouseDepots.addResource(whatIAm, pos);
+        } catch (PositionAlreadyOccupiedException e) {
+            e.printStackTrace();
+        } catch (ResourceAlreadyPlacedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void putResource(LeaderCard leaderCard) {
-        LeaderCard.addResource(whatIAm);
+        leaderCard.addResource(whatIAm);
     }
 
     @Override
