@@ -21,7 +21,7 @@ public class SlotsDevelopmentCards {
          else{
              placeCard(levelOfCards, card);
              }
-         }
+    }
 
     private void placeCard(int levelOfCard, int pos, DevelopmentCard card) throws PositionAlreadyOccupiedException {
         if (pos == 0) {
