@@ -10,26 +10,26 @@ public class Market {
 
 
     public Market() {
-        ArrayList<Marble> temp = new ArrayList<>(13);
+        ArrayList<Marble> temp = new ArrayList<>();
         putMarbles(temp);
         Collections.shuffle(temp);
         listToMarket(temp);
     }
 
     private void putMarbles(ArrayList<Marble> temp){
-        temp.set(0, new Coin());
-        temp.set(1, new Coin());
-        temp.set(2, new Stone());
-        temp.set(3, new Stone());
-        temp.set(4, new Servant());
-        temp.set(5, new Servant());
-        temp.set(6, new Shield());
-        temp.set(7, new Shield());
-        temp.set(8, new White());
-        temp.set(9, new White());
-        temp.set(10, new White());
-        temp.set(11, new White());
-        temp.set(12, new Faith());
+        temp.add(new Coin());
+        temp.add(new Coin());
+        temp.add(new Stone());
+        temp.add(new Stone());
+        temp.add(new Servant());
+        temp.add(new Servant());
+        temp.add(new Shield());
+        temp.add(new Shield());
+        temp.add(new White());
+        temp.add(new White());
+        temp.add(new White());
+        temp.add(new White());
+        temp.add(new Faith());
     }
 
     private void listToMarket(ArrayList<Marble> temp){
@@ -41,6 +41,18 @@ public class Market {
             }
         }
         extraMarble = temp.get(k);
+    }
+
+    public Marble[][] getMarketTray(){
+        Marble[][] result = marketTray.clone();
+        for(int i = 0; i < result.length; i++){
+            result[i] = result[i].clone();
+        }
+        return result;
+    }
+
+    public Marble getExtraMarble(){
+        return extraMarble;
     }
 
     public Marble[] chooseRow(int n){

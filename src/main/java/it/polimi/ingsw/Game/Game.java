@@ -13,7 +13,7 @@ public class Game {
         return Game.istance;
     }
 
-    public ArrayList<Player> players;
+    public ArrayList<Player> players = new ArrayList<>();
 
     public void endGame(){
 
