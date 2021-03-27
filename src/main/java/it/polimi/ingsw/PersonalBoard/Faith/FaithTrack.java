@@ -12,10 +12,19 @@ public class FaithTrack {
         this.playerList = playerList;
         faithMarker = 0;
         favorTiles = new FavorTiles[3];
-        for(FavorTiles i : favorTiles){
-            i = FavorTiles.COVERED;
+        for(int i = 0; i < 3; i++){
+            favorTiles[i] = FavorTiles.COVERED;
         }
     }
+
+    public int getFaithMarker(){
+        return faithMarker;
+    }
+
+    public FavorTiles[] getFavorTiles(){
+        return favorTiles;//chiedere al prof se fare la clone o va bene così
+    }
+
     public void goOn(int n){
         faithMarker += n;
 

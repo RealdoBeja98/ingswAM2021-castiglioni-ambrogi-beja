@@ -67,33 +67,6 @@ public class WarehouseDepots {
         }
     }
 
-    /*
-    public void moveResource(int startPos, int finalPos) throws PositionAlreadyOccupiedException, ResourceAlreadyPlacedException {
-        if(finalPos >= 7 || finalPos < 0 || startPos >= 7 || startPos < 0){
-            throw new IndexOutOfBoundsException();
-        }
-        if(resource[finalPos] != null){
-            throw new PositionAlreadyOccupiedException();
-        }
-        else{
-            if(startPos == 0 && (finalPos ==1 || finalPos ==2) && ((resource[1] != null && resource[2] == null) || (resource[1] == null && resource[2] != null) || (resource[1] != null && resource[2] != null))) {
-                throw new ResourceAlreadyPlacedException();
-            } // non prende in considerazione se shelf 1 ha un coin, shelf two has 1 servant and blank, it can't change servant with coin }
-            else if((startPos == 1 || startPos == 2) && (finalPos == 3 || finalPos == 4 || finalPos == 5) && ((resource[3] != null && resource[4] !=null && resource[5] == null) ||
-                    (resource[3] == null && resource[4] != null && resource[5] != null) || (resource[3] != null && resource[4] != null && resource[5] != null) || (resource[3] != null || resource[4] != null || resource[5] != null))){
-                throw new ResourceAlreadyPlacedException();
-            }// non prende in considerazione se shelf 1 ha un coin, shelf two has 1 servant and blank, it can't change servant with coin
-            else if((startPos == 3 || startPos == 4 || startPos == 5) && (finalPos ==1 || finalPos ==2) && ((resource[1] != null && resource[2] == null) || (resource[1] == null && resource[2] != null) || (resource[1] != null && resource[2] != null))){
-                throw new ResourceAlreadyPlacedException();
-            }// non prende in considerazione se shelf 1 ha un coin, shelf two has 1 servant and blank, it can't change servant with coin
-            else{
-                resource[finalPos] = resource[startPos];
-                resource[startPos] = null;
-            }
-        }
-    }
-    */
-
     private Boolean isCorrect(){
         if(resource[1] != resource[2]){
             if(resource[1] != null && resource[2] != null){
