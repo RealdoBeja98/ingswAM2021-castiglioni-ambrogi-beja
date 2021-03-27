@@ -1,7 +1,8 @@
 package it.polimi.ingsw.Market;
-import it.polimi.ingsw.PersonalBoard.FaithTrack;
+import it.polimi.ingsw.Deck.LeaderCard;
+import it.polimi.ingsw.PersonalBoard.Faith.FaithTrack;
 import it.polimi.ingsw.Resource;
-import it.polimi.ingsw.PersonalBoard.WarehouseDepots;
+import it.polimi.ingsw.PersonalBoard.Warehouse.WarehouseDepots;
 
 public class Faith extends Marble{
     private final Resource whatIAm = Resource.FAITH;

@@ -1,4 +1,4 @@
-package it.polimi.ingsw.PersonalBoard;
+package it.polimi.ingsw.PersonalBoard.Warehouse;
 
 public class ResourceAlreadyPlacedException extends Exception {
     public ResourceAlreadyPlacedException(){

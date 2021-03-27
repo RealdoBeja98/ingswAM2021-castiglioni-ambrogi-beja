@@ -1,4 +1,7 @@
-package it.polimi.ingsw.PersonalBoard;
+package it.polimi.ingsw.PersonalBoard.Faith;
+import it.polimi.ingsw.Game.Game;
+import it.polimi.ingsw.Game.Player;
+import java.util.ArrayList;
 
 public class FaithTrack {
     private int faithMarker;
@@ -35,11 +38,7 @@ public class FaithTrack {
 
     }
     private void popeState(int n){
-        int treshold;
-
-        if(n == 0){
-            treshold = 5;
-        }
+        int treshold = 5;
         if(n == 1){
             treshold = 12;
         }

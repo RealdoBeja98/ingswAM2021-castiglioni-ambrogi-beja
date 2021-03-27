@@ -1,4 +1,4 @@
-package it.polimi.ingsw.PersonalBoard;
+package it.polimi.ingsw.PersonalBoard.StrongBox;
 
 public class NegativeResourceException extends Exception{
     public NegativeResourceException(){

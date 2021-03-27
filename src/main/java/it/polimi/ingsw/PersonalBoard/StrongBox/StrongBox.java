@@ -1,4 +1,4 @@
-package it.polimi.ingsw.PersonalBoard;
+package it.polimi.ingsw.PersonalBoard.StrongBox;
 import it.polimi.ingsw.Resource;
 
 public class StrongBox {

@@ -1,9 +1,11 @@
 package it.polimi.ingsw.Market;
-import it.polimi.ingsw.PersonalBoard.FaithTrack;
-import it.polimi.ingsw.PersonalBoard.PositionAlreadyOccupiedException;
-import it.polimi.ingsw.PersonalBoard.ResourceAlreadyPlacedException;
+import it.polimi.ingsw.Deck.LeaderCard;
+import it.polimi.ingsw.PersonalBoard.Faith.FaithTrack;
+import it.polimi.ingsw.PersonalBoard.Warehouse.DifferentResourceInThisShelfException;
+import it.polimi.ingsw.PersonalBoard.Warehouse.PositionAlreadyOccupiedException;
+import it.polimi.ingsw.PersonalBoard.Warehouse.ResourceAlreadyPlacedException;
+import it.polimi.ingsw.PersonalBoard.Warehouse.WarehouseDepots;
 import it.polimi.ingsw.Resource;
-import it.polimi.ingsw.PersonalBoard.WarehouseDepots;
 
 public class Shield extends Marble {
     private final Resource whatIAm = Resource.SHIELD;
@@ -16,6 +18,8 @@ public class Shield extends Marble {
             e.printStackTrace();
         } catch (ResourceAlreadyPlacedException e) {
             e.printStackTrace();
+        } catch (DifferentResourceInThisShelfException differentResourceInThisShelfException) {
+            differentResourceInThisShelfException.printStackTrace();
         }
     }
 
