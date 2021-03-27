@@ -29,7 +29,7 @@ public class SlotsDevelopmentCards {
                 occupySlot(pos, levelOfCard, card);
             } else if (slot[pos][1] == null && levelOfCard == 1) {
                 occupySlot(pos, levelOfCard, card);
-            } else if (slot[pos][1] == null && levelOfCard == 2) {
+            } else if (slot[pos][2] == null && levelOfCard == 2) {
                 occupySlot(pos, levelOfCard, card);
             } else {
                 throw new PositionAlreadyOccupiedException();
@@ -39,7 +39,7 @@ public class SlotsDevelopmentCards {
                 occupySlot(pos, levelOfCard, card);
             } else if (slot[pos][1] == null && levelOfCard == 1) {
                 occupySlot(pos, levelOfCard, card);
-            } else if (slot[pos][1] == null && levelOfCard == 2) {
+            } else if (slot[pos][2] == null && levelOfCard == 2) {
                 occupySlot(pos, levelOfCard, card);
             } else {
                 throw new PositionAlreadyOccupiedException();
@@ -49,7 +49,7 @@ public class SlotsDevelopmentCards {
                 occupySlot(pos, levelOfCard, card);
             } else if (slot[pos][1] == null && levelOfCard == 1) {
                 occupySlot(pos, levelOfCard, card);
-            } else if (slot[pos][1] == null && levelOfCard == 2) {
+            } else if (slot[pos][2] == null && levelOfCard == 2) {
                 occupySlot(pos, levelOfCard, card);
             } else {
                 throw new PositionAlreadyOccupiedException();
