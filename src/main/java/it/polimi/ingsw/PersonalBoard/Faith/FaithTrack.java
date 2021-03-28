@@ -4,6 +4,7 @@ import it.polimi.ingsw.Game.Player;
 import java.util.ArrayList;
 
 public class FaithTrack {
+
     private int faithMarker;
     private final FavorTiles[] favorTiles;
     private final ArrayList<Player> playerList;
@@ -22,12 +23,11 @@ public class FaithTrack {
     }
 
     public FavorTiles[] getFavorTiles(){
-        return favorTiles;//chiedere al prof se fare la clone o va bene così
-    }
+        return favorTiles;
+    } //chiedere al prof se fare la clone o va bene così
 
     public void goOn(int n){
         faithMarker += n;
-
         if(faithMarker >= 24){
             faithMarker = 24;
 
@@ -44,8 +44,8 @@ public class FaithTrack {
             popeState(2);
             arrived();
         }
-
     }
+
     private void popeState(int n){
         int treshold = 5;
         if(n == 1){
@@ -54,7 +54,6 @@ public class FaithTrack {
         if(n == 2){
             treshold = 19;
         }
-
         for(Player name : playerList){
             if(name.getPersonalBoard().getFaithTrack().faithMarker >= treshold){
                 name.getPersonalBoard().getFaithTrack().favorTiles[n] =
@@ -69,7 +68,6 @@ public class FaithTrack {
 
     public int victoryPoints(){
         int bonusFavorTiles = 0;
-
         if(favorTiles[0] == FavorTiles.TURNED){
             bonusFavorTiles += 2;
         }
@@ -79,7 +77,6 @@ public class FaithTrack {
         if(favorTiles[2] == FavorTiles.TURNED){
             bonusFavorTiles += 4;
         }
-
         if(faithMarker >= 24){
             return 20 + bonusFavorTiles;
         }
@@ -112,6 +109,5 @@ public class FaithTrack {
     private void arrived(){
         Game.getInstance().endGame();
     }
-
 
 }

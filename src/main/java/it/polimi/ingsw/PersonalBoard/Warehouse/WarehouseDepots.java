@@ -2,6 +2,7 @@ package it.polimi.ingsw.PersonalBoard.Warehouse;
 import it.polimi.ingsw.Resource;
 
 public class WarehouseDepots {
+
     private Resource[] resource = new Resource[6];
 
     public WarehouseDepots() {

@@ -8,17 +8,15 @@ import it.polimi.ingsw.PersonalBoard.Warehouse.WarehouseDepots;
 import it.polimi.ingsw.Resource;
 
 public class Stone extends Marble{
+
     private final Resource whatIAm = Resource.STONE;
+
     @Override
     public void putResource(WarehouseDepots warehouseDepots, int pos) {
         try {
             warehouseDepots.addResource(whatIAm, pos);
-        } catch (PositionAlreadyOccupiedException e) {
+        } catch (PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException e) {
             e.printStackTrace();
-        } catch (ResourceAlreadyPlacedException e) {
-            e.printStackTrace();
-        } catch (DifferentResourceInThisShelfException differentResourceInThisShelfException) {
-            differentResourceInThisShelfException.printStackTrace();
         }
     }
 
@@ -31,6 +29,5 @@ public class Stone extends Marble{
     public void putResource(FaithTrack faithTrack) {
         throw new RuntimeException();
     }
-
 
 }

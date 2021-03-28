@@ -5,7 +5,9 @@ import it.polimi.ingsw.Resource;
 import it.polimi.ingsw.PersonalBoard.Warehouse.WarehouseDepots;
 
 public class Faith extends Marble{
+
     private final Resource whatIAm = Resource.FAITH;
+
     @Override
     public void putResource(WarehouseDepots warehouseDepots, int pos) {
         throw new RuntimeException();
@@ -20,6 +22,5 @@ public class Faith extends Marble{
     public void putResource(FaithTrack faithTrack) {
         faithTrack.goOn(1);
     }
-
 
 }
