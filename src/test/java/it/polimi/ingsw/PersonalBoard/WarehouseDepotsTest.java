@@ -1,7 +1,5 @@
 package it.polimi.ingsw.PersonalBoard;
-
 import static org.junit.jupiter.api.Assertions.*;
-
 import it.polimi.ingsw.PersonalBoard.Warehouse.*;
 import it.polimi.ingsw.Resource;
 import org.junit.jupiter.api.Test;
@@ -57,6 +55,7 @@ public class WarehouseDepotsTest {
     /**
      * We are testing putting two resources on the same position
      */
+
     @Test
     public void testAddException1(){
         WarehouseDepots warehouseDepots = new WarehouseDepots();

@@ -8,7 +8,7 @@ public class StrongBox {
     private int shield;
     private int stone;
 
-    protected StrongBox(){
+    public StrongBox(){
         coin = 0;
         servant = 0;
         shield = 0;
