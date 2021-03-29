@@ -16,6 +16,18 @@ public class DevelopmentCard extends Card{
     private int[] costProducts = new int[2];
     private int victoryPoints;
 
+    public DevelopmentCard(Resource[] cost, int[] costNumber, Type type, int level, Resource[] requirements, int[] costRequirements, Resource[] products, int[] costProducts, int victoryPoints){
+        this.cost = cost;
+        this.costNumber = costNumber;
+        this.type = type;
+        this.level = level;
+        this.requirements = requirements;
+        this.costRequirements = costRequirements;
+        this.products = products;
+        this.costProducts = costProducts;
+        this.victoryPoints = victoryPoints;
+    }
+
     public int getLevel() {
         return level;
     }

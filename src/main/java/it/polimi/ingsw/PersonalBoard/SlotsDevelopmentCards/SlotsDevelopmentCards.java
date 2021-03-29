@@ -19,7 +19,7 @@ public class SlotsDevelopmentCards {
     public void addDevelopmentCard(int pos, DevelopmentCard card) throws PositionAlreadyOccupiedException {
         int levelOfCard = card.getLevel();
 
-        if (pos > 4 || pos < 1) {
+        if (pos >= 4 || pos < 1) {
             throw new IndexOutOfBoundsException();
         } else {
             try {
@@ -28,6 +28,7 @@ public class SlotsDevelopmentCards {
                 viewActiveCards();
             } catch (PositionInvalidException e) {
                 e.printStackTrace();
+                throw new PositionAlreadyOccupiedException();
             }
         }
     }
@@ -71,19 +72,19 @@ public class SlotsDevelopmentCards {
     public void viewActiveCards(){
         int col = 0;
         int rig = 0;
-        int i = 0;
         while(col < 3){
-            while(slot[rig][col] == null && rig < 3){
+            while(rig < 3 && slot[rig][col] == null){
                 rig++;
             }
             if(rig >=3){
+                activeCards[col] = null;
                 col++;
-                i++;
+                rig = 0;
             }
             else{
-                activeCards[i] = slot[rig][col];
+                activeCards[col] = slot[rig][col];
                 col++;
-                i++;
+                rig = 0;
             }
         }
     }
