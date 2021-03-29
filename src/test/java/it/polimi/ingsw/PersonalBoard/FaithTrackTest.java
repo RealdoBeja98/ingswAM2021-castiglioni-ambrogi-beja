@@ -27,7 +27,7 @@ public class FaithTrackTest {
     /**
      * We are testing pope state and victory points
      */
-    @Test
+    @Test//test da seguire soltanto una volta?
     public void popeStateAndVictoryPointsTest(){
         ArrayList<Player> backupPlayers = Game.getInstance().players;
         Game.getInstance().players = new ArrayList<Player>();
