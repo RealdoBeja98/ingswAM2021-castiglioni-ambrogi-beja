@@ -1,13 +1,12 @@
 package it.polimi.ingsw.Market;
-
 import java.util.ArrayList;
 import java.util.*;
 
 public class Market {
+
     private final Marble[][]  marketTray = new Marble[3][4];
+
     private Marble extraMarble;
-
-
 
     public Market() {
         ArrayList<Marble> temp = new ArrayList<>();
@@ -65,7 +64,6 @@ public class Market {
         return marblesInRow;
     }
 
-
     public Marble[] chooseColumn(int n){
         Marble[] marblesInColumn = new Marble[3];
         for(int i = 0; i < 3; i++){
@@ -75,7 +73,6 @@ public class Market {
 
         return marblesInColumn;
     }
-
 
     private void shiftRow(int n){
         Marble extra = marketTray[n][0];
@@ -94,4 +91,5 @@ public class Market {
         marketTray[2][n] = extraMarble;
         extraMarble = extra;
     }
+
 }
