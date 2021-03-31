@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import it.polimi.ingsw.Deck.DevelopmentCard;
+import it.polimi.ingsw.PersonalBoard.SlotsDevelopmentCards.PositionInvalidException;
 import it.polimi.ingsw.PersonalBoard.SlotsDevelopmentCards.SlotsDevelopmentCards;
 import it.polimi.ingsw.PersonalBoard.Warehouse.PositionAlreadyOccupiedException;
 import it.polimi.ingsw.Resource;
@@ -34,23 +35,18 @@ public class SlotsDevelopmentCardsTest {
         DevelopmentCard card4 = exampleDevelopmentCard(2);
         DevelopmentCard card5 = exampleDevelopmentCard(2);
         DevelopmentCard card6 = exampleDevelopmentCard(3);
-        try {
-            slots.addDevelopmentCard(1, card1);
-        } catch (PositionAlreadyOccupiedException e) {
-            e.printStackTrace();
-        }
+
+        slots.addDevelopmentCard(1, card1);
         assertSame(card1, slots.getActiveCards()[0]);
         assertSame(card1,slots.getSlot()[2][0]);
         assertSame(3, slots.victoryPoints());
-        try {
-            slots.addDevelopmentCard(2, card2);
-            slots.addDevelopmentCard(3, card3);
-            slots.addDevelopmentCard(2, card4);
-            slots.addDevelopmentCard(3, card5);
-            slots.addDevelopmentCard(2, card6);
-        } catch (PositionAlreadyOccupiedException e) {
-            e.printStackTrace();
-        }
+
+        slots.addDevelopmentCard(2, card2);
+        slots.addDevelopmentCard(3, card3);
+        slots.addDevelopmentCard(2, card4);
+        slots.addDevelopmentCard(3, card5);
+        slots.addDevelopmentCard(2, card6);
+
         assertSame(card1, slots.getActiveCards()[0]);
         assertSame(card6, slots.getActiveCards()[1]);
         assertSame(card5, slots.getActiveCards()[2]);
@@ -74,27 +70,15 @@ public class SlotsDevelopmentCardsTest {
         DevelopmentCard card3 = exampleDevelopmentCard(2);
         DevelopmentCard card4 = exampleDevelopmentCard(3);
         DevelopmentCard card5 = exampleDevelopmentCard(2);
-        try {
-            slots.addDevelopmentCard(1,card1);
-        } catch (PositionAlreadyOccupiedException e) {
-            e.printStackTrace();
-        }
-        assertThrows(PositionAlreadyOccupiedException.class, () ->{slots.addDevelopmentCard(1,card2);});
-        try {
-            slots.addDevelopmentCard(2,card2);
-            slots.addDevelopmentCard(2,card3);
-        } catch (PositionAlreadyOccupiedException e) {
-            e.printStackTrace();
-        }
-        assertThrows(PositionAlreadyOccupiedException.class, () ->{slots.addDevelopmentCard(3,card4);});
-        assertThrows(PositionAlreadyOccupiedException.class, () ->{slots.addDevelopmentCard(1,card4);});
-        try {
-            slots.addDevelopmentCard(2,card4);
-        } catch (PositionAlreadyOccupiedException e) {
-            e.printStackTrace();
-        }
-        assertThrows(PositionAlreadyOccupiedException.class, () ->{slots.addDevelopmentCard(2,card5);});
-        assertThrows(PositionAlreadyOccupiedException.class, () ->{slots.addDevelopmentCard(3,card5);});
+        slots.addDevelopmentCard(1,card1);
+        slots.addDevelopmentCard(1,card2);
+        slots.addDevelopmentCard(2,card2);
+        slots.addDevelopmentCard(2,card3);
+        slots.addDevelopmentCard(3,card4);
+        slots.addDevelopmentCard(1,card4);
+        slots.addDevelopmentCard(2,card4);
+        slots.addDevelopmentCard(2,card5);
+        slots.addDevelopmentCard(3,card5);
     }
 
     /**

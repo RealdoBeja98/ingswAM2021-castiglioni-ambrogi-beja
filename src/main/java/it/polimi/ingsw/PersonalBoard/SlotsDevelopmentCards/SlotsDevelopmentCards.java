@@ -1,7 +1,7 @@
 package it.polimi.ingsw.PersonalBoard.SlotsDevelopmentCards;
 import it.polimi.ingsw.Deck.DevelopmentCard;
 import it.polimi.ingsw.Game.Game;
-import it.polimi.ingsw.PersonalBoard.Warehouse.PositionAlreadyOccupiedException;
+
 
 public class SlotsDevelopmentCards {
 
@@ -16,7 +16,7 @@ public class SlotsDevelopmentCards {
         }
     }
 
-    public void addDevelopmentCard(int pos, DevelopmentCard card) throws PositionAlreadyOccupiedException {
+    public void addDevelopmentCard(int pos, DevelopmentCard card) {
         int levelOfCard = card.getLevel();
 
         if (pos >= 4 || pos < 1) {
@@ -24,12 +24,11 @@ public class SlotsDevelopmentCards {
         } else {
             try {
                 placeCard(levelOfCard, pos, card);
-                seventhSlotOccupied();
-                viewActiveCards();
             } catch (PositionInvalidException e) {
                 e.printStackTrace();
-                throw new PositionAlreadyOccupiedException();
             }
+            seventhSlotOccupied();
+            viewActiveCards();
         }
     }
 
@@ -48,16 +47,6 @@ public class SlotsDevelopmentCards {
     }
 
     private void placeCard(int levelOfCard, int pos, DevelopmentCard card) throws PositionInvalidException {
-        if (pos == 1) {
-            checkSlot(levelOfCard, pos, card);
-        } else if (pos == 2) {
-            checkSlot(levelOfCard, pos, card);
-        } else if (pos == 3) {
-            checkSlot(levelOfCard, pos, card);
-        }
-    }
-
-    private void checkSlot(int levelOfCard, int pos, DevelopmentCard card) throws PositionInvalidException {
         if (slot[2][pos-1] == null && levelOfCard == 1) {
             slot[2][pos-1] = card;
         } else if (slot[1][pos-1] == null && levelOfCard == 2 && slot[2][pos-1] != null) {
@@ -68,6 +57,7 @@ public class SlotsDevelopmentCards {
             throw new PositionInvalidException();
         }
     }
+
 
     public void viewActiveCards(){
         int col = 0;
