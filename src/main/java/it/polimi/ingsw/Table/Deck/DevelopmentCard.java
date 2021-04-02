@@ -1,4 +1,4 @@
-package it.polimi.ingsw.Deck;
+package it.polimi.ingsw.Table.Deck;
 import it.polimi.ingsw.PersonalBoard.PersonalBoard;
 import it.polimi.ingsw.PersonalBoard.StrongBox.NegativeResourceException;
 import it.polimi.ingsw.Resource;
@@ -64,15 +64,22 @@ public class DevelopmentCard extends Card{
         return costProducts;
     }
 
+    public void resourcePayment(){
+
+    }
+
     public void resourceProduction(PersonalBoard board){
         for(int i = 0; i < 2; i++){
             try {
+
                 board.getStrongBox().remove(requirements[i], costRequirements[i]);
             } catch (NegativeResourceException e) {
                 e.printStackTrace();
             }
         }
         for(int i = 0; i < 2; i++){
+
+
             board.getStrongBox().add(products[i], costProducts[i]);
         }
     }

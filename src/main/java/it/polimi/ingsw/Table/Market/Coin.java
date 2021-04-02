@@ -1,5 +1,5 @@
-package it.polimi.ingsw.Market;
-import it.polimi.ingsw.Deck.LeaderCard;
+package it.polimi.ingsw.Table.Market;
+import it.polimi.ingsw.Table.Deck.LeaderCard;
 import it.polimi.ingsw.PersonalBoard.Faith.FaithTrack;
 import it.polimi.ingsw.PersonalBoard.Warehouse.DifferentResourceInThisShelfException;
 import it.polimi.ingsw.PersonalBoard.Warehouse.PositionAlreadyOccupiedException;
@@ -7,9 +7,9 @@ import it.polimi.ingsw.PersonalBoard.Warehouse.ResourceAlreadyPlacedException;
 import it.polimi.ingsw.PersonalBoard.Warehouse.WarehouseDepots;
 import it.polimi.ingsw.Resource;
 
-public class Stone extends Marble{
+public class Coin extends Marble {
 
-    private final Resource whatIAm = Resource.STONE;
+    private final Resource whatIAm = Resource.COIN;
 
     @Override
     public void putResource(WarehouseDepots warehouseDepots, int pos) {

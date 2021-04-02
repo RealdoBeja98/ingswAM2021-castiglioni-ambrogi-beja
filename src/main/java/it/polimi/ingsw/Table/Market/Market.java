@@ -1,4 +1,4 @@
-package it.polimi.ingsw.Market;
+package it.polimi.ingsw.Table.Market;
 import java.util.ArrayList;
 import java.util.*;
 

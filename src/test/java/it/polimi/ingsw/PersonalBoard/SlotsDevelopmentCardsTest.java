@@ -3,10 +3,9 @@ package it.polimi.ingsw.PersonalBoard;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import it.polimi.ingsw.Deck.DevelopmentCard;
+import it.polimi.ingsw.Table.Deck.DevelopmentCard;
 import it.polimi.ingsw.PersonalBoard.SlotsDevelopmentCards.PositionInvalidException;
 import it.polimi.ingsw.PersonalBoard.SlotsDevelopmentCards.SlotsDevelopmentCards;
-import it.polimi.ingsw.PersonalBoard.Warehouse.PositionAlreadyOccupiedException;
 import it.polimi.ingsw.Resource;
 import it.polimi.ingsw.Type;
 import org.junit.jupiter.api.Test;
@@ -27,7 +26,7 @@ public class SlotsDevelopmentCardsTest {
      * We are testing adding some development cards
      */
     @Test
-    public void testAddDevelopmentCard(){
+    public void testAddDevelopmentCard() throws PositionInvalidException {
         SlotsDevelopmentCards slots = new SlotsDevelopmentCards();
         DevelopmentCard card1 = exampleDevelopmentCard(1);
         DevelopmentCard card2 = exampleDevelopmentCard(1);
@@ -63,7 +62,7 @@ public class SlotsDevelopmentCardsTest {
      * We are testing exceptions while adding some development cards
      */
     @Test
-    public void testExceptionsAddDevelopmentCard(){
+    public void testExceptionsAddDevelopmentCard() throws PositionInvalidException {
         SlotsDevelopmentCards slots = new SlotsDevelopmentCards();
         DevelopmentCard card1 = exampleDevelopmentCard(1);
         DevelopmentCard card2 = exampleDevelopmentCard(1);
@@ -71,14 +70,13 @@ public class SlotsDevelopmentCardsTest {
         DevelopmentCard card4 = exampleDevelopmentCard(3);
         DevelopmentCard card5 = exampleDevelopmentCard(2);
         slots.addDevelopmentCard(1,card1);
-        slots.addDevelopmentCard(1,card2);
+        assertThrows(PositionInvalidException.class, () ->{slots.addDevelopmentCard(1,card2);});
         slots.addDevelopmentCard(2,card2);
         slots.addDevelopmentCard(2,card3);
-        slots.addDevelopmentCard(3,card4);
-        slots.addDevelopmentCard(1,card4);
+        assertThrows(PositionInvalidException.class, () ->{slots.addDevelopmentCard(3,card4);});
+        assertThrows(PositionInvalidException.class, () ->{slots.addDevelopmentCard(1,card4);});
         slots.addDevelopmentCard(2,card4);
-        slots.addDevelopmentCard(2,card5);
-        slots.addDevelopmentCard(3,card5);
+        assertThrows(PositionInvalidException.class, () ->{slots.addDevelopmentCard(3,card5);});
     }
 
     /**

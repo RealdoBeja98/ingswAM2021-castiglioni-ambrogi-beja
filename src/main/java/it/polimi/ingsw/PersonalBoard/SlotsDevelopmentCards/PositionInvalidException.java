@@ -6,4 +6,9 @@ public class PositionInvalidException extends Exception {
         super("This position is not valid!");
     }
 
+    @Override
+    public String toString() {
+        return getMessage();
+    }
+
 }

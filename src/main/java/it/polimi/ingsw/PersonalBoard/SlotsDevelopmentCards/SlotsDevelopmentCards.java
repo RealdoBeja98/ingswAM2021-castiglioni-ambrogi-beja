@@ -1,5 +1,5 @@
 package it.polimi.ingsw.PersonalBoard.SlotsDevelopmentCards;
-import it.polimi.ingsw.Deck.DevelopmentCard;
+import it.polimi.ingsw.Table.Deck.DevelopmentCard;
 import it.polimi.ingsw.Game.Game;
 
 
@@ -16,17 +16,13 @@ public class SlotsDevelopmentCards {
         }
     }
 
-    public void addDevelopmentCard(int pos, DevelopmentCard card) {
+    public void addDevelopmentCard(int pos, DevelopmentCard card) throws PositionInvalidException {
         int levelOfCard = card.getLevel();
 
         if (pos >= 4 || pos < 1) {
             throw new IndexOutOfBoundsException();
         } else {
-            try {
-                placeCard(levelOfCard, pos, card);
-            } catch (PositionInvalidException e) {
-                e.printStackTrace();
-            }
+            placeCard(levelOfCard, pos, card);
             seventhSlotOccupied();
             viewActiveCards();
         }

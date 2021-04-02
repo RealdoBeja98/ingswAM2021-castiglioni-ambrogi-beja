@@ -1,5 +1,8 @@
 package it.polimi.ingsw.Market;
 import static org.junit.jupiter.api.Assertions.*;
+
+import it.polimi.ingsw.Table.Market.Marble;
+import it.polimi.ingsw.Table.Market.Market;
 import org.junit.jupiter.api.Test;
 
 public class MarketTest {

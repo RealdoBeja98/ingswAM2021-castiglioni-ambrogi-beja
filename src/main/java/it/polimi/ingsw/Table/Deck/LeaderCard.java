@@ -1,4 +1,4 @@
-package it.polimi.ingsw.Deck;
+package it.polimi.ingsw.Table.Deck;
 
 import it.polimi.ingsw.Resource;
 

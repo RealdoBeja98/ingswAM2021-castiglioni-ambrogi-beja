@@ -1,5 +1,5 @@
-package it.polimi.ingsw.Market;
-import it.polimi.ingsw.Deck.LeaderCard;
+package it.polimi.ingsw.Table.Market;
+import it.polimi.ingsw.Table.Deck.LeaderCard;
 import it.polimi.ingsw.PersonalBoard.Faith.FaithTrack;
 import it.polimi.ingsw.PersonalBoard.Warehouse.DifferentResourceInThisShelfException;
 import it.polimi.ingsw.PersonalBoard.Warehouse.PositionAlreadyOccupiedException;
