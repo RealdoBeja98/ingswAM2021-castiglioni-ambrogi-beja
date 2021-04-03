@@ -6,6 +6,7 @@ import it.polimi.ingsw.PersonalBoard.Warehouse.PositionAlreadyOccupiedException;
 import it.polimi.ingsw.PersonalBoard.Warehouse.ResourceAlreadyPlacedException;
 import it.polimi.ingsw.PersonalBoard.Warehouse.WarehouseDepots;
 import it.polimi.ingsw.Resource;
+import it.polimi.ingsw.Table.Deck.OccupiedSlotExtraStorageLeaderCardException;
 
 public class Shield extends Marble {
 
@@ -21,8 +22,17 @@ public class Shield extends Marble {
     }
 
     @Override
-    public void putResource(LeaderCard leaderCard) {
-        leaderCard.addResource(whatIAm);
+    public void putResource(LeaderCard leaderCard) throws DifferentStorageException {
+        if(leaderCard.getStorageType() == whatIAm){
+            try {
+                leaderCard.addResource();
+            } catch (OccupiedSlotExtraStorageLeaderCardException e) {
+                e.printStackTrace();
+            }
+        }
+        else{
+            throw new DifferentStorageException();
+        }
     }
 
     @Override

@@ -2,6 +2,7 @@ package it.polimi.ingsw.Game;
 import it.polimi.ingsw.Table.Deck.LeaderCard;
 import it.polimi.ingsw.PersonalBoard.PersonalBoard;
 import it.polimi.ingsw.Resource;
+import it.polimi.ingsw.Table.Market.DifferentStorageException;
 import it.polimi.ingsw.Table.Market.Marble;
 import java.util.Arrays;
 import java.util.List;
@@ -95,12 +96,17 @@ public class Player {
 
     public void addResource(LeaderWarehouse where, int pos){
         if(where == LeaderWarehouse.LEADERCARD){
-            marbleFromTheMarket.remove(0).putResource(cardsOnTable[pos-1]);
+            try {
+                marbleFromTheMarket.remove(0).putResource(cardsOnTable[pos-1]);
+            } catch (DifferentStorageException e) {
+                e.printStackTrace();
+            }
         }
         if(where == LeaderWarehouse.WAREHOUSEDEPOTS){
             marbleFromTheMarket.remove(0).putResource(personalBoard.getWarehouseDepots(), pos);
         }
     }
+
 
 
 

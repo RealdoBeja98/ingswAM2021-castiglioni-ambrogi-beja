@@ -5,11 +5,13 @@ it\polimi\ingsw\Table\Market\White.class
 it\polimi\ingsw\Game\Player.class
 it\polimi\ingsw\Type.class
 it\polimi\ingsw\PersonalBoard\Faith\FaithTrack.class
+it\polimi\ingsw\PersonalBoard\SlotsDevelopmentCards\PositionInvalidException.class
 it\polimi\ingsw\Table\Table.class
 it\polimi\ingsw\Table\Market\Servant.class
 it\polimi\ingsw\Table\Deck\LeaderCard.class
 it\polimi\ingsw\Table\Market\Shield.class
 it\polimi\ingsw\PersonalBoard\Faith\FavorTiles.class
+it\polimi\ingsw\Table\Deck\ExtraStorageLeaderCard.class
 it\polimi\ingsw\PersonalBoard\StrongBox\StrongBox.class
 it\polimi\ingsw\Table\Deck\DevelopmentCard.class
 it\polimi\ingsw\PersonalBoard\Warehouse\WarehouseDepots.class
@@ -23,9 +25,12 @@ it\polimi\ingsw\Table\Market\Faith.class
 it\polimi\ingsw\PersonalBoard\Warehouse\ResourceAlreadyPlacedException.class
 it\polimi\ingsw\Game\RowColumn.class
 it\polimi\ingsw\PersonalBoard\PersonalBoard.class
+it\polimi\ingsw\Table\Deck\OccupiedSlotExtraStorageLeaderCardException.class
 it\polimi\ingsw\Resource.class
 it\polimi\ingsw\Game\LeaderWarehouse.class
 it\polimi\ingsw\Table\Market\Marble.class
 it\polimi\ingsw\Table\Market\Stone.class
 it\polimi\ingsw\Table\Deck\Card.class
+it\polimi\ingsw\Table\Deck\EmptySlotExtraStorageLeaderCardException.class
 it\polimi\ingsw\Table\Market\Coin.class
+it\polimi\ingsw\Table\Market\DifferentStorageException.class
