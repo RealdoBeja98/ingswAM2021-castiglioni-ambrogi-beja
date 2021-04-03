@@ -1,5 +1,4 @@
 package it.polimi.ingsw.Table;
-
 import it.polimi.ingsw.Table.Deck.LeaderDeck;
 import it.polimi.ingsw.Table.Market.Market;
 

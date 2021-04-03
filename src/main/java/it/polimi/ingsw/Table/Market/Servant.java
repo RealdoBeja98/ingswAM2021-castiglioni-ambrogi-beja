@@ -1,11 +1,12 @@
 package it.polimi.ingsw.Table.Market;
-import it.polimi.ingsw.Table.Deck.LeaderCard;
 import it.polimi.ingsw.PersonalBoard.Faith.FaithTrack;
 import it.polimi.ingsw.PersonalBoard.Warehouse.DifferentResourceInThisShelfException;
 import it.polimi.ingsw.PersonalBoard.Warehouse.PositionAlreadyOccupiedException;
 import it.polimi.ingsw.PersonalBoard.Warehouse.ResourceAlreadyPlacedException;
 import it.polimi.ingsw.PersonalBoard.Warehouse.WarehouseDepots;
 import it.polimi.ingsw.Resource;
+import it.polimi.ingsw.Table.Deck.LeaderCard;
+import it.polimi.ingsw.Table.Deck.OccupiedSlotExtraStorageLeaderCardException;
 
 public class Servant extends Marble{
 
@@ -21,8 +22,17 @@ public class Servant extends Marble{
     }
 
     @Override
-    public void putResource(LeaderCard leaderCard) {
-        leaderCard.addResource(whatIAm);
+    public void putResource(LeaderCard leaderCard) throws DifferentStorageException {
+        if(leaderCard.getStorageType() == whatIAm){
+            try {
+                leaderCard.addResource();
+            } catch (OccupiedSlotExtraStorageLeaderCardException e) {
+                e.printStackTrace();
+            }
+        }
+        else{
+            throw new DifferentStorageException();
+        }
     }
 
     @Override
