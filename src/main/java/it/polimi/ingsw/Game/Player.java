@@ -1,9 +1,18 @@
 package it.polimi.ingsw.Game;
+import it.polimi.ingsw.PersonalBoard.Warehouse.DifferentResourceInThisShelfException;
+import it.polimi.ingsw.PersonalBoard.Warehouse.PositionAlreadyOccupiedException;
+import it.polimi.ingsw.PersonalBoard.Warehouse.ResourceAlreadyPlacedException;
 import it.polimi.ingsw.Table.Deck.LeaderCard;
 import it.polimi.ingsw.PersonalBoard.PersonalBoard;
 import it.polimi.ingsw.Resource;
+import it.polimi.ingsw.Table.Deck.OccupiedSlotExtraStorageLeaderCardException;
+import it.polimi.ingsw.Table.Deck.WhiteMarbleLeaderCard;
 import it.polimi.ingsw.Table.Market.DifferentStorageException;
+import it.polimi.ingsw.Table.Market.Faith;
 import it.polimi.ingsw.Table.Market.Marble;
+import it.polimi.ingsw.Table.Market.White;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,7 +24,7 @@ public class Player {
     private LeaderCard[] cardsOnTable;
     private Resource[] activeDiscount;
     private boolean inkwell;
-    private List<Marble> marbleFromTheMarket;
+    private List<Marble> marblesFromTheMarket = new ArrayList<>();
 
     public Player(String nickname){
         this.nickname = nickname;
@@ -75,39 +84,97 @@ public class Player {
     }
 
     public void takeResourcesFromTheMarket(RowColumn rowColumn, int pos){
+        List<Marble> obtainedMarbles;
         if (rowColumn == RowColumn.COLUMN){
             if(pos < 1 || pos > 4){
                 throw new IndexOutOfBoundsException();
             }
             else{
-                marbleFromTheMarket = Arrays.asList(Game.getInstance().getTable().getMarket().chooseColumn(pos-1));
+                obtainedMarbles = Arrays.asList(Game.getInstance().getTable().getMarket().chooseColumn(pos-1));
             }
         }
         else if(rowColumn == RowColumn.ROW){
             if(pos < 1 || pos > 3){
                 throw new IndexOutOfBoundsException();
             }else{
-                marbleFromTheMarket = Arrays.asList(Game.getInstance().getTable().getMarket().chooseRow(pos-1));
+                obtainedMarbles = Arrays.asList(Game.getInstance().getTable().getMarket().chooseRow(pos-1));
             }
         }else{
             throw new NullPointerException();
         }
-    }
-
-    public void addResource(LeaderWarehouse where, int pos){
-        if(where == LeaderWarehouse.LEADERCARD){
-            try {
-                marbleFromTheMarket.remove(0).putResource(cardsOnTable[pos-1]);
-            } catch (DifferentStorageException e) {
-                e.printStackTrace();
+        for(Marble i : obtainedMarbles){
+            if(i instanceof Faith){
+                i.putResource(personalBoard.getFaithTrack());
+            }
+            else if(i instanceof White){
+                if(numberOfWhiteMarbleLeaderCard() == 1){
+                    try {
+                        marblesFromTheMarket.add(getWhiteMarbleLeaderCard().getWhiteMarble());
+                    } catch (NoWhiteMarbleLeaderCardException e) {
+                        e.printStackTrace();
+                    }
+                }
+                else if(numberOfWhiteMarbleLeaderCard() >= 2){
+                    marblesFromTheMarket.add(i);
+                }
+            }
+            else{
+                marblesFromTheMarket.add(i);
             }
         }
-        if(where == LeaderWarehouse.WAREHOUSEDEPOTS){
-            marbleFromTheMarket.remove(0).putResource(personalBoard.getWarehouseDepots(), pos);
+    }
+
+    public void addResource(LeaderWarehouse where, int pos) throws NoResourceToAddException, DifferentStorageException, OccupiedSlotExtraStorageLeaderCardException, PositionAlreadyOccupiedException, ResourceAlreadyPlacedException, DifferentResourceInThisShelfException, UnexpectedWhiteMarbleException, UnexpectedFaithMarbleException {
+        if(marblesFromTheMarket.size() == 0) {
+            throw new NoResourceToAddException();
         }
+        if(marblesFromTheMarket.get(0) instanceof White){
+            throw new UnexpectedWhiteMarbleException();
+        }
+        if(marblesFromTheMarket.get(0) instanceof Faith){
+            throw new UnexpectedFaithMarbleException();
+        }
+        if(where == LeaderWarehouse.LEADERCARD){
+            marblesFromTheMarket.get(0).putResource(cardsOnTable[pos-1]);
+        }
+        if(where == LeaderWarehouse.WAREHOUSEDEPOTS){
+            marblesFromTheMarket.get(0).putResource(personalBoard.getWarehouseDepots(), pos);
+        }
+        marblesFromTheMarket.remove(0);
     }
 
 
+    private int numberOfWhiteMarbleLeaderCard(){
+        int result = 0;
+        for(LeaderCard i : cardsOnTable){
+            if(i != null && i instanceof WhiteMarbleLeaderCard){
+                result += 1;
+            }
+        }
+        return result;
+    }
 
+    private WhiteMarbleLeaderCard getWhiteMarbleLeaderCard() throws NoWhiteMarbleLeaderCardException {
+        for(LeaderCard i : cardsOnTable){
+            if(i != null && i instanceof WhiteMarbleLeaderCard){
+                return (WhiteMarbleLeaderCard)i;
+            }
+        }
+        throw new NoWhiteMarbleLeaderCardException();
+    }
 
+    public void changeWhiteMarbleWith(int pos) throws ClassCastException, NoWhiteMarbleException {
+        if(pos <= 0 || pos > 2){
+            throw new IndexOutOfBoundsException();
+        }
+        else{
+            WhiteMarbleLeaderCard selected = (WhiteMarbleLeaderCard)cardsInHand[pos];
+            if(marblesFromTheMarket.get(0) instanceof White){
+                marblesFromTheMarket.set(0, selected.getWhiteMarble());
+            }
+            else{
+                throw new NoWhiteMarbleException();
+            }
+        }
+    }
 }

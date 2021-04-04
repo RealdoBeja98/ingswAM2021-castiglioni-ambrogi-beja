@@ -13,22 +13,14 @@ public class Coin extends Marble {
     private final Resource whatIAm = Resource.COIN;
 
     @Override
-    public void putResource(WarehouseDepots warehouseDepots, int pos) {
-        try {
-            warehouseDepots.addResource(whatIAm, pos);
-        } catch (PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException e) {
-            e.printStackTrace();
-        }
+    public void putResource(WarehouseDepots warehouseDepots, int pos) throws PositionAlreadyOccupiedException, ResourceAlreadyPlacedException, DifferentResourceInThisShelfException {
+        warehouseDepots.addResource(whatIAm, pos);
     }
 
     @Override
-    public void putResource(LeaderCard leaderCard) throws DifferentStorageException {
+    public void putResource(LeaderCard leaderCard) throws DifferentStorageException, OccupiedSlotExtraStorageLeaderCardException {
         if(leaderCard.getStorageType() == whatIAm){
-            try {
-                leaderCard.addResource();
-            } catch (OccupiedSlotExtraStorageLeaderCardException e) {
-                e.printStackTrace();
-            }
+            leaderCard.addResource();
         }
         else{
             throw new DifferentStorageException();
