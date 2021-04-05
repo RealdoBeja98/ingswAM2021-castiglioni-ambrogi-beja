@@ -23,6 +23,8 @@ public class Player {
     private List<Marble> marblesFromTheMarket = new ArrayList<>();
     private ArrayList<Production> selectedProduction = new ArrayList<>();
     private boolean selectedDefaultProductionPower = false;
+    private ArrayList<Resource> payingResources = new ArrayList<>();
+    private int obtainedGeneric = 0;
 
     public Player(String nickname){
         this.nickname = nickname;
@@ -177,10 +179,10 @@ public class Player {
     }
 
     public void selectProductionDevelopmentCard(int pos){
-        if(pos < 0 || pos > 2){
+        if(pos < 1 || pos > 3){
             throw new IndexOutOfBoundsException();
         }
-        DevelopmentCard selected = personalBoard.getSlotsDevelopmentCards().getActiveCards()[pos];
+        DevelopmentCard selected = personalBoard.getSlotsDevelopmentCards().getActiveCards()[pos - 1];
         if(selected == null){
             throw new NullPointerException();
         }
@@ -192,7 +194,7 @@ public class Player {
     }
 
     public void selectProductionPowerLeaderCard(int pos) throws NoProductionLeaderCardException {
-        if(pos <= 0 || pos > 2){
+        if(pos <= 1 || pos > 2){
             throw new IndexOutOfBoundsException();
         }
         LeaderCard selected = cardsOnTable[pos];
@@ -213,6 +215,106 @@ public class Player {
         selectedDefaultProductionPower = !selectedDefaultProductionPower;
     }
 
+    public void startPayment() throws NotEnoughResourcesException {
+        ResourceProduction production = new ResourceProduction(0, 0, 0, 0,
+                0, 0, 0, 0,
+                0, 0, 0);
+        for (Production i : selectedProduction) {
+            production = production.sum(i.resourceProduction());
+        }
+        if (selectedDefaultProductionPower) {
+            production = production.sum(new ResourceProduction(0, 0, 0,
+                    0, 2, 0, 0, 0,
+                    0, 1, 0));
+        }
+        int coin = personalBoard.getStrongBox().getCoin();
+        int servant = personalBoard.getStrongBox().getServant();
+        int shield = personalBoard.getStrongBox().getShield();
+        int stone = personalBoard.getStrongBox().getStone();
+        Resource[] warehouseDepots = personalBoard.getWarehouseDepots().getResource();
+        for (Resource i : warehouseDepots) {
+            switch (i) {
+                case COIN:
+                    coin++;
+                    break;
+                case SERVANT:
+                    servant++;
+                    break;
+                case SHIELD:
+                    shield++;
+                    break;
+                case STONE:
+                    stone++;
+                    break;
+                default:
+                    break;
+            }
+        }
+        for (LeaderCard i : cardsOnTable) {
+            if (i != null && i instanceof ExtraStorageLeaderCard) {
+                switch (i.getStorageType()) {
+                    case COIN:
+                        coin += ((ExtraStorageLeaderCard) i).occupiedResources();
+                        break;
+                    case SERVANT:
+                        servant += ((ExtraStorageLeaderCard) i).occupiedResources();
+                        break;
+                    case SHIELD:
+                        shield += ((ExtraStorageLeaderCard) i).occupiedResources();
+                        break;
+                    case STONE:
+                        stone += ((ExtraStorageLeaderCard) i).occupiedResources();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        int advance = 0;
+        boolean weAre = true;
+        if (coin < production.getRequiredCoin()) {
+            weAre = false;
+        } else {
+            advance += coin - production.getRequiredCoin();
+        }
+        if (servant < production.getRequiredServant()) {
+            weAre = false;
+        } else {
+            advance += servant - production.getRequiredServant();
+        }
+        if (shield < production.getRequiredShield()) {
+            weAre = false;
+        } else {
+            advance += shield - production.getRequiredShield();
+        }
+        if (stone < production.getRequiredStone()) {
+            weAre = false;
+        } else {
+            advance += stone - production.getRequiredStone();
+        }
+        if (advance < production.getRequiredGeneric()) {
+            weAre = false;
+        }
+        if(weAre == false){
+            throw new NotEnoughResourcesException();
+        }
+        for(int i = 0; i < production.getRequiredCoin(); i++){
+            payingResources.add(Resource.COIN);
+        }
+        for(int i = 0; i < production.getRequiredServant(); i++){
+            payingResources.add(Resource.SERVANT);
+        }
+        for(int i = 0; i < production.getRequiredShield(); i++){
+            payingResources.add(Resource.SHIELD);
+        }
+        for(int i = 0; i < production.getRequiredStone(); i++){
+            payingResources.add(Resource.STONE);
+        }
+        for(int i = 0; i < production.getRequiredGeneric(); i++){
+            payingResources.add(Resource.WHITE);
+        }
+        obtainedGeneric = production.getProductionGeneric();
+    }
 
 
 }
