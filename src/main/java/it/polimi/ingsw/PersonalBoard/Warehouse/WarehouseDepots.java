@@ -1,20 +1,44 @@
 package it.polimi.ingsw.PersonalBoard.Warehouse;
-import it.polimi.ingsw.Resource;
+import it.polimi.ingsw.Exceptions.DifferentResourceInThisShelfException;
+import it.polimi.ingsw.Exceptions.NotAdmittedMovementException;
+import it.polimi.ingsw.Exceptions.PositionAlreadyOccupiedException;
+import it.polimi.ingsw.Exceptions.ResourceAlreadyPlacedException;
+import it.polimi.ingsw.Enums.Resource;
 
+/**
+ * This Class represents the warehouse depots associate to a player
+ */
 public class WarehouseDepots {
 
-    private Resource[] resource = new Resource[6];
+    private Resource[] resource;
 
+    /**
+     * Constructor method of this class
+     */
     public WarehouseDepots() {
-       for (Resource n : resource){
-           n = null;
-       }
+        resource = new Resource[6];
     }
 
+    /**
+     * Getter of the parameter resource
+     * @return a copy of the original array resource[], of type Resource[]
+     */
     public Resource[] getResource(){
-        return resource;
+        WarehouseDepots copy = copy();
+        return copy.resource;
     }
 
+    /**
+     * This method receives a resource and a position, and, after checking if the slot is free, the presence of the
+     * same resource in another shelf and the presence of different resources on the same shelf, adds the first into the
+     * array resource in the slot pointed by the second
+     * @param r: type of resource to be added
+     * @param pos: position of the array
+     * @throws PositionAlreadyOccupiedException: if the position chosen is already occupied
+     * @throws ResourceAlreadyPlacedException: if the resource passed is present on a different shelf
+     * @throws DifferentResourceInThisShelfException: if there are different resources types already
+     *                                                placed in the chosen shelf
+     */
     public void addResource(Resource r, int pos) throws PositionAlreadyOccupiedException, ResourceAlreadyPlacedException, DifferentResourceInThisShelfException {
         if(pos >= 7 || pos < 0){
             throw new IndexOutOfBoundsException();
@@ -52,7 +76,14 @@ public class WarehouseDepots {
         }
     }
 
-    public void moveResource(int startPos, int finalPos) throws IndexOutOfBoundsException, NotAdmittedMovementException {
+    /**
+     * This method receives two position, and, after checking if the move is possible on a copy, exchanges the resource present
+     * in the first with the second
+     * @param startPos: represents the first position
+     * @param finalPos: represents the second position
+     * @throws NotAdmittedMovementException: if the result is not respecting the warehouse rules
+     */
+    public void moveResource(int startPos, int finalPos) throws NotAdmittedMovementException {
         if(finalPos >= 7 || finalPos < 0 || startPos >= 7 || startPos < 0){
             throw new IndexOutOfBoundsException();
         }
@@ -68,6 +99,10 @@ public class WarehouseDepots {
         }
     }
 
+    /**
+     * This method checks if the copied array, which has the element already swapped, respects all the rules
+     * @return true if all the condition are verified, of type Boolean
+     */
     private Boolean isCorrect(){
         if(resource[1] != resource[2]){
             if(resource[1] != null && resource[2] != null){
@@ -90,15 +125,24 @@ public class WarehouseDepots {
         return false;
     }
 
+    /**
+     * This method creates a copy of this class
+     * @return a copy, of type WarehouseDepots
+     */
     private WarehouseDepots copy(){
         WarehouseDepots result = new WarehouseDepots();
         result.resource = this.resource.clone();
         return result;
     }
 
+    /**
+     * This method removes the resource in the pointed position
+     * @param pos: position of the array
+     */
     public void removeResource(int pos){
         resource[pos] = null;
     }
+
 }
 
 

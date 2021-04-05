@@ -1,7 +1,8 @@
 package it.polimi.ingsw.Table.Deck;
 
-import it.polimi.ingsw.Resource;
-import it.polimi.ingsw.Table.Market.Marble;
+import it.polimi.ingsw.Exceptions.OccupiedSlotExtraStorageLeaderCardException;
+import it.polimi.ingsw.Enums.Resource;
+import it.polimi.ingsw.Table.Market.marbles.Marble;
 
 public class WhiteMarbleLeaderCard extends LeaderCard {
     private Type[] costOfLeaderCard = new Type[3];

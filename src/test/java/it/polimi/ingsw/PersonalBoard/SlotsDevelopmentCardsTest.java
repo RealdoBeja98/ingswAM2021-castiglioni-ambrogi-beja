@@ -4,10 +4,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import it.polimi.ingsw.Table.Deck.DevelopmentCard;
-import it.polimi.ingsw.PersonalBoard.SlotsDevelopmentCards.PositionInvalidException;
+import it.polimi.ingsw.Exceptions.PositionInvalidException;
 import it.polimi.ingsw.PersonalBoard.SlotsDevelopmentCards.SlotsDevelopmentCards;
-import it.polimi.ingsw.Resource;
-import it.polimi.ingsw.Type;
+import it.polimi.ingsw.Enums.Resource;
+import it.polimi.ingsw.Enums.Type;
 import org.junit.jupiter.api.Test;
 
 public class SlotsDevelopmentCardsTest {

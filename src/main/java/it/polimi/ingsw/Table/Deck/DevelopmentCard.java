@@ -1,6 +1,6 @@
 package it.polimi.ingsw.Table.Deck;
-import it.polimi.ingsw.Resource;
-import it.polimi.ingsw.Type;
+import it.polimi.ingsw.Enums.Resource;
+import it.polimi.ingsw.Enums.Type;
 
 
 public class DevelopmentCard extends Card{

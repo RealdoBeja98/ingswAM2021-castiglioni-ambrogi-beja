@@ -3,7 +3,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Game.Player;
 import it.polimi.ingsw.PersonalBoard.Faith.FaithTrack;
-import it.polimi.ingsw.PersonalBoard.Faith.FavorTiles;
+import it.polimi.ingsw.Enums.FavorTiles;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 

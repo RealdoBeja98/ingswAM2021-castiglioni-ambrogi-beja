@@ -1,13 +1,19 @@
 package it.polimi.ingsw.Table.Market;
+import it.polimi.ingsw.Table.Market.marbles.*;
 import java.util.ArrayList;
 import java.util.*;
 
+/**
+ * This Class contains all the elements related to the market
+ */
 public class Market {
 
     private final Marble[][]  marketTray = new Marble[3][4];
-
     private Marble extraMarble;
 
+    /**
+     * Constructor method of this class
+     */
     public Market() {
         ArrayList<Marble> temp = new ArrayList<>();
         putMarbles(temp);
@@ -15,6 +21,10 @@ public class Market {
         listToMarket(temp);
     }
 
+    /**
+     * This method receives an ArrayList as parameter and fills it with new marbles
+     * @param temp: a temporary list
+     */
     private void putMarbles(ArrayList<Marble> temp){
         temp.add(new Coin());
         temp.add(new Coin());
@@ -31,6 +41,10 @@ public class Market {
         temp.add(new Faith());
     }
 
+    /**
+     * This method receives a shuffled ArrayList as parameter and copies it into the marketTray
+     * @param temp: a temporary list
+     */
     private void listToMarket(ArrayList<Marble> temp){
         int k = 0;
         for(int i = 0; i < 3; i++){
@@ -41,6 +55,7 @@ public class Market {
         }
         extraMarble = temp.get(k);
     }
+
 
     public Marble[][] getMarketTray(){
         Marble[][] result = marketTray.clone();
@@ -54,6 +69,11 @@ public class Market {
         return extraMarble;
     }
 
+    /**
+     * This method makes a copy of the chosen row, then shifts it
+     * @param n: the number of the chosen row
+     * @return the copied row, of type Marble[]
+     */
     public Marble[] chooseRow(int n){
         Marble[] marblesInRow = new Marble[4];
         for(int i = 0; i < 4; i++){
@@ -64,6 +84,11 @@ public class Market {
         return marblesInRow;
     }
 
+    /**
+     * This method makes a copy of the chosen column, then shifts it
+     * @param n: the number of the chosen column
+     * @return the copied column, of type Marble[]
+     */
     public Marble[] chooseColumn(int n){
         Marble[] marblesInColumn = new Marble[3];
         for(int i = 0; i < 3; i++){
@@ -74,6 +99,10 @@ public class Market {
         return marblesInColumn;
     }
 
+    /**
+     * This methods shifts by one position the row, and then modifies the remaining marble
+     * @param n: the number of the chosen row
+     */
     private void shiftRow(int n){
         Marble extra = marketTray[n][0];
         for(int i = 1; i < 4; i++){
@@ -83,6 +112,10 @@ public class Market {
         extraMarble = extra;
     }
 
+    /**
+     * This methods shifts by one position the column, and then modifies the remaining marble
+     * @param n: the number of the chosen column
+     */
     private void shiftColumn(int n){
         Marble extra = marketTray[0][n];
         for(int i = 1; i < 3; i++){

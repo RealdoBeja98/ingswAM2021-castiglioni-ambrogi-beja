@@ -1,6 +1,8 @@
 package it.polimi.ingsw.Table.Deck;
 
-import it.polimi.ingsw.Resource;
+import it.polimi.ingsw.Exceptions.EmptySlotExtraStorageLeaderCardException;
+import it.polimi.ingsw.Exceptions.OccupiedSlotExtraStorageLeaderCardException;
+import it.polimi.ingsw.Enums.Resource;
 
 public class ExtraStorageLeaderCard extends LeaderCard{
     private Resource costOfLeaderCard;

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.Table.Deck;
 
-import it.polimi.ingsw.Resource;
+import it.polimi.ingsw.Exceptions.OccupiedSlotExtraStorageLeaderCardException;
+import it.polimi.ingsw.Enums.Resource;
 
 public abstract class LeaderCard extends Card{
     protected int victoryPoints;

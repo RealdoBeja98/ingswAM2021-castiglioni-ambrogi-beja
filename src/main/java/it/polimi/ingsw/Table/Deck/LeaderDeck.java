@@ -1,6 +1,6 @@
 package it.polimi.ingsw.Table.Deck;
 
-import it.polimi.ingsw.Resource;
+import it.polimi.ingsw.Enums.Resource;
 
 public class LeaderDeck {
     private LeaderCard[] deck = new LeaderCard[16];

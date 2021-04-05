@@ -1,5 +1,6 @@
 package it.polimi.ingsw.PersonalBoard.StrongBox;
-import it.polimi.ingsw.Resource;
+import it.polimi.ingsw.Exceptions.NegativeResourceException;
+import it.polimi.ingsw.Enums.Resource;
 
 public class StrongBox {
 
