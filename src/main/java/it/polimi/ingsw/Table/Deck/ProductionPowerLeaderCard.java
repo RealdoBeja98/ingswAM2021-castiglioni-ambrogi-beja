@@ -2,7 +2,7 @@ package it.polimi.ingsw.Table.Deck;
 
 import it.polimi.ingsw.Resource;
 
-public class ProductionPowerLeaderCard extends LeaderCard{
+public class ProductionPowerLeaderCard extends LeaderCard implements Production{
     private Type costOfLeaderCard;
     private Resource requirement;
 

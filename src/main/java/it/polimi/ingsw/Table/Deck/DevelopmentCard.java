@@ -3,7 +3,7 @@ import it.polimi.ingsw.Resource;
 import it.polimi.ingsw.Type;
 
 
-public class DevelopmentCard extends Card{
+public class DevelopmentCard extends Card implements Production{
 
     private Resource[] cost;
     private int[] costNumber;
