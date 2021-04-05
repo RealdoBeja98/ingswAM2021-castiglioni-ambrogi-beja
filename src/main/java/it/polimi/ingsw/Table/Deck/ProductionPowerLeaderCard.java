@@ -3,7 +3,7 @@ package it.polimi.ingsw.Table.Deck;
 import it.polimi.ingsw.Exceptions.OccupiedSlotExtraStorageLeaderCardException;
 import it.polimi.ingsw.Enums.Resource;
 
-public class ProductionPowerLeaderCard extends LeaderCard{
+public class ProductionPowerLeaderCard extends LeaderCard implements Production{
     private Type costOfLeaderCard;
     private Resource requirement;
 

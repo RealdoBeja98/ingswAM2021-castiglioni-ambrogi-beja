@@ -3,7 +3,7 @@ import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Enums.Type;
 
 
-public class DevelopmentCard extends Card{
+public class DevelopmentCard extends Card implements Production{
 
     private Resource[] cost;
     private int[] costNumber;
