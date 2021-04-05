@@ -1,16 +1,15 @@
 package it.polimi.ingsw.Table.Deck;
 
 import it.polimi.ingsw.Resource;
-import it.polimi.ingsw.Table.Market.Marble;
 
-public class WhiteMarbleLeaderCard extends LeaderCard {
-    private Type[] costOfLeaderCard = new Type[3];
-    private Marble whiteMarble;
+public class DiscountLeaderCard extends LeaderCard{
+    private Resource discount;
+    private Type[] costOfLeaderCard = new Type[2];
 
-    public WhiteMarbleLeaderCard(int victoryPoints, Type[] costOfLeaderCard, Marble whiteMarble){
+    public DiscountLeaderCard(int victoryPoints, Resource discount, Type[] costOfLeaderCard){
         this.victoryPoints = victoryPoints;
+        this.discount = discount;
         this.costOfLeaderCard = costOfLeaderCard;
-        this.whiteMarble = whiteMarble;
     }
 
     @Override
@@ -23,11 +22,12 @@ public class WhiteMarbleLeaderCard extends LeaderCard {
         throw new RuntimeException();
     }
 
+    public Resource getDiscount(){
+        return discount;
+    }
+
     public Type[] getCostOfLeaderCard(){
         return costOfLeaderCard;
     }
 
-    public Marble getWhiteMarble(){
-        return whiteMarble;
-    }
 }
