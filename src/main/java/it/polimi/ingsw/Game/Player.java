@@ -24,6 +24,7 @@ public class Player {
     private boolean inkwell;
     private List<Marble> marblesFromTheMarket = new ArrayList<>();
     private ArrayList<Production> selectedProduction = new ArrayList<>();
+    private boolean selectedDefaultProductionPower = false;
 
     public Player(String nickname){
         this.nickname = nickname;
@@ -185,8 +186,35 @@ public class Player {
         if(selected == null){
             throw new NullPointerException();
         }
-        if(selectedProduction.remove(selected)){
-
+        if(selectedProduction.contains(selected)){
+            selectedProduction.remove(selected);
+        } else {
+            selectedProduction.add(selected);
         }
     }
+
+    public void selectProductionPowerLeaderCard(int pos) throws NoProductionLeaderCardException {
+        if(pos <= 0 || pos > 2){
+            throw new IndexOutOfBoundsException();
+        }
+        LeaderCard selected = cardsOnTable[pos];
+        if(!(selected instanceof ProductionPowerLeaderCard)){
+            throw new NoProductionLeaderCardException();
+        }
+        if(selected == null){
+            throw new NullPointerException();
+        }
+        if(selectedProduction.contains(selected)){
+            selectedProduction.remove(selected);
+        } else {
+            selectedProduction.add((Production)selected);
+        }
+    }
+
+    public void selectDefaultProductionPower(){
+        selectedDefaultProductionPower = !selectedDefaultProductionPower;
+    }
+
+
+
 }
