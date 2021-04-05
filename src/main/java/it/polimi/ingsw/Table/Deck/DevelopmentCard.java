@@ -1,22 +1,22 @@
 package it.polimi.ingsw.Table.Deck;
-import it.polimi.ingsw.PersonalBoard.PersonalBoard;
-import it.polimi.ingsw.PersonalBoard.StrongBox.NegativeResourceException;
 import it.polimi.ingsw.Resource;
 import it.polimi.ingsw.Type;
 
+
 public class DevelopmentCard extends Card{
 
-    private Resource[] cost = new Resource[3];
-    private int[] costNumber = new int[3];
+    private Resource[] cost;
+    private int[] costNumber;
     private Type type;
     private int level;
-    private Resource[] requirements = new Resource[2];
-    private int[] costRequirements = new int[2];
-    private Resource[] products = new Resource[2];
-    private int[] costProducts = new int[2];
+    private Resource[] requirements;
+    private int[] costRequirements;
+    private Resource[] products;
+    private int[] costProducts;
     private int victoryPoints;
 
-    public DevelopmentCard(Resource[] cost, int[] costNumber, Type type, int level, Resource[] requirements, int[] costRequirements, Resource[] products, int[] costProducts, int victoryPoints){
+    public DevelopmentCard(Resource[] cost, int[] costNumber, Type type, int level,
+                           Resource[] requirements, int[] costRequirements, Resource[] products, int[] costProducts, int victoryPoints){
         this.cost = cost;
         this.costNumber = costNumber;
         this.type = type;
@@ -64,24 +64,54 @@ public class DevelopmentCard extends Card{
         return costProducts;
     }
 
-    public void resourcePayment(){
+    public ResourceProduction resourceProduction(){
+        int costCoin = 0;
+        int costServant = 0;
+        int costShield = 0;
+        int costStone = 0;
 
-    }
+        for(int i = 0; i < requirements.length; i++){
+            switch(requirements[i]){
+                case COIN: costCoin += costRequirements[i];
+                    break;
 
-    public void resourceProduction(PersonalBoard board){
-        for(int i = 0; i < 2; i++){
-            try {
+                case SERVANT: costServant +=costRequirements[i];
+                    break;
 
-                board.getStrongBox().remove(requirements[i], costRequirements[i]);
-            } catch (NegativeResourceException e) {
-                e.printStackTrace();
+                case SHIELD: costShield += costRequirements[i];
+                    break;
+
+                case STONE: costStone +=costRequirements[i];
+                    break;
+
+                default: break;
             }
         }
-        for(int i = 0; i < 2; i++){
+        int productionCoin = 0;
+        int productionServant = 0;
+        int productionShield = 0;
+        int productionStone = 0;
+        int productionFaith = 0;
+        for(int i = 0; i < products.length; i++){
+            switch(products[i]){
+                case COIN: productionCoin += costRequirements[i];
+                    break;
 
+                case SERVANT: productionServant +=costProducts[i];
+                    break;
 
-            board.getStrongBox().add(products[i], costProducts[i]);
+                case SHIELD: productionShield += costProducts[i];
+                    break;
+
+                case STONE: productionStone +=costProducts[i];
+                    break;
+
+                case FAITH: productionFaith += costProducts[i];
+                default: break;
+            }
         }
-    }
 
+        return new ResourceProduction(costCoin, costServant, costShield, costStone, 0, productionCoin,
+                productionServant, productionShield, productionStone, 0, productionFaith);
+    }
 }
