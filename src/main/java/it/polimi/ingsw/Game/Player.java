@@ -1,14 +1,12 @@
 package it.polimi.ingsw.Game;
-import it.polimi.ingsw.PersonalBoard.Warehouse.DifferentResourceInThisShelfException;
-import it.polimi.ingsw.PersonalBoard.Warehouse.PositionAlreadyOccupiedException;
-import it.polimi.ingsw.PersonalBoard.Warehouse.ResourceAlreadyPlacedException;
+import it.polimi.ingsw.Enums.Resource;
+import it.polimi.ingsw.Exceptions.*;
 import it.polimi.ingsw.Table.Deck.*;
 import it.polimi.ingsw.PersonalBoard.PersonalBoard;
-import it.polimi.ingsw.Resource;
-import it.polimi.ingsw.Table.Market.DifferentStorageException;
-import it.polimi.ingsw.Table.Market.Faith;
-import it.polimi.ingsw.Table.Market.Marble;
-import it.polimi.ingsw.Table.Market.White;
+
+import it.polimi.ingsw.Table.Market.marbles.Faith;
+import it.polimi.ingsw.Table.Market.marbles.Marble;
+import it.polimi.ingsw.Table.Market.marbles.White;
 
 import java.util.ArrayList;
 import java.util.Arrays;
