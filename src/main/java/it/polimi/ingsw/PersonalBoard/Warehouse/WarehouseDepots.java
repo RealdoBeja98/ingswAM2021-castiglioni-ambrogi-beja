@@ -1,8 +1,5 @@
 package it.polimi.ingsw.PersonalBoard.Warehouse;
-import it.polimi.ingsw.Exceptions.DifferentResourceInThisShelfException;
-import it.polimi.ingsw.Exceptions.NotAdmittedMovementException;
-import it.polimi.ingsw.Exceptions.PositionAlreadyOccupiedException;
-import it.polimi.ingsw.Exceptions.ResourceAlreadyPlacedException;
+import it.polimi.ingsw.Exceptions.*;
 import it.polimi.ingsw.Enums.Resource;
 
 /**
@@ -138,8 +135,12 @@ public class WarehouseDepots {
     /**
      * This method removes the resource in the pointed position
      * @param pos: position of the array
+     * @throws YetEmptySlotException: if the slot was yet empty
      */
-    public void removeResource(int pos){
+    public void removeResource(int pos) throws YetEmptySlotException{
+        if(resource[pos] == null){
+            throw new YetEmptySlotException();
+        }
         resource[pos] = null;
     }
 

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.PersonalBoard.StrongBox;
 import it.polimi.ingsw.Exceptions.NegativeResourceException;
 import it.polimi.ingsw.Enums.Resource;
+import it.polimi.ingsw.Exceptions.NotAResourceForStrongBoxException;
 
 public class StrongBox {
 
@@ -32,7 +33,7 @@ public class StrongBox {
         return shield;
     }
 
-    public void add(Resource r, int n) {
+    public void add(Resource r, int n) throws NotAResourceForStrongBoxException{
         switch (r) {
             case COIN:
                 coin += n;
@@ -46,6 +47,7 @@ public class StrongBox {
             case SHIELD:
                 shield += n;
                 break;
+            default: throw new NotAResourceForStrongBoxException();
         }
     }
 

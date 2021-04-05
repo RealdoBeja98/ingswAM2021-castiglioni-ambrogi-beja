@@ -316,5 +316,86 @@ public class Player {
         obtainedGeneric = production.getProductionGeneric();
     }
 
+    public void payWithStrongBox(Resource pay) throws WrongPaymentException, NotEnoughResourcesException, NegativeResourceException {
+        Resource paying = payingResources.get(0);
+        if(paying != Resource.WHITE && paying != pay){
+            throw new WrongPaymentException();
+        }
+        personalBoard.getStrongBox().remove(pay, 1);
+        payingResources.remove(0);
+        obtainResourcesIfAllResourcesPayed();
+    }
+
+    public void payWithWarehouseDepots(int pos) throws WrongPaymentException, YetEmptySlotException {
+        Resource paying = payingResources.get(0);
+        Resource pay = personalBoard.getWarehouseDepots().getResource()[pos];
+        if(paying != Resource.WHITE && paying != pay){
+            throw new WrongPaymentException();
+        }
+        personalBoard.getWarehouseDepots().removeResource(pos);
+        payingResources.remove(0);
+        obtainResourcesIfAllResourcesPayed();
+    }
+
+    public void payWithExtraStorageLeaderCard(int pos) throws NotAnExtraStorageLeaderCardException, WrongPaymentException, EmptySlotExtraStorageLeaderCardException {
+        if(pos <= 1 || pos > 2){
+            throw new IndexOutOfBoundsException();
+        }
+        LeaderCard selected = cardsOnTable[pos - 1];
+        if(!(selected instanceof ExtraStorageLeaderCard)){
+            throw new NotAnExtraStorageLeaderCardException();
+        }
+        Resource paying = payingResources.get(0);
+        Resource pay = ((ExtraStorageLeaderCard)selected).getStorageType();
+        if(paying != Resource.WHITE && paying != pay){
+            throw new WrongPaymentException();
+        }
+        ((ExtraStorageLeaderCard)selected).removeResource();
+        payingResources.remove(0);
+        obtainResourcesIfAllResourcesPayed();
+    }
+
+    private void obtainResourcesIfAllResourcesPayed(){
+        if(payingResources.isEmpty()){
+            ResourceProduction production = new ResourceProduction(0, 0, 0, 0,
+                    0, 0, 0, 0,
+                    0, 0, 0);
+            for (Production i : selectedProduction) {
+                production = production.sum(i.resourceProduction());
+            }
+            if (selectedDefaultProductionPower) {
+                production = production.sum(new ResourceProduction(0, 0, 0,
+                        0, 2, 0, 0, 0,
+                        0, 1, 0));
+            }
+            try {
+                personalBoard.getStrongBox().add(Resource.COIN, production.getProductionCoin());
+                personalBoard.getStrongBox().add(Resource.SERVANT, production.getProductionServant());
+                personalBoard.getStrongBox().add(Resource.SHIELD, production.getProductionShield());
+                personalBoard.getStrongBox().add(Resource.STONE, production.getProductionStone());
+            } catch (NotAResourceForStrongBoxException e) {
+                e.printStackTrace();
+            }
+            personalBoard.getFaithTrack().goOn(production.getProductionFaith());
+            if(obtainedGeneric <= 0){
+                selectedProduction = new ArrayList<>();
+                selectedDefaultProductionPower = false;
+                payingResources = new ArrayList<>();
+            }
+        }
+    }
+
+    public void obtainGenericResource(Resource resource) throws NoGenericResourceToObtainException, NotAResourceForStrongBoxException {
+        if(obtainedGeneric <= 0){
+            throw new NoGenericResourceToObtainException();
+        }
+        personalBoard.getStrongBox().add(resource, 1);
+        obtainedGeneric = obtainedGeneric - 1;
+        if(obtainedGeneric <= 0){
+            selectedProduction = new ArrayList<>();
+            selectedDefaultProductionPower = false;
+            payingResources = new ArrayList<>();
+        }
+    }
 
 }

@@ -1,10 +1,7 @@
 package it.polimi.ingsw.PersonalBoard;
 import static org.junit.jupiter.api.Assertions.*;
 
-import it.polimi.ingsw.Exceptions.DifferentResourceInThisShelfException;
-import it.polimi.ingsw.Exceptions.NotAdmittedMovementException;
-import it.polimi.ingsw.Exceptions.PositionAlreadyOccupiedException;
-import it.polimi.ingsw.Exceptions.ResourceAlreadyPlacedException;
+import it.polimi.ingsw.Exceptions.*;
 import it.polimi.ingsw.PersonalBoard.Warehouse.*;
 import it.polimi.ingsw.Enums.Resource;
 import org.junit.jupiter.api.Test;
@@ -127,7 +124,11 @@ public class WarehouseDepotsTest {
         } catch (DifferentResourceInThisShelfException e) {
             e.printStackTrace();
         }
-        warehouseDepots.removeResource(2);
+        try {
+            warehouseDepots.removeResource(2);
+        } catch (YetEmptySlotException e) {
+            e.printStackTrace();
+        }
         assertNull(warehouseDepots.getResource()[2]);
     }
 
