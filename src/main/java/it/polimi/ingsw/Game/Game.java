@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 public class Game {
 
-    private static Game istance;
-    private Table table = new Table();
+    private static Game instance;
+    private final Table table = new Table();
 
     public static Game getInstance(){
-        if(Game.istance == null){
-            Game.istance = new Game();
+        if(Game.instance == null){
+            Game.instance = new Game();
         }
-        return Game.istance;
+        return Game.instance;
     }
 
     public ArrayList<Player> players = new ArrayList<>();

@@ -10,10 +10,10 @@ import it.polimi.ingsw.PersonalBoard.Warehouse.WarehouseDepots;
  */
 public class PersonalBoard {
 
-    private FaithTrack faithTrack;
-    private WarehouseDepots warehouseDepots;
-    private StrongBox strongBox;
-    private SlotsDevelopmentCards slotsDevelopmentCards;
+    private final FaithTrack faithTrack;
+    private final WarehouseDepots warehouseDepots;
+    private final StrongBox strongBox;
+    private final SlotsDevelopmentCards slotsDevelopmentCards;
 
     /**
      * Constructor method of this class

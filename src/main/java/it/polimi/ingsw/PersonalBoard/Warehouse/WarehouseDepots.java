@@ -3,7 +3,7 @@ import it.polimi.ingsw.Exceptions.*;
 import it.polimi.ingsw.Enums.Resource;
 
 /**
- * This Class represents the warehouse depots associate to a player
+ * This Class represents the warehouse depots associated to a player
  */
 public class WarehouseDepots {
 
@@ -116,10 +116,7 @@ public class WarehouseDepots {
         if(thirdShelf == null){
             return true;
         }
-        if((resource[4] == null || resource[4] == thirdShelf) && (resource[5] == null || resource[5] == thirdShelf)){
-            return true;
-        }
-        return false;
+        return (resource[4] == null || resource[4] == thirdShelf) && (resource[5] == null || resource[5] == thirdShelf);
     }
 
     /**
@@ -135,7 +132,7 @@ public class WarehouseDepots {
     /**
      * This method removes the resource in the pointed position
      * @param pos: position of the array
-     * @throws YetEmptySlotException: if the slot was yet empty
+     * @throws YetEmptySlotException: if the slot was empty
      */
     public void removeResource(int pos) throws YetEmptySlotException{
         if(resource[pos] == null){

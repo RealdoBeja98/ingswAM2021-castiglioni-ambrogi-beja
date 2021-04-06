@@ -218,4 +218,28 @@ public class WarehouseDepotsTest {
         assertThrows(NotAdmittedMovementException.class, () ->{warehouseDepots.moveResource(0,4);});
     }
 
+    @Test
+    public void integrityTest(){
+        WarehouseDepots warehouseDepots = new WarehouseDepots();
+        try {
+            warehouseDepots.addResource(Resource.COIN,0);
+        } catch (PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException e) {
+            e.printStackTrace();
+        }
+        Resource[] test = warehouseDepots.getResource();
+        assertSame(warehouseDepots.getResource()[0], Resource.COIN);
+        test[0] = Resource.SERVANT;
+        assertSame(warehouseDepots.getResource()[0], Resource.COIN);
+        assertSame(test[0], Resource.SERVANT);
+        try {
+            warehouseDepots.moveResource(0,1);
+        } catch (NotAdmittedMovementException e) {
+            e.printStackTrace();
+        }
+        assertSame(warehouseDepots.getResource()[1], Resource.COIN);
+        test = warehouseDepots.getResource();
+        assertNull(test[0]);
+        assertSame(test[1], Resource.COIN);
+
+    }
 }

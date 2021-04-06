@@ -1,5 +1,7 @@
 package it.polimi.ingsw.Game;
+import it.polimi.ingsw.Enums.LeaderWarehouse;
 import it.polimi.ingsw.Enums.Resource;
+import it.polimi.ingsw.Enums.RowColumn;
 import it.polimi.ingsw.Exceptions.*;
 import it.polimi.ingsw.Table.Deck.*;
 import it.polimi.ingsw.PersonalBoard.PersonalBoard;
@@ -316,7 +318,7 @@ public class Player {
         obtainedGeneric = production.getProductionGeneric();
     }
 
-    public void payWithStrongBox(Resource pay) throws WrongPaymentException, NotEnoughResourcesException, NegativeResourceException {
+    public void payWithStrongBox(Resource pay) throws WrongPaymentException, NotEnoughResourcesException, NegativeResourceException, NotAResourceForStrongBoxException {
         Resource paying = payingResources.get(0);
         if(paying != Resource.WHITE && paying != pay){
             throw new WrongPaymentException();

@@ -85,5 +85,16 @@ public class FaithTrackTest {
         assertSame(faithTrackRealdo.victoryPoints(), 19);
         Game.getInstance().players = backupPlayers;
     }
+    @Test
+    public void integrityTest(){
+        ArrayList<Player> players = new ArrayList<>();
+        players.add(new Player("Andrea"));
+        FaithTrack faithTrack = players.get(0).getPersonalBoard().getFaithTrack();
+        FavorTiles[] test = players.get(0).getPersonalBoard().getFaithTrack().getFavorTiles();
+        assertSame(faithTrack.getFavorTiles()[0], FavorTiles.COVERED);
+        test[0] = FavorTiles.DITCH;
+        assertSame(test[0], FavorTiles.DITCH);
+        assertSame(faithTrack.getFavorTiles()[0], FavorTiles.COVERED);
 
+    }
 }

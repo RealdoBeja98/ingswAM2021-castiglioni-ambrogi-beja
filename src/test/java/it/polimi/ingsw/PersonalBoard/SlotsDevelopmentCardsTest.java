@@ -91,4 +91,16 @@ public class SlotsDevelopmentCardsTest {
         assertThrows(IndexOutOfBoundsException.class, () ->{slots.addDevelopmentCard(4,card1);});
     }
 
+    @Test
+    public void integrityTest(){
+        SlotsDevelopmentCards slots = new SlotsDevelopmentCards();
+        DevelopmentCard[][]  test = slots.getSlot();
+        assertNull(slots.getSlot()[0][0]);
+        assertNull(slots.getActiveCards()[0]);
+        test[0][0] = exampleDevelopmentCard(1);
+        assertNull(slots.getSlot()[0][0]);
+        DevelopmentCard[] test1 = slots.getActiveCards();
+        test1[0] = exampleDevelopmentCard(1);
+        assertNull(slots.getActiveCards()[0]);
+    }
 }

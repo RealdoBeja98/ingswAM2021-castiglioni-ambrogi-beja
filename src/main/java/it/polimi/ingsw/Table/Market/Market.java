@@ -56,7 +56,10 @@ public class Market {
         extraMarble = temp.get(k);
     }
 
-
+    /**
+     * Getter of the parameter marketTray
+     * @return a copy of the row and the column in the market, of type Marble[][]
+     */
     public Marble[][] getMarketTray(){
         Marble[][] result = marketTray.clone();
         for(int i = 0; i < result.length; i++){
@@ -65,6 +68,10 @@ public class Market {
         return result;
     }
 
+    /**
+     * Getter of the parameter extraMarble
+     * @return the marble present in the extra slot, of type Marble
+     */
     public Marble getExtraMarble(){
         return extraMarble;
     }

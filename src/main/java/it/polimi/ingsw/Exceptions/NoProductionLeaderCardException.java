@@ -1,7 +1,7 @@
-package it.polimi.ingsw.Game;
+package it.polimi.ingsw.Exceptions;
 
 public class NoProductionLeaderCardException extends Exception {
-    NoProductionLeaderCardException(){
+    public NoProductionLeaderCardException(){
         super("Expected ProductionLeaderCard but not selected it");
     }
 }

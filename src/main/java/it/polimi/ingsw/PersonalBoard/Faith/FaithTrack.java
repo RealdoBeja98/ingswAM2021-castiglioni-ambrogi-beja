@@ -2,6 +2,8 @@ package it.polimi.ingsw.PersonalBoard.Faith;
 import it.polimi.ingsw.Enums.FavorTiles;
 import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Game.Player;
+
+
 import java.util.ArrayList;
 
 /**
@@ -10,7 +12,7 @@ import java.util.ArrayList;
 public class FaithTrack {
 
     private int faithMarker;
-    private final FavorTiles[] favorTiles;
+    private FavorTiles[] favorTiles;
     private final ArrayList<Player> playerList;
 
     /**
@@ -34,9 +36,14 @@ public class FaithTrack {
         return faithMarker;
     }
 
+    /**
+     * Getter of the parameter favorTiles
+     * @return a copy of the original array favorTiles[], of type FavorTiles[]
+     */
     public FavorTiles[] getFavorTiles(){
-        return favorTiles;
-    } //chiedere al prof se fare la clone o va bene così
+        FaithTrack copy = copy();
+        return copy.favorTiles;
+    }
 
     /**
      * This method receives the number of position the player has to move on the faith track,
@@ -68,15 +75,15 @@ public class FaithTrack {
      * @param n: number of the occurring Vatican Report
      */
     private void popeState(int n){
-        int treshold = 5;
+        int threshold = 5;
         if(n == 1){
-            treshold = 12;
+            threshold = 12;
         }
         if(n == 2){
-            treshold = 19;
+            threshold = 19;
         }
         for(Player name : playerList){
-            if(name.getPersonalBoard().getFaithTrack().faithMarker >= treshold){
+            if(name.getPersonalBoard().getFaithTrack().faithMarker >= threshold){
                 name.getPersonalBoard().getFaithTrack().favorTiles[n] =
                         FavorTiles.TURNED;
             }
@@ -129,6 +136,15 @@ public class FaithTrack {
         else{
             return 0;
         }
+    }
+    /**
+     * This method creates a copy of this class
+     * @return a copy, of type FaithTrack
+     */
+    private FaithTrack copy(){
+        FaithTrack copy = new FaithTrack(playerList);
+        copy.favorTiles = this.favorTiles.clone();
+        return copy;
     }
 
 }

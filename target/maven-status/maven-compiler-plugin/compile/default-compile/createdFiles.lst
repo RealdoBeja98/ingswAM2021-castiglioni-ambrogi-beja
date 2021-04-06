@@ -1,3 +1,6 @@
-it/polimi/ingsw/Exceptions/NotAResourceForStrongBoxException.class
-it/polimi/ingsw/Exceptions/NotAnExtraStorageLeaderCardException.class
-it/polimi/ingsw/Exceptions/NoGenericResourceToObtainException.class
+it\polimi\ingsw\Enums\LeaderWarehouse.class
+it\polimi\ingsw\Enums\RowColumn.class
+it\polimi\ingsw\Exceptions\NoProductionLeaderCardException.class
+it\polimi\ingsw\Exceptions\NotAResourceForStrongBoxException.class
+it\polimi\ingsw\Exceptions\NotAnExtraStorageLeaderCardException.class
+it\polimi\ingsw\Exceptions\NoGenericResourceToObtainException.class

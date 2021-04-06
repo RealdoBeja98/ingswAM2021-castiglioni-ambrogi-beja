@@ -7,14 +7,15 @@ import it.polimi.ingsw.Table.Market.Market;
  * This Class contains all the elements shared between the players
  */
 public class Table {
-    private LeaderDeck leaderDeck;
-    private Market market;
-    private DevelopmentDeck[][] developmentDeck = new DevelopmentDeck[3][4];
+    private final LeaderDeck leaderDeck;
+    private final Market market;
+    private final DevelopmentDeck[][] developmentDeck;
 
     /**
      * Constructor method of this class
      */
     public Table(){
+        developmentDeck = new DevelopmentDeck[3][4];
         for(int i = 0; i < 3; i++){
             for(int j = 0; j < 4; j++){
                 developmentDeck[i][j] = new DevelopmentDeck();

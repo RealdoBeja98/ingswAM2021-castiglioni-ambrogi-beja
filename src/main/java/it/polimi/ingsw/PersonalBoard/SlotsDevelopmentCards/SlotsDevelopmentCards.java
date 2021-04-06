@@ -3,13 +3,20 @@ import it.polimi.ingsw.Exceptions.PositionInvalidException;
 import it.polimi.ingsw.Table.Deck.DevelopmentCard;
 import it.polimi.ingsw.Game.Game;
 
-
+/**
+ * This Class represents the slots for the development card
+ */
 public class SlotsDevelopmentCards {
 
-    private final DevelopmentCard[][]  slot = new DevelopmentCard[3][3];
-    private final DevelopmentCard[] activeCards = new DevelopmentCard[3];
+    private DevelopmentCard[][]  slot;
+    private DevelopmentCard[] activeCards;
 
+    /**
+     * Constructor method of this class
+     */
     public SlotsDevelopmentCards(){
+        activeCards = new DevelopmentCard[3];
+        slot = new DevelopmentCard[3][3];
         for(int i = 0; i < 3; i++){
             for(int j = 0; j < 3; j++){
                 slot[i][j] = null;
@@ -17,6 +24,14 @@ public class SlotsDevelopmentCards {
         }
     }
 
+    /**
+     * This method adds a development card into an available slot, then check if is the seventh and in the end update
+     * the array of cards on top
+     * @param pos: column where the card is going to be added
+     * @param card: card that is going to be added
+     * @throws PositionInvalidException: propagates this exception, generated if the position requested is occupied or
+     *                                   there are no card under with lower level in the same position
+     */
     public void addDevelopmentCard(int pos, DevelopmentCard card) throws PositionInvalidException {
         int levelOfCard = card.getLevel();
 
@@ -29,6 +44,9 @@ public class SlotsDevelopmentCards {
         }
     }
 
+    /**
+     * This method counts if there are seven active card and in case trigger the end of the game
+     */
     private void seventhSlotOccupied() {
         int count = 0;
         for(int i = 0; i < 3; i++){
@@ -43,6 +61,14 @@ public class SlotsDevelopmentCards {
         }
     }
 
+    /**
+     * This method checks the condition on card placement, and, if all the condition are verified, place the card
+     * @param levelOfCard: level of the card that is going to be added
+     * @param pos: column where the card is going to be added
+     * @param card: card that is going to be added
+     * @throws PositionInvalidException if the position requested is occupied or there are no card
+     *                                  under with lower level in the same position
+     */
     private void placeCard(int levelOfCard, int pos, DevelopmentCard card) throws PositionInvalidException {
         if (slot[2][pos-1] == null && levelOfCard == 1) {
             slot[2][pos-1] = card;
@@ -55,7 +81,9 @@ public class SlotsDevelopmentCards {
         }
     }
 
-
+    /**
+     * This method updates the variable activeCards[]
+     */
     public void viewActiveCards(){
         int col = 0;
         int rig = 0;
@@ -65,17 +93,19 @@ public class SlotsDevelopmentCards {
             }
             if(rig >=3){
                 activeCards[col] = null;
-                col++;
-                rig = 0;
             }
             else{
                 activeCards[col] = slot[rig][col];
-                col++;
-                rig = 0;
             }
+            col++;
+            rig = 0;
         }
     }
 
+    /**
+     * This method counts how many victory points are given by the placed card
+     * @return the number of victory points, of type int
+     */
     public int victoryPoints(){
         int victoryPoints = 0;
         for(int i = 0; i < 3; i++){
@@ -88,11 +118,35 @@ public class SlotsDevelopmentCards {
         return victoryPoints;
     }
 
+    /**
+     * Getter of the parameter slot
+     * @return a copy of the row and the column in slot for the development card, of type DevelopmentCard[][]
+     */
     public DevelopmentCard[][] getSlot() {
-        return slot;
+        SlotsDevelopmentCards copy = copy();
+        return copy.slot;
     }
 
+    /**
+     * Getter of the parameter activeCards
+     * @return a copy of the array of the development card on top, of type DevelopmentCard[]
+     */
     public DevelopmentCard[] getActiveCards() {
-        return activeCards;
+        SlotsDevelopmentCards copy = copy();
+        return copy.activeCards;
+    }
+
+    /**
+     * This method creates a copy of this class
+     * @return a copy, of type SlotsDevelopmentCards
+     */
+    private SlotsDevelopmentCards copy(){
+        SlotsDevelopmentCards copy = new SlotsDevelopmentCards();
+        copy.slot = this.slot.clone();
+        for(int i = 0; i < copy.slot.length; i++){
+            copy.slot[i] = copy.slot[i].clone();
+        }
+        copy.activeCards = this.activeCards.clone();
+        return copy;
     }
 }
