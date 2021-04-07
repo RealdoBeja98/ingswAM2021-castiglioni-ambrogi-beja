@@ -1,6 +1,6 @@
 package it.polimi.ingsw.PersonalBoard.SlotsDevelopmentCards;
 import it.polimi.ingsw.Exceptions.PositionInvalidException;
-import it.polimi.ingsw.Table.Deck.DevelopmentCard;
+import it.polimi.ingsw.Table.Decks.Development.DevelopmentCard;
 import it.polimi.ingsw.Game.Game;
 
 /**

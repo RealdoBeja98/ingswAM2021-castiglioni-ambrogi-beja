@@ -3,7 +3,7 @@ package it.polimi.ingsw.PersonalBoard;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import it.polimi.ingsw.Table.Deck.DevelopmentCard;
+import it.polimi.ingsw.Table.Decks.Development.DevelopmentCard;
 import it.polimi.ingsw.Exceptions.PositionInvalidException;
 import it.polimi.ingsw.PersonalBoard.SlotsDevelopmentCards.SlotsDevelopmentCards;
 import it.polimi.ingsw.Enums.Resource;

@@ -1,9 +1,12 @@
-package it.polimi.ingsw.Table.Deck;
+package it.polimi.ingsw.Table.Decks.Development;
 import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Enums.Type;
+import it.polimi.ingsw.Table.Decks.Card;
+import it.polimi.ingsw.Table.Decks.Production;
+import it.polimi.ingsw.Table.Decks.ResourceProduction;
 
 
-public class DevelopmentCard extends Card implements Production{
+public class DevelopmentCard extends Card implements Production {
 
     private Resource[] cost;
     private int[] costNumber;

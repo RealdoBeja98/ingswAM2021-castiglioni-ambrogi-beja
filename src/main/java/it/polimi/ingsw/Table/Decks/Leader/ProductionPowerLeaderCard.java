@@ -1,9 +1,13 @@
-package it.polimi.ingsw.Table.Deck;
+package it.polimi.ingsw.Table.Decks.Leader;
 
+import it.polimi.ingsw.Enums.Type;
 import it.polimi.ingsw.Exceptions.OccupiedSlotExtraStorageLeaderCardException;
 import it.polimi.ingsw.Enums.Resource;
+import it.polimi.ingsw.Table.Decks.Leader.LeaderCard;
+import it.polimi.ingsw.Table.Decks.Production;
+import it.polimi.ingsw.Table.Decks.ResourceProduction;
 
-public class ProductionPowerLeaderCard extends LeaderCard implements Production{
+public class ProductionPowerLeaderCard extends LeaderCard implements Production {
     private Type costOfLeaderCard;
     private Resource requirement;
 

@@ -1,4 +1,4 @@
-package it.polimi.ingsw.Table.Deck;
+package it.polimi.ingsw.Table.Decks;
 
 public class ResourceProduction {
     private int requiredCoin;

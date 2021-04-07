@@ -8,13 +8,14 @@ import java.util.*;
  */
 public class Market {
 
-    private final Marble[][]  marketTray = new Marble[3][4];
+    private final Marble[][]  marketTray;
     private Marble extraMarble;
 
     /**
      * Constructor method of this class
      */
     public Market() {
+        marketTray = new Marble[3][4];
         ArrayList<Marble> temp = new ArrayList<>();
         putMarbles(temp);
         Collections.shuffle(temp);

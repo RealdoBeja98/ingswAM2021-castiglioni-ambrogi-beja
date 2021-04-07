@@ -6,7 +6,7 @@ import it.polimi.ingsw.Exceptions.PositionAlreadyOccupiedException;
 import it.polimi.ingsw.Exceptions.ResourceAlreadyPlacedException;
 import it.polimi.ingsw.PersonalBoard.Warehouse.WarehouseDepots;
 import it.polimi.ingsw.Enums.Resource;
-import it.polimi.ingsw.Table.Deck.LeaderCard;
+import it.polimi.ingsw.Table.Decks.Leader.LeaderCard;
 import it.polimi.ingsw.Exceptions.OccupiedSlotExtraStorageLeaderCardException;
 
 /**

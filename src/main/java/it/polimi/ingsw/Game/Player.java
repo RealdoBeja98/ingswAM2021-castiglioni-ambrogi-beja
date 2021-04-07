@@ -3,9 +3,14 @@ import it.polimi.ingsw.Enums.LeaderWarehouse;
 import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Enums.RowColumn;
 import it.polimi.ingsw.Exceptions.*;
-import it.polimi.ingsw.Table.Deck.*;
+import it.polimi.ingsw.Table.Decks.*;
 import it.polimi.ingsw.PersonalBoard.PersonalBoard;
 
+import it.polimi.ingsw.Table.Decks.Development.DevelopmentCard;
+import it.polimi.ingsw.Table.Decks.Leader.ExtraStorageLeaderCard;
+import it.polimi.ingsw.Table.Decks.Leader.LeaderCard;
+import it.polimi.ingsw.Table.Decks.Leader.ProductionPowerLeaderCard;
+import it.polimi.ingsw.Table.Decks.Leader.WhiteMarbleLeaderCard;
 import it.polimi.ingsw.Table.Market.marbles.Faith;
 import it.polimi.ingsw.Table.Market.marbles.Marble;
 import it.polimi.ingsw.Table.Market.marbles.White;

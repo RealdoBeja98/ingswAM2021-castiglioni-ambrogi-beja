@@ -1,5 +1,5 @@
 package it.polimi.ingsw.Table.Market.marbles;
-import it.polimi.ingsw.Table.Deck.LeaderCard;
+import it.polimi.ingsw.Table.Decks.Leader.LeaderCard;
 import it.polimi.ingsw.PersonalBoard.Faith.FaithTrack;
 import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.PersonalBoard.Warehouse.WarehouseDepots;

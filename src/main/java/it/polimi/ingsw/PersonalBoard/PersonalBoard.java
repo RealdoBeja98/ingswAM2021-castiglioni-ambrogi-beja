@@ -19,7 +19,7 @@ public class PersonalBoard {
      * Constructor method of this class
      */
     public PersonalBoard(){
-        faithTrack = new FaithTrack(Game.getInstance().players);
+        faithTrack = new FaithTrack(Game.getInstance().getPlayers());
         warehouseDepots = new WarehouseDepots();
         strongBox = new StrongBox();
         slotsDevelopmentCards = new SlotsDevelopmentCards();

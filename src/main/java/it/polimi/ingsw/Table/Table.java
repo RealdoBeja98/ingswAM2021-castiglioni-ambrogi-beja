@@ -1,6 +1,6 @@
 package it.polimi.ingsw.Table;
-import it.polimi.ingsw.Table.Deck.DevelopmentDeck;
-import it.polimi.ingsw.Table.Deck.LeaderDeck;
+import it.polimi.ingsw.Table.Decks.DevelopmentDeck;
+import it.polimi.ingsw.Table.Decks.LeaderDeck;
 import it.polimi.ingsw.Table.Market.Market;
 
 /**
@@ -9,18 +9,13 @@ import it.polimi.ingsw.Table.Market.Market;
 public class Table {
     private final LeaderDeck leaderDeck;
     private final Market market;
-    private final DevelopmentDeck[][] developmentDeck;
+    private final DevelopmentDeck developmentDeck;
 
     /**
      * Constructor method of this class
      */
     public Table(){
-        developmentDeck = new DevelopmentDeck[3][4];
-        for(int i = 0; i < 3; i++){
-            for(int j = 0; j < 4; j++){
-                developmentDeck[i][j] = new DevelopmentDeck();
-            }
-        }
+        developmentDeck = new DevelopmentDeck();
         market = new Market();
         leaderDeck = new LeaderDeck();
     }
@@ -45,7 +40,7 @@ public class Table {
      * Getter of the parameter developmentDeck
      * @return the decks of development cards, of type DevelopmentDeck[][]
      */
-    public DevelopmentDeck[][] getDevelopmentDeck() {
+    public DevelopmentDeck getDevelopmentDeck() {
         return developmentDeck;
     }
 }
