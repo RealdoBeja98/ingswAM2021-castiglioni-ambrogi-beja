@@ -24,6 +24,7 @@ public class ExtraStorageLeaderCard extends LeaderCard {
         return storageType;
     }
 
+    @Override
     public int occupiedResources(){
         int result = 0;
 

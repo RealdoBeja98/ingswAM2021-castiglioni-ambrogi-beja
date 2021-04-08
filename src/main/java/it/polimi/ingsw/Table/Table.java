@@ -7,6 +7,7 @@ import it.polimi.ingsw.Table.Market.Market;
  * This Class contains all the elements shared between the players
  */
 public class Table {
+
     private final LeaderDeck leaderDeck;
     private final Market market;
     private final DevelopmentDeck developmentDeck;
@@ -38,7 +39,7 @@ public class Table {
 
     /**
      * Getter of the parameter developmentDeck
-     * @return the decks of development cards, of type DevelopmentDeck[][]
+     * @return the decks of development cards, of type DevelopmentDeck
      */
     public DevelopmentDeck getDevelopmentDeck() {
         return developmentDeck;

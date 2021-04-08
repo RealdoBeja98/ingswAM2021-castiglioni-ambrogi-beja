@@ -1,5 +1,3 @@
-it\polimi\ingsw\Market\MarketTest.class
-it\polimi\ingsw\PersonalBoard\WarehouseDepotsTest.class
-it\polimi\ingsw\PersonalBoard\StrongBoxTest.class
-it\polimi\ingsw\PersonalBoard\SlotsDevelopmentCardsTest.class
-it\polimi\ingsw\PersonalBoard\FaithTrackTest.class
+it\polimi\ingsw\PersonalBoard\Warehouse\WarehouseDepotsTest.class
+it\polimi\ingsw\PersonalBoard\StrongBox\StrongBoxTest.class
+it\polimi\ingsw\PersonalBoard\SlotsDevelopmentCards\SlotsDevelopmentCardsTest.class

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="it.polimi.ingsw.PersonalBoard.SlotsDevelopmentCardsTest" time="0.004" tests="4" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="it.polimi.ingsw.PersonalBoard.SlotsDevelopmentCardsTest" time="0" tests="4" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="15"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -15,7 +15,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="IT"/>
     <property name="sun.boot.library.path" value="C:\Users\puroi\.jdks\openjdk-15.0.1\bin"/>
-    <property name="sun.java.command" value="C:\Users\puroi\AppData\Local\Temp\surefire18326012713199882821\surefirebooter2486183148410879437.jar C:\Users\puroi\AppData\Local\Temp\surefire18326012713199882821 2021-04-08T00-29-17_758-jvmRun1 surefire17881612126144502843tmp surefire_07841356414844425743tmp"/>
+    <property name="sun.java.command" value="C:\Users\puroi\AppData\Local\Temp\surefire13976857301491586771\surefirebooter7943567392890587002.jar C:\Users\puroi\AppData\Local\Temp\surefire13976857301491586771 2021-04-08T13-45-39_324-jvmRun1 surefire5870869900009764213tmp surefire_09376524719193036089tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\target\test-classes;E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\target\classes;C:\Users\puroi\.m2\repository\junit\junit\4.13.1\junit-4.13.1.jar;C:\Users\puroi\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\puroi\.m2\repository\org\junit\jupiter\junit-jupiter\5.8.0-M1\junit-jupiter-5.8.0-M1.jar;C:\Users\puroi\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.8.0-M1\junit-jupiter-api-5.8.0-M1.jar;C:\Users\puroi\.m2\repository\org\apiguardian\apiguardian-api\1.1.1\apiguardian-api-1.1.1.jar;C:\Users\puroi\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\puroi\.m2\repository\org\junit\platform\junit-platform-commons\1.8.0-M1\junit-platform-commons-1.8.0-M1.jar;C:\Users\puroi\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.8.0-M1\junit-jupiter-params-5.8.0-M1.jar;C:\Users\puroi\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.8.0-M1\junit-jupiter-engine-5.8.0-M1.jar;C:\Users\puroi\.m2\repository\org\junit\platform\junit-platform-engine\1.8.0-M1\junit-platform-engine-1.8.0-M1.jar;C:\Users\puroi\.m2\repository\org\jetbrains\kotlin\kotlin-stdlib-jdk8\1.4.20\kotlin-stdlib-jdk8-1.4.20.jar;C:\Users\puroi\.m2\repository\org\jetbrains\kotlin\kotlin-stdlib\1.4.20\kotlin-stdlib-1.4.20.jar;C:\Users\puroi\.m2\repository\org\jetbrains\kotlin\kotlin-stdlib-common\1.4.20\kotlin-stdlib-common-1.4.20.jar;C:\Users\puroi\.m2\repository\org\jetbrains\annotations\13.0\annotations-13.0.jar;C:\Users\puroi\.m2\repository\org\jetbrains\kotlin\kotlin-stdlib-jdk7\1.4.20\kotlin-stdlib-jdk7-1.4.20.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -30,7 +30,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\puroi\AppData\Local\Temp\surefire18326012713199882821\surefirebooter2486183148410879437.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\puroi\AppData\Local\Temp\surefire13976857301491586771\surefirebooter7943567392890587002.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="15.0.1+9-18"/>
@@ -43,7 +43,7 @@
     <property name="localRepository" value="C:\Users\puroi\.m2\repository"/>
     <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
     <property name="java.io.tmpdir" value="C:\Users\puroi\AppData\Local\Temp\"/>
-    <property name="idea.version" value="2020.3.3"/>
+    <property name="idea.version" value="2021.1"/>
     <property name="java.version" value="15.0.1"/>
     <property name="user.dir" value="E:\progetto\ingswAM2021-castiglioni-ambrogi-beja"/>
     <property name="os.arch" value="amd64"/>
@@ -57,7 +57,7 @@
     <property name="java.class.version" value="59.0"/>
   </properties>
   <testcase name="testExceptionsAddDevelopmentCard" classname="it.polimi.ingsw.PersonalBoard.SlotsDevelopmentCardsTest" time="0"/>
-  <testcase name="testAddDevelopmentCard" classname="it.polimi.ingsw.PersonalBoard.SlotsDevelopmentCardsTest" time="0.001"/>
-  <testcase name="testOutOfBoundExceptionsAddDevelopmentCard" classname="it.polimi.ingsw.PersonalBoard.SlotsDevelopmentCardsTest" time="0.001"/>
-  <testcase name="integrityTest" classname="it.polimi.ingsw.PersonalBoard.SlotsDevelopmentCardsTest" time="0.001"/>
+  <testcase name="testAddDevelopmentCard" classname="it.polimi.ingsw.PersonalBoard.SlotsDevelopmentCardsTest" time="0"/>
+  <testcase name="testOutOfBoundExceptionsAddDevelopmentCard" classname="it.polimi.ingsw.PersonalBoard.SlotsDevelopmentCardsTest" time="0"/>
+  <testcase name="integrityTest" classname="it.polimi.ingsw.PersonalBoard.SlotsDevelopmentCardsTest" time="0"/>
 </testsuite>

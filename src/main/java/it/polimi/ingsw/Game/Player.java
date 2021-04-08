@@ -11,9 +11,9 @@ import it.polimi.ingsw.Table.Decks.Leader.ExtraStorageLeaderCard;
 import it.polimi.ingsw.Table.Decks.Leader.LeaderCard;
 import it.polimi.ingsw.Table.Decks.Leader.ProductionPowerLeaderCard;
 import it.polimi.ingsw.Table.Decks.Leader.WhiteMarbleLeaderCard;
-import it.polimi.ingsw.Table.Market.marbles.Faith;
-import it.polimi.ingsw.Table.Market.marbles.Marble;
-import it.polimi.ingsw.Table.Market.marbles.White;
+import it.polimi.ingsw.Table.Market.Marbles.Faith;
+import it.polimi.ingsw.Table.Market.Marbles.Marble;
+import it.polimi.ingsw.Table.Market.Marbles.White;
 
 import java.util.ArrayList;
 import java.util.Arrays;

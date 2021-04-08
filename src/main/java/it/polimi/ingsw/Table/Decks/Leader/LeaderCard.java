@@ -14,4 +14,6 @@ public abstract class LeaderCard extends Card {
     public abstract Resource getStorageType();
 
     public abstract void addResource() throws OccupiedSlotExtraStorageLeaderCardException;
+
+    public abstract int occupiedResources();
 }

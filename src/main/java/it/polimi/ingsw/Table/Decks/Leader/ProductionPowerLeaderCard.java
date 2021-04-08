@@ -27,6 +27,11 @@ public class ProductionPowerLeaderCard extends LeaderCard implements Production 
         throw new RuntimeException();
     }
 
+    @Override
+    public int occupiedResources() {
+        throw new RuntimeException();
+    }
+
     public ResourceProduction resourceProduction() {
         int costCoin = 0;
         int costServant = 0;

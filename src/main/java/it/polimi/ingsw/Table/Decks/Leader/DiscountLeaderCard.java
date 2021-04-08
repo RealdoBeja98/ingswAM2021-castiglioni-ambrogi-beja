@@ -24,6 +24,11 @@ public class DiscountLeaderCard extends LeaderCard {
         throw new RuntimeException();
     }
 
+    @Override
+    public int occupiedResources() {
+        throw new RuntimeException();
+    }
+
     public Resource getDiscount(){
         return discount;
     }
