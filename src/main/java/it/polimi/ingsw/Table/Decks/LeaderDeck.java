@@ -64,4 +64,13 @@ public class LeaderDeck {
         }
         return cards;
     }
+
+    /**
+     * Getter of the parameter deck
+     * @return the deck of leader cards
+     */
+    public ArrayList<LeaderCard> getDeck(){
+        return deck;
+    }
+
 }

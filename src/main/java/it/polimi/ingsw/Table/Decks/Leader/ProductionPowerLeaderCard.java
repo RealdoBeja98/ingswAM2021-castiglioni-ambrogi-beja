@@ -57,4 +57,13 @@ public class ProductionPowerLeaderCard extends LeaderCard implements Production 
         return new ResourceProduction(costCoin, costServant, costShield, costStone, 0, 0,
                 0, 0, 0, 1, 1);
     }
+
+    public Type getCostOfLeaderCard(){
+        return costOfLeaderCard;
+    }
+
+    public Resource getRequirement(){
+        return requirement;
+    }
+
 }

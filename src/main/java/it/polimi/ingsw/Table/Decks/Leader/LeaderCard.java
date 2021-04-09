@@ -7,7 +7,7 @@ import it.polimi.ingsw.Table.Decks.Card;
 public abstract class LeaderCard extends Card {
 
     protected int victoryPoints;
-    protected LeaderCardType whatIAm;
+    protected LeaderCardType whatIAm;//inutile?
 
     public LeaderCardType getWhatIAm(){ return whatIAm; }
 
