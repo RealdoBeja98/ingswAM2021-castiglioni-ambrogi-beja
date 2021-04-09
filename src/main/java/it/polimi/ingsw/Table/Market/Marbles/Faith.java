@@ -5,7 +5,7 @@ import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.PersonalBoard.Warehouse.WarehouseDepots;
 
 /**
- * This Class represents the marble of type coin
+ * This Class represents the marble of type faith
  */
 public class Faith extends Marble {
 

@@ -10,7 +10,7 @@ import java.util.Collections;
  * This Class represents the deck of leader cards
  */
 public class LeaderDeck {
-    private ArrayList<LeaderCard> deck;
+    private final ArrayList<LeaderCard> deck;
 
     /**
      * Constructor method of this class
