@@ -1,5 +1,4 @@
 package it.polimi.ingsw.Table.Decks.Leader;
-
 import it.polimi.ingsw.Exceptions.EmptySlotExtraStorageLeaderCardException;
 import it.polimi.ingsw.Exceptions.OccupiedSlotExtraStorageLeaderCardException;
 import it.polimi.ingsw.Enums.Resource;

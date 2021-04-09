@@ -85,6 +85,11 @@ public class Player {
             throw new IndexOutOfBoundsException();
         }
         else{
+            switch(cardsInHand[pos-1].getWhatIAm()) {
+                case DISCOUNT:
+                    //<!-- FIXME finish this method-->
+                    break;
+            }
             cardsOnTable[pos-1] = cardsInHand[pos-1];
             cardsInHand[pos-1] = null;
         }
