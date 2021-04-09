@@ -31,9 +31,9 @@ public class ResourceProduction {
     }
 
     public ResourceProduction sum(ResourceProduction summing){
-        return new ResourceProduction(requiredCoin + summing.productionCoin, requiredServant + summing.productionServant,
-                requiredShield + summing.productionShield, requiredStone + summing.requiredStone,
-                requiredGeneric + summing.productionGeneric, productionCoin + summing.productionCoin,
+        return new ResourceProduction(requiredCoin + summing.requiredCoin, requiredServant + summing.requiredServant,
+                requiredShield + summing.requiredShield, requiredStone + summing.requiredStone,
+                requiredGeneric + summing.requiredGeneric, productionCoin + summing.productionCoin,
                 productionServant + productionServant, productionShield + summing.productionShield,
                 productionStone + summing.productionStone, productionGeneric + summing.productionGeneric,
                 productionFaith + summing.productionFaith);
