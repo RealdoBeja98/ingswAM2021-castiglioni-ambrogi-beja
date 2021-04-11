@@ -8,7 +8,7 @@ import it.polimi.ingsw.Game.Game;
  */
 public class SlotsDevelopmentCards {
 
-    private DevelopmentCard[][]  slot;
+    private DevelopmentCard[][] slot;
     private DevelopmentCard[] activeCards;
 
     /**
