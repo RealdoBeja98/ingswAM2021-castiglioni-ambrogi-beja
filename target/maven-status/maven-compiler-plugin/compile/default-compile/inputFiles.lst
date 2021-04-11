@@ -3,6 +3,7 @@
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/PersonalBoard/SlotsDevelopmentCards/SlotsDevelopmentCards.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/NoWhiteMarbleLeaderCardException.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/YetEmptySlotException.java
+/Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/NotAbleToBuyThisDevelopmentCardException.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/PersonalBoard/Warehouse/WarehouseDepots.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/NegativeResourceException.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Table/Market/Marbles/Marble.java
@@ -11,8 +12,10 @@
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/PersonalBoard/Faith/FaithTrack.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Table/Table.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Table/Decks/Development/DevelopmentCard.java
+/Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/NotSatisfiedRequirementsForThisLeaderCardException.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Table/Decks/Leader/DiscountLeaderCard.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/OccupiedSlotExtraStorageLeaderCardException.java
+/Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/NoDevelopmentCardInThisPositionException.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Enums/FavorTiles.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Game/Player.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Table/Market/Marbles/Servant.java
@@ -29,8 +32,10 @@
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Table/Market/Marbles/Faith.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/NoResourceToAddException.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Table/Decks/Leader/ProductionPowerLeaderCard.java
+/Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/NoDevelopmentCardToObtainException.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/WrongPaymentException.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Enums/LeaderWarehouse.java
+/Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/NotAbleToPlaceThisDevelopmentCardException.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/PositionAlreadyOccupiedException.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Table/Market/Marbles/Shield.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/NotEnoughResourcesException.java
@@ -44,6 +49,7 @@
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/DifferentStorageException.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/DifferentResourceInThisShelfException.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/EmptySlotExtraStorageLeaderCardException.java
+/Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/NoResourceToPayException.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/PositionInvalidException.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Table/Market/Marbles/White.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/ResourceAlreadyPlacedException.java
@@ -52,4 +58,5 @@
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Table/Decks/Production.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Table/Decks/Leader/WhiteMarbleLeaderCard.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Enums/LeaderCardType.java
+/Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/DrawedFromEmptyDeckException.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Table/Decks/Card.java

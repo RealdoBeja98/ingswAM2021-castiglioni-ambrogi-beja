@@ -1,4 +1,5 @@
 package it.polimi.ingsw.PersonalBoard.SlotsDevelopmentCards;
+import it.polimi.ingsw.Enums.Type;
 import it.polimi.ingsw.Exceptions.PositionInvalidException;
 import it.polimi.ingsw.Table.Decks.Development.DevelopmentCard;
 import it.polimi.ingsw.Game.Game;
@@ -34,7 +35,6 @@ public class SlotsDevelopmentCards {
      */
     public void addDevelopmentCard(int pos, DevelopmentCard card) throws PositionInvalidException {
         int levelOfCard = card.getLevel();
-
         if (pos >= 4 || pos < 1) {
             throw new IndexOutOfBoundsException();
         } else {
@@ -149,4 +149,93 @@ public class SlotsDevelopmentCards {
         copy.activeCards = this.activeCards.clone();
         return copy;
     }
+
+    /**
+     * This method check if you are able to add a certain development card in any of the three slots
+     * @return a boolean which is true if you ar able to add the development card in any of the three slots
+     */
+    public boolean checkAbleToAddThisDevelopmentCard(DevelopmentCard developmentCard){
+        int level = developmentCard.getLevel();
+        int antiLevel = 3 - level;
+        for(int i = 0; i < 3; i++){
+            if(slot[antiLevel][i] == null){
+                if(level == 1){
+                    return true;
+                } else {
+                    int previusLevel = level - 1;
+                    int previousAntiLevel = 3 - previusLevel;
+                    if(slot[previousAntiLevel][i] != null){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * This method check if you have at least required development card's type
+     * @param typesToHave: development card's type required
+     * @return a boolean which is true if you you have at least the required development card's type
+     */
+    public boolean checkHaveTypes(Type[] typesToHave){
+        int green = 0;
+        int blue = 0;
+        int yellow = 0;
+        int purple = 0;
+        for(DevelopmentCard[] i : slot){
+            for(DevelopmentCard j : i){
+                if(j != null){
+                    switch (j.getType()){
+                        case GREEN: green++;
+                            break;
+                        case BLUE: blue++;
+                            break;
+                        case YELLOW: yellow++;
+                            break;
+                        case PURPLE: purple++;
+                            break;
+                        default: break;
+                    }
+                }
+            }
+        }
+        for(Type i : typesToHave){
+            switch (i){
+                case GREEN: green--;
+                    break;
+                case BLUE: blue--;
+                    break;
+                case YELLOW: yellow--;
+                    break;
+                case PURPLE: purple--;
+                    break;
+                default: break;
+            }
+        }
+        if(green >= 0 && blue >= 0 && yellow >= 0 && purple >= 0){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * This method check if you have at least a development card of level 2 of a certain type
+     * @param typeToHave: development card type required for a card type required of level 2
+     * @return a boolean which is true if you you have at least a development card of level 2 of the certain type
+     */
+    public boolean checkHaveTypeAtLevelTwo(Type typeToHave){
+        for(DevelopmentCard[] i : slot){
+            for(DevelopmentCard j : i){
+                if(j != null){
+                    if(j.getLevel() == 2 && j.getType() == typeToHave){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
 }
