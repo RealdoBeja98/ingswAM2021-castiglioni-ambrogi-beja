@@ -3,9 +3,11 @@
 /Users/realdobeja/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Table/Decks/Card.java
 /Users/realdobeja/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Table/Market/Marbles/Coin.java
 /Users/realdobeja/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/NoResourceToPayException.java
+/Users/realdobeja/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/PlayerDoesNotExistsException.java
 /Users/realdobeja/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/PersonalBoard/PersonalBoard.java
 /Users/realdobeja/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/UnexpectedWhiteMarbleException.java
 /Users/realdobeja/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/NoResourceToAddException.java
+/Users/realdobeja/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/NameAlreadyRegisteredException.java
 /Users/realdobeja/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/NotAdmittedMovementException.java
 /Users/realdobeja/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Table/Decks/Development/DevelopmentCard.java
 /Users/realdobeja/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/NotAbleToPlaceThisDevelopmentCardException.java
