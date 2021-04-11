@@ -2,7 +2,7 @@ package it.polimi.ingsw.Game;
 import it.polimi.ingsw.Table.Table;
 import java.util.ArrayList;
 
-public class Game {
+public class Game { //<-- FIXME finish me-->
 
     private static Game instance = null;
     private final Table table;

@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Player {
+public class Player {//<-- FIXME finish me-->
 
     private String nickname;
     private PersonalBoard personalBoard;
