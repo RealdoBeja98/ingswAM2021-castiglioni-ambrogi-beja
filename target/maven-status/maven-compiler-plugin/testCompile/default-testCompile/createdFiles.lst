@@ -1,8 +1,10 @@
-it/polimi/ingsw/PersonalBoard/Warehouse/WarehouseDepotsTest.class
-it/polimi/ingsw/Table/TableTest.class
+it/polimi/ingsw/Table/Decks/ResourceProductionTest.class
 it/polimi/ingsw/Table/Market/MarketTest.class
 it/polimi/ingsw/PersonalBoard/Faith/FaithTrackTest.class
-it/polimi/ingsw/Table/Market/Marbles/MarblesTest.class
 it/polimi/ingsw/Table/Market/Marbles/FaithMarbleTest.class
+it/polimi/ingsw/PersonalBoard/Warehouse/WarehouseDepotsTest.class
+it/polimi/ingsw/Table/TableTest.class
+it/polimi/ingsw/Table/Decks/DevelopmentCardTest.class
+it/polimi/ingsw/Table/Market/Marbles/MarblesTest.class
 it/polimi/ingsw/PersonalBoard/SlotsDevelopmentCards/SlotsDevelopmentCardsTest.class
 it/polimi/ingsw/PersonalBoard/StrongBox/StrongBoxTest.class
