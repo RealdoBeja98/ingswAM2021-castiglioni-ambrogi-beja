@@ -14,7 +14,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Player {//<-- FIXME finish me-->
+/**
+ * This Class represents the player
+ */
+public class Player {
 
     private String nickname;
     private PersonalBoard personalBoard;
@@ -29,6 +32,10 @@ public class Player {//<-- FIXME finish me-->
     private DevelopmentCard obtainedDevelopmentCard;
     private int selectedWarehouseDepotsSlot = 0;
 
+    /**
+     * Constructor method of this class
+     * @param nickname: the nickname of the player
+     */
     public Player(String nickname){
         this.nickname = nickname;
         personalBoard = new PersonalBoard();
@@ -37,26 +44,49 @@ public class Player {//<-- FIXME finish me-->
         inkwell = false;
     }
 
+    /**
+     * This method set the inkwell to this player
+     */
     public void setInkwell(){
         inkwell = true;
     }
 
+    /**
+     * Getter of the parameter personalBoard
+     * @return the personalBoard, of type PersonalBoard
+     */
     public PersonalBoard getPersonalBoard(){
         return personalBoard;
     }
 
+    /**
+     * Getter of the parameter nickname
+     * @return the nickname, of type String
+     */
     public String getNickname() {
         return nickname;
     }
 
+    /**
+     * Getter of the parameter cardsInHand
+     * @return the cardsInHand, of type LeaderCard[]
+     */
     public LeaderCard[] getCardsInHand() {
         return cardsInHand;
     }
 
+    /**
+     * Getter of the parameter cardsOnTable
+     * @return the cardsOnTable, of type LeaderCard[]
+     */
     public LeaderCard[] getCardsOnTable() {
         return cardsOnTable;
     }
 
+    /**
+     * This method return a new array with the resources in discount
+     * @return a new array with the resources in discount, of type Resource[]
+     */
     public Resource[] getActiveDiscount() {
         Resource[] result = new Resource[2];
         for(int i = 0; i < 2; i++){
@@ -67,10 +97,19 @@ public class Player {//<-- FIXME finish me-->
         return result;
     }
 
+    /**
+     * Getter of the parameter inkwell
+     * @return the inkwell, of type boolean
+     */
     public boolean isInkwell() {
         return inkwell;
     }
 
+    /**
+     * This method let player to discard a leader card in his hand advancing on him faith track
+     * @param pos: number 1 or 2 to determinate the position of the leader card in hand to discard
+     * @throws IndexOutOfBoundsException if the position isn't 1 or 2
+     */
     public void discardLeaderCard(int pos){
         if(pos < 1 || pos > 2){
             throw new IndexOutOfBoundsException();
@@ -81,6 +120,11 @@ public class Player {//<-- FIXME finish me-->
         }
     }
 
+    /**
+     * This method check if the player has at least 5 resources of the specified type
+     * @param resource: type of resource to have
+     * @return if the player has at least 5 resources of the specified type or not, of type boolean
+     */
     private boolean checkToHaveAtLeastFiveOfThisResource(Resource resource){
         int coin = personalBoard.getStrongBox().getCoin();
         int servant = personalBoard.getStrongBox().getServant();
@@ -154,6 +198,13 @@ public class Player {//<-- FIXME finish me-->
         }
     }
 
+    /**
+     * This method let the player to put on the table a leader card that was in his hand
+     * in case the player select a StorageLeaderCard, the list payingResources is updated with the resources the player has to pay
+     * @param pos: number 1 or 2 to determinate the position of the leader card in hand to play
+     * @throws IndexOutOfBoundsException if the position isn't 1 or 2
+     * @throws NotSatisfiedRequirementsForThisLeaderCardException if the player isn't able to play the card
+     */
     public void playLeaderCard(int pos) throws NotSatisfiedRequirementsForThisLeaderCardException{
         if(pos < 1 || pos > 2){
             throw new IndexOutOfBoundsException();
@@ -195,6 +246,15 @@ public class Player {//<-- FIXME finish me-->
         }
     }
 
+    /**
+     * This method let player to take resources from the market
+     * Taken resources are added to the list marblesFromTheMarket
+     * Faith marble are removed advancing on the faith track
+     * White marble could be removed, substituted or could remain
+     * @param rowColumn: to choose a row or a column of the market
+     * @param pos: to choose the position of the row or of the column
+     * @throws IndexOutOfBoundsException if the selected row or column is invalid
+     */
     public void takeResourcesFromTheMarket(RowColumn rowColumn, int pos){
         List<Marble> obtainedMarbles;
         if (rowColumn == RowColumn.COLUMN){
@@ -236,6 +296,13 @@ public class Player {//<-- FIXME finish me-->
         }
     }
 
+    /**
+     * This method let player to select a slot of the WarehouseDepots
+     * useful for moveResourcesInWarehouseDepots, moveResourcesFromWarehouseDepotsToExtraStorageLeaderCard and moveResourcesToWarehouseDepotsFromExtraStorageLeaderCard
+     * the selected slot is saved in var selectedWarehouseDepotsSlot of type int
+     * @param pos: to choose the position of the slot of the WarehouseDepots
+     * @throws PositionInvalidException if the selected position is invalid
+     */
     public void selectAWarehouseDepotsSlot(int pos) throws PositionInvalidException {
         if(pos < 0 || pos >= 6){
             throw new PositionInvalidException();
@@ -243,11 +310,27 @@ public class Player {//<-- FIXME finish me-->
         selectedWarehouseDepotsSlot = pos;
     }
 
+    /**
+     * This method let player to move up to two resources in the WarehouseDepots
+     * the first position was selected using selectAWarehouseDepotsSlot and saved in var selectedWarehouseDepotsSlot of type int
+     * @param pos2: to choose the second position of the slot of the WarehouseDepots
+     * @throws NotAdmittedMovementException if the movement is invalid
+     */
     public void moveResourcesInWarehouseDepots(int pos2) throws NotAdmittedMovementException {
         int pos1 = selectedWarehouseDepotsSlot;
         personalBoard.getWarehouseDepots().moveResource(pos1, pos2);
     }
 
+    /**
+     * This method let player to move a resource from the warehouseDepots to an ExtraStorageLeaderCard
+     * the first position of the start slot of the warehouseDepots was selected using selectAWarehouseDepotsSlot and saved in var selectedWarehouseDepotsSlot of type int
+     * @param pos: to choose the number 1 or 2 to determinate the position of the ExtraStorageLeaderCard as destination
+     * @throws PositionInvalidException if the position of the ExtraStorageLeaderCard isn't 1 or 2
+     * @throws NotAnExtraStorageLeaderCardException if the selected LeaderCard isn't an ExtraStorageLeaderCard
+     * @throws YetEmptySlotException if the slot of the warehouseDepots was yet empty
+     * @throws OccupiedSlotExtraStorageLeaderCardException if all slot of the ExtraStorageLeaderCard are yet occupied
+     * @throws DifferentStorageException if the selected resource from warehouseDepots doesn't fit with the admitted resource of the selected ExtraStorageLeaderCard
+     */
     public void moveResourcesFromWarehouseDepotsToExtraStorageLeaderCard(int pos) throws PositionInvalidException, NotAnExtraStorageLeaderCardException, YetEmptySlotException, OccupiedSlotExtraStorageLeaderCardException, DifferentStorageException {
         if(pos < 1 || pos > 2){
             throw new PositionInvalidException();
@@ -264,6 +347,17 @@ public class Player {//<-- FIXME finish me-->
         ((ExtraStorageLeaderCard)cardsOnTable[pos-1]).addResource();
     }
 
+    /**
+     * This method let player to move a resource from an ExtraStorageLeaderCard to the selected slot of the warehouseDepots
+     * the arrive position of the slot of the warehouseDepots was selected using selectAWarehouseDepotsSlot and saved in var selectedWarehouseDepotsSlot of type int
+     * @param pos: to choose the number 1 or 2 to determinate the position of the ExtraStorageLeaderCard as start
+     * @throws PositionInvalidException if the position of the ExtraStorageLeaderCard isn't 1 or 2
+     * @throws NotAnExtraStorageLeaderCardException if the selected LeaderCard isn't an ExtraStorageLeaderCard
+     * @throws PositionAlreadyOccupiedException if the slot of the warehouseDepots was yet occupied
+     * @throws ResourceAlreadyPlacedException if the resource passed to the warehouseDepots is yet present on a different shelf
+     * @throws DifferentResourceInThisShelfException if there are different resources types already placed in the chosen shelf
+     * @throws EmptySlotExtraStorageLeaderCardException if the selected ExtraStorageLeaderCard is yet empty
+     */
     public void moveResourcesToWarehouseDepotsFromExtraStorageLeaderCard(int pos) throws PositionInvalidException, NotAnExtraStorageLeaderCardException, PositionAlreadyOccupiedException, ResourceAlreadyPlacedException, DifferentResourceInThisShelfException, EmptySlotExtraStorageLeaderCardException {
         if(pos < 1 || pos > 2){
             throw new PositionInvalidException();
@@ -278,7 +372,7 @@ public class Player {//<-- FIXME finish me-->
         personalBoard.getWarehouseDepots().addResource(movedResource, selectedWarehouseDepotsSlot);
         ((ExtraStorageLeaderCard)cardsOnTable[pos-1]).removeResource();
     }
-
+ //carloooo....
     public void addResource(LeaderWarehouse where, int pos) throws NoResourceToAddException, DifferentStorageException, OccupiedSlotExtraStorageLeaderCardException, PositionAlreadyOccupiedException, ResourceAlreadyPlacedException, DifferentResourceInThisShelfException, UnexpectedWhiteMarbleException, UnexpectedFaithMarbleException {
         if(marblesFromTheMarket.size() == 0) {
             throw new NoResourceToAddException();
