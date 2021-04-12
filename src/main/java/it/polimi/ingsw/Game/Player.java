@@ -791,4 +791,14 @@ public class Player {
         //<-- FIXME finish me-->
     }
 
+    public int countLeaderCardInHand(){
+        int count = 0;
+        for(LeaderCard i : cardsInHand){
+            if(i != null){
+                count ++;
+            }
+        }
+        return count;
+    }
+
 }
