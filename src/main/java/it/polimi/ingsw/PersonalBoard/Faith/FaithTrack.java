@@ -54,7 +54,6 @@ public class FaithTrack {
         faithMarker += n;
         if(faithMarker >= 24){
             faithMarker = 24;
-
         }
         if (faithMarker >= 8 && favorTiles[0] == FavorTiles.COVERED){
             popeState(0);
