@@ -1,4 +1,5 @@
 package it.polimi.ingsw.Table.Decks.Leader;
+import it.polimi.ingsw.Enums.LeaderCardType;
 import it.polimi.ingsw.Exceptions.EmptySlotExtraStorageLeaderCardException;
 import it.polimi.ingsw.Exceptions.OccupiedSlotExtraStorageLeaderCardException;
 import it.polimi.ingsw.Enums.Resource;
@@ -9,6 +10,7 @@ public class ExtraStorageLeaderCard extends LeaderCard {
     private Resource storageType;
 
     public ExtraStorageLeaderCard(int victoryPoints, Resource costOfLeaderCard, Resource storageType) {
+        this.whatIAm = LeaderCardType.STORAGE;
         this.victoryPoints = victoryPoints;
         this.costOfLeaderCard = costOfLeaderCard;
         this.storageType = storageType;

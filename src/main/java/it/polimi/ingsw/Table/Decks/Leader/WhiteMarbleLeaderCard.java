@@ -1,4 +1,5 @@
 package it.polimi.ingsw.Table.Decks.Leader;
+import it.polimi.ingsw.Enums.LeaderCardType;
 import it.polimi.ingsw.Exceptions.OccupiedSlotExtraStorageLeaderCardException;
 import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Enums.Type;
@@ -9,6 +10,7 @@ public class WhiteMarbleLeaderCard extends LeaderCard {
     private Marble whiteMarble;
 
     public WhiteMarbleLeaderCard(int victoryPoints, Type[] costOfLeaderCard, Marble whiteMarble){
+        this.whatIAm = LeaderCardType.WHITE;
         this.victoryPoints = victoryPoints;
         this.costOfLeaderCard = costOfLeaderCard;
         this.whiteMarble = whiteMarble;

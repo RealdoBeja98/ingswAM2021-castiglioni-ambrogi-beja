@@ -1,5 +1,6 @@
 package it.polimi.ingsw.Table.Decks.Leader;
 
+import it.polimi.ingsw.Enums.LeaderCardType;
 import it.polimi.ingsw.Enums.Type;
 import it.polimi.ingsw.Exceptions.OccupiedSlotExtraStorageLeaderCardException;
 import it.polimi.ingsw.Enums.Resource;
@@ -12,6 +13,7 @@ public class ProductionPowerLeaderCard extends LeaderCard implements Production 
     private Resource requirement;
 
     public ProductionPowerLeaderCard(int victoryPoints,Type costOfLeaderCard, Resource requirement){
+        this.whatIAm = LeaderCardType.PRODUCTIONPOWER;
         this.costOfLeaderCard = costOfLeaderCard;
         this.requirement = requirement;
         this.victoryPoints = victoryPoints;

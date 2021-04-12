@@ -2,15 +2,13 @@ package it.polimi.ingsw.Game;
 import it.polimi.ingsw.Enums.LeaderWarehouse;
 import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Enums.RowColumn;
+import it.polimi.ingsw.Enums.Type;
 import it.polimi.ingsw.Exceptions.*;
 import it.polimi.ingsw.Table.Decks.*;
 import it.polimi.ingsw.PersonalBoard.PersonalBoard;
 
 import it.polimi.ingsw.Table.Decks.Development.DevelopmentCard;
-import it.polimi.ingsw.Table.Decks.Leader.ExtraStorageLeaderCard;
-import it.polimi.ingsw.Table.Decks.Leader.LeaderCard;
-import it.polimi.ingsw.Table.Decks.Leader.ProductionPowerLeaderCard;
-import it.polimi.ingsw.Table.Decks.Leader.WhiteMarbleLeaderCard;
+import it.polimi.ingsw.Table.Decks.Leader.*;
 import it.polimi.ingsw.Table.Market.Marbles.Faith;
 import it.polimi.ingsw.Table.Market.Marbles.Marble;
 import it.polimi.ingsw.Table.Market.Marbles.White;
@@ -32,6 +30,7 @@ public class Player {//<-- FIXME finish me-->
     private boolean selectedDefaultProductionPower = false;
     private ArrayList<Resource> payingResources = new ArrayList<>();
     private int obtainedGeneric = 0;
+    private DevelopmentCard obtainedDevelopmentCard;
 
     public Player(String nickname){
         this.nickname = nickname;
@@ -80,15 +79,114 @@ public class Player {//<-- FIXME finish me-->
         }
     }
 
-    public void playLeaderCard(int pos){
+    private boolean checkToHaveAtLeastFiveOfThisResource(Resource resource){
+        int coin = personalBoard.getStrongBox().getCoin();
+        int servant = personalBoard.getStrongBox().getServant();
+        int shield = personalBoard.getStrongBox().getShield();
+        int stone = personalBoard.getStrongBox().getStone();
+        Resource[] warehouseDepots = personalBoard.getWarehouseDepots().getResource();
+        for (Resource i : warehouseDepots) {
+            switch (i) {
+                case COIN:
+                    coin++;
+                    break;
+                case SERVANT:
+                    servant++;
+                    break;
+                case SHIELD:
+                    shield++;
+                    break;
+                case STONE:
+                    stone++;
+                    break;
+                default:
+                    break;
+            }
+        }
+        for (LeaderCard i : cardsOnTable) {
+            if (i != null && i instanceof ExtraStorageLeaderCard) {
+                switch (i.getStorageType()) {
+                    case COIN:
+                        coin += ((ExtraStorageLeaderCard) i).occupiedResources();
+                        break;
+                    case SERVANT:
+                        servant += ((ExtraStorageLeaderCard) i).occupiedResources();
+                        break;
+                    case SHIELD:
+                        shield += ((ExtraStorageLeaderCard) i).occupiedResources();
+                        break;
+                    case STONE:
+                        stone += ((ExtraStorageLeaderCard) i).occupiedResources();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        switch (resource){
+            case COIN:
+                if(coin >= 5){
+                    return true;
+                } else {
+                    return false;
+                }
+            case SERVANT:
+                if(servant >= 5){
+                    return true;
+                } else {
+                    return false;
+                }
+            case STONE:
+                if(stone >= 5){
+                    return true;
+                } else {
+                    return false;
+                }
+            case SHIELD:
+                if(shield >= 5){
+                    return true;
+                } else {
+                    return false;
+                }
+            default: return false;
+        }
+    }
+
+    public void playLeaderCard(int pos) throws NotSatisfiedRequirementsForThisLeaderCardException{
         if(pos < 1 || pos > 2){
             throw new IndexOutOfBoundsException();
         }
         else{
             switch(cardsInHand[pos-1].getWhatIAm()) {
                 case DISCOUNT:
-                    //<!-- FIXME finish this method-->
+                    if(!personalBoard.getSlotsDevelopmentCards().checkHaveTypes(((DiscountLeaderCard)cardsInHand[pos-1]).getCostOfLeaderCard())){
+                        throw new NotSatisfiedRequirementsForThisLeaderCardException();
+                    }
                     break;
+                case STORAGE:
+                    if(!checkToHaveAtLeastFiveOfThisResource(((ExtraStorageLeaderCard)cardsInHand[pos-1]).getCostOfLeaderCard())){
+                        throw new NotSatisfiedRequirementsForThisLeaderCardException();
+                    }
+                    for(int i = 0; i < 5; i++){
+                        payingResources.add(((ExtraStorageLeaderCard)cardsInHand[pos-1]).getCostOfLeaderCard());
+                    }
+                    break;
+                case PRODUCTIONPOWER:
+                    if(!personalBoard.getSlotsDevelopmentCards().checkHaveTypeAtLevelTwo(((ProductionPowerLeaderCard)cardsInHand[pos-1]).getCostOfLeaderCard())){
+                        throw new NotSatisfiedRequirementsForThisLeaderCardException();
+                    }
+                    break;
+                case WHITE:
+                    Type[] price = new Type[3];
+                    price[0] = ((WhiteMarbleLeaderCard)cardsInHand[pos-1]).getCostOfLeaderCard()[0];
+                    price[1] = price[0];
+                    price[2] = ((WhiteMarbleLeaderCard)cardsInHand[pos-1]).getCostOfLeaderCard()[1];
+                    if(!personalBoard.getSlotsDevelopmentCards().checkHaveTypes(price)){
+                        throw new NotSatisfiedRequirementsForThisLeaderCardException();
+                    }
+                    break;
+                default:
+                    throw new RuntimeException();
             }
             cardsOnTable[pos-1] = cardsInHand[pos-1];
             cardsInHand[pos-1] = null;
@@ -154,7 +252,6 @@ public class Player {//<-- FIXME finish me-->
         }
         marblesFromTheMarket.remove(0);
     }
-
 
     private int numberOfWhiteMarbleLeaderCard(){
         int result = 0;
@@ -328,7 +425,10 @@ public class Player {//<-- FIXME finish me-->
         obtainedGeneric = production.getProductionGeneric();
     }
 
-    public void payWithStrongBox(Resource pay) throws WrongPaymentException, NotEnoughResourcesException, NegativeResourceException, NotAResourceForStrongBoxException {
+    public void payWithStrongBox(Resource pay) throws WrongPaymentException, NotEnoughResourcesException, NegativeResourceException, NotAResourceForStrongBoxException, NoResourceToPayException {
+        if(payingResources.isEmpty()){
+            throw new NoResourceToPayException();
+        }
         Resource paying = payingResources.get(0);
         if(paying != Resource.WHITE && paying != pay){
             throw new WrongPaymentException();
@@ -338,7 +438,10 @@ public class Player {//<-- FIXME finish me-->
         obtainResourcesIfAllResourcesPayed();
     }
 
-    public void payWithWarehouseDepots(int pos) throws WrongPaymentException, YetEmptySlotException {
+    public void payWithWarehouseDepots(int pos) throws WrongPaymentException, YetEmptySlotException, NoResourceToPayException {
+        if(payingResources.isEmpty()){
+            throw new NoResourceToPayException();
+        }
         Resource paying = payingResources.get(0);
         Resource pay = personalBoard.getWarehouseDepots().getResource()[pos];
         if(paying != Resource.WHITE && paying != pay){
@@ -349,7 +452,10 @@ public class Player {//<-- FIXME finish me-->
         obtainResourcesIfAllResourcesPayed();
     }
 
-    public void payWithExtraStorageLeaderCard(int pos) throws NotAnExtraStorageLeaderCardException, WrongPaymentException, EmptySlotExtraStorageLeaderCardException {
+    public void payWithExtraStorageLeaderCard(int pos) throws NotAnExtraStorageLeaderCardException, WrongPaymentException, EmptySlotExtraStorageLeaderCardException, NoResourceToPayException {
+        if(payingResources.isEmpty()){
+            throw new NoResourceToPayException();
+        }
         if(pos <= 1 || pos > 2){
             throw new IndexOutOfBoundsException();
         }
@@ -408,6 +514,92 @@ public class Player {//<-- FIXME finish me-->
             selectedDefaultProductionPower = false;
             payingResources = new ArrayList<>();
         }
+    }
+
+    public void buyADevelopmentCard(int x, int y) throws PositionInvalidException, NoDevelopmentCardInThisPositionException, NotAbleToBuyThisDevelopmentCardException, NotAbleToPlaceThisDevelopmentCardException {
+        if(x < 0 || x >= 4 || y < 0 || y >= 3){
+            throw new PositionInvalidException();
+        }
+        DevelopmentCard selectedDevelopmentCard = Game.getInstance().getTable().getDevelopmentDeck().view()[x][y];
+        if(selectedDevelopmentCard == null){
+            throw new NoDevelopmentCardInThisPositionException();
+        }
+        int coin = personalBoard.getStrongBox().getCoin();
+        int servant = personalBoard.getStrongBox().getServant();
+        int shield = personalBoard.getStrongBox().getShield();
+        int stone = personalBoard.getStrongBox().getStone();
+        Resource[] warehouseDepots = personalBoard.getWarehouseDepots().getResource();
+        for (Resource i : warehouseDepots) {
+            switch (i) {
+                case COIN:
+                    coin++;
+                    break;
+                case SERVANT:
+                    servant++;
+                    break;
+                case SHIELD:
+                    shield++;
+                    break;
+                case STONE:
+                    stone++;
+                    break;
+                default:
+                    break;
+            }
+        }
+        for (LeaderCard i : cardsOnTable) {
+            if (i != null && i instanceof ExtraStorageLeaderCard) {
+                switch (i.getStorageType()) {
+                    case COIN:
+                        coin += ((ExtraStorageLeaderCard) i).occupiedResources();
+                        break;
+                    case SERVANT:
+                        servant += ((ExtraStorageLeaderCard) i).occupiedResources();
+                        break;
+                    case SHIELD:
+                        shield += ((ExtraStorageLeaderCard) i).occupiedResources();
+                        break;
+                    case STONE:
+                        stone += ((ExtraStorageLeaderCard) i).occupiedResources();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        for(int i = 0; i < selectedDevelopmentCard.getCost().length; i++){
+            switch (selectedDevelopmentCard.getCost()[i]){
+                case COIN: coin -= selectedDevelopmentCard.getCostNumber()[i];
+                    break;
+                case SERVANT: servant -= selectedDevelopmentCard.getCostNumber()[i];
+                    break;
+                case SHIELD: shield -= selectedDevelopmentCard.getCostNumber()[i];
+                    break;
+                case STONE: stone -= selectedDevelopmentCard.getCostNumber()[i];
+                    break;
+                default: break;
+            }
+        }
+        if(coin < 0 || servant < 0 || shield < 0 || stone < 0){
+            throw new NotAbleToBuyThisDevelopmentCardException();
+        }
+        if(!personalBoard.getSlotsDevelopmentCards().checkAbleToAddThisDevelopmentCard(selectedDevelopmentCard)){
+            throw new NotAbleToPlaceThisDevelopmentCardException();
+        }
+        obtainedDevelopmentCard = selectedDevelopmentCard;
+        for(int i = 0; i < selectedDevelopmentCard.getCost().length; i++){
+            for(int j = 0; j < selectedDevelopmentCard.getCostNumber()[i]; j++){
+                payingResources.add(selectedDevelopmentCard.getCost()[i]);
+            }
+        }
+    }
+
+    public void obtainDevelopmentCard(int pos) throws NoDevelopmentCardToObtainException, PositionInvalidException {
+        if(obtainedDevelopmentCard == null){
+            throw new NoDevelopmentCardToObtainException();
+        }
+        personalBoard.getSlotsDevelopmentCards().addDevelopmentCard(pos, obtainedDevelopmentCard);
+        obtainedDevelopmentCard = null;
     }
 
 }
