@@ -79,6 +79,14 @@ public class FaithTrackTest {
         assertSame(test[0], FavorTiles.DITCH);
         assertSame(faithTrack.getFavorTiles()[0], FavorTiles.COVERED);
         assertSame(faithTrack.getFavorTiles()[1], FavorTiles.COVERED);
-
     }
+
+    /**
+     * This method tests the the advancement on the faith track when an unluky player give the possibility to other players to advance
+     */
+    @Test
+    public void advancementOtherPlayers(){
+        //<-- FIXME finish me-->
+    }
+
 }

@@ -1,8 +1,5 @@
 package it.polimi.ingsw.Game;
-import it.polimi.ingsw.Enums.LeaderWarehouse;
-import it.polimi.ingsw.Enums.Resource;
-import it.polimi.ingsw.Enums.RowColumn;
-import it.polimi.ingsw.Enums.Type;
+import it.polimi.ingsw.Enums.*;
 import it.polimi.ingsw.Exceptions.*;
 import it.polimi.ingsw.Table.Decks.*;
 import it.polimi.ingsw.PersonalBoard.PersonalBoard;
@@ -23,7 +20,6 @@ public class Player {//<-- FIXME finish me-->
     private PersonalBoard personalBoard;
     private LeaderCard[] cardsInHand;
     private LeaderCard[] cardsOnTable;
-    private Resource[] activeDiscount;
     private boolean inkwell;
     private List<Marble> marblesFromTheMarket = new ArrayList<>();
     private ArrayList<Production> selectedProduction = new ArrayList<>();
@@ -31,13 +27,13 @@ public class Player {//<-- FIXME finish me-->
     private ArrayList<Resource> payingResources = new ArrayList<>();
     private int obtainedGeneric = 0;
     private DevelopmentCard obtainedDevelopmentCard;
+    private int selectedWarehouseDepotsSlot = 0;
 
     public Player(String nickname){
         this.nickname = nickname;
         personalBoard = new PersonalBoard();
         cardsInHand = Game.getInstance().getTable().getLeaderDeck().draw();
         cardsOnTable = new LeaderCard[2];
-        activeDiscount = new Resource[2];
         inkwell = false;
     }
 
@@ -62,7 +58,13 @@ public class Player {//<-- FIXME finish me-->
     }
 
     public Resource[] getActiveDiscount() {
-        return activeDiscount;
+        Resource[] result = new Resource[2];
+        for(int i = 0; i < 2; i++){
+            if(cardsOnTable[i] != null && cardsOnTable[i].getWhatIAm() == LeaderCardType.DISCOUNT){
+                result[i] = ((DiscountLeaderCard)cardsOnTable[i]).getDiscount();
+            }
+        }
+        return result;
     }
 
     public boolean isInkwell() {
@@ -234,6 +236,49 @@ public class Player {//<-- FIXME finish me-->
         }
     }
 
+    public void selectAWarehouseDepotsSlot(int pos) throws PositionInvalidException {
+        if(pos < 0 || pos >= 6){
+            throw new PositionInvalidException();
+        }
+        selectedWarehouseDepotsSlot = pos;
+    }
+
+    public void moveResourcesInWarehouseDepots(int pos2) throws NotAdmittedMovementException {
+        int pos1 = selectedWarehouseDepotsSlot;
+        personalBoard.getWarehouseDepots().moveResource(pos1, pos2);
+    }
+
+    public void moveResourcesFromWarehouseDepotsToExtraStorageLeaderCard(int pos) throws PositionInvalidException, NotAnExtraStorageLeaderCardException, YetEmptySlotException, OccupiedSlotExtraStorageLeaderCardException, DifferentStorageException {
+        if(pos < 1 || pos > 2){
+            throw new PositionInvalidException();
+        }
+        if(cardsOnTable[pos-1] == null || !(cardsOnTable[pos-1] instanceof ExtraStorageLeaderCard)){
+            throw new NotAnExtraStorageLeaderCardException();
+        }
+        Resource movedResource = personalBoard.getWarehouseDepots().getResource()[selectedWarehouseDepotsSlot];
+        if(movedResource == null)
+        if(movedResource != ((ExtraStorageLeaderCard)cardsOnTable[pos-1]).getStorageType()){
+            throw new DifferentStorageException();
+        }
+        personalBoard.getWarehouseDepots().removeResource(selectedWarehouseDepotsSlot);
+        ((ExtraStorageLeaderCard)cardsOnTable[pos-1]).addResource();
+    }
+
+    public void moveResourcesToWarehouseDepotsFromExtraStorageLeaderCard(int pos) throws PositionInvalidException, NotAnExtraStorageLeaderCardException, PositionAlreadyOccupiedException, ResourceAlreadyPlacedException, DifferentResourceInThisShelfException, EmptySlotExtraStorageLeaderCardException {
+        if(pos < 1 || pos > 2){
+            throw new PositionInvalidException();
+        }
+        if(cardsOnTable[pos-1] == null || !(cardsOnTable[pos-1] instanceof ExtraStorageLeaderCard)){
+            throw new NotAnExtraStorageLeaderCardException();
+        }
+        Resource movedResource = ((ExtraStorageLeaderCard)cardsOnTable[pos-1]).getStorageType();
+        if(((ExtraStorageLeaderCard)cardsOnTable[pos-1]).occupiedResources() == 0){
+            throw new EmptySlotExtraStorageLeaderCardException();
+        }
+        personalBoard.getWarehouseDepots().addResource(movedResource, selectedWarehouseDepotsSlot);
+        ((ExtraStorageLeaderCard)cardsOnTable[pos-1]).removeResource();
+    }
+
     public void addResource(LeaderWarehouse where, int pos) throws NoResourceToAddException, DifferentStorageException, OccupiedSlotExtraStorageLeaderCardException, PositionAlreadyOccupiedException, ResourceAlreadyPlacedException, DifferentResourceInThisShelfException, UnexpectedWhiteMarbleException, UnexpectedFaithMarbleException {
         if(marblesFromTheMarket.size() == 0) {
             throw new NoResourceToAddException();
@@ -249,6 +294,9 @@ public class Player {//<-- FIXME finish me-->
         }
         if(where == LeaderWarehouse.WAREHOUSEDEPOTS){
             marblesFromTheMarket.get(0).putResource(personalBoard.getWarehouseDepots(), pos);
+        }
+        if(where == LeaderWarehouse.DISCARD){
+            personalBoard.getFaithTrack().allOtherPlayersGoOn(this);
         }
         marblesFromTheMarket.remove(0);
     }
@@ -567,19 +615,55 @@ public class Player {//<-- FIXME finish me-->
                 }
             }
         }
+        Resource[] activeDiscounts = getActiveDiscount();
+        int costCoin = 0;
+        int costServant = 0;
+        int costShield = 0;
+        int costStone = 0;
         for(int i = 0; i < selectedDevelopmentCard.getCost().length; i++){
             switch (selectedDevelopmentCard.getCost()[i]){
-                case COIN: coin -= selectedDevelopmentCard.getCostNumber()[i];
+                case COIN: costCoin += selectedDevelopmentCard.getCostNumber()[i];
                     break;
-                case SERVANT: servant -= selectedDevelopmentCard.getCostNumber()[i];
+                case SERVANT: costServant += selectedDevelopmentCard.getCostNumber()[i];
                     break;
-                case SHIELD: shield -= selectedDevelopmentCard.getCostNumber()[i];
+                case SHIELD: costShield += selectedDevelopmentCard.getCostNumber()[i];
                     break;
-                case STONE: stone -= selectedDevelopmentCard.getCostNumber()[i];
+                case STONE: costStone += selectedDevelopmentCard.getCostNumber()[i];
                     break;
                 default: break;
             }
         }
+        for(Resource i : activeDiscounts){
+            if(i != null){
+                switch (i){
+                    case COIN: costCoin--;
+                        break;
+                    case SERVANT: costServant--;
+                        break;
+                    case SHIELD: costShield--;
+                        break;
+                    case STONE: costStone--;
+                        break;
+                    default: break;
+                }
+            }
+        }
+        if(costCoin < 0){
+            costCoin = 0;
+        }
+        if(costServant < 0){
+            costServant = 0;
+        }
+        if(costShield < 0){
+            costShield = 0;
+        }
+        if(costStone < 0){
+            costStone = 0;
+        }
+        coin -= costCoin;
+        servant -= costServant;
+        shield -= costShield;
+        stone -= costStone;
         if(coin < 0 || servant < 0 || shield < 0 || stone < 0){
             throw new NotAbleToBuyThisDevelopmentCardException();
         }
@@ -587,10 +671,17 @@ public class Player {//<-- FIXME finish me-->
             throw new NotAbleToPlaceThisDevelopmentCardException();
         }
         obtainedDevelopmentCard = selectedDevelopmentCard;
-        for(int i = 0; i < selectedDevelopmentCard.getCost().length; i++){
-            for(int j = 0; j < selectedDevelopmentCard.getCostNumber()[i]; j++){
-                payingResources.add(selectedDevelopmentCard.getCost()[i]);
-            }
+        for(int i = 0; i < costCoin; i++){
+            payingResources.add(Resource.COIN);
+        }
+        for(int i = 0; i < costServant; i++){
+            payingResources.add(Resource.SERVANT);
+        }
+        for(int i = 0; i < costShield; i++){
+            payingResources.add(Resource.SHIELD);
+        }
+        for(int i = 0; i < costStone; i++){
+            payingResources.add(Resource.STONE);
         }
     }
 
@@ -600,6 +691,10 @@ public class Player {//<-- FIXME finish me-->
         }
         personalBoard.getSlotsDevelopmentCards().addDevelopmentCard(pos, obtainedDevelopmentCard);
         obtainedDevelopmentCard = null;
+    }
+
+    public void drawSoloActionToken(){
+        //<-- FIXME finish me-->
     }
 
 }

@@ -137,6 +137,19 @@ public class FaithTrack {
             return 0;
         }
     }
+
+    /**
+     * This method move all the other players on the faith track advancing of 1 slot
+     * @param unlukyPlayer: it's the player who has discarded a resource from the market giving other players the possibility to advance on the faith track
+     */
+    public void allOtherPlayersGoOn(Player unlukyPlayer){
+        for(Player i : playerList){
+            if(i != unlukyPlayer){
+                i.getPersonalBoard().getFaithTrack().goOn(1);
+            }
+        }
+    }
+
     /**
      * This method creates a copy of this class
      * @return a copy, of type FaithTrack
