@@ -1,8 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: it.polimi.ingsw.PersonalBoard.Faith.FaithTrackTest
 -------------------------------------------------------------------------------
-<<<<<<< HEAD
-Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.063 s - in it.polimi.ingsw.PersonalBoard.Faith.FaithTrackTest
-=======
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 s - in it.polimi.ingsw.PersonalBoard.Faith.FaithTrackTest
->>>>>>> 8148ff7c287c06667a4488c224b585dcae75001b
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.047 s - in it.polimi.ingsw.PersonalBoard.Faith.FaithTrackTest
