@@ -127,7 +127,12 @@ public class Turn {
                     throw new ActionNotAllowedException();
                 }
             case ACTIVATE_PRODUCTION:
-                inWhichStatePlayer = InWhichStatePlayer.ACTIVATE_PRODUCTION;
+                if(currentPlayer.canYouActivateAPowerProduction()){
+                    inWhichStatePlayer = InWhichStatePlayer.ACTIVATE_PRODUCTION;
+                }
+                else{
+                    throw new ActionNotAllowedException();
+                }
             default: break;
         }
     }

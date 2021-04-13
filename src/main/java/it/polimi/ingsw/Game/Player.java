@@ -473,14 +473,92 @@ public class Player {
         }
     }
 
-    public void selectProductionDevelopmentCard(int pos){
-        if(pos < 1 || pos > 3){
-            throw new IndexOutOfBoundsException();
+    public boolean canYouActivateAPowerProduction(){
+        int coin = personalBoard.getStrongBox().getCoin();
+        int servant = personalBoard.getStrongBox().getServant();
+        int shield = personalBoard.getStrongBox().getShield();
+        int stone = personalBoard.getStrongBox().getStone();
+        Resource[] warehouseDepots = personalBoard.getWarehouseDepots().getResource();
+        for (Resource i : warehouseDepots) {
+            switch (i) {
+                case COIN:
+                    coin++;
+                    break;
+                case SERVANT:
+                    servant++;
+                    break;
+                case SHIELD:
+                    shield++;
+                    break;
+                case STONE:
+                    stone++;
+                    break;
+                default:
+                    break;
+            }
         }
-        DevelopmentCard selected = personalBoard.getSlotsDevelopmentCards().getActiveCards()[pos - 1];
-        if(selected == null){
-            throw new NullPointerException();
+        for (LeaderCard i : cardsOnTable) {
+            if (i != null && i instanceof ExtraStorageLeaderCard) {
+                switch (i.getStorageType()) {
+                    case COIN:
+                        coin += ((ExtraStorageLeaderCard) i).occupiedResources();
+                        break;
+                    case SERVANT:
+                        servant += ((ExtraStorageLeaderCard) i).occupiedResources();
+                        break;
+                    case SHIELD:
+                        shield += ((ExtraStorageLeaderCard) i).occupiedResources();
+                        break;
+                    case STONE:
+                        stone += ((ExtraStorageLeaderCard) i).occupiedResources();
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
+        int sum = coin + servant + shield + stone;
+        if(sum >= 2){
+            return true;
+        }
+        ArrayList<ResourceProduction> toCheckCombination = new ArrayList<>();
+        for(DevelopmentCard i : personalBoard.getSlotsDevelopmentCards().getActiveCards()){
+            if(i != null){
+                toCheckCombination.add(i.resourceProduction());
+            }
+        }
+        for(LeaderCard i : cardsOnTable){
+            if(i != null && i instanceof ProductionPowerLeaderCard){
+                toCheckCombination.add(((ProductionPowerLeaderCard)i).resourceProduction());
+            }
+        }
+        for(ResourceProduction i : toCheckCombination){
+            int tryCoin = coin;
+            int tryServant = servant;
+            int tryShield = shield;
+            int tryStone = stone;
+            tryCoin -= i.getRequiredCoin();
+            tryServant -= i.getRequiredServant();
+            tryShield -= i.getRequiredShield();
+            tryStone -= i.getRequiredStone();
+            if(tryCoin >= 0 && tryServant >= 0 && tryShield >= 0 && tryStone >= 0){
+                int trySum = tryCoin + tryServant + tryShield + tryStone;
+                if(trySum >= i.getProductionGeneric()){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+        public void selectProductionDevelopmentCard(int pos){
+            if(pos < 1 || pos > 3){
+                throw new IndexOutOfBoundsException();
+            }
+            DevelopmentCard selected = personalBoard.getSlotsDevelopmentCards().getActiveCards()[pos - 1];
+            if(selected == null){
+                throw new NullPointerException();
+            }
         if(selectedProduction.contains(selected)){
             selectedProduction.remove(selected);
         } else {
@@ -514,7 +592,6 @@ public class Player {
         if(selectedProduction.size() == 0){
             throw new YouHaveNotSelectedAnyProductionException();
         }
-
         ResourceProduction production = new ResourceProduction(0, 0, 0, 0,
                 0, 0, 0, 0,
                 0, 0, 0);
