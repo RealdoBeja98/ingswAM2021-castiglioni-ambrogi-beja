@@ -777,6 +777,13 @@ public class Player {
         }
     }
 
+    public boolean genericResourcesToObtain(){
+        if(obtainedGeneric > 0){
+            return true;
+        }
+        return false;
+    }
+
     public void obtainGenericResource(Resource resource) throws NoGenericResourceToObtainException, NotAResourceForStrongBoxException {
         if(obtainedGeneric <= 0){
             throw new NoGenericResourceToObtainException();
@@ -1013,6 +1020,13 @@ public class Player {
         for(int i = 0; i < costStone; i++){
             payingResources.add(Resource.STONE);
         }
+    }
+
+    public boolean developmentCardToObtain(){
+        if(obtainedDevelopmentCard == null){
+            return false;
+        }
+        return true;
     }
 
     public void obtainDevelopmentCard(int pos) throws NoDevelopmentCardToObtainException, PositionInvalidException {

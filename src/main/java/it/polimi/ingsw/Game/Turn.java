@@ -1,9 +1,6 @@
 package it.polimi.ingsw.Game;
 
-import it.polimi.ingsw.Enums.InWhichStatePlayer;
-import it.polimi.ingsw.Enums.LeaderWarehouse;
-import it.polimi.ingsw.Enums.NormalAction;
-import it.polimi.ingsw.Enums.RowColumn;
+import it.polimi.ingsw.Enums.*;
 import it.polimi.ingsw.Exceptions.*;
 
 public class Turn {
@@ -60,20 +57,6 @@ public class Turn {
             inWhichStatePlayer = InWhichStatePlayer.PLAY_LEADER_CARD2;
         }
     }
-
-    /*
-    public void tapReturn() throws ActionNotAllowedException {
-        if(inWhichStatePlayer != InWhichStatePlayer.PLAY_LEADER_CARD1 &&
-                inWhichStatePlayer != InWhichStatePlayer.PLAY_LEADER_CARD2 &&
-                inWhichStatePlayer != InWhichStatePlayer.PLAY_LEADER_CARD1 &&
-                inWhichStatePlayer != InWhichStatePlayer.PLAY_LEADER_CARD2 &&
-                inWhichStatePlayer != InWhichStatePlayer.TAKE_RESOURCES_FROM_THE_MARKET &&
-                inWhichStatePlayer != InWhichStatePlayer.BUY_DEVELOPMENT_CARD &&
-                inWhichStatePlayer != InWhichStatePlayer.ACTIVATE_PRODUCTION){
-            throw new ActionNotAllowedException();
-        }
-    }
-     */
 
     public void discardLeaderCard(int pos) throws YetDiscardedThisLeaderCardException, ActionNotAllowedException {
         if(inWhichStatePlayer != InWhichStatePlayer.DISCARD_LEADER_CARD1 &&
@@ -161,7 +144,134 @@ public class Turn {
         currentPlayer.changeWhiteMarbleWith(pos);
     }
 
+    public void obtainDevelopmentCard(int pos) throws NoDevelopmentCardToObtainException, PositionInvalidException{
+        currentPlayer.obtainDevelopmentCard(pos);
+        if(currentPlayer.somethingToPay() == false){
+            endPayment();
+        }
+    }
 
+    public void endPayment(){
+        if(currentPlayer.developmentCardToObtain()){
+            return;
+        }
+        if(currentPlayer.genericResourcesToObtain()){
+            return;
+        }
+        if(inWhichStatePlayer == InWhichStatePlayer.PLAY_LEADER_CARD1){
+            inWhichStatePlayer = InWhichStatePlayer.SELECT_NORMAL_ACTION;
+        }
+        if(inWhichStatePlayer == InWhichStatePlayer.BUY_DEVELOPMENT_CARD){
+            inWhichStatePlayer = InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT2;
+        }
+        if(inWhichStatePlayer == InWhichStatePlayer.ACTIVATE_PRODUCTION){
+            inWhichStatePlayer = InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT2;
+        }
+        if(inWhichStatePlayer == InWhichStatePlayer.PLAY_LEADER_CARD2){
+            if(Game.getInstance().getPlayers().size() == 1){
+                inWhichStatePlayer = InWhichStatePlayer.DRAW_SOLO_ACTION_TOKEN;
+            } else {
+                endTurn();
+            }
+        }
+    }
+
+    public void payWithStrongBox(Resource pay) throws WrongPaymentException, NotEnoughResourcesException, NegativeResourceException, NotAResourceForStrongBoxException, NoResourceToPayException, ActionNotAllowedException {
+        if(inWhichStatePlayer != InWhichStatePlayer.PLAY_LEADER_CARD1 &&
+            inWhichStatePlayer != InWhichStatePlayer.PLAY_LEADER_CARD2 &&
+            inWhichStatePlayer != InWhichStatePlayer.BUY_DEVELOPMENT_CARD &&
+            inWhichStatePlayer != InWhichStatePlayer.ACTIVATE_PRODUCTION){
+            throw new ActionNotAllowedException();
+        }
+        currentPlayer.payWithStrongBox(pay);
+        if(currentPlayer.somethingToPay() == false){
+            endPayment();
+        }
+    }
+
+    public void payWithWarehouseDepots(int pos) throws WrongPaymentException, YetEmptySlotException, NoResourceToPayException, ActionNotAllowedException {
+        if(inWhichStatePlayer != InWhichStatePlayer.PLAY_LEADER_CARD1 &&
+                inWhichStatePlayer != InWhichStatePlayer.PLAY_LEADER_CARD2 &&
+                inWhichStatePlayer != InWhichStatePlayer.BUY_DEVELOPMENT_CARD){
+            throw new ActionNotAllowedException();
+        }
+        currentPlayer.payWithWarehouseDepots(pos);
+        if(currentPlayer.somethingToPay() == false){
+            endPayment();
+        }
+    }
+
+    public void payWithExtraStorageLeaderCard(int pos) throws NotAnExtraStorageLeaderCardException, WrongPaymentException, EmptySlotExtraStorageLeaderCardException, NoResourceToPayException, ActionNotAllowedException {
+        if(inWhichStatePlayer != InWhichStatePlayer.PLAY_LEADER_CARD1 &&
+                inWhichStatePlayer != InWhichStatePlayer.PLAY_LEADER_CARD2 &&
+                inWhichStatePlayer != InWhichStatePlayer.BUY_DEVELOPMENT_CARD){
+            throw new ActionNotAllowedException();
+        }
+        currentPlayer.payWithExtraStorageLeaderCard(pos);
+        if(currentPlayer.somethingToPay() == false){
+            endPayment();
+        }
+    }
+
+    public void selectProductionDevelopmentCard(int pos) throws ActionNotAllowedException {
+        if(inWhichStatePlayer != InWhichStatePlayer.ACTIVATE_PRODUCTION){
+            throw new ActionNotAllowedException();
+        }
+        currentPlayer.selectProductionDevelopmentCard(pos);
+    }
+
+    public void selectProductionPowerLeaderCard(int pos) throws NoProductionLeaderCardException, ActionNotAllowedException {
+        if(inWhichStatePlayer != InWhichStatePlayer.ACTIVATE_PRODUCTION){
+            throw new ActionNotAllowedException();
+        }
+        currentPlayer.selectProductionPowerLeaderCard(pos);
+    }
+
+    public void selectDefaultProductionPower() throws ActionNotAllowedException {
+        if(inWhichStatePlayer != InWhichStatePlayer.ACTIVATE_PRODUCTION){
+            throw new ActionNotAllowedException();
+        }
+        currentPlayer.selectDefaultProductionPower();
+    }
+
+    public void obtainGenericResource(Resource resource) throws NoGenericResourceToObtainException, NotAResourceForStrongBoxException{
+        currentPlayer.obtainGenericResource(resource);
+        if(currentPlayer.somethingToPay() == false){
+            endPayment();
+        }
+    }
+
+    public void startPayment() throws NotEnoughResourcesException, YouHaveNotSelectedAnyProductionException, ActionNotAllowedException {
+        if(inWhichStatePlayer != InWhichStatePlayer.ACTIVATE_PRODUCTION){
+            throw new ActionNotAllowedException();
+        }
+        if(currentPlayer.somethingToPay() == false){
+            endPayment();
+        }
+    }
+
+    public void drawSoloActionToken() throws ActionNotAllowedException {
+        if(inWhichStatePlayer != InWhichStatePlayer.DRAW_SOLO_ACTION_TOKEN){
+            throw new ActionNotAllowedException();
+        }
+        currentPlayer.drawSoloActionToken();
+    }
+
+    public void selectAWarehouseDepotsSlot(int pos) throws PositionInvalidException{
+        currentPlayer.selectAWarehouseDepotsSlot(pos);
+    }
+
+    public void moveResourcesInWarehouseDepots(int pos2) throws NotAdmittedMovementException{
+        currentPlayer.moveResourcesInWarehouseDepots(pos2);
+    }
+
+    public void moveResourcesFromWarehouseDepotsToExtraStorageLeaderCard(int pos) throws PositionInvalidException, NotAnExtraStorageLeaderCardException, YetEmptySlotException, OccupiedSlotExtraStorageLeaderCardException, DifferentStorageException{
+        currentPlayer.moveResourcesFromWarehouseDepotsToExtraStorageLeaderCard(pos);
+    }
+
+    public void moveResourcesToWarehouseDepotsFromExtraStorageLeaderCard(int pos) throws PositionInvalidException, NotAnExtraStorageLeaderCardException, PositionAlreadyOccupiedException, ResourceAlreadyPlacedException, DifferentResourceInThisShelfException, EmptySlotExtraStorageLeaderCardException{
+        currentPlayer.moveResourcesToWarehouseDepotsFromExtraStorageLeaderCard(pos);
+    }
 
     private void endTurn(){
         actionLeaderDone = false;
