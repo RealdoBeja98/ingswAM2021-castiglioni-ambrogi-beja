@@ -109,12 +109,16 @@ public class Player {
      * This method let player to discard a leader card in his hand advancing on him faith track
      * @param pos: number 1 or 2 to determinate the position of the leader card in hand to discard
      * @throws IndexOutOfBoundsException if the position isn't 1 or 2
+     * @throws YetDiscardedThisLeaderCardException if you try to discard a card again
      */
-    public void discardLeaderCard(int pos){
+    public void discardLeaderCard(int pos) throws YetDiscardedThisLeaderCardException {
         if(pos < 1 || pos > 2){
             throw new IndexOutOfBoundsException();
         }
         else{
+            if(cardsInHand[pos-1] == null){
+                throw new YetDiscardedThisLeaderCardException();
+            }
             cardsInHand[pos-1] = null;
             personalBoard.getFaithTrack().goOn(1);
         }
@@ -196,6 +200,39 @@ public class Player {
                 }
             default: return false;
         }
+    }
+
+    public boolean canYouPlayAtLeastALeaderCard(){
+        boolean result = false;
+        for(LeaderCard i : cardsInHand){
+            if(i != null){
+                switch (i.getWhatIAm()){
+                    case DISCOUNT:
+                        if(personalBoard.getSlotsDevelopmentCards().checkHaveTypes(((DiscountLeaderCard)i).getCostOfLeaderCard())){
+                            result = true;
+                        }
+                    case STORAGE:
+                        if(checkToHaveAtLeastFiveOfThisResource(((ExtraStorageLeaderCard)i).getCostOfLeaderCard())){
+                            result = true;
+                        }
+                    case PRODUCTIONPOWER:
+                        if(personalBoard.getSlotsDevelopmentCards().checkHaveTypeAtLevelTwo(((ProductionPowerLeaderCard)i).getCostOfLeaderCard())){
+                            result = true;
+                        }
+                    case WHITE:
+                        Type[] price = new Type[3];
+                        price[0] = ((WhiteMarbleLeaderCard)i).getCostOfLeaderCard()[0];
+                        price[1] = price[0];
+                        price[2] = ((WhiteMarbleLeaderCard)i).getCostOfLeaderCard()[1];
+                        if(personalBoard.getSlotsDevelopmentCards().checkHaveTypes(price)){
+                            result = true;
+                        }
+                    default:
+                        throw new RuntimeException();
+                }
+            }
+        }
+        return result;
     }
 
     /**
@@ -372,7 +409,14 @@ public class Player {
         personalBoard.getWarehouseDepots().addResource(movedResource, selectedWarehouseDepotsSlot);
         ((ExtraStorageLeaderCard)cardsOnTable[pos-1]).removeResource();
     }
- //carloooo....
+
+    public boolean resourceToAdd(){
+        if(marblesFromTheMarket.size() == 0){
+            return false;
+        }
+        return true;
+    }
+
     public void addResource(LeaderWarehouse where, int pos) throws NoResourceToAddException, DifferentStorageException, OccupiedSlotExtraStorageLeaderCardException, PositionAlreadyOccupiedException, ResourceAlreadyPlacedException, DifferentResourceInThisShelfException, UnexpectedWhiteMarbleException, UnexpectedFaithMarbleException {
         if(marblesFromTheMarket.size() == 0) {
             throw new NoResourceToAddException();
@@ -567,6 +611,13 @@ public class Player {
         obtainedGeneric = production.getProductionGeneric();
     }
 
+    public boolean somethingToPay(){
+        if(payingResources.size() == 0){
+            return false;
+        }
+        return true;
+    }
+
     public void payWithStrongBox(Resource pay) throws WrongPaymentException, NotEnoughResourcesException, NegativeResourceException, NotAResourceForStrongBoxException, NoResourceToPayException {
         if(payingResources.isEmpty()){
             throw new NoResourceToPayException();
@@ -656,6 +707,110 @@ public class Player {
             selectedDefaultProductionPower = false;
             payingResources = new ArrayList<>();
         }
+    }
+
+    public boolean canYouBuyALeaderCard(){
+        boolean result = false;
+        for(DevelopmentCard[] k : Game.getInstance().getTable().getDevelopmentDeck().view()){
+            for(DevelopmentCard j : k){
+                int coin = personalBoard.getStrongBox().getCoin();
+                int servant = personalBoard.getStrongBox().getServant();
+                int shield = personalBoard.getStrongBox().getShield();
+                int stone = personalBoard.getStrongBox().getStone();
+                Resource[] warehouseDepots = personalBoard.getWarehouseDepots().getResource();
+                for (Resource i : warehouseDepots) {
+                    switch (i) {
+                        case COIN:
+                            coin++;
+                            break;
+                        case SERVANT:
+                            servant++;
+                            break;
+                        case SHIELD:
+                            shield++;
+                            break;
+                        case STONE:
+                            stone++;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                for (LeaderCard i : cardsOnTable) {
+                    if (i != null && i instanceof ExtraStorageLeaderCard) {
+                        switch (i.getStorageType()) {
+                            case COIN:
+                                coin += ((ExtraStorageLeaderCard) i).occupiedResources();
+                                break;
+                            case SERVANT:
+                                servant += ((ExtraStorageLeaderCard) i).occupiedResources();
+                                break;
+                            case SHIELD:
+                                shield += ((ExtraStorageLeaderCard) i).occupiedResources();
+                                break;
+                            case STONE:
+                                stone += ((ExtraStorageLeaderCard) i).occupiedResources();
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+                Resource[] activeDiscounts = getActiveDiscount();
+                int costCoin = 0;
+                int costServant = 0;
+                int costShield = 0;
+                int costStone = 0;
+                for(int i = 0; i < j.getCost().length; i++){
+                    switch (j.getCost()[i]){
+                        case COIN: costCoin += j.getCostNumber()[i];
+                            break;
+                        case SERVANT: costServant += j.getCostNumber()[i];
+                            break;
+                        case SHIELD: costShield += j.getCostNumber()[i];
+                            break;
+                        case STONE: costStone += j.getCostNumber()[i];
+                            break;
+                        default: break;
+                    }
+                }
+                for(Resource i : activeDiscounts){
+                    if(i != null){
+                        switch (i){
+                            case COIN: costCoin--;
+                                break;
+                            case SERVANT: costServant--;
+                                break;
+                            case SHIELD: costShield--;
+                                break;
+                            case STONE: costStone--;
+                                break;
+                            default: break;
+                        }
+                    }
+                }
+                if(costCoin < 0){
+                    costCoin = 0;
+                }
+                if(costServant < 0){
+                    costServant = 0;
+                }
+                if(costShield < 0){
+                    costShield = 0;
+                }
+                if(costStone < 0){
+                    costStone = 0;
+                }
+                coin -= costCoin;
+                servant -= costServant;
+                shield -= costShield;
+                stone -= costStone;
+                if(!(coin < 0 || servant < 0 || shield < 0 || stone < 0)){
+                    result = true;
+                }
+            }
+        }
+        return result;
     }
 
     public void buyADevelopmentCard(int x, int y) throws PositionInvalidException, NoDevelopmentCardInThisPositionException, NotAbleToBuyThisDevelopmentCardException, NotAbleToPlaceThisDevelopmentCardException {
