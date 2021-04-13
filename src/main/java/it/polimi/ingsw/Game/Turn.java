@@ -36,6 +36,7 @@ public class Turn {
         if(inWhichStatePlayer == InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT2) {
             inWhichStatePlayer = InWhichStatePlayer.DISCARD_LEADER_CARD2;
         }
+
     }
 
     public void choosePlayLeaderCard() throws ActionNotAllowedException, NoLeaderCardToDiscardException {
@@ -59,6 +60,16 @@ public class Turn {
         }
     }
 
-
+    public void tapReturn() throws ActionNotAllowedException {
+        if(inWhichStatePlayer != InWhichStatePlayer.PLAY_LEADER_CARD1 &&
+                inWhichStatePlayer != InWhichStatePlayer.PLAY_LEADER_CARD2 &&
+                inWhichStatePlayer != InWhichStatePlayer.PLAY_LEADER_CARD1 &&
+                inWhichStatePlayer != InWhichStatePlayer.PLAY_LEADER_CARD2 &&
+                inWhichStatePlayer != InWhichStatePlayer.TAKE_RESOURCES_FROM_THE_MARKET &&
+                inWhichStatePlayer != InWhichStatePlayer.BUY_DEVELOPMENT_CARD &&
+                inWhichStatePlayer != InWhichStatePlayer.ACTIVATE_PRODUCTION){
+            throw new ActionNotAllowedException();
+        }
+    }
 
 }

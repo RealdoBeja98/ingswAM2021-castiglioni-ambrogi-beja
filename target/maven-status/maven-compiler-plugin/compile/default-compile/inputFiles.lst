@@ -13,6 +13,7 @@
 /Users/realdobeja/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/NotAbleToPlaceThisDevelopmentCardException.java
 /Users/realdobeja/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Table/Decks/DevelopmentDeck.java
 /Users/realdobeja/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Table/Decks/ResourceProduction.java
+/Users/realdobeja/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/NoLeaderCardToDiscardException.java
 /Users/realdobeja/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Table/Decks/Token/BlackCross2Token.java
 /Users/realdobeja/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/NoWhiteMarbleLeaderCardException.java
 /Users/realdobeja/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/NotSatisfiedRequirementsForThisLeaderCardException.java
@@ -54,7 +55,9 @@
 /Users/realdobeja/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Enums/Resource.java
 /Users/realdobeja/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/NotEnoughResourcesException.java
 /Users/realdobeja/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/PersonalBoard/Warehouse/WarehouseDepots.java
+/Users/realdobeja/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/ActionNotAllowedException.java
 /Users/realdobeja/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/DifferentStorageException.java
+/Users/realdobeja/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Enums/InWhichStatePlayer.java
 /Users/realdobeja/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/NotAbleToBuyThisDevelopmentCardException.java
 /Users/realdobeja/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Table/Market/Marbles/Servant.java
 /Users/realdobeja/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/PersonalBoard/StrongBox/StrongBox.java
@@ -64,6 +67,7 @@
 /Users/realdobeja/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/YetEmptySlotException.java
 /Users/realdobeja/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Enums/FavorTiles.java
 /Users/realdobeja/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/NotAnExtraStorageLeaderCardException.java
+/Users/realdobeja/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Game/Turn.java
 /Users/realdobeja/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Table/Decks/Leader/DiscountLeaderCard.java
 /Users/realdobeja/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Table/Decks/Token/BlackCross1Token.java
 /Users/realdobeja/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Table/Decks/Token/GreenActionToken.java

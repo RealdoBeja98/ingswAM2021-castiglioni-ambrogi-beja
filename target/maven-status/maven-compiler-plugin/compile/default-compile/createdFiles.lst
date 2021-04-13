@@ -2,6 +2,7 @@ it/polimi/ingsw/Exceptions/NotAbleToBuyThisDevelopmentCardException.class
 it/polimi/ingsw/Table/Decks/Token/GreenActionToken.class
 it/polimi/ingsw/Table/Decks/Production.class
 it/polimi/ingsw/Exceptions/NameAlreadyRegisteredException.class
+it/polimi/ingsw/Game/Player$1.class
 it/polimi/ingsw/Table/Decks/Leader/WhiteMarbleLeaderCard.class
 it/polimi/ingsw/Table/Decks/Token/BlueActionToken.class
 it/polimi/ingsw/Table/Decks/Token/actionToken.class
@@ -20,6 +21,7 @@ it/polimi/ingsw/Exceptions/NoResourceToPayException.class
 it/polimi/ingsw/Exceptions/PlayerDoesNotExistsException.class
 it/polimi/ingsw/PersonalBoard/SlotsDevelopmentCards/SlotsDevelopmentCards$1.class
 it/polimi/ingsw/Table/Decks/Leader/ExtraStorageLeaderCard.class
+it/polimi/ingsw/PersonalBoard/StrongBox/StrongBox$1.class
 it/polimi/ingsw/Exceptions/NotSatisfiedRequirementsForThisLeaderCardException.class
 it/polimi/ingsw/Table/Decks/ResourceProduction.class
 it/polimi/ingsw/Exceptions/NoDevelopmentCardToObtainException.class
