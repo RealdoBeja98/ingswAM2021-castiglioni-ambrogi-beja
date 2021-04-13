@@ -173,5 +173,5 @@ public class Turn {
         }
         currentPlayer = Game.getInstance().getPlayers().get(0);
     }
-
+    
 }

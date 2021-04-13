@@ -510,7 +510,10 @@ public class Player {
         selectedDefaultProductionPower = !selectedDefaultProductionPower;
     }
 
-    public void startPayment() throws NotEnoughResourcesException {
+    public void startPayment() throws NotEnoughResourcesException, YouHaveNotSelectedAnyProductionException {
+        if(selectedProduction.size() == 0){
+            throw new YouHaveNotSelectedAnyProductionException();
+        }
         ResourceProduction production = new ResourceProduction(0, 0, 0, 0,
                 0, 0, 0, 0,
                 0, 0, 0);
