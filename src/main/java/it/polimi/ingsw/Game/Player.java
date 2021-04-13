@@ -514,6 +514,7 @@ public class Player {
         if(selectedProduction.size() == 0){
             throw new YouHaveNotSelectedAnyProductionException();
         }
+
         ResourceProduction production = new ResourceProduction(0, 0, 0, 0,
                 0, 0, 0, 0,
                 0, 0, 0);
