@@ -1102,6 +1102,14 @@ public class Player {
         return true;
     }
 
+    /**
+     * This method lets you to take a Development card
+     * First choose the development card and than pay for it.
+     *
+     * @param pos: to choose the position of the DevelopmentCard on slotdevelopmentcard
+     * @throws NoDevelopmentCardToObtainException if the place you chose has no development card,
+     * @throws PositionInvalidException if the position you chose does not exists
+     */
     public void obtainDevelopmentCard(int pos) throws NoDevelopmentCardToObtainException, PositionInvalidException {
         if(obtainedDevelopmentCard == null){
             throw new NoDevelopmentCardToObtainException();
