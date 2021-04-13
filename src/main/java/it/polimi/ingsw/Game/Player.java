@@ -202,6 +202,10 @@ public class Player {
         }
     }
 
+    /**
+     * This method tell if the player is able to pay at least a leader card in his hand
+     * @return if the player the player is able to pay at least a leader card in his hand
+     */
     public boolean canYouPlayAtLeastALeaderCard(){
         boolean result = false;
         for(LeaderCard i : cardsInHand){
@@ -410,6 +414,10 @@ public class Player {
         ((ExtraStorageLeaderCard)cardsOnTable[pos-1]).removeResource();
     }
 
+    /**
+     * This method tell if there are some marblesFromTheMarket to add or not
+     * @return if there are some marblesFromTheMarket to add or not
+     */
     public boolean resourceToAdd(){
         if(marblesFromTheMarket.size() == 0){
             return false;
@@ -417,6 +425,19 @@ public class Player {
         return true;
     }
 
+    /**
+     * This method let player to add a resource, witch he took from the market, to the WarehouseDepots or into
+     * an ExtraStorageLeaderCard or even to discard it letting other players to advance in them faith track
+     * @param pos: to choose the position of the WarehouseDepots or of the LeaderCard in hand; it's unuseful in case of discarding the resource
+     * @throws NoResourceToAddException if the list marblesFromTheMarket, in witch there are all the resources to add, is empty
+     * @throws DifferentStorageException if you select an ExtraStorageLeaderCard of another type of the resource to add
+     * @throws OccupiedSlotExtraStorageLeaderCardException if you select an ExtraStorageLeaderCard yet occupied
+     * @throws PositionAlreadyOccupiedException if you select a position yet occupied of the WarehouseDepots
+     * @throws ResourceAlreadyPlacedException if you place in WarehouseDepots a type of resource you yet placed in another shielf
+     * @throws DifferentResourceInThisShelfException if you place in WarehouseDepots the resource in a shelf where there is yet another resource of another type
+     * @throws UnexpectedWhiteMarbleException if it's unexpectly found you are going to place a white marble
+     * @throws UnexpectedFaithMarbleException if it's unexpectly found you are going to place a faith marble
+     */
     public void addResource(LeaderWarehouse where, int pos) throws NoResourceToAddException, DifferentStorageException, OccupiedSlotExtraStorageLeaderCardException, PositionAlreadyOccupiedException, ResourceAlreadyPlacedException, DifferentResourceInThisShelfException, UnexpectedWhiteMarbleException, UnexpectedFaithMarbleException {
         if(marblesFromTheMarket.size() == 0) {
             throw new NoResourceToAddException();
@@ -439,6 +460,10 @@ public class Player {
         marblesFromTheMarket.remove(0);
     }
 
+    /**
+     * This method return the number of white WhiteMarbleLeaderCard on the table
+     * @return the number of white WhiteMarbleLeaderCard on the table
+     */
     private int numberOfWhiteMarbleLeaderCard(){
         int result = 0;
         for(LeaderCard i : cardsOnTable){
@@ -449,6 +474,12 @@ public class Player {
         return result;
     }
 
+    /**
+     * This method return a WhiteMarbleLeaderCard you have on the table
+     * this method should be called only when you have exactly 1 WhiteMarbleLeaderCard
+     * @return the WhiteMarbleLeaderCard you have on the table
+     * @throws NoWhiteMarbleLeaderCardException if you haven't on the table any WhiteMarbleLeaderCard
+     */
     private WhiteMarbleLeaderCard getWhiteMarbleLeaderCard() throws NoWhiteMarbleLeaderCardException {
         for(LeaderCard i : cardsOnTable){
             if(i != null && i instanceof WhiteMarbleLeaderCard){
@@ -458,12 +489,22 @@ public class Player {
         throw new NoWhiteMarbleLeaderCardException();
     }
 
-    public void changeWhiteMarbleWith(int pos) throws ClassCastException, NoWhiteMarbleException {
+    /**
+     * This method is to be called when the player is going to add a white marble: this marble is changed with another marble using a WhiteMarbleLeaderCard
+     * @param pos: to choose the position of the WhiteMarbleLeaderCard on the table
+     * @throws NullPointerException if the selected position is empty (without any LeaderCard)
+     * @throws ClassCastException if the selected position contains a LeaderCard witch is not a WhiteMarbleLeaderCard
+     * @throws NoWhiteMarbleException if you are going to change a Marble witch is not White
+     */
+    public void changeWhiteMarbleWith(int pos) throws NullPointerException, ClassCastException, NoWhiteMarbleException {
         if(pos <= 0 || pos > 2){
             throw new IndexOutOfBoundsException();
         }
         else{
-            WhiteMarbleLeaderCard selected = (WhiteMarbleLeaderCard)cardsInHand[pos];
+            WhiteMarbleLeaderCard selected = (WhiteMarbleLeaderCard)cardsOnTable[pos];
+            if(selected == null){
+                throw new NullPointerException();
+            }
             if(marblesFromTheMarket.get(0) instanceof White){
                 marblesFromTheMarket.set(0, selected.getWhiteMarble());
             }
@@ -473,6 +514,10 @@ public class Player {
         }
     }
 
+    /**
+     * This method tell if you are able to activate at least 1 power production (default, development or leader)
+     * @return if you are able to activate a power production
+     */
     public boolean canYouActivateAPowerProduction(){
         int coin = personalBoard.getStrongBox().getCoin();
         int servant = personalBoard.getStrongBox().getServant();
@@ -551,14 +596,18 @@ public class Player {
         return false;
     }
 
-        public void selectProductionDevelopmentCard(int pos){
-            if(pos < 1 || pos > 3){
-                throw new IndexOutOfBoundsException();
-            }
-            DevelopmentCard selected = personalBoard.getSlotsDevelopmentCards().getActiveCards()[pos - 1];
-            if(selected == null){
-                throw new NullPointerException();
-            }
+    /**
+     * This method let you select or deselect a production power from a DevelopmentCard
+     * @param pos: to choose the position of the DevelopmentCard
+     */
+    public void selectProductionDevelopmentCard(int pos){
+        if(pos < 1 || pos > 3){
+            throw new IndexOutOfBoundsException();
+        }
+        DevelopmentCard selected = personalBoard.getSlotsDevelopmentCards().getActiveCards()[pos - 1];
+        if(selected == null){
+            throw new NullPointerException();
+        }
         if(selectedProduction.contains(selected)){
             selectedProduction.remove(selected);
         } else {
@@ -566,6 +615,10 @@ public class Player {
         }
     }
 
+    /**
+     * This method let you select or deselect a production power from a ProductionPowerLeaderCard
+     * @param pos: to choose the position of the ProductionPowerLeaderCard
+     */
     public void selectProductionPowerLeaderCard(int pos) throws NoProductionLeaderCardException {
         if(pos <= 1 || pos > 2){
             throw new IndexOutOfBoundsException();
@@ -584,10 +637,18 @@ public class Player {
         }
     }
 
+    /**
+     * This method let you select or deselect the default production power
+     */
     public void selectDefaultProductionPower(){
         selectedDefaultProductionPower = !selectedDefaultProductionPower;
     }
 
+    /**
+     * This method let you start the payment of the selected production power
+     * @throws NotEnoughResourcesException if you aren't able to pay all production power
+     * @throws YouHaveNotSelectedAnyProductionException if you haven't selected any production power
+     */
     public void startPayment() throws NotEnoughResourcesException, YouHaveNotSelectedAnyProductionException {
         if(selectedProduction.size() == 0){
             throw new YouHaveNotSelectedAnyProductionException();
@@ -692,6 +753,10 @@ public class Player {
         obtainedGeneric = production.getProductionGeneric();
     }
 
+    /**
+     * This method tell if you have something to pay (to pay production power or to pay LeaderCard or to pay development card)
+     * @return if you have something to pay
+     */
     public boolean somethingToPay(){
         if(payingResources.size() == 0){
             return false;
@@ -699,7 +764,15 @@ public class Player {
         return true;
     }
 
-    public void payWithStrongBox(Resource pay) throws WrongPaymentException, NotEnoughResourcesException, NegativeResourceException, NotAResourceForStrongBoxException, NoResourceToPayException {
+    /**
+     * This method let to pay a resource from the list payingResources using the StrongBox
+     * @param pay: to choose the type of resource from the Strongbox you are using to pay
+     * @throws WrongPaymentException if you are using a different type of resource from the resource requested
+     * @throws NegativeResourceException if you are going to pay with a resource ypu dont have in the Strongbox
+     * @throws NotAResourceForStrongBoxException if the resource passed is not supposed to be stored in the strong box
+     * @throws NoResourceToPayException if you haven't anything to pay
+     */
+    public void payWithStrongBox(Resource pay) throws WrongPaymentException, NegativeResourceException, NotAResourceForStrongBoxException, NoResourceToPayException {
         if(payingResources.isEmpty()){
             throw new NoResourceToPayException();
         }
