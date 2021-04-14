@@ -276,6 +276,15 @@ public void obtainDevelopmentCard(int pos) throws NoDevelopmentCardToObtainExcep
         }
     }
 
+    /**
+     * This method lets you pay a resource with a resource located in
+     * the warehousedepots. When action is chosen it cheks if
+     * resource are of the same type or not.It checks if the player is in the right turn
+     * to pay with the resources in the ware house depots.
+     *
+     * @param pos:Location of the resource to pay from werehousedepots
+     * @throws ActionNotAllowedException if you are in the other states
+     */
     public void payWithWarehouseDepots(int pos) throws WrongPaymentException, YetEmptySlotException, NoResourceToPayException, ActionNotAllowedException {
         if(inWhichStatePlayer != InWhichStatePlayer.PLAY_LEADER_CARD1 &&
                 inWhichStatePlayer != InWhichStatePlayer.PLAY_LEADER_CARD2 &&
@@ -288,6 +297,15 @@ public void obtainDevelopmentCard(int pos) throws NoDevelopmentCardToObtainExcep
         }
     }
 
+    /**
+     * This method lets you pay with a Leader Card positioned in your table, by checking
+     * firstly if you any resources, secondly if the position player chose really exists,
+     * thirdly if card chosen is really a leader card, and the last if
+     * the cards are the same type. Always controlling first if the player is in the right
+     * turn to do che paying process.
+     * @param pos: position from 1 to 2 to chose on your table
+     * @throws ActionNotAllowedException if the player is in different turn than he should be.
+     */
     public void payWithExtraStorageLeaderCard(int pos) throws NotAnExtraStorageLeaderCardException, WrongPaymentException, EmptySlotExtraStorageLeaderCardException, NoResourceToPayException, ActionNotAllowedException {
         if(inWhichStatePlayer != InWhichStatePlayer.PLAY_LEADER_CARD1 &&
                 inWhichStatePlayer != InWhichStatePlayer.PLAY_LEADER_CARD2 &&
@@ -300,6 +318,12 @@ public void obtainDevelopmentCard(int pos) throws NoDevelopmentCardToObtainExcep
         }
     }
 
+    /**
+     * This method let you select or deselect a production power from a DevelopmentCard
+     * and by checking the turns of the player if he is allwed to do this method or not
+     * @param pos: to choose the position of the DevelopmentCard
+     * @throws ActionNotAllowedException if the player is in different turn than he should be.
+     */
     public void selectProductionDevelopmentCard(int pos) throws ActionNotAllowedException {
         if(inWhichStatePlayer != InWhichStatePlayer.ACTIVATE_PRODUCTION){
             throw new ActionNotAllowedException();
@@ -307,6 +331,13 @@ public void obtainDevelopmentCard(int pos) throws NoDevelopmentCardToObtainExcep
         currentPlayer.selectProductionDevelopmentCard(pos);
     }
 
+    /**
+     * This method let you select or deselect a production power from a ProductionPowerLeaderCard
+     * and by checking the turns of the player if he is allwed to do this method or not
+     *
+     * @param pos: to choose the position of the ProductionPowerLeaderCard
+     * @throws ActionNotAllowedException if the player is in different turn than he should be.
+     */
     public void selectProductionPowerLeaderCard(int pos) throws NoProductionLeaderCardException, ActionNotAllowedException {
         if(inWhichStatePlayer != InWhichStatePlayer.ACTIVATE_PRODUCTION){
             throw new ActionNotAllowedException();
@@ -314,6 +345,11 @@ public void obtainDevelopmentCard(int pos) throws NoDevelopmentCardToObtainExcep
         currentPlayer.selectProductionPowerLeaderCard(pos);
     }
 
+    /**
+     * This method let you select or deselect the default production power
+     * and by checking the turns of the player if he is allowed to do this method or not
+     * @throws ActionNotAllowedException if the player is in different turn than he should be.
+     */
     public void selectDefaultProductionPower() throws ActionNotAllowedException {
         if(inWhichStatePlayer != InWhichStatePlayer.ACTIVATE_PRODUCTION){
             throw new ActionNotAllowedException();
@@ -321,6 +357,12 @@ public void obtainDevelopmentCard(int pos) throws NoDevelopmentCardToObtainExcep
         currentPlayer.selectDefaultProductionPower();
     }
 
+    /**
+     * This method lets you to choose a specific power production
+     * at your choice
+     * @param resource it takes a resource ball with a generic power
+     * @throws NoGenericResourceToObtainException there ane not any generic resource to obtain
+     */
     public void obtainGenericResource(Resource resource) throws NoGenericResourceToObtainException, NotAResourceForStrongBoxException{
         currentPlayer.obtainGenericResource(resource);
         if(currentPlayer.somethingToPay() == false){
@@ -328,6 +370,10 @@ public void obtainDevelopmentCard(int pos) throws NoDevelopmentCardToObtainExcep
         }
     }
 
+    /**
+     * This method let you start the payment of the selected production power
+     * @throws ActionNotAllowedException if the player is in different turn than he should be.
+     */
     public void startPayment() throws NotEnoughResourcesException, YouHaveNotSelectedAnyProductionException, ActionNotAllowedException {
         if(inWhichStatePlayer != InWhichStatePlayer.ACTIVATE_PRODUCTION){
             throw new ActionNotAllowedException();
@@ -344,22 +390,47 @@ public void obtainDevelopmentCard(int pos) throws NoDevelopmentCardToObtainExcep
         currentPlayer.drawSoloActionToken();
     }
 
+    /**
+     * This method let player to select a slot of the WarehouseDepots
+     * useful for moveResourcesInWarehouseDepots, moveResourcesFromWarehouseDepotsToExtraStorageLeaderCard and moveResourcesToWarehouseDepotsFromExtraStorageLeaderCard
+     * the selected slot is saved in var selectedWarehouseDepotsSlot of type int
+     * @param pos: to choose the position of the slot of the WarehouseDepots
+     */
     public void selectAWarehouseDepotsSlot(int pos) throws PositionInvalidException{
         currentPlayer.selectAWarehouseDepotsSlot(pos);
     }
 
+    /**
+     * This method let player to move up to two resources in the WarehouseDepots
+     * the first position was selected using selectAWarehouseDepotsSlot and saved in var selectedWarehouseDepotsSlot of type int
+     * @param pos2: to choose the second position of the slot of the WarehouseDepots
+     */
     public void moveResourcesInWarehouseDepots(int pos2) throws NotAdmittedMovementException{
         currentPlayer.moveResourcesInWarehouseDepots(pos2);
     }
 
+    /**
+     * This method let player to move a resource from the warehouseDepots to an ExtraStorageLeaderCard
+     * the first position of the start slot of the warehouseDepots was selected using selectAWarehouseDepotsSlot and saved in var selectedWarehouseDepotsSlot of type int
+     * @param pos: to choose the number 1 or 2 to determinate the position of the ExtraStorageLeaderCard as destination
+     */
     public void moveResourcesFromWarehouseDepotsToExtraStorageLeaderCard(int pos) throws PositionInvalidException, NotAnExtraStorageLeaderCardException, YetEmptySlotException, OccupiedSlotExtraStorageLeaderCardException, DifferentStorageException{
         currentPlayer.moveResourcesFromWarehouseDepotsToExtraStorageLeaderCard(pos);
     }
 
+    /**
+     * This method let player to move a resource from an ExtraStorageLeaderCard to the selected slot of the warehouseDepots
+     * the arrive position of the slot of the warehouseDepots was selected using selectAWarehouseDepotsSlot and saved in var selectedWarehouseDepotsSlot of type int
+     * @param pos: to choose the number 1 or 2 to determinate the position of the ExtraStorageLeaderCard as start
+     */
     public void moveResourcesToWarehouseDepotsFromExtraStorageLeaderCard(int pos) throws PositionInvalidException, NotAnExtraStorageLeaderCardException, PositionAlreadyOccupiedException, ResourceAlreadyPlacedException, DifferentResourceInThisShelfException, EmptySlotExtraStorageLeaderCardException{
         currentPlayer.moveResourcesToWarehouseDepotsFromExtraStorageLeaderCard(pos);
     }
 
+    /**
+     *This method signalize end of a player turn, by ending an action leader and restarting to
+     * a new chose action leader. At the end of the methods it cheks por the next player
+     */
     private void endTurn(){
         actionLeaderDone = false;
         inWhichStatePlayer = InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1;

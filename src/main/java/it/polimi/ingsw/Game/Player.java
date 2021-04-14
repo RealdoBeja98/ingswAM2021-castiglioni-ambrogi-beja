@@ -1,5 +1,4 @@
-package it.polimi.ingsw.Game;
-import it.polimi.ingsw.Enums.*;
+package it.polimi.ingsw.Game; import it.polimi.ingsw.Enums.*;
 import it.polimi.ingsw.Exceptions.*;
 import it.polimi.ingsw.Table.Decks.*;
 import it.polimi.ingsw.PersonalBoard.PersonalBoard;
@@ -785,6 +784,15 @@ public class Player {
         obtainResourcesIfAllResourcesPayed();
     }
 
+    /**
+     * This method lets you pay a resource with a resource located in
+     * the warehousedepots. When action is chosen it cheks if
+     * resource are of the same type or not.
+     *
+     * @param pos:Location of the resource to pay from werehousedepots
+     * @throws NoResourceToPayException if you haven't anything to pay
+     * @throws WrongPaymentException if the resources to pay are different
+     */
     public void payWithWarehouseDepots(int pos) throws WrongPaymentException, YetEmptySlotException, NoResourceToPayException {
         if(payingResources.isEmpty()){
             throw new NoResourceToPayException();
@@ -799,6 +807,17 @@ public class Player {
         obtainResourcesIfAllResourcesPayed();
     }
 
+    /**
+     * This method lets you pay with a Leader Card positioned in your table, by checking
+     * firstly if you any resources, secondly if the position player chose really exists,
+     * thirdly if card chosen is really a leader card, and the last if
+     * the cards are the same type
+     * @param pos: position from 1 to 2 to chose on your table
+     * @throws NotAnExtraStorageLeaderCardException if card chosen is not an Extra Strorage Leader Card
+     * @throws WrongPaymentException if cards choese are not the same type of extra storage leader card
+     * @throws NoResourceToPayException if you don't have any resources left.
+     * @throws IndexOutOfBoundsException if the position is lower than 1 e greater than 2
+     */
     public void payWithExtraStorageLeaderCard(int pos) throws NotAnExtraStorageLeaderCardException, WrongPaymentException, EmptySlotExtraStorageLeaderCardException, NoResourceToPayException {
         if(payingResources.isEmpty()){
             throw new NoResourceToPayException();
@@ -820,6 +839,10 @@ public class Player {
         obtainResourcesIfAllResourcesPayed();
     }
 
+    /**
+     * This methods lets you receive your paid resources, but first checking
+     * if you really do have enough resources to do the buying process
+     */
     private void obtainResourcesIfAllResourcesPayed(){
         if(payingResources.isEmpty()){
             ResourceProduction production = new ResourceProduction(0, 0, 0, 0,
@@ -850,6 +873,10 @@ public class Player {
         }
     }
 
+    /**
+     * This method gives you the generic resources with generic possibilities for each resource
+     * @return
+     */
     public boolean genericResourcesToObtain(){
         if(obtainedGeneric > 0){
             return true;
@@ -857,6 +884,12 @@ public class Player {
         return false;
     }
 
+    /**
+     * This method lets you to choose a specific power production
+     * at your choice
+     * @param resource it takes a resource ball with a generic power
+     * @throws NoGenericResourceToObtainException there ane not any generic resource to obtain
+     */
     public void obtainGenericResource(Resource resource) throws NoGenericResourceToObtainException, NotAResourceForStrongBoxException {
         if(obtainedGeneric <= 0){
             throw new NoGenericResourceToObtainException();
@@ -870,6 +903,13 @@ public class Player {
         }
     }
 
+    /**
+     * This method lets you buy a LeaderCard, but first checking your resources from ware house depots.
+     * second checks cards on table.
+     * third adds all the costs of the resources after discount.
+     *
+     * @return true or false by all the checkings done as mention before
+     */
     public boolean canYouBuyALeaderCard(){
         boolean result = false;
         for(DevelopmentCard[] k : Game.getInstance().getTable().getDevelopmentDeck().visualize()){
@@ -974,6 +1014,16 @@ public class Player {
         return result;
     }
 
+    /**
+     * This method lets you buy a development card by checking first the resources you have,
+     * then looking for the cards on table and then checking if you have enough resources to buy.
+     * @param x rows from 1 to 4
+     * @param y columns from 1 to 3
+     * @throws PositionInvalidException if rows coordinate is lower than 1 and column coordination is greater than 3
+     * @throws NoDevelopmentCardInThisPositionException if you have selected a wrong spot
+     * @throws NotAbleToBuyThisDevelopmentCardException when you don't have enough resources to buy a development card
+     * @throws NotAbleToPlaceThisDevelopmentCardException when you dont have space in your storage after buying it
+     */
     public void buyADevelopmentCard(int x, int y) throws PositionInvalidException, NoDevelopmentCardInThisPositionException, NotAbleToBuyThisDevelopmentCardException, NotAbleToPlaceThisDevelopmentCardException {
         if(x < 0 || x >= 4 || y < 0 || y >= 3){
             throw new PositionInvalidException();
@@ -1095,6 +1145,12 @@ public class Player {
         }
     }
 
+    /**
+     * this method will come in hand the moment the player buys a development card and needs to
+     * place it in a slot for development card, and return yes or no if i a am ready to check in other methds
+     * the availability of the slot
+     * @return tru or false
+     */
     public boolean developmentCardToObtain(){
         if(obtainedDevelopmentCard == null){
             return false;
@@ -1122,6 +1178,10 @@ public class Player {
         //<-- FIXME finish me-->
     }
 
+    /**
+     * this method counts the number of leader card in the hand of player
+     * @return an integer the number of cards in his hand
+     */
     public int countLeaderCardInHand(){
         int count = 0;
         for(LeaderCard i : cardsInHand){
