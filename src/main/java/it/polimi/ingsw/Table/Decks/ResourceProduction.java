@@ -42,11 +42,16 @@ public class ResourceProduction {
      * @return a new class that has as attribute the sum of two ResourceProduction classes' attributes, of type ResourceProduction
      */
     public ResourceProduction sum(ResourceProduction summing){
-        return new ResourceProduction(requiredCoin + summing.requiredCoin, requiredServant + summing.requiredServant,
-                requiredShield + summing.requiredShield, requiredStone + summing.requiredStone,
-                requiredGeneric + summing.requiredGeneric, productionCoin + summing.productionCoin,
-                productionServant + productionServant, productionShield + summing.productionShield,
-                productionStone + summing.productionStone, productionGeneric + summing.productionGeneric,
+        return new ResourceProduction(requiredCoin + summing.requiredCoin,
+                requiredServant + summing.requiredServant,
+                requiredShield + summing.requiredShield,
+                requiredStone + summing.requiredStone,
+                requiredGeneric + summing.requiredGeneric,
+                productionCoin + summing.productionCoin,
+                productionServant + productionServant,
+                productionShield + summing.productionShield,
+                productionStone + summing.productionStone,
+                productionGeneric + summing.productionGeneric,
                 productionFaith + summing.productionFaith);
     }
 
@@ -131,7 +136,7 @@ public class ResourceProduction {
     }
 
     /**
-     * Getter of the parameter costOfLeaderCard
+     * Getter of the parameter productionFaith
      * @return the number of faith produced by the activation of the card, of type int
      */
     public int getProductionFaith() {

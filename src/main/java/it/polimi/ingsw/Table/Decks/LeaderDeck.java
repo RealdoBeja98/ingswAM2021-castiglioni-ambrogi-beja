@@ -68,10 +68,10 @@ public class LeaderDeck {
 
     /**
      * Getter of the parameter deck
-     * @return the deck of leader cards
+     * @return a copy of the deck of leader cards
      */
     public ArrayList<LeaderCard> getDeck(){
-        return deck;
+        return (ArrayList<LeaderCard>)deck.clone();
     }
 
 }

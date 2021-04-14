@@ -5,21 +5,27 @@ import it.polimi.ingsw.Table.Decks.Card;
 import it.polimi.ingsw.Table.Decks.Production;
 import it.polimi.ingsw.Table.Decks.ResourceProduction;
 
+/**
+ * This Class represents a development card
+ */
+public class DevelopmentCard extends Card implements Production {
 
-public class DevelopmentCard extends Card implements Production {//<--FIXME-->
+    private final Resource[] cost;
+    private final int[] costNumber;
+    private final Type type;
+    private final int level;
+    private final Resource[] requirements;
+    private final int[] costRequirements;
+    private final Resource[] products;
+    private final int[] costProducts;
+    private final int victoryPoints;
 
-    private Resource[] cost;
-    private int[] costNumber;
-    private Type type;
-    private int level;
-    private Resource[] requirements;
-    private int[] costRequirements;
-    private Resource[] products;
-    private int[] costProducts;
-    private int victoryPoints;
-
+    /**
+     * Constructor method of this class
+     */
     public DevelopmentCard(Resource[] cost, int[] costNumber, Type type, int level,
-                           Resource[] requirements, int[] costRequirements, Resource[] products, int[] costProducts, int victoryPoints){
+                           Resource[] requirements, int[] costRequirements, Resource[] products,
+                           int[] costProducts, int victoryPoints){
         this.cost = cost;
         this.costNumber = costNumber;
         this.type = type;
@@ -31,42 +37,82 @@ public class DevelopmentCard extends Card implements Production {//<--FIXME-->
         this.victoryPoints = victoryPoints;
     }
 
+    /**
+     * Getter of the parameter level
+     * @return the level of the card, of type int
+     */
     public int getLevel() {
         return level;
     }
 
+    /**
+     * Getter of the parameter cost
+     * @return a copy of the type of card's cost, of type Resource[]
+     */
     public Resource[] getCost() {
-        return cost;
+        return cost.clone();
     }
 
+    /**
+     * Getter of the parameter costNumber
+     * @return a copy of the number of card's cost, of type int[]
+     */
+    public int[] getCostNumber() {
+        return costNumber.clone();
+    }
+
+    /**
+     * Getter of the parameter type
+     * @return the type of the card, of type Type
+     */
     public Type getType() {
         return type;
     }
 
+    /**
+     * Getter of the parameter requirements
+     * @return a copy of the requirements to activate the production of the card, of type Resource[]
+     */
     public Resource[] getRequirements() {
-        return requirements;
+        return requirements.clone();
     }
 
+    /**
+     * Getter of the parameter costRequirements
+     * @return a copy of the number of requirements to activate the production of the card, of type int[]
+     */
+    public int[] getCostRequirements() {
+        return costRequirements.clone();
+    }
+
+    /**
+     * Getter of the parameter products
+     * @return a copy of the products after the activation of the production of the card, of type Resource[]
+     */
     public Resource[] getProducts() {
-        return products;
+        return products.clone();
     }
 
+    /**
+     * Getter of the parameter costProducts
+     * @return a copy of the number of products after the activation of the production of the card, of type int[]
+     */
+    public int[] getCostProducts() {
+        return costProducts.clone();
+    }
+
+    /**
+     * Getter of the parameter victoryPoints
+     * @return the victory point of the card, of type int
+     */
     public int getVictoryPoints() {
         return victoryPoints;
     }
 
-    public int[] getCostNumber() {
-        return costNumber;
-    }
-
-    public int[] getCostRequirements() {
-        return costRequirements;
-    }
-
-    public int[] getCostProducts() {
-        return costProducts;
-    }
-
+    /**
+     * This method creates a new instance of the class resource production, given the requirement specified in this card and the static output
+     * @return a class that represent the production power of this card, of type ResourceProduction
+     */
     public ResourceProduction resourceProduction(){
         int costCoin = 0;
         int costServant = 0;

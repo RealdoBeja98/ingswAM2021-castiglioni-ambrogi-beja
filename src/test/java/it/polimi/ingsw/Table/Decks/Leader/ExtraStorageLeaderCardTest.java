@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class ExtraStorageLeaderCardTest {
 
     /**
-     * This method tests the adding and removing resources from an extra storage leader card
+     * This method tests the addition and subtraction of resources from an extra storage leader card
      */
     @Test
     public void addRemoveResourceFromExtraStorageLeaderCardTest(){

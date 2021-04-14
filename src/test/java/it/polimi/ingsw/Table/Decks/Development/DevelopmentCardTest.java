@@ -1,40 +1,14 @@
-package it.polimi.ingsw.Table.Decks;
-
+package it.polimi.ingsw.Table.Decks.Development;
 import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Enums.Type;
-import it.polimi.ingsw.Table.Decks.Development.DevelopmentCard;
+import it.polimi.ingsw.Table.Decks.ResourceProduction;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 /**
  * Test class for the class: DevelopmentCard
  */
 public class DevelopmentCardTest {
-
-    /**
-     * This method tests the creation of a DevelopmentCard
-     */
-    @Test
-    public void integrityTest(){
-        Resource[] cost = {Resource.COIN, Resource.SERVANT, Resource.SHIELD};
-        int[] costNumber = {1, 2, 3};
-        Resource[] requirements = {Resource.COIN};
-        int[] costRequirements = {3};
-        Resource[] products = {Resource.FAITH, Resource.SERVANT};
-        int[] costProducts = {2,1};
-        DevelopmentCard developmentCard = new DevelopmentCard(cost, costNumber, Type.GREEN, 2,
-                requirements, costRequirements, products, costProducts, 5);
-        assertSame(cost,developmentCard.getCost());
-        assertSame(costNumber,developmentCard.getCostNumber());
-        assertSame(Type.GREEN,developmentCard.getType());
-        assertSame(2,developmentCard.getLevel());
-        assertSame(requirements,developmentCard.getRequirements());
-        assertSame(costRequirements,developmentCard.getCostRequirements());
-        assertSame(products,developmentCard.getProducts());
-        assertSame(costProducts,developmentCard.getCostProducts());
-        assertSame(5,developmentCard.getVictoryPoints());
-    }
 
     /**
      * This method tests the creation of a ResourceProduction from a DevelopmentCard
@@ -62,5 +36,4 @@ public class DevelopmentCardTest {
         assertSame(0,resourceProduction.getProductionShield());
         assertSame(0,resourceProduction.getProductionGeneric());
     }
-
 }

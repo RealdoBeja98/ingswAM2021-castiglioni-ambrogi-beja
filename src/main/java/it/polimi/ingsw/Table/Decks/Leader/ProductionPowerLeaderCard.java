@@ -23,6 +23,7 @@ public class ProductionPowerLeaderCard extends LeaderCard implements Production 
         this.requirement = requirement;
         this.victoryPoints = victoryPoints;
     }
+
     /**
      * Getter of the parameter costOfLeaderCard
      * @return the cost of the card, of type Type

@@ -872,7 +872,7 @@ public class Player {
 
     public boolean canYouBuyALeaderCard(){
         boolean result = false;
-        for(DevelopmentCard[] k : Game.getInstance().getTable().getDevelopmentDeck().view()){
+        for(DevelopmentCard[] k : Game.getInstance().getTable().getDevelopmentDeck().visualize()){
             for(DevelopmentCard j : k){
                 int coin = personalBoard.getStrongBox().getCoin();
                 int servant = personalBoard.getStrongBox().getServant();
@@ -978,7 +978,7 @@ public class Player {
         if(x < 0 || x >= 4 || y < 0 || y >= 3){
             throw new PositionInvalidException();
         }
-        DevelopmentCard selectedDevelopmentCard = Game.getInstance().getTable().getDevelopmentDeck().view()[x][y];
+        DevelopmentCard selectedDevelopmentCard = Game.getInstance().getTable().getDevelopmentDeck().visualize()[x][y];
         if(selectedDevelopmentCard == null){
             throw new NoDevelopmentCardInThisPositionException();
         }

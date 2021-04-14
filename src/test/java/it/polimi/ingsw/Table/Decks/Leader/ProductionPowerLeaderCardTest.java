@@ -1,10 +1,8 @@
 package it.polimi.ingsw.Table.Decks.Leader;
-
 import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Enums.Type;
 import it.polimi.ingsw.Table.Decks.ResourceProduction;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 /**
@@ -16,7 +14,7 @@ public class ProductionPowerLeaderCardTest {
      * This method tests the creation of a ResourceProduction
      */
     @Test
-    public void ProductionPowerLeaderCardTest(){
+    public void resourceProductionTest(){
         ProductionPowerLeaderCard productionPowerLeaderCard = new ProductionPowerLeaderCard(3, Type.BLUE, Resource.SERVANT);
         ResourceProduction resourceProduction = productionPowerLeaderCard.resourceProduction();
         assertSame(resourceProduction.getRequiredCoin(), 0);
