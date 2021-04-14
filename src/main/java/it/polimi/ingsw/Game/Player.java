@@ -1017,14 +1017,17 @@ public class Player {
     /**
      * This method lets you buy a development card by checking first the resources you have,
      * then looking for the cards on table and then checking if you have enough resources to buy.
-     * @param x rows from 1 to 4
-     * @param y columns from 1 to 3
+     * @param xx rows from 1 to 4
+     * @param yy columns from 1 to 3
      * @throws PositionInvalidException if rows coordinate is lower than 1 and column coordination is greater than 3
      * @throws NoDevelopmentCardInThisPositionException if you have selected a wrong spot
      * @throws NotAbleToBuyThisDevelopmentCardException when you don't have enough resources to buy a development card
      * @throws NotAbleToPlaceThisDevelopmentCardException when you dont have space in your storage after buying it
+     * @throws DrawnFromEmptyDeckException if the deck selected is empty
      */
-    public void buyADevelopmentCard(int x, int y) throws PositionInvalidException, NoDevelopmentCardInThisPositionException, NotAbleToBuyThisDevelopmentCardException, NotAbleToPlaceThisDevelopmentCardException {
+    public void buyADevelopmentCard(int xx, int yy) throws PositionInvalidException, NoDevelopmentCardInThisPositionException, NotAbleToBuyThisDevelopmentCardException, NotAbleToPlaceThisDevelopmentCardException, DrawnFromEmptyDeckException {
+        int x = xx + 1;
+        int y = yy + 1;
         if(x < 0 || x >= 4 || y < 0 || y >= 3){
             throw new PositionInvalidException();
         }
@@ -1131,6 +1134,7 @@ public class Player {
             throw new NotAbleToPlaceThisDevelopmentCardException();
         }
         obtainedDevelopmentCard = selectedDevelopmentCard;
+        Game.getInstance().getTable().getDevelopmentDeck().draw(xx,yy);
         for(int i = 0; i < costCoin; i++){
             payingResources.add(Resource.COIN);
         }
@@ -1190,6 +1194,43 @@ public class Player {
             }
         }
         return count;
+    }
+
+    public int calculateVictoryPoints(){
+        int result = 0;
+        for(DevelopmentCard[] i : getPersonalBoard().getSlotsDevelopmentCards().getSlot()){
+            for(DevelopmentCard j : i){
+                if(j != null){
+                    result += j.getVictoryPoints();
+                }
+            }
+        }
+        result += getPersonalBoard().getFaithTrack().victoryPoints();
+        for(LeaderCard i : cardsOnTable){
+            if(i != null){
+                result += i.getVictoryPoints();
+            }
+        }
+        int numTotResources = 0;
+        numTotResources += getPersonalBoard().getStrongBox().getCoin();
+        numTotResources += getPersonalBoard().getStrongBox().getServant();
+        numTotResources += getPersonalBoard().getStrongBox().getStone();
+        numTotResources += getPersonalBoard().getStrongBox().getShield();
+        for(Resource i : getPersonalBoard().getWarehouseDepots().getResource()){
+            if(i != null){
+                numTotResources++;
+            }
+        }
+        for(LeaderCard i : cardsOnTable){
+            if(i != null && i.getWhatIAm() == LeaderCardType.STORAGE){
+                numTotResources += ((ExtraStorageLeaderCard)i).occupiedResources();
+            }
+        }
+        int rest = numTotResources % 5;
+        int dividend = numTotResources - rest;
+        int bonusResources = dividend / 5;
+        result += bonusResources;
+        return result;
     }
 
 }
