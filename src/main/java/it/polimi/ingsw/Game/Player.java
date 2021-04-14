@@ -903,13 +903,13 @@ public class Player {
     }
 
     /**
-     * This method lets you buy a LeaderCard, but first checking your resources from ware house depots.
+     * This method lets you buy a DevelopmentCard, but first checking your resources from ware house depots.
      * second checks cards on table.
      * third adds all the costs of the resources after discount.
      *
      * @return true or false by all the checkings done as mention before
      */
-    public boolean canYouBuyALeaderCard(){
+    public boolean canYouBuyADevelopmentCard(){
         boolean result = false;
         for(DevelopmentCard[] k : Game.getInstance().getTable().getDevelopmentDeck().visualize()){
             for(DevelopmentCard j : k){
