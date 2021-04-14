@@ -103,6 +103,7 @@ public class Turn {
             }
         }
     }
+
     /**
      * This method let the player to put on the table a leader card that was in his hand
      * in case the player select a StorageLeaderCard, the list payingResources is updated with the resources the player has to pay
@@ -113,7 +114,6 @@ public class Turn {
      * @throws ActionNotAllowedException if other steps are different from
      * PLAY_LEADER_CARD1 AND PLAY_LEADER_CARD2
      */
-
     public void playLeaderCard(int pos) throws NotSatisfiedRequirementsForThisLeaderCardException, ActionNotAllowedException {
         if(inWhichStatePlayer != InWhichStatePlayer.PLAY_LEADER_CARD1 &&
             inWhichStatePlayer != InWhichStatePlayer.PLAY_LEADER_CARD2){
@@ -151,7 +151,7 @@ public class Turn {
             case TAKE_RESOURCES_FROM_THE_MARKET:
                 inWhichStatePlayer = InWhichStatePlayer.TAKE_RESOURCES_FROM_THE_MARKET;
             case BUY_DEVELOPMENT_CARD:
-                if(currentPlayer.canYouBuyALeaderCard()){
+                if(currentPlayer.canYouBuyADevelopmentCard()){
                     inWhichStatePlayer = InWhichStatePlayer.BUY_DEVELOPMENT_CARD;
                 } else {
                     throw new ActionNotAllowedException();
@@ -219,20 +219,20 @@ public class Turn {
         currentPlayer.changeWhiteMarbleWith(pos);
     }
 
-/**
- * This method lets you to take a Development card
- * First choose the development card and than pay for it.
- *
- * @param pos: to choose the position of the DevelopmentCard on slotdevelopmentcard
-*/
-public void obtainDevelopmentCard(int pos) throws NoDevelopmentCardToObtainException, PositionInvalidException{
+    /**
+    * This method lets you to take a Development card
+    * First choose the development card and than pay for it.
+    *
+    * @param pos: to choose the position of the DevelopmentCard on slotdevelopmentcard
+    */
+    public void obtainDevelopmentCard(int pos) throws NoDevelopmentCardToObtainException, PositionInvalidException{
         currentPlayer.obtainDevelopmentCard(pos);
         if(currentPlayer.somethingToPay() == false){
             endPayment();
         }
     }
 
-    public void endPayment(){
+    private void endPayment(){
         if(currentPlayer.developmentCardToObtain()){
             return;
         }

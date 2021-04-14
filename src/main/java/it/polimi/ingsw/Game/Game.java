@@ -32,7 +32,6 @@ public class Game { //<-- FIXME finish me-->
                 throw new NameAlreadyRegisteredException();
             }
         }
-
     }
 
     public Player getPlayerByNickname(String getPlayerNickname) throws PlayerDoesNotExistsException {
