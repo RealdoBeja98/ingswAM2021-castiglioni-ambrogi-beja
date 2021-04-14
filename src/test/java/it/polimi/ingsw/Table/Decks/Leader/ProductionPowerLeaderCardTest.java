@@ -13,18 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 public class ProductionPowerLeaderCardTest {
 
     /**
-     * This method tests the creation of a ProductionPowerLeaderCard
-     */
-    @Test
-    public void integrityTest(){
-        ProductionPowerLeaderCard productionPowerLeaderCard = new ProductionPowerLeaderCard(3, Type.BLUE, Resource.SERVANT);
-        assertSame(productionPowerLeaderCard.getVictoryPoints(), 3);
-        assertSame(productionPowerLeaderCard.getRequirement(), Resource.SERVANT);
-        assertSame(productionPowerLeaderCard.getCostOfLeaderCard(), Type.BLUE);
-    }
-
-    /**
-     * This method tests the creation of a ResourceProduction from a ProductionPowerLeaderCard
+     * This method tests the creation of a ResourceProduction
      */
     @Test
     public void ProductionPowerLeaderCardTest(){

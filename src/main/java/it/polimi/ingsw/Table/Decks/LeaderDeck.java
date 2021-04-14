@@ -10,6 +10,7 @@ import java.util.Collections;
  * This Class represents the deck of leader cards
  */
 public class LeaderDeck {
+
     private final ArrayList<LeaderCard> deck;
 
     /**

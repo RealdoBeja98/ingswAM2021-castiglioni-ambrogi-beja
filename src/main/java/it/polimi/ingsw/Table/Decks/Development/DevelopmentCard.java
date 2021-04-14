@@ -6,7 +6,7 @@ import it.polimi.ingsw.Table.Decks.Production;
 import it.polimi.ingsw.Table.Decks.ResourceProduction;
 
 
-public class DevelopmentCard extends Card implements Production {
+public class DevelopmentCard extends Card implements Production {//<--FIXME-->
 
     private Resource[] cost;
     private int[] costNumber;

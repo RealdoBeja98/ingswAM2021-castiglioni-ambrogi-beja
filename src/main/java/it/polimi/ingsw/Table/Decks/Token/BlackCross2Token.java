@@ -5,6 +5,6 @@ import it.polimi.ingsw.Enums.Type;
 /**
  * This Class represents the token of type blackcross2
  */
-public class BlackCross2Token extends actionToken{
+public class BlackCross2Token extends ActionToken {
     private final Type whatIAm = Type.BLACKCROSS2;
 }

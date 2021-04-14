@@ -5,10 +5,17 @@ import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Enums.Type;
 import it.polimi.ingsw.Table.Market.Marbles.Marble;
 
+/**
+ * This Class represents the leader card that give a discount
+ */
 public class WhiteMarbleLeaderCard extends LeaderCard {
+
     private Type[] costOfLeaderCard;
     private Marble whiteMarble;
 
+    /**
+     * Constructor method of this class
+     */
     public WhiteMarbleLeaderCard(int victoryPoints, Type[] costOfLeaderCard, Marble whiteMarble){
         this.whatIAm = LeaderCardType.WHITE;
         this.victoryPoints = victoryPoints;
@@ -16,26 +23,45 @@ public class WhiteMarbleLeaderCard extends LeaderCard {
         this.whiteMarble = whiteMarble;
     }
 
+    /**
+     * Getter of the parameter costOfLeaderCard
+     * @return a copy of the array that represent the cost of the card, of type Type[]
+     */
+    public Type[] getCostOfLeaderCard(){
+        return costOfLeaderCard.clone();
+    }
+
+    /**
+     * Getter of the parameter whiteMarble
+     * @return the marble that replace a white marble, of type Marble
+     */
+    public Marble getWhiteMarble(){
+        return whiteMarble;
+    }
+
+    /**
+     * This method only throws an exception when accessed by this card
+     * @return the storage type of the card, of type Resource
+     */
     @Override
     public Resource getStorageType() {
         throw new RuntimeException();
     }
 
-    @Override
-    public void addResource() throws OccupiedSlotExtraStorageLeaderCardException {
-        throw new RuntimeException();
-    }
-
+    /**
+     * This method only throws an exception when accessed by this card
+     * @return the number of occupied slots, of type int
+     */
     @Override
     public int occupiedResources() {
         throw new RuntimeException();
     }
 
-    public Type[] getCostOfLeaderCard(){
-        return costOfLeaderCard;
-    }
-
-    public Marble getWhiteMarble(){
-        return whiteMarble;
+    /**
+     * This method only throws an exception when accessed by this card
+     */
+    @Override
+    public void addResource() throws OccupiedSlotExtraStorageLeaderCardException {
+        throw new RuntimeException();
     }
 }

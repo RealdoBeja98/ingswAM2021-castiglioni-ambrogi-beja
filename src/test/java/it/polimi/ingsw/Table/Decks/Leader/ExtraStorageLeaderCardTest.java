@@ -1,10 +1,8 @@
 package it.polimi.ingsw.Table.Decks.Leader;
-
 import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Exceptions.EmptySlotExtraStorageLeaderCardException;
 import it.polimi.ingsw.Exceptions.OccupiedSlotExtraStorageLeaderCardException;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -17,7 +15,7 @@ public class ExtraStorageLeaderCardTest {
      * This method tests the adding and removing resources from an extra storage leader card
      */
     @Test
-    public void addRemouveResourceFromExtraStorageLeaderCardTest(){
+    public void addRemoveResourceFromExtraStorageLeaderCardTest(){
         ExtraStorageLeaderCard extraStorageLeaderCard = new ExtraStorageLeaderCard(3, Resource.COIN, Resource.STONE);
         assertSame(extraStorageLeaderCard.getVictoryPoints(), 3);
         assertSame(extraStorageLeaderCard.getCostOfLeaderCard(), Resource.COIN);

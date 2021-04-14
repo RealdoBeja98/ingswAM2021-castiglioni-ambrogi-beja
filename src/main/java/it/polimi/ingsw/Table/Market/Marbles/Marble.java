@@ -14,17 +14,17 @@ import it.polimi.ingsw.Exceptions.OccupiedSlotExtraStorageLeaderCardException;
 public abstract class Marble {
 
     /**
-     *abstract method: see implementation is son classes for the details
+     *abstract method: see implementation in son classes for the details
      */
     public abstract void putResource(WarehouseDepots warehouseDepots, int pos) throws PositionAlreadyOccupiedException, ResourceAlreadyPlacedException, DifferentResourceInThisShelfException;
 
     /**
-     *abstract method: see implementation is son classes for the details
+     *abstract method: see implementation in son classes for the details
      */
     public abstract void putResource(LeaderCard leaderCard) throws DifferentStorageException, OccupiedSlotExtraStorageLeaderCardException;
 
     /**
-     *abstract method: see implementation is son classes for the details
+     *abstract method: see implementation in son classes for the details
      */
     public abstract void putResource(FaithTrack faithTrack);
 
