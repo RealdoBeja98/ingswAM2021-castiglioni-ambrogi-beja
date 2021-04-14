@@ -5,7 +5,7 @@ import it.polimi.ingsw.Exceptions.PositionAlreadyOccupiedException;
 import it.polimi.ingsw.Exceptions.ResourceAlreadyPlacedException;
 import it.polimi.ingsw.PersonalBoard.Warehouse.WarehouseDepots;
 import it.polimi.ingsw.PersonalBoard.Faith.FaithTrack;
-import it.polimi.ingsw.Table.Decks.Leader.LeaderCard;
+import it.polimi.ingsw.Table.Decks.Leader.ExtraStorageLeaderCard;
 import it.polimi.ingsw.Exceptions.OccupiedSlotExtraStorageLeaderCardException;
 
 /**
@@ -21,7 +21,7 @@ public abstract class Marble {
     /**
      *abstract method: see implementation in son classes for the details
      */
-    public abstract void putResource(LeaderCard leaderCard) throws DifferentStorageException, OccupiedSlotExtraStorageLeaderCardException;
+    public abstract void putResource(ExtraStorageLeaderCard leaderCard) throws DifferentStorageException, OccupiedSlotExtraStorageLeaderCardException;
 
     /**
      *abstract method: see implementation in son classes for the details

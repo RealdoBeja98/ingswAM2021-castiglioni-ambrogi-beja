@@ -47,6 +47,7 @@ E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\T
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Exceptions\EmptySlotExtraStorageLeaderCardException.java
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Exceptions\NoProductionLeaderCardException.java
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Exceptions\YouHaveNotSelectedAnyProductionException.java
+E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Table\Decks\ActionTokenDeck.java
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Enums\LeaderWarehouse.java
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Enums\InWhichStatePlayer.java
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Exceptions\OccupiedSlotExtraStorageLeaderCardException.java

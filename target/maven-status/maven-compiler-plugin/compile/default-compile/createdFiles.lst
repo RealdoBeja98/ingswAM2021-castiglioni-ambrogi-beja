@@ -25,8 +25,10 @@ it\polimi\ingsw\Exceptions\NoResourceToPayException.class
 it\polimi\ingsw\Table\Decks\Leader\ExtraStorageLeaderCard.class
 it\polimi\ingsw\Exceptions\YouHaveNotSelectedAnyProductionException.class
 it\polimi\ingsw\Table\Decks\Development\DevelopmentCard.class
+it\polimi\ingsw\PersonalBoard\Faith\FaithTrackSP.class
 it\polimi\ingsw\Table\Decks\Leader\ProductionPowerLeaderCard$1.class
 it\polimi\ingsw\Table\Decks\Production.class
+it\polimi\ingsw\Table\Decks\ActionTokenDeck.class
 it\polimi\ingsw\Game\Turn.class
 it\polimi\ingsw\Table\Decks\Token\PurpleActionToken.class
 it\polimi\ingsw\Exceptions\NotAbleToBuyThisDevelopmentCardException.class

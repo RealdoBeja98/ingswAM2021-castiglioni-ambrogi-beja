@@ -1,6 +1,7 @@
 package it.polimi.ingsw.PersonalBoard;
 import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.PersonalBoard.Faith.FaithTrack;
+import it.polimi.ingsw.PersonalBoard.Faith.FaithTrackSP;
 import it.polimi.ingsw.PersonalBoard.SlotsDevelopmentCards.SlotsDevelopmentCards;
 import it.polimi.ingsw.PersonalBoard.StrongBox.StrongBox;
 import it.polimi.ingsw.PersonalBoard.Warehouse.WarehouseDepots;
@@ -14,6 +15,7 @@ public class PersonalBoard {
     private final WarehouseDepots warehouseDepots;
     private final StrongBox strongBox;
     private final SlotsDevelopmentCards slotsDevelopmentCards;
+    private FaithTrackSP lorenzoTrack;
 
     /**
      * Constructor method of this class
@@ -57,4 +59,18 @@ public class PersonalBoard {
         return faithTrack;
     }
 
+    /**
+     * This method creates a new faith track for Lorenzo
+     */
+    public void createFaithTrackSP(){
+        lorenzoTrack = new FaithTrackSP(Game.getInstance().getPlayers());
+    }
+
+    /**
+     * Getter of the parameter lorenzoTrack
+     * @return Lorenzo's faith track, of type FaithTrackSP
+     */
+    public FaithTrackSP getLorenzoTrack() {
+        return lorenzoTrack;
+    }
 }

@@ -6,8 +6,8 @@ import it.polimi.ingsw.Exceptions.PositionAlreadyOccupiedException;
 import it.polimi.ingsw.Exceptions.ResourceAlreadyPlacedException;
 import it.polimi.ingsw.PersonalBoard.Warehouse.WarehouseDepots;
 import it.polimi.ingsw.Enums.Resource;
-import it.polimi.ingsw.Table.Decks.Leader.LeaderCard;
 import it.polimi.ingsw.Exceptions.OccupiedSlotExtraStorageLeaderCardException;
+import it.polimi.ingsw.Table.Decks.Leader.ExtraStorageLeaderCard;
 
 /**
  * This Class represents the marble of type servant
@@ -39,7 +39,7 @@ public class Servant extends Marble {
      * @throws OccupiedSlotExtraStorageLeaderCardException: propagates this exception, generated if the leader card slots are full
      */
     @Override
-    public void putResource(LeaderCard leaderCard) throws DifferentStorageException, OccupiedSlotExtraStorageLeaderCardException {
+    public void putResource(ExtraStorageLeaderCard leaderCard) throws DifferentStorageException, OccupiedSlotExtraStorageLeaderCardException {
         if(leaderCard.getStorageType() == whatIAm){
             leaderCard.addResource();
         }

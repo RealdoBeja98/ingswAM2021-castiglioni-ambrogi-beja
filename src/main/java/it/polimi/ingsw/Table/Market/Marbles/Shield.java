@@ -1,6 +1,6 @@
 package it.polimi.ingsw.Table.Market.Marbles;
 import it.polimi.ingsw.Exceptions.DifferentStorageException;
-import it.polimi.ingsw.Table.Decks.Leader.LeaderCard;
+import it.polimi.ingsw.Table.Decks.Leader.ExtraStorageLeaderCard;
 import it.polimi.ingsw.PersonalBoard.Faith.FaithTrack;
 import it.polimi.ingsw.Exceptions.DifferentResourceInThisShelfException;
 import it.polimi.ingsw.Exceptions.PositionAlreadyOccupiedException;
@@ -39,7 +39,7 @@ public class Shield extends Marble {
      * @throws OccupiedSlotExtraStorageLeaderCardException: propagates this exception, generated if the leader card slots are full
      */
     @Override
-    public void putResource(LeaderCard leaderCard) throws DifferentStorageException, OccupiedSlotExtraStorageLeaderCardException {
+    public void putResource(ExtraStorageLeaderCard leaderCard) throws DifferentStorageException, OccupiedSlotExtraStorageLeaderCardException {
         if(leaderCard.getStorageType() == whatIAm){
             leaderCard.addResource();
         }

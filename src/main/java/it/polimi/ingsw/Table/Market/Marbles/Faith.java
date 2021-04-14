@@ -1,5 +1,5 @@
 package it.polimi.ingsw.Table.Market.Marbles;
-import it.polimi.ingsw.Table.Decks.Leader.LeaderCard;
+import it.polimi.ingsw.Table.Decks.Leader.ExtraStorageLeaderCard;
 import it.polimi.ingsw.PersonalBoard.Faith.FaithTrack;
 import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.PersonalBoard.Warehouse.WarehouseDepots;
@@ -26,7 +26,7 @@ public class Faith extends Marble {
      * @param leaderCard: tells the method which card of the current player to use
      */
     @Override
-    public void putResource(LeaderCard leaderCard) {
+    public void putResource(ExtraStorageLeaderCard leaderCard) {
         throw new RuntimeException();
     }
 

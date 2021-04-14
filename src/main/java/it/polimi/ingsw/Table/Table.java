@@ -1,4 +1,5 @@
 package it.polimi.ingsw.Table;
+import it.polimi.ingsw.Table.Decks.ActionTokenDeck;
 import it.polimi.ingsw.Table.Decks.DevelopmentDeck;
 import it.polimi.ingsw.Table.Decks.LeaderDeck;
 import it.polimi.ingsw.Table.Market.Market;
@@ -11,6 +12,7 @@ public class Table {
     private final LeaderDeck leaderDeck;
     private final Market market;
     private final DevelopmentDeck developmentDeck;
+    private final ActionTokenDeck actionTokenDeck;
 
     /**
      * Constructor method of this class
@@ -19,6 +21,7 @@ public class Table {
         developmentDeck = new DevelopmentDeck();
         market = new Market();
         leaderDeck = new LeaderDeck();
+        actionTokenDeck = new ActionTokenDeck();
     }
 
     /**
@@ -43,5 +46,13 @@ public class Table {
      */
     public DevelopmentDeck getDevelopmentDeck() {
         return developmentDeck;
+    }
+
+    /**
+     * Getter of the parameter ActionTokenDeck
+     * @return the decks of action token, of type ActionTokenDeck
+     */
+    public ActionTokenDeck getActionTokenDeck() {
+        return actionTokenDeck;
     }
 }
