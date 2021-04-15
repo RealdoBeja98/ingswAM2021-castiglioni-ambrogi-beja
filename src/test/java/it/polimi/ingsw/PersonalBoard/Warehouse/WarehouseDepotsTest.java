@@ -13,15 +13,11 @@ public class WarehouseDepotsTest {
      * This method tests the addition of a resource in the warehouse
      */
     @Test
-    public void testAddResource(){
+    void testAddResource(){
         WarehouseDepots warehouseDepots = new WarehouseDepots();
         try {
             warehouseDepots.addResource(Resource.COIN,2);
-        } catch (PositionAlreadyOccupiedException e) {
-            e.printStackTrace();
-        } catch (ResourceAlreadyPlacedException e) {
-            e.printStackTrace();
-        } catch (DifferentResourceInThisShelfException e) {
+        } catch (PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException e) {
             e.printStackTrace();
         }
         assertSame(warehouseDepots.getResource()[2], Resource.COIN);
@@ -31,7 +27,7 @@ public class WarehouseDepotsTest {
      * This method tests the addition of resources in the warehouse
      */
     @Test
-    public void testAddResources(){
+    void testAddResources(){
         WarehouseDepots warehouseDepots = new WarehouseDepots();
         try {
             warehouseDepots.addResource(Resource.COIN,0);
@@ -40,11 +36,7 @@ public class WarehouseDepotsTest {
             warehouseDepots.addResource(Resource.SHIELD,3);
             warehouseDepots.addResource(Resource.SHIELD,4);
             warehouseDepots.addResource(Resource.SHIELD,5);
-        } catch (PositionAlreadyOccupiedException e) {
-            e.printStackTrace();
-        } catch (ResourceAlreadyPlacedException e) {
-            e.printStackTrace();
-        } catch (DifferentResourceInThisShelfException e) {
+        } catch (PositionAlreadyOccupiedException | DifferentResourceInThisShelfException | ResourceAlreadyPlacedException e) {
             e.printStackTrace();
         }
         assertSame(warehouseDepots.getResource()[0], Resource.COIN);
@@ -59,69 +51,53 @@ public class WarehouseDepotsTest {
      * This method tests the exception during the addition of resources in the same place in the warehouse
      */
     @Test
-    public void testAddException1(){
+    void testAddException1(){
         WarehouseDepots warehouseDepots = new WarehouseDepots();
         try {
             warehouseDepots.addResource(Resource.COIN,2);
-        } catch (PositionAlreadyOccupiedException e) {
-            e.printStackTrace();
-        } catch (ResourceAlreadyPlacedException e) {
-            e.printStackTrace();
-        } catch (DifferentResourceInThisShelfException e) {
+        } catch (PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException e) {
             e.printStackTrace();
         }
-        assertThrows(PositionAlreadyOccupiedException.class, () ->{warehouseDepots.addResource(Resource.COIN,2);});
+        assertThrows(PositionAlreadyOccupiedException.class, () -> warehouseDepots.addResource(Resource.COIN,2));
     }
 
     /**
      * This method tests the exception during the addition of the same resource in different shelves in the warehouse
      */
     @Test
-    public void testAddException2(){
+    void testAddException2(){
         WarehouseDepots warehouseDepots = new WarehouseDepots();
         try {
             warehouseDepots.addResource(Resource.COIN,2);
-        } catch (PositionAlreadyOccupiedException e) {
-            e.printStackTrace();
-        } catch (ResourceAlreadyPlacedException e) {
-            e.printStackTrace();
-        } catch (DifferentResourceInThisShelfException e) {
+        } catch (PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException e) {
             e.printStackTrace();
         }
-        assertThrows(ResourceAlreadyPlacedException.class, () ->{warehouseDepots.addResource(Resource.COIN,5);});
+        assertThrows(ResourceAlreadyPlacedException.class, () -> warehouseDepots.addResource(Resource.COIN,5));
     }
 
     /**
      * This method tests the exception during the addition of the same resource in the same shelves in the warehouse
      */
     @Test
-    public void testAddException3(){
+    void testAddException3(){
         WarehouseDepots warehouseDepots = new WarehouseDepots();
         try {
             warehouseDepots.addResource(Resource.COIN,2);
-        } catch (PositionAlreadyOccupiedException e) {
-            e.printStackTrace();
-        } catch (ResourceAlreadyPlacedException e) {
-            e.printStackTrace();
-        } catch (DifferentResourceInThisShelfException e) {
+        } catch (PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException e) {
             e.printStackTrace();
         }
-        assertThrows(DifferentResourceInThisShelfException.class, () ->{warehouseDepots.addResource(Resource.SERVANT,1);});
+        assertThrows(DifferentResourceInThisShelfException.class, () -> warehouseDepots.addResource(Resource.SERVANT,1));
     }
 
     /**
      * This method tests the subtraction of resources from the warehouse
      */
     @Test
-    public void removeTest(){
+    void removeTest(){
         WarehouseDepots warehouseDepots = new WarehouseDepots();
         try {
             warehouseDepots.addResource(Resource.COIN,2);
-        } catch (PositionAlreadyOccupiedException e) {
-            e.printStackTrace();
-        } catch (ResourceAlreadyPlacedException e) {
-            e.printStackTrace();
-        } catch (DifferentResourceInThisShelfException e) {
+        } catch (PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException e) {
             e.printStackTrace();
         }
         try {
@@ -136,16 +112,12 @@ public class WarehouseDepotsTest {
      * This method tests the movement between two resources
      */
     @Test
-    public void exchangingTest(){
+    void exchangingTest(){
         WarehouseDepots warehouseDepots = new WarehouseDepots();
         try {
             warehouseDepots.addResource(Resource.COIN,1);
             warehouseDepots.addResource(Resource.SERVANT,4);
-        } catch (PositionAlreadyOccupiedException e) {
-            e.printStackTrace();
-        } catch (ResourceAlreadyPlacedException e) {
-            e.printStackTrace();
-        } catch (DifferentResourceInThisShelfException e) {
+        } catch (PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException e) {
             e.printStackTrace();
         }
         try {
@@ -161,15 +133,11 @@ public class WarehouseDepotsTest {
      * This method tests the movement of a resource into an empty slot
      */
     @Test
-    public void moveTest(){
+    void moveTest(){
         WarehouseDepots warehouseDepots = new WarehouseDepots();
         try {
             warehouseDepots.addResource(Resource.COIN,1);
-        } catch (PositionAlreadyOccupiedException e) {
-            e.printStackTrace();
-        } catch (ResourceAlreadyPlacedException e) {
-            e.printStackTrace();
-        } catch (DifferentResourceInThisShelfException e) {
+        } catch (PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException e) {
             e.printStackTrace();
         }
         try {
@@ -185,44 +153,36 @@ public class WarehouseDepotsTest {
      * This method tests the movement of a resource out of bound
      */
     @Test
-    public void testMoveException1(){
+    void testMoveException1(){
         WarehouseDepots warehouseDepots = new WarehouseDepots();
         try {
             warehouseDepots.addResource(Resource.COIN,1);
-        } catch (PositionAlreadyOccupiedException e) {
-            e.printStackTrace();
-        } catch (ResourceAlreadyPlacedException e) {
-            e.printStackTrace();
-        } catch (DifferentResourceInThisShelfException e) {
+        } catch (PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException e) {
             e.printStackTrace();
         }
-        assertThrows(IndexOutOfBoundsException.class, () ->{warehouseDepots.moveResource(1,6);});
+        assertThrows(IndexOutOfBoundsException.class, () -> warehouseDepots.moveResource(1,6));
     }
 
     /**
      * This method tests the movement of a resource to a shelf with other resource type
      */
     @Test
-    public void testMoveException2(){
+    void testMoveException2(){
         WarehouseDepots warehouseDepots = new WarehouseDepots();
         try {
             warehouseDepots.addResource(Resource.COIN,0);
             warehouseDepots.addResource(Resource.SERVANT,3);
-        } catch (PositionAlreadyOccupiedException e) {
-            e.printStackTrace();
-        } catch (ResourceAlreadyPlacedException e) {
-            e.printStackTrace();
-        } catch (DifferentResourceInThisShelfException e) {
+        } catch (PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException e) {
             e.printStackTrace();
         }
-        assertThrows(NotAdmittedMovementException.class, () ->{warehouseDepots.moveResource(0,4);});
+        assertThrows(NotAdmittedMovementException.class, () -> warehouseDepots.moveResource(0,4));
     }
 
     /**
      * This method tests the getter of the class and their return
      */
     @Test
-    public void integrityTest(){
+    void integrityTest(){
         WarehouseDepots warehouseDepots = new WarehouseDepots();
         try {
             warehouseDepots.addResource(Resource.COIN,0);

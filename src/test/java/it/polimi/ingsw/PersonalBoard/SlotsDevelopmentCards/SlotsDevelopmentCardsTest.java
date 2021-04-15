@@ -31,7 +31,7 @@ public class SlotsDevelopmentCardsTest {
      * This method tests the addition of cards to their slot
      */
     @Test
-    public void testAddDevelopmentCard() throws PositionInvalidException {
+    void testAddDevelopmentCard() throws PositionInvalidException {
         SlotsDevelopmentCards slots = new SlotsDevelopmentCards();
         DevelopmentCard card1 = exampleDevelopmentCard(1);
         DevelopmentCard card2 = exampleDevelopmentCard(1);
@@ -64,7 +64,7 @@ public class SlotsDevelopmentCardsTest {
      * This method tests the exception during the addition of cards to their slot
      */
     @Test
-    public void testExceptionsAddDevelopmentCard() throws PositionInvalidException {
+    void testExceptionsAddDevelopmentCard() throws PositionInvalidException {
         SlotsDevelopmentCards slots = new SlotsDevelopmentCards();
         DevelopmentCard card1 = exampleDevelopmentCard(1);
         DevelopmentCard card2 = exampleDevelopmentCard(1);
@@ -72,32 +72,31 @@ public class SlotsDevelopmentCardsTest {
         DevelopmentCard card4 = exampleDevelopmentCard(3);
         DevelopmentCard card5 = exampleDevelopmentCard(2);
         slots.addDevelopmentCard(1,card1);
-        assertThrows(PositionInvalidException.class, () ->{slots.addDevelopmentCard(1,card2);});
+        assertThrows(PositionInvalidException.class, () -> slots.addDevelopmentCard(1,card2));
         slots.addDevelopmentCard(2,card2);
         slots.addDevelopmentCard(2,card3);
-        assertThrows(PositionInvalidException.class, () ->{slots.addDevelopmentCard(3,card4);});
-        assertThrows(PositionInvalidException.class, () ->{slots.addDevelopmentCard(1,card4);});
+        assertThrows(PositionInvalidException.class, () -> slots.addDevelopmentCard(3,card4));
+        assertThrows(PositionInvalidException.class, () -> slots.addDevelopmentCard(1,card4));
         slots.addDevelopmentCard(2,card4);
-        assertThrows(PositionInvalidException.class, () ->{slots.addDevelopmentCard(3,card5);});
+        assertThrows(PositionInvalidException.class, () -> slots.addDevelopmentCard(3,card5));
     }
 
     /**
      * This method tests the exception out of bound during the addition of cards to their slot
      */
     @Test
-    public void testOutOfBoundExceptionsAddDevelopmentCard(){
+    void testOutOfBoundExceptionsAddDevelopmentCard(){
         SlotsDevelopmentCards slots = new SlotsDevelopmentCards();
         DevelopmentCard card1 = exampleDevelopmentCard(1);
-        DevelopmentCard card2 = exampleDevelopmentCard(1);
-        assertThrows(IndexOutOfBoundsException.class, () ->{slots.addDevelopmentCard(0,card1);});
-        assertThrows(IndexOutOfBoundsException.class, () ->{slots.addDevelopmentCard(4,card1);});
+        assertThrows(IndexOutOfBoundsException.class, () -> slots.addDevelopmentCard(0,card1));
+        assertThrows(IndexOutOfBoundsException.class, () -> slots.addDevelopmentCard(4,card1));
     }
 
     /**
      * This method tests the getter of the class and their return
      */
     @Test
-    public void integrityTest(){
+    void integrityTest(){
         SlotsDevelopmentCards slots = new SlotsDevelopmentCards();
         DevelopmentCard[][]  test = slots.getSlot();
         assertNull(slots.getSlot()[0][0]);

@@ -11,7 +11,7 @@ public class ResourceProductionTest {
      * This method tests the sum between two ResourceProduction
      */
     @Test
-    public void sumOfResourceProduction(){
+    void sumOfResourceProduction(){
         ResourceProduction x = new ResourceProduction(1,2,3,
                 4,5,6,7,8,
                 9,10,11);

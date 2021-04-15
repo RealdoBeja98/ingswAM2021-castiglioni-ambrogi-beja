@@ -6,6 +6,10 @@ import it.polimi.ingsw.Enums.Type;
  * This Class represents the token of type black cross 2
  */
 public class BlackCross2Token extends ActionToken {
+
+    /**
+     * Constructor method of this class
+     */
     public BlackCross2Token(){
         whatIAm = Type.BLACKCROSS2;
     }

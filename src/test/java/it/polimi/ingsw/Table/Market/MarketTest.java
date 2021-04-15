@@ -12,7 +12,7 @@ public class MarketTest {
      * This method tests the market behaviour when we choose a column
      */
     @Test
-    public void testMarketChooseColumn(){
+    void testMarketChooseColumn(){
         Market market = new Market();
         Marble[][] oldMarketTray = market.getMarketTray();
         Marble oldExtraMarble = market.getExtraMarble();
@@ -31,28 +31,28 @@ public class MarketTest {
      * This method tests the market behaviour when we choose a row
      */
     @Test
-    public void testMarketChooseRow(){
+    void testMarketChooseRow(){
         Market market = new Market();
         Marble[][] oldMarketTray = market.getMarketTray();
         Marble oldExtraMarble = market.getExtraMarble();
-        Marble[] choosenMarbles = market.chooseRow(2);
-        assertSame(choosenMarbles[0], oldMarketTray[2][0]);
-        assertSame(choosenMarbles[1], oldMarketTray[2][1]);
-        assertSame(choosenMarbles[2], oldMarketTray[2][2]);
-        assertSame(choosenMarbles[3], oldMarketTray[2][3]);
+        Marble[] chosenMarbles = market.chooseRow(2);
+        assertSame(chosenMarbles[0], oldMarketTray[2][0]);
+        assertSame(chosenMarbles[1], oldMarketTray[2][1]);
+        assertSame(chosenMarbles[2], oldMarketTray[2][2]);
+        assertSame(chosenMarbles[3], oldMarketTray[2][3]);
         assertSame(market.getExtraMarble(), oldMarketTray[2][0]);
         assertSame(oldExtraMarble, market.getMarketTray()[2][3]);
-        assertSame(choosenMarbles[0], market.getExtraMarble());
-        assertSame(choosenMarbles[1], market.getMarketTray()[2][0]);
-        assertSame(choosenMarbles[2], market.getMarketTray()[2][1]);
-        assertSame(choosenMarbles[3], market.getMarketTray()[2][2]);
+        assertSame(chosenMarbles[0], market.getExtraMarble());
+        assertSame(chosenMarbles[1], market.getMarketTray()[2][0]);
+        assertSame(chosenMarbles[2], market.getMarketTray()[2][1]);
+        assertSame(chosenMarbles[3], market.getMarketTray()[2][2]);
     }
 
     /**
      * This method tests the market behaviour when we choose a row and a column
      */
     @Test
-    public void testMarketChooseRowAndColumn(){
+    void testMarketChooseRowAndColumn(){
         Market market = new Market();
         Marble[][] oldMarketTray = market.getMarketTray();
         Marble oldExtraMarble = market.getExtraMarble();

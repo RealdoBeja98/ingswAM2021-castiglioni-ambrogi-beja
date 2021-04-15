@@ -2,8 +2,6 @@ package it.polimi.ingsw.PersonalBoard.Faith;
 import it.polimi.ingsw.Enums.FavorTiles;
 import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Game.Player;
-
-
 import java.util.ArrayList;
 
 /**
@@ -138,12 +136,12 @@ public class FaithTrack {
     }
 
     /**
-     * This method move all the other players on the faith track advancing of 1 slot
-     * @param unlukyPlayer: it's the player who has discarded a resource from the market giving other players the possibility to advance on the faith track
+     * This method advances by 1 slot all the player aside the specified one
+     * @param discardingPlayer: is the player who has discarded a resource
      */
-    public void allOtherPlayersGoOn(Player unlukyPlayer){
+    public void allOtherPlayersGoOn(Player discardingPlayer){
         for(Player i : playerList){
-            if(i != unlukyPlayer){
+            if(i != discardingPlayer){
                 i.getPersonalBoard().getFaithTrack().goOn(1);
             }
         }

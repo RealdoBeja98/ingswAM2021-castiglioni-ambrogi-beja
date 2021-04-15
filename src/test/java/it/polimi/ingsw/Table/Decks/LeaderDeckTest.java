@@ -13,7 +13,7 @@ public class LeaderDeckTest {
      * This method tests the getter of the class and their return
      */
     @Test
-    public void integrityTest(){
+    void integrityTest(){
         LeaderDeck leaderDeck = new LeaderDeck();
         ArrayList<LeaderCard> deck = leaderDeck.getDeck();
         assertNotNull(leaderDeck.getDeck().get(0));
@@ -26,7 +26,7 @@ public class LeaderDeckTest {
      * This method tests the drawing of two cards from LeaderDeck
      */
     @Test
-    public void drawTest(){
+    void drawTest(){
         LeaderDeck leaderDeck = new LeaderDeck();
         ArrayList<LeaderCard> oldDeck = leaderDeck.getDeck();
         LeaderCard[] drawTwo = leaderDeck.draw();

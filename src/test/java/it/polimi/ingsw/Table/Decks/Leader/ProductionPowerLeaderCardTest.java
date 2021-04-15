@@ -14,7 +14,7 @@ public class ProductionPowerLeaderCardTest {
      * This method tests the creation of a ResourceProduction
      */
     @Test
-    public void resourceProductionTest(){
+    void resourceProductionTest(){
         ProductionPowerLeaderCard productionPowerLeaderCard = new ProductionPowerLeaderCard(3, Type.BLUE, Resource.SERVANT);
         ResourceProduction resourceProduction = productionPowerLeaderCard.resourceProduction();
         assertSame(resourceProduction.getRequiredCoin(), 0);

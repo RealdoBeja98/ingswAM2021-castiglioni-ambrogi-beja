@@ -113,7 +113,7 @@ public class DevelopmentDeck{
         int[][] decksTrack = numbersOfCardsLeft();
         int row = 2;
 
-        if(decksTrack[row][column] != 0 && row == 2){
+        if(decksTrack[row][column] != 0){
             deck[row][column][4 - decksTrack[row][column]] = null;
             return;
         }
@@ -121,14 +121,14 @@ public class DevelopmentDeck{
             row--;
         }
 
-        if(decksTrack[row][column] != 0 && row == 1){
+        if(decksTrack[row][column] != 0){
             deck[row][column][4 - decksTrack[row][column]] = null;
             return;
         }
         else{
             row--;
         }
-        if(decksTrack[row][column] != 0 && row == 0){
+        if(decksTrack[row][column] != 0){
             deck[row][column][4 - decksTrack[row][column]] = null;
             return;
         }

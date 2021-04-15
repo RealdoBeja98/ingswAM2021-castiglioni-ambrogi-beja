@@ -1179,10 +1179,10 @@ public class Player {
 
     public void drawSoloActionToken(){
         ActionToken token = Game.getInstance().getTable().getActionTokenDeck().draw();
-        if (Type.BLACKCROSS1.equals(token)) {
+        if (token.getWhatIAm() == Type.BLACKCROSS1) {
             personalBoard.getLorenzoTrack().goOnLorenzo(1);
             Game.getInstance().getTable().getActionTokenDeck().shuffle();
-        } else if (Type.BLACKCROSS2.equals(token)) {
+        } else if (token.getWhatIAm() == Type.BLACKCROSS2) {
             personalBoard.getLorenzoTrack().goOnLorenzo(2);
         } else {
             Game.getInstance().getTable().getDevelopmentDeck().discard(token.getWhatIAm());

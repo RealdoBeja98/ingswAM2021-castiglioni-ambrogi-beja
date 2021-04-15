@@ -16,7 +16,7 @@ public class FaithTrackTest {
      * This method initializes some player in the game
      */
     @BeforeAll
-    public static void initPlayer(){
+    static void initPlayer(){
         Game game = Game.getInstance();
         game.addPlayer("Carlo");
         game.addPlayer("Andrea");
@@ -27,7 +27,7 @@ public class FaithTrackTest {
      * This method tests the advancement on the faith track
      */
     @Test
-    public void testGoOn(){
+    void testGoOn(){
         Player test = new Player("Andrea");
         test.getPersonalBoard().getFaithTrack().goOn(1);
         assertSame(test.getPersonalBoard().getFaithTrack().getFaithMarker(), 1);
@@ -38,7 +38,7 @@ public class FaithTrackTest {
      * This method tests the advancement on the faith track and the vatican report
      */
     @Test
-    public void popeStateAndVictoryPointsTest(){
+    void popeStateAndVictoryPointsTest(){
         Game.getInstance().getPlayers().get(0).getPersonalBoard().getFaithTrack().goOn(7);
         Game.getInstance().getPlayers().get(1).getPersonalBoard().getFaithTrack().goOn(7);
         Game.getInstance().getPlayers().get(2).getPersonalBoard().getFaithTrack().goOn(2);
@@ -67,7 +67,7 @@ public class FaithTrackTest {
      * This method tests the getter of the class and their return
      */
     @Test
-    public void integrityTest(){
+    void integrityTest(){
         ArrayList<Player> players = new ArrayList<>();
         players.add(new Player("Andrea"));
         players.add(new Player("Carlo"));
@@ -82,10 +82,10 @@ public class FaithTrackTest {
     }
 
     /**
-     * This method tests the the advancement on the faith track when an unluky player give the possibility to other players to advance
+     * This method tests the the advancement on the faith track when an unlucky player give the possibility to other players to advance
      */
     @Test
-    public void advancementOtherPlayers(){
+    void advancementOtherPlayers(){
         //<-- FIXME finish me-->
     }
 

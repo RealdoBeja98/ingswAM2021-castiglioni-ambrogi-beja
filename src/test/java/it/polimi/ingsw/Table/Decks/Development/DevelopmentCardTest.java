@@ -14,7 +14,7 @@ public class DevelopmentCardTest {
      * This method tests the creation of a ResourceProduction from a DevelopmentCard
      */
     @Test
-    public void resourceProductionTest(){
+    void resourceProductionTest(){
         Resource[] cost = {Resource.COIN, Resource.SERVANT, Resource.SHIELD};
         int[] costNumber = {1, 2, 3};
         Resource[] requirements = {Resource.COIN};

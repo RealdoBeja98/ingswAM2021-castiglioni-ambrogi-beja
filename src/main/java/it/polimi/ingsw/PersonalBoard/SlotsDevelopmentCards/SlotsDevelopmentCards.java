@@ -174,7 +174,7 @@ public class SlotsDevelopmentCards {
     }
 
     /**
-     * This method check if you have at least required development card's type
+     * This method checks if you have all the required development cards placed
      * @param typesToHave: development card's type required
      * @return a boolean which is true if you you have at least the required development card's type
      */
@@ -213,11 +213,7 @@ public class SlotsDevelopmentCards {
                 default: break;
             }
         }
-        if(green >= 0 && blue >= 0 && yellow >= 0 && purple >= 0){
-            return true;
-        } else {
-            return false;
-        }
+        return green >= 0 && blue >= 0 && yellow >= 0 && purple >= 0;
     }
 
     /**

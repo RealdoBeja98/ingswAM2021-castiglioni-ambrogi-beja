@@ -18,7 +18,7 @@ public class MarblesTest {
      * This method tests the marbles behaviour when add a resource to a warehouse depot
      */
     @Test
-    public void putResourceWarehouseTest(){
+    void putResourceWarehouseTest(){
         WarehouseDepots warehouseDepots = new WarehouseDepots();
         Coin coin = new Coin();
         try {
@@ -27,8 +27,8 @@ public class MarblesTest {
             e.printStackTrace();
         }
         assertSame(warehouseDepots.getResource()[0], Resource.COIN);
-        assertThrows(PositionAlreadyOccupiedException.class, () ->{coin.putResource(warehouseDepots,0);});
-        assertThrows(IndexOutOfBoundsException.class, () ->{coin.putResource(warehouseDepots,10);});
+        assertThrows(PositionAlreadyOccupiedException.class, () -> coin.putResource(warehouseDepots,0));
+        assertThrows(IndexOutOfBoundsException.class, () -> coin.putResource(warehouseDepots,10));
         Servant servant = new Servant();
         Shield shield = new Shield();
         try {
@@ -36,15 +36,15 @@ public class MarblesTest {
         } catch (PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException e) {
             e.printStackTrace();
         }
-        assertThrows(DifferentResourceInThisShelfException.class, () ->{shield.putResource(warehouseDepots,2);});
-        assertThrows(ResourceAlreadyPlacedException.class, () ->{coin.putResource(warehouseDepots,2);});
+        assertThrows(DifferentResourceInThisShelfException.class, () -> shield.putResource(warehouseDepots,2));
+        assertThrows(ResourceAlreadyPlacedException.class, () -> coin.putResource(warehouseDepots,2));
     }
 
     /**
      * This method tests the marbles behaviour when add a resource to a extra storage leader card
      */
     @Test
-    public void putResourceLeaderTest(){
+    void putResourceLeaderTest(){
         ExtraStorageLeaderCard extraStorage = new ExtraStorageLeaderCard(3, Resource.SHIELD, Resource.COIN);
         Coin coin = new Coin();
         try {
@@ -54,24 +54,24 @@ public class MarblesTest {
         }
         assertSame(extraStorage.occupiedResources(), 1);
         Shield shield = new Shield();
-        assertThrows(DifferentStorageException.class, () ->{shield.putResource(extraStorage);});
+        assertThrows(DifferentStorageException.class, () -> shield.putResource(extraStorage));
         try {
             coin.putResource(extraStorage);
         } catch (DifferentStorageException | OccupiedSlotExtraStorageLeaderCardException e) {
             e.printStackTrace();
         }
         assertSame(extraStorage.occupiedResources(), 2);
-        assertThrows(OccupiedSlotExtraStorageLeaderCardException.class, () ->{coin.putResource(extraStorage);});
+        assertThrows(OccupiedSlotExtraStorageLeaderCardException.class, () -> coin.putResource(extraStorage));
     }
 
     /**
      * This method tests the marbles behaviour when add a resource to the faith track
      */
     @Test
-    public void putResourceFaithTest(){
+    void putResourceFaithTest(){
         FaithTrack faithTrack = new FaithTrack(Game.getInstance().getPlayers());
         Coin coin = new Coin();
-        assertThrows(RuntimeException.class, () ->{coin.putResource(faithTrack);});
+        assertThrows(RuntimeException.class, () -> coin.putResource(faithTrack));
 
     }
 }

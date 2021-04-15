@@ -17,26 +17,26 @@ public class FaithMarbleTest {
      * This method tests the marbles behaviour when add a resource to a warehouse depot
      */
     @Test
-    public void putResourceWarehouseTest() {
+    void putResourceWarehouseTest() {
         WarehouseDepots warehouseDepots = new WarehouseDepots();
         Faith faith = new Faith();
-        assertThrows(RuntimeException.class, () ->{faith.putResource(warehouseDepots, 0);});
+        assertThrows(RuntimeException.class, () -> faith.putResource(warehouseDepots, 0));
     }
     /**
      * This method tests the marbles behaviour when add a resource to a extra storage leader card
      */
     @Test
-    public void putResourceLeaderTest() {
+    void putResourceLeaderTest() {
         ExtraStorageLeaderCard extraStorage = new ExtraStorageLeaderCard(3, Resource.SHIELD, Resource.COIN);
         Faith faith = new Faith();
-        assertThrows(RuntimeException.class, () ->{faith.putResource(extraStorage);});
+        assertThrows(RuntimeException.class, () -> faith.putResource(extraStorage));
     }
 
     /**
      * This method tests the marbles behaviour when add a resource to the faith track
      */
     @Test
-    public void putResourceFaithTest() {
+    void putResourceFaithTest() {
         FaithTrack faithTrack = new FaithTrack(Game.getInstance().getPlayers());
         Faith faith = new Faith();
         faith.putResource(faithTrack);

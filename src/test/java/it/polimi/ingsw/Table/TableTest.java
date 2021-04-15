@@ -14,11 +14,14 @@ public class TableTest {
      * This method tests the getter of the class and their return
      */
     @Test
-    public void integrityTest(){
+    void integrityTest(){
         Table table = new Table();
         LeaderDeck leaderDeckTest = table.getLeaderDeck();
         Market marketTest = table.getMarket();
         DevelopmentDeck developmentDeck = table.getDevelopmentDeck();
+        assertNotNull(leaderDeckTest);
+        assertNotNull(marketTest);
+        assertNotNull(developmentDeck);
         leaderDeckTest = null;
         marketTest = null;
         developmentDeck = null;

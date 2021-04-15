@@ -50,7 +50,7 @@ public class Table {
 
     /**
      * Getter of the parameter ActionTokenDeck
-     * @return the decks of action token, of type ActionTokenDeck
+     * @return the deck of action token, of type ActionTokenDeck
      */
     public ActionTokenDeck getActionTokenDeck() {
         return actionTokenDeck;
