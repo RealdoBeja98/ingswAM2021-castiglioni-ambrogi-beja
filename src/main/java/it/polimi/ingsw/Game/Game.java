@@ -9,6 +9,7 @@ public class Game { //<-- FIXME finish me-->
     private static Game instance = null;
     private Table table;
     private ArrayList<Player> players;
+    private Turn turn;
 
     private Game() {
         table = new Table();
@@ -25,6 +26,10 @@ public class Game { //<-- FIXME finish me-->
 
     public void addPlayer(String name) {
         players.add(new Player(name));
+    }
+
+    public void startGame(){
+        turn = new Turn();
     }
 
     public void checkInListForNickname(String nameToCheck) throws NameAlreadyRegisteredException {
@@ -45,6 +50,7 @@ public class Game { //<-- FIXME finish me-->
     }
 
     public void endGame() {
+        turn.endGame();
     }
 
     public Table getTable() {

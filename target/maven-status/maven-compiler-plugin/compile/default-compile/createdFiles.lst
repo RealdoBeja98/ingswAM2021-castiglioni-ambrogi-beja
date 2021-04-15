@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+it/polimi/ingsw/Exceptions/DrawnFromEmptyDeckException.class
+it/polimi/ingsw/Exceptions/GameEndedException.class
+=======
 it\polimi\ingsw\Table\Decks\DevelopmentDeck.class
 it\polimi\ingsw\Exceptions\NoDevelopmentCardInThisPositionException.class
 it\polimi\ingsw\Table\Decks\Development\DevelopmentCard$1.class
@@ -42,3 +46,4 @@ it\polimi\ingsw\Exceptions\ActionNotAllowedException.class
 it\polimi\ingsw\Game\Player$1.class
 it\polimi\ingsw\Exceptions\NoLeaderCardToDiscardException.class
 it\polimi\ingsw\Table\Decks\DevelopmentDeck$1.class
+>>>>>>> be167985a30d01f7c02c7b7fc594c26a61190bb0

@@ -1,4 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: it.polimi.ingsw.PersonalBoard.StrongBox.StrongBoxTest
 -------------------------------------------------------------------------------
+<<<<<<< HEAD
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.097 s - in it.polimi.ingsw.PersonalBoard.StrongBox.StrongBoxTest
+=======
 Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 s - in it.polimi.ingsw.PersonalBoard.StrongBox.StrongBoxTest
+>>>>>>> be167985a30d01f7c02c7b7fc594c26a61190bb0

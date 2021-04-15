@@ -7,6 +7,8 @@ public class Turn {
     private Player currentPlayer;
     private boolean actionLeaderDone = false;
     private InWhichStatePlayer inWhichStatePlayer = InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1;
+    private boolean gameEnded = false;
+    private boolean viewFinalPoints = false;
 
     public Turn(){
         for(Player i : Game.getInstance().getPlayers()){
@@ -85,8 +87,9 @@ public class Turn {
      * @param pos: number 1 or 2 to determinate the position of the leader card in hand to discard
      * @throws ActionNotAllowedException if other steps are different from
      * CHOSE_ACTION_LEADER_OR_NOT1 and CHOSE_ACTION_LEADER_OR_NOT2
+     * @throws GameEndedException if the game is finished and it's time to show final points
      */
-    public void discardLeaderCard(int pos) throws YetDiscardedThisLeaderCardException, ActionNotAllowedException {
+    public void discardLeaderCard(int pos) throws YetDiscardedThisLeaderCardException, ActionNotAllowedException, GameEndedException {
         if(inWhichStatePlayer != InWhichStatePlayer.DISCARD_LEADER_CARD1 &&
                 inWhichStatePlayer != InWhichStatePlayer.DISCARD_LEADER_CARD2){
             throw new ActionNotAllowedException();
@@ -113,8 +116,9 @@ public class Turn {
      * @param pos: number 1 or 2 to determinate the position of the leader card in hand to play
      * @throws ActionNotAllowedException if other steps are different from
      * PLAY_LEADER_CARD1 AND PLAY_LEADER_CARD2
+     * @throws GameEndedException if the game is finished and it's time to show final points
      */
-    public void playLeaderCard(int pos) throws NotSatisfiedRequirementsForThisLeaderCardException, ActionNotAllowedException {
+    public void playLeaderCard(int pos) throws NotSatisfiedRequirementsForThisLeaderCardException, ActionNotAllowedException, GameEndedException {
         if(inWhichStatePlayer != InWhichStatePlayer.PLAY_LEADER_CARD1 &&
             inWhichStatePlayer != InWhichStatePlayer.PLAY_LEADER_CARD2){
             throw new ActionNotAllowedException();
@@ -224,15 +228,16 @@ public class Turn {
     * First choose the development card and than pay for it.
     *
     * @param pos: to choose the position of the DevelopmentCard on slotdevelopmentcard
+    * @throws GameEndedException if the game is finished and it's time to show final points
     */
-    public void obtainDevelopmentCard(int pos) throws NoDevelopmentCardToObtainException, PositionInvalidException{
+    public void obtainDevelopmentCard(int pos) throws NoDevelopmentCardToObtainException, PositionInvalidException, GameEndedException {
         currentPlayer.obtainDevelopmentCard(pos);
         if(currentPlayer.somethingToPay() == false){
             endPayment();
         }
     }
 
-    private void endPayment(){
+    private void endPayment() throws GameEndedException {
         if(currentPlayer.developmentCardToObtain()){
             return;
         }
@@ -262,8 +267,9 @@ public class Turn {
      * if you are in the right states
      * @param pay: to choose the type of resource from the Strongbox you are using to pay
      * @throws ActionNotAllowedException if you are in the other states
+     * @throws GameEndedException if the game is finished and it's time to show final points
      */
-    public void payWithStrongBox(Resource pay) throws WrongPaymentException, NotEnoughResourcesException, NegativeResourceException, NotAResourceForStrongBoxException, NoResourceToPayException, ActionNotAllowedException {
+    public void payWithStrongBox(Resource pay) throws WrongPaymentException, NotEnoughResourcesException, NegativeResourceException, NotAResourceForStrongBoxException, NoResourceToPayException, ActionNotAllowedException, GameEndedException {
         if(inWhichStatePlayer != InWhichStatePlayer.PLAY_LEADER_CARD1 &&
             inWhichStatePlayer != InWhichStatePlayer.PLAY_LEADER_CARD2 &&
             inWhichStatePlayer != InWhichStatePlayer.BUY_DEVELOPMENT_CARD &&
@@ -284,8 +290,9 @@ public class Turn {
      *
      * @param pos:Location of the resource to pay from werehousedepots
      * @throws ActionNotAllowedException if you are in the other states
+     * @throws GameEndedException if the game is finished and it's time to show final points
      */
-    public void payWithWarehouseDepots(int pos) throws WrongPaymentException, YetEmptySlotException, NoResourceToPayException, ActionNotAllowedException {
+    public void payWithWarehouseDepots(int pos) throws WrongPaymentException, YetEmptySlotException, NoResourceToPayException, ActionNotAllowedException, GameEndedException {
         if(inWhichStatePlayer != InWhichStatePlayer.PLAY_LEADER_CARD1 &&
                 inWhichStatePlayer != InWhichStatePlayer.PLAY_LEADER_CARD2 &&
                 inWhichStatePlayer != InWhichStatePlayer.BUY_DEVELOPMENT_CARD){
@@ -305,8 +312,9 @@ public class Turn {
      * turn to do che paying process.
      * @param pos: position from 1 to 2 to chose on your table
      * @throws ActionNotAllowedException if the player is in different turn than he should be.
+     * @throws GameEndedException if the game is finished and it's time to show final points
      */
-    public void payWithExtraStorageLeaderCard(int pos) throws NotAnExtraStorageLeaderCardException, WrongPaymentException, EmptySlotExtraStorageLeaderCardException, NoResourceToPayException, ActionNotAllowedException {
+    public void payWithExtraStorageLeaderCard(int pos) throws NotAnExtraStorageLeaderCardException, WrongPaymentException, EmptySlotExtraStorageLeaderCardException, NoResourceToPayException, ActionNotAllowedException, GameEndedException {
         if(inWhichStatePlayer != InWhichStatePlayer.PLAY_LEADER_CARD1 &&
                 inWhichStatePlayer != InWhichStatePlayer.PLAY_LEADER_CARD2 &&
                 inWhichStatePlayer != InWhichStatePlayer.BUY_DEVELOPMENT_CARD){
@@ -362,8 +370,9 @@ public class Turn {
      * at your choice
      * @param resource it takes a resource ball with a generic power
      * @throws NoGenericResourceToObtainException there ane not any generic resource to obtain
+     * @throws GameEndedException if the game is finished and it's time to show final points
      */
-    public void obtainGenericResource(Resource resource) throws NoGenericResourceToObtainException, NotAResourceForStrongBoxException{
+    public void obtainGenericResource(Resource resource) throws NoGenericResourceToObtainException, NotAResourceForStrongBoxException, GameEndedException {
         currentPlayer.obtainGenericResource(resource);
         if(currentPlayer.somethingToPay() == false){
             endPayment();
@@ -373,8 +382,9 @@ public class Turn {
     /**
      * This method let you start the payment of the selected production power
      * @throws ActionNotAllowedException if the player is in different turn than he should be.
+     * @throws GameEndedException if the game is finished and it's time to show final points
      */
-    public void startPayment() throws NotEnoughResourcesException, YouHaveNotSelectedAnyProductionException, ActionNotAllowedException {
+    public void startPayment() throws NotEnoughResourcesException, YouHaveNotSelectedAnyProductionException, ActionNotAllowedException, GameEndedException {
         if(inWhichStatePlayer != InWhichStatePlayer.ACTIVATE_PRODUCTION){
             throw new ActionNotAllowedException();
         }
@@ -427,11 +437,15 @@ public class Turn {
         currentPlayer.moveResourcesToWarehouseDepotsFromExtraStorageLeaderCard(pos);
     }
 
+    public void endGame(){
+        gameEnded = true;
+    }
+
     /**
-     *This method signalize end of a player turn, by ending an action leader and restarting to
+     * This method signalize end of a player turn, by ending an action leader and restarting to
      * a new chose action leader. At the end of the methods it cheks por the next player
      */
-    private void endTurn(){
+    private void endTurn() throws GameEndedException {
         actionLeaderDone = false;
         inWhichStatePlayer = InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1;
         boolean found = false;
@@ -445,6 +459,14 @@ public class Turn {
             }
         }
         currentPlayer = Game.getInstance().getPlayers().get(0);
+        if(currentPlayer.isInkwell() && gameEnded){
+            viewFinalPoints = true;
+            throw new GameEndedException();
+        }
+    }
+
+    public boolean getViewFinalPoints(){
+        return viewFinalPoints;
     }
     
 }

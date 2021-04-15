@@ -1,4 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: it.polimi.ingsw.Table.Decks.Leader.DiscountLeaderCardTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 s - in it.polimi.ingsw.Table.Decks.Leader.DiscountLeaderCardTest
+<<<<<<< HEAD
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 s - in it.polimi.ingsw.Table.Decks.Leader.DiscountLeaderCardTest
+=======
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.002 s - in it.polimi.ingsw.Table.Decks.Leader.DiscountLeaderCardTest
+>>>>>>> be167985a30d01f7c02c7b7fc594c26a61190bb0

@@ -21,6 +21,7 @@ public class FaithTrackTest {
         game.addPlayer("Carlo");
         game.addPlayer("Andrea");
         game.addPlayer("Realdo");
+        game.startGame();
     }
 
     /**
