@@ -1,7 +1,5 @@
 package it.polimi.ingsw.Table.Decks.Leader;
 import it.polimi.ingsw.Enums.LeaderCardType;
-import it.polimi.ingsw.Exceptions.OccupiedSlotExtraStorageLeaderCardException;
-import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Enums.Type;
 import it.polimi.ingsw.Table.Market.Marbles.Marble;
 
@@ -10,8 +8,8 @@ import it.polimi.ingsw.Table.Market.Marbles.Marble;
  */
 public class WhiteMarbleLeaderCard extends LeaderCard {
 
-    private Type[] costOfLeaderCard;
-    private Marble whiteMarble;
+    private final Type[] costOfLeaderCard;
+    private final Marble whiteMarble;
 
     /**
      * Constructor method of this class
@@ -37,31 +35,5 @@ public class WhiteMarbleLeaderCard extends LeaderCard {
      */
     public Marble getWhiteMarble(){
         return whiteMarble;
-    }
-
-    /**
-     * This method only throws an exception when accessed by this card
-     * @return the storage type of the card, of type Resource
-     */
-    @Override
-    public Resource getStorageType() {
-        throw new RuntimeException();
-    }
-
-    /**
-     * This method only throws an exception when accessed by this card
-     * @return the number of occupied slots, of type int
-     */
-    @Override
-    public int occupiedResources() {
-        throw new RuntimeException();
-    }
-
-    /**
-     * This method only throws an exception when accessed by this card
-     */
-    @Override
-    public void addResource() throws OccupiedSlotExtraStorageLeaderCardException {
-        throw new RuntimeException();
     }
 }

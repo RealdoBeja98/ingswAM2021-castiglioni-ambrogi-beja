@@ -7,13 +7,14 @@ import java.util.ArrayList;
 public class Game { //<-- FIXME finish me-->
 
     private static Game instance = null;
-    private final Table table;
+    private Table table;
     private ArrayList<Player> players;
     private Turn turn;
 
     private Game() {
         table = new Table();
         players = new ArrayList<>();
+
     }
 
     public static Game getInstance() {

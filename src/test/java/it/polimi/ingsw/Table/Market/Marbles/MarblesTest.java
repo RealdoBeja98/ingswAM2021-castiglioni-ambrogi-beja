@@ -5,7 +5,6 @@ import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.PersonalBoard.Faith.FaithTrack;
 import it.polimi.ingsw.PersonalBoard.Warehouse.WarehouseDepots;
 import it.polimi.ingsw.Table.Decks.Leader.ExtraStorageLeaderCard;
-import it.polimi.ingsw.Table.Decks.Leader.LeaderCard;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -46,7 +45,7 @@ public class MarblesTest {
      */
     @Test
     public void putResourceLeaderTest(){
-        LeaderCard extraStorage = new ExtraStorageLeaderCard(3, Resource.SHIELD, Resource.COIN);
+        ExtraStorageLeaderCard extraStorage = new ExtraStorageLeaderCard(3, Resource.SHIELD, Resource.COIN);
         Coin coin = new Coin();
         try {
             coin.putResource(extraStorage);

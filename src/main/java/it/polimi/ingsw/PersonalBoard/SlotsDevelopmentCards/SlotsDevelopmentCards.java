@@ -151,8 +151,8 @@ public class SlotsDevelopmentCards {
     }
 
     /**
-     * This method check if you are able to add a certain development card in any of the three slots
-     * @return a boolean which is true if you ar able to add the development card in any of the three slots
+     * This method checks if you are able to add the card before buying it
+     * @return true if you can add the development card, of type int
      */
     public boolean checkAbleToAddThisDevelopmentCard(DevelopmentCard developmentCard){
         int level = developmentCard.getLevel();
@@ -162,8 +162,8 @@ public class SlotsDevelopmentCards {
                 if(level == 1){
                     return true;
                 } else {
-                    int previusLevel = level - 1;
-                    int previousAntiLevel = 3 - previusLevel;
+                    int previousLevel = level - 1;
+                    int previousAntiLevel = 3 - previousLevel;
                     if(slot[previousAntiLevel][i] != null){
                         return true;
                     }
@@ -221,9 +221,9 @@ public class SlotsDevelopmentCards {
     }
 
     /**
-     * This method check if you have at least a development card of level 2 of a certain type
-     * @param typeToHave: development card type required for a card type required of level 2
-     * @return a boolean which is true if you you have at least a development card of level 2 of the certain type
+     * This method checks the presence of a level 2 card with a certain type
+     * @param typeToHave: card type that is going to be check
+     * @return true if there is a level 2 card of the desired type, of type boolean
      */
     public boolean checkHaveTypeAtLevelTwo(Type typeToHave){
         for(DevelopmentCard[] i : slot){
@@ -237,5 +237,4 @@ public class SlotsDevelopmentCards {
         }
         return false;
     }
-
 }

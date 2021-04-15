@@ -4,8 +4,10 @@ import it.polimi.ingsw.Enums.Type;
 
 
 /**
- * This Class represents the token of type blaskcross1
+ * This Class represents the token of type black cross 1
  */
 public class BlackCross1Token extends ActionToken {
-    private final Type whatIAm = Type.BLACKCROSS1;
+    public BlackCross1Token(){
+        whatIAm = Type.BLACKCROSS1;
+    }
 }

@@ -1,4 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: it.polimi.ingsw.PersonalBoard.Warehouse.WarehouseDepotsTest
 -------------------------------------------------------------------------------
+<<<<<<< HEAD
 Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.111 s - in it.polimi.ingsw.PersonalBoard.Warehouse.WarehouseDepotsTest
+=======
+Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.009 s - in it.polimi.ingsw.PersonalBoard.Warehouse.WarehouseDepotsTest
+>>>>>>> be167985a30d01f7c02c7b7fc594c26a61190bb0

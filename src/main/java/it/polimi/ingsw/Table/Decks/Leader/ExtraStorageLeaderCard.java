@@ -35,7 +35,6 @@ public class ExtraStorageLeaderCard extends LeaderCard {
      * Getter of the parameter storageType
      * @return the storage type of the card, of type Resource
      */
-    @Override
     public Resource getStorageType() {
         return storageType;
     }
@@ -44,7 +43,6 @@ public class ExtraStorageLeaderCard extends LeaderCard {
      * This method counts how many slot in the card are occupied
      * @return the number of occupied slots, of type int
      */
-    @Override
     public int occupiedResources(){
         int result = 0;
 
@@ -60,7 +58,6 @@ public class ExtraStorageLeaderCard extends LeaderCard {
      * This method adds a resource to the card
      * @throws OccupiedSlotExtraStorageLeaderCardException if all the slots in the card are occupied
      */
-    @Override
     public void addResource() throws OccupiedSlotExtraStorageLeaderCardException {
         int occupied = occupiedResources();
         if(occupied == 2){

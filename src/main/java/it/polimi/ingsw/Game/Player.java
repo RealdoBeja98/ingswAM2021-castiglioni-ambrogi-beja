@@ -2,13 +2,12 @@ package it.polimi.ingsw.Game; import it.polimi.ingsw.Enums.*;
 import it.polimi.ingsw.Exceptions.*;
 import it.polimi.ingsw.Table.Decks.*;
 import it.polimi.ingsw.PersonalBoard.PersonalBoard;
-
 import it.polimi.ingsw.Table.Decks.Development.DevelopmentCard;
 import it.polimi.ingsw.Table.Decks.Leader.*;
+import it.polimi.ingsw.Table.Decks.Token.ActionToken;
 import it.polimi.ingsw.Table.Market.Marbles.Faith;
 import it.polimi.ingsw.Table.Market.Marbles.Marble;
 import it.polimi.ingsw.Table.Market.Marbles.White;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -154,7 +153,7 @@ public class Player {
         }
         for (LeaderCard i : cardsOnTable) {
             if (i != null && i instanceof ExtraStorageLeaderCard) {
-                switch (i.getStorageType()) {
+                switch (((ExtraStorageLeaderCard) i).getStorageType()) {
                     case COIN:
                         coin += ((ExtraStorageLeaderCard) i).occupiedResources();
                         break;
@@ -448,7 +447,7 @@ public class Player {
             throw new UnexpectedFaithMarbleException();
         }
         if(where == LeaderWarehouse.LEADERCARD){
-            marblesFromTheMarket.get(0).putResource(cardsOnTable[pos-1]);
+            marblesFromTheMarket.get(0).putResource((ExtraStorageLeaderCard) cardsOnTable[pos-1]);
         }
         if(where == LeaderWarehouse.WAREHOUSEDEPOTS){
             marblesFromTheMarket.get(0).putResource(personalBoard.getWarehouseDepots(), pos);
@@ -543,7 +542,7 @@ public class Player {
         }
         for (LeaderCard i : cardsOnTable) {
             if (i != null && i instanceof ExtraStorageLeaderCard) {
-                switch (i.getStorageType()) {
+                switch (((ExtraStorageLeaderCard) i).getStorageType()) {
                     case COIN:
                         coin += ((ExtraStorageLeaderCard) i).occupiedResources();
                         break;
@@ -688,7 +687,7 @@ public class Player {
         }
         for (LeaderCard i : cardsOnTable) {
             if (i != null && i instanceof ExtraStorageLeaderCard) {
-                switch (i.getStorageType()) {
+                switch (((ExtraStorageLeaderCard) i).getStorageType()) {
                     case COIN:
                         coin += ((ExtraStorageLeaderCard) i).occupiedResources();
                         break;
@@ -939,7 +938,7 @@ public class Player {
                 }
                 for (LeaderCard i : cardsOnTable) {
                     if (i != null && i instanceof ExtraStorageLeaderCard) {
-                        switch (i.getStorageType()) {
+                        switch (((ExtraStorageLeaderCard) i).getStorageType()) {
                             case COIN:
                                 coin += ((ExtraStorageLeaderCard) i).occupiedResources();
                                 break;
@@ -1060,7 +1059,7 @@ public class Player {
         }
         for (LeaderCard i : cardsOnTable) {
             if (i != null && i instanceof ExtraStorageLeaderCard) {
-                switch (i.getStorageType()) {
+                switch (((ExtraStorageLeaderCard) i).getStorageType()) {
                     case COIN:
                         coin += ((ExtraStorageLeaderCard) i).occupiedResources();
                         break;
@@ -1178,8 +1177,20 @@ public class Player {
         obtainedDevelopmentCard = null;
     }
 
+    public void isSinglePlayer(){
+        personalBoard.createFaithTrackSP();
+    }
+
     public void drawSoloActionToken(){
-        //<-- FIXME finish me-->
+        ActionToken token = Game.getInstance().getTable().getActionTokenDeck().draw();
+        if (Type.BLACKCROSS1.equals(token)) {
+            personalBoard.getLorenzoTrack().goOnLorenzo(1);
+            Game.getInstance().getTable().getActionTokenDeck().shuffle();
+        } else if (Type.BLACKCROSS2.equals(token)) {
+            personalBoard.getLorenzoTrack().goOnLorenzo(2);
+        } else {
+            Game.getInstance().getTable().getDevelopmentDeck().discard(token.getWhatIAm());
+        }
     }
 
     /**

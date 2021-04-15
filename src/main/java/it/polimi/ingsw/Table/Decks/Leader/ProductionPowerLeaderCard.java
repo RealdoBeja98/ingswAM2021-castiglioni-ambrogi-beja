@@ -1,7 +1,6 @@
 package it.polimi.ingsw.Table.Decks.Leader;
 import it.polimi.ingsw.Enums.LeaderCardType;
 import it.polimi.ingsw.Enums.Type;
-import it.polimi.ingsw.Exceptions.OccupiedSlotExtraStorageLeaderCardException;
 import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Table.Decks.Production;
 import it.polimi.ingsw.Table.Decks.ResourceProduction;
@@ -33,14 +32,6 @@ public class ProductionPowerLeaderCard extends LeaderCard implements Production 
     }
 
     /**
-     * Getter of the parameter requirement
-     * @return the resource to activate the production, of type Resource
-     */
-    public Resource getRequirement(){
-        return requirement;
-    }
-
-    /**
      * This method creates a new instance of the class resource production, given the requirement specified in this card and the static output
      * @return a class that represent the production power of this card, of type ResourceProduction
      */
@@ -68,31 +59,5 @@ public class ProductionPowerLeaderCard extends LeaderCard implements Production 
         }
         return new ResourceProduction(costCoin, costServant, costShield, costStone, 0, 0,
                 0, 0, 0, 1, 1);
-    }
-
-    /**
-     * This method only throws an exception when accessed by this card
-     * @return the storage type of the card, of type Resource
-     */
-    @Override
-    public Resource getStorageType() {
-        throw new RuntimeException();
-    }
-
-    /**
-     * This method only throws an exception when accessed by this card
-     * @return the number of occupied slots, of type int
-     */
-    @Override
-    public int occupiedResources() {
-        throw new RuntimeException();
-    }
-
-    /**
-     * This method only throws an exception when accessed by this card
-     */
-    @Override
-    public void addResource() throws OccupiedSlotExtraStorageLeaderCardException {
-        throw new RuntimeException();
     }
 }

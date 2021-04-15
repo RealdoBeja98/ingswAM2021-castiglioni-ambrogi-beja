@@ -6,5 +6,7 @@ import it.polimi.ingsw.Enums.Type;
  * This Class represents the token of type green
  */
 public class GreenActionToken extends ActionToken {
-    private final Type whatIAm = Type.GREEN;
+    public GreenActionToken(){
+        whatIAm = Type.GREEN;
+    }
 }
