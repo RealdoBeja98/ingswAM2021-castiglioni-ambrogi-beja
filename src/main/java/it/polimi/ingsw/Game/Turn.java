@@ -6,7 +6,7 @@ import it.polimi.ingsw.Exceptions.*;
 public class Turn {
     private Player currentPlayer;
     private boolean actionLeaderDone = false;
-    private InWhichStatePlayer inWhichStatePlayer = InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1;
+    private InWhichStatePlayer currentPlayerState = InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1;
     private boolean gameEnded = false;
     private boolean viewFinalPoints = false;
 
@@ -28,11 +28,11 @@ public class Turn {
      * is done before can cannot do it for a second time
      */
     public void chooseDiscardLeaderCard() throws NoLeaderCardToDiscardException, ActionNotAllowedException {
-        if(inWhichStatePlayer != InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1 &&
-                inWhichStatePlayer != InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT2){
+        if(currentPlayerState != InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1 &&
+                currentPlayerState != InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT2){
             throw new ActionNotAllowedException();
         }
-        if(inWhichStatePlayer == InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT2 &&
+        if(currentPlayerState == InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT2 &&
                 actionLeaderDone == true){
             throw new ActionNotAllowedException();
         }
@@ -40,11 +40,10 @@ public class Turn {
             throw new NoLeaderCardToDiscardException();
         }
         actionLeaderDone = true;
-        if(inWhichStatePlayer == InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1) {
-            inWhichStatePlayer = InWhichStatePlayer.DISCARD_LEADER_CARD1;
-        }
-        if(inWhichStatePlayer == InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT2) {
-            inWhichStatePlayer = InWhichStatePlayer.DISCARD_LEADER_CARD2;
+        if(currentPlayerState == InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1) {
+            currentPlayerState = InWhichStatePlayer.DISCARD_LEADER_CARD1;
+        } else if(currentPlayerState == InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT2) {
+            currentPlayerState = InWhichStatePlayer.DISCARD_LEADER_CARD2;
         }
     }
 
@@ -58,11 +57,11 @@ public class Turn {
      *is done before cannot do it for a second time
      */
     public void choosePlayLeaderCard() throws ActionNotAllowedException, NoLeaderCardToPlayException {
-        if(inWhichStatePlayer != InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1 &&
-                inWhichStatePlayer != InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT2){
+        if(currentPlayerState != InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1 &&
+                currentPlayerState != InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT2){
             throw new ActionNotAllowedException();
         }
-        if(inWhichStatePlayer == InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT2 &&
+        if(currentPlayerState == InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT2 &&
                 actionLeaderDone == true){
             throw new ActionNotAllowedException();
         }
@@ -70,11 +69,10 @@ public class Turn {
             throw new NoLeaderCardToPlayException();
         }
         actionLeaderDone = true;
-        if(inWhichStatePlayer == InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1) {
-            inWhichStatePlayer = InWhichStatePlayer.PLAY_LEADER_CARD1;
-        }
-        if(inWhichStatePlayer == InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT2) {
-            inWhichStatePlayer = InWhichStatePlayer.PLAY_LEADER_CARD2;
+        if(currentPlayerState == InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1) {
+            currentPlayerState = InWhichStatePlayer.PLAY_LEADER_CARD1;
+        } else if(currentPlayerState == InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT2) {
+            currentPlayerState = InWhichStatePlayer.PLAY_LEADER_CARD2;
         }
     }
 
@@ -90,17 +88,16 @@ public class Turn {
      * @throws GameEndedException if the game is finished and it's time to show final points
      */
     public void discardLeaderCard(int pos) throws YetDiscardedThisLeaderCardException, ActionNotAllowedException, GameEndedException {
-        if(inWhichStatePlayer != InWhichStatePlayer.DISCARD_LEADER_CARD1 &&
-                inWhichStatePlayer != InWhichStatePlayer.DISCARD_LEADER_CARD2){
+        if(currentPlayerState != InWhichStatePlayer.DISCARD_LEADER_CARD1 &&
+                currentPlayerState != InWhichStatePlayer.DISCARD_LEADER_CARD2){
             throw new ActionNotAllowedException();
         }
         currentPlayer.discardLeaderCard(pos);
-        if(inWhichStatePlayer == InWhichStatePlayer.DISCARD_LEADER_CARD1){
-            inWhichStatePlayer = InWhichStatePlayer.SELECT_NORMAL_ACTION;
-        }
-        if(inWhichStatePlayer == InWhichStatePlayer.DISCARD_LEADER_CARD2){
+        if(currentPlayerState == InWhichStatePlayer.DISCARD_LEADER_CARD1){
+            currentPlayerState = InWhichStatePlayer.SELECT_NORMAL_ACTION;
+        } else if(currentPlayerState == InWhichStatePlayer.DISCARD_LEADER_CARD2){
             if(Game.getInstance().getPlayers().size() == 1){
-                inWhichStatePlayer = InWhichStatePlayer.DRAW_SOLO_ACTION_TOKEN;
+                currentPlayerState = InWhichStatePlayer.DRAW_SOLO_ACTION_TOKEN;
             } else {
                 endTurn();
             }
@@ -119,18 +116,17 @@ public class Turn {
      * @throws GameEndedException if the game is finished and it's time to show final points
      */
     public void playLeaderCard(int pos) throws NotSatisfiedRequirementsForThisLeaderCardException, ActionNotAllowedException, GameEndedException {
-        if(inWhichStatePlayer != InWhichStatePlayer.PLAY_LEADER_CARD1 &&
-            inWhichStatePlayer != InWhichStatePlayer.PLAY_LEADER_CARD2){
+        if(currentPlayerState != InWhichStatePlayer.PLAY_LEADER_CARD1 &&
+            currentPlayerState != InWhichStatePlayer.PLAY_LEADER_CARD2){
             throw new ActionNotAllowedException();
         }
         currentPlayer.playLeaderCard(pos);
         if(currentPlayer.somethingToPay() == false){
-            if(inWhichStatePlayer == InWhichStatePlayer.DISCARD_LEADER_CARD1){
-                inWhichStatePlayer = InWhichStatePlayer.SELECT_NORMAL_ACTION;
-            }
-            if(inWhichStatePlayer == InWhichStatePlayer.DISCARD_LEADER_CARD2){
+            if(currentPlayerState == InWhichStatePlayer.DISCARD_LEADER_CARD1){
+                currentPlayerState = InWhichStatePlayer.SELECT_NORMAL_ACTION;
+            } else if(currentPlayerState == InWhichStatePlayer.DISCARD_LEADER_CARD2){
                 if(Game.getInstance().getPlayers().size() == 1){
-                    inWhichStatePlayer = InWhichStatePlayer.DRAW_SOLO_ACTION_TOKEN;
+                    currentPlayerState = InWhichStatePlayer.DRAW_SOLO_ACTION_TOKEN;
                 } else {
                     endTurn();
                 }
@@ -143,26 +139,25 @@ public class Turn {
      * take resource from the market, buy development card and controlling if he can really
      * afford to buy one, activate production by controlling if he can can activate a power
      * production
-     *
      * @throws ActionNotAllowedException if other steps are different from
      * SELECT_NORMAL_ACTION, AND BY CONTROLLING THE POSSIBILITIES IF THE PLAYER CAN AFFORD A MOVE
      */
     public void selectNormalAction(NormalAction selectedNormalAction) throws ActionNotAllowedException {
-        if(inWhichStatePlayer != InWhichStatePlayer.SELECT_NORMAL_ACTION){
+        if(currentPlayerState != InWhichStatePlayer.SELECT_NORMAL_ACTION){
             throw new ActionNotAllowedException();
         }
         switch (selectedNormalAction){
             case TAKE_RESOURCES_FROM_THE_MARKET:
-                inWhichStatePlayer = InWhichStatePlayer.TAKE_RESOURCES_FROM_THE_MARKET;
+                currentPlayerState = InWhichStatePlayer.TAKE_RESOURCES_FROM_THE_MARKET;
             case BUY_DEVELOPMENT_CARD:
                 if(currentPlayer.canYouBuyADevelopmentCard()){
-                    inWhichStatePlayer = InWhichStatePlayer.BUY_DEVELOPMENT_CARD;
+                    currentPlayerState = InWhichStatePlayer.BUY_DEVELOPMENT_CARD;
                 } else {
                     throw new ActionNotAllowedException();
                 }
             case ACTIVATE_PRODUCTION:
                 if(currentPlayer.canYouActivateAPowerProduction()){
-                    inWhichStatePlayer = InWhichStatePlayer.ACTIVATE_PRODUCTION;
+                    currentPlayerState = InWhichStatePlayer.ACTIVATE_PRODUCTION;
                 }
                 else{
                     throw new ActionNotAllowedException();
@@ -183,7 +178,7 @@ public class Turn {
      * TAKE_RESOURCES_FROM_THE_MARKET
      */
     public void takeResourcesFromTheMarket(RowColumn rowColumn, int pos) throws ActionNotAllowedException {
-        if(inWhichStatePlayer != InWhichStatePlayer.TAKE_RESOURCES_FROM_THE_MARKET){
+        if(currentPlayerState != InWhichStatePlayer.TAKE_RESOURCES_FROM_THE_MARKET){
             throw new ActionNotAllowedException();
         }
         currentPlayer.takeResourcesFromTheMarket(rowColumn, pos);
@@ -199,12 +194,12 @@ public class Turn {
      *
      */
     public void addResource(LeaderWarehouse where, int pos) throws NoResourceToAddException, DifferentStorageException, OccupiedSlotExtraStorageLeaderCardException, PositionAlreadyOccupiedException, ResourceAlreadyPlacedException, DifferentResourceInThisShelfException, UnexpectedWhiteMarbleException, UnexpectedFaithMarbleException, ActionNotAllowedException {
-        if(inWhichStatePlayer != InWhichStatePlayer.TAKE_RESOURCES_FROM_THE_MARKET){
+        if(currentPlayerState != InWhichStatePlayer.TAKE_RESOURCES_FROM_THE_MARKET){
             throw new ActionNotAllowedException();
         }
         currentPlayer.addResource(where, pos);
         if(currentPlayer.resourceToAdd() == false){
-            inWhichStatePlayer = InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT2;
+            currentPlayerState = InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT2;
         }
     }
 
@@ -217,7 +212,7 @@ public class Turn {
      * TAKE_RESOURCES_FROM_THE_MARKET
      */
     public void changeWhiteMarbleWith(int pos) throws ClassCastException, NoWhiteMarbleException, ActionNotAllowedException {
-        if(inWhichStatePlayer != InWhichStatePlayer.TAKE_RESOURCES_FROM_THE_MARKET){
+        if(currentPlayerState != InWhichStatePlayer.TAKE_RESOURCES_FROM_THE_MARKET){
             throw new ActionNotAllowedException();
         }
         currentPlayer.changeWhiteMarbleWith(pos);
@@ -244,18 +239,15 @@ public class Turn {
         if(currentPlayer.genericResourcesToObtain()){
             return;
         }
-        if(inWhichStatePlayer == InWhichStatePlayer.PLAY_LEADER_CARD1){
-            inWhichStatePlayer = InWhichStatePlayer.SELECT_NORMAL_ACTION;
-        }
-        if(inWhichStatePlayer == InWhichStatePlayer.BUY_DEVELOPMENT_CARD){
-            inWhichStatePlayer = InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT2;
-        }
-        if(inWhichStatePlayer == InWhichStatePlayer.ACTIVATE_PRODUCTION){
-            inWhichStatePlayer = InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT2;
-        }
-        if(inWhichStatePlayer == InWhichStatePlayer.PLAY_LEADER_CARD2){
+        if(currentPlayerState == InWhichStatePlayer.PLAY_LEADER_CARD1){
+            currentPlayerState = InWhichStatePlayer.SELECT_NORMAL_ACTION;
+        } else if(currentPlayerState == InWhichStatePlayer.BUY_DEVELOPMENT_CARD){
+            currentPlayerState = InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT2;
+        } else if(currentPlayerState == InWhichStatePlayer.ACTIVATE_PRODUCTION){
+            currentPlayerState = InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT2;
+        } else if(currentPlayerState == InWhichStatePlayer.PLAY_LEADER_CARD2){
             if(Game.getInstance().getPlayers().size() == 1){
-                inWhichStatePlayer = InWhichStatePlayer.DRAW_SOLO_ACTION_TOKEN;
+                currentPlayerState = InWhichStatePlayer.DRAW_SOLO_ACTION_TOKEN;
             } else {
                 endTurn();
             }
@@ -270,10 +262,10 @@ public class Turn {
      * @throws GameEndedException if the game is finished and it's time to show final points
      */
     public void payWithStrongBox(Resource pay) throws WrongPaymentException, NotEnoughResourcesException, NegativeResourceException, NotAResourceForStrongBoxException, NoResourceToPayException, ActionNotAllowedException, GameEndedException {
-        if(inWhichStatePlayer != InWhichStatePlayer.PLAY_LEADER_CARD1 &&
-            inWhichStatePlayer != InWhichStatePlayer.PLAY_LEADER_CARD2 &&
-            inWhichStatePlayer != InWhichStatePlayer.BUY_DEVELOPMENT_CARD &&
-            inWhichStatePlayer != InWhichStatePlayer.ACTIVATE_PRODUCTION){
+        if(currentPlayerState != InWhichStatePlayer.PLAY_LEADER_CARD1 &&
+            currentPlayerState != InWhichStatePlayer.PLAY_LEADER_CARD2 &&
+            currentPlayerState != InWhichStatePlayer.BUY_DEVELOPMENT_CARD &&
+            currentPlayerState != InWhichStatePlayer.ACTIVATE_PRODUCTION){
             throw new ActionNotAllowedException();
         }
         currentPlayer.payWithStrongBox(pay);
@@ -293,9 +285,9 @@ public class Turn {
      * @throws GameEndedException if the game is finished and it's time to show final points
      */
     public void payWithWarehouseDepots(int pos) throws WrongPaymentException, YetEmptySlotException, NoResourceToPayException, ActionNotAllowedException, GameEndedException {
-        if(inWhichStatePlayer != InWhichStatePlayer.PLAY_LEADER_CARD1 &&
-                inWhichStatePlayer != InWhichStatePlayer.PLAY_LEADER_CARD2 &&
-                inWhichStatePlayer != InWhichStatePlayer.BUY_DEVELOPMENT_CARD){
+        if(currentPlayerState != InWhichStatePlayer.PLAY_LEADER_CARD1 &&
+                currentPlayerState != InWhichStatePlayer.PLAY_LEADER_CARD2 &&
+                currentPlayerState != InWhichStatePlayer.BUY_DEVELOPMENT_CARD){
             throw new ActionNotAllowedException();
         }
         currentPlayer.payWithWarehouseDepots(pos);
@@ -315,9 +307,9 @@ public class Turn {
      * @throws GameEndedException if the game is finished and it's time to show final points
      */
     public void payWithExtraStorageLeaderCard(int pos) throws NotAnExtraStorageLeaderCardException, WrongPaymentException, EmptySlotExtraStorageLeaderCardException, NoResourceToPayException, ActionNotAllowedException, GameEndedException {
-        if(inWhichStatePlayer != InWhichStatePlayer.PLAY_LEADER_CARD1 &&
-                inWhichStatePlayer != InWhichStatePlayer.PLAY_LEADER_CARD2 &&
-                inWhichStatePlayer != InWhichStatePlayer.BUY_DEVELOPMENT_CARD){
+        if(currentPlayerState != InWhichStatePlayer.PLAY_LEADER_CARD1 &&
+                currentPlayerState != InWhichStatePlayer.PLAY_LEADER_CARD2 &&
+                currentPlayerState != InWhichStatePlayer.BUY_DEVELOPMENT_CARD){
             throw new ActionNotAllowedException();
         }
         currentPlayer.payWithExtraStorageLeaderCard(pos);
@@ -333,7 +325,7 @@ public class Turn {
      * @throws ActionNotAllowedException if the player is in different turn than he should be.
      */
     public void selectProductionDevelopmentCard(int pos) throws ActionNotAllowedException {
-        if(inWhichStatePlayer != InWhichStatePlayer.ACTIVATE_PRODUCTION){
+        if(currentPlayerState != InWhichStatePlayer.ACTIVATE_PRODUCTION){
             throw new ActionNotAllowedException();
         }
         currentPlayer.selectProductionDevelopmentCard(pos);
@@ -347,7 +339,7 @@ public class Turn {
      * @throws ActionNotAllowedException if the player is in different turn than he should be.
      */
     public void selectProductionPowerLeaderCard(int pos) throws NoProductionLeaderCardException, ActionNotAllowedException {
-        if(inWhichStatePlayer != InWhichStatePlayer.ACTIVATE_PRODUCTION){
+        if(currentPlayerState != InWhichStatePlayer.ACTIVATE_PRODUCTION){
             throw new ActionNotAllowedException();
         }
         currentPlayer.selectProductionPowerLeaderCard(pos);
@@ -359,7 +351,7 @@ public class Turn {
      * @throws ActionNotAllowedException if the player is in different turn than he should be.
      */
     public void selectDefaultProductionPower() throws ActionNotAllowedException {
-        if(inWhichStatePlayer != InWhichStatePlayer.ACTIVATE_PRODUCTION){
+        if(currentPlayerState != InWhichStatePlayer.ACTIVATE_PRODUCTION){
             throw new ActionNotAllowedException();
         }
         currentPlayer.selectDefaultProductionPower();
@@ -385,7 +377,7 @@ public class Turn {
      * @throws GameEndedException if the game is finished and it's time to show final points
      */
     public void startPayment() throws NotEnoughResourcesException, YouHaveNotSelectedAnyProductionException, ActionNotAllowedException, GameEndedException {
-        if(inWhichStatePlayer != InWhichStatePlayer.ACTIVATE_PRODUCTION){
+        if(currentPlayerState != InWhichStatePlayer.ACTIVATE_PRODUCTION){
             throw new ActionNotAllowedException();
         }
         if(currentPlayer.somethingToPay() == false){
@@ -394,7 +386,7 @@ public class Turn {
     }
 
     public void drawSoloActionToken() throws ActionNotAllowedException {
-        if(inWhichStatePlayer != InWhichStatePlayer.DRAW_SOLO_ACTION_TOKEN){
+        if(currentPlayerState != InWhichStatePlayer.DRAW_SOLO_ACTION_TOKEN){
             throw new ActionNotAllowedException();
         }
         currentPlayer.drawSoloActionToken();
@@ -447,7 +439,7 @@ public class Turn {
      */
     private void endTurn() throws GameEndedException {
         actionLeaderDone = false;
-        inWhichStatePlayer = InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1;
+        currentPlayerState = InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1;
         boolean found = false;
         for(Player i : Game.getInstance().getPlayers()){
             if(found == true){

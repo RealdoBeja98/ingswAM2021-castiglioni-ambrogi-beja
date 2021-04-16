@@ -123,54 +123,81 @@ public class Player {
     }
 
     /**
-     * This method check if the player has at least 5 resources of the specified type
-     * @param resource: type of resource to have
-     * @return if the player has at least 5 resources of the specified type or not, of type boolean
+     * This Class represents the set of resources of the player
      */
-    private boolean checkToHaveAtLeastFiveOfThisResource(Resource resource){
-        int coin = personalBoard.getStrongBox().getCoin();
-        int servant = personalBoard.getStrongBox().getServant();
-        int shield = personalBoard.getStrongBox().getShield();
-        int stone = personalBoard.getStrongBox().getStone();
-        Resource[] warehouseDepots = personalBoard.getWarehouseDepots().getResource();
-        for (Resource i : warehouseDepots) {
-            switch (i) {
-                case COIN:
-                    coin++;
-                    break;
-                case SERVANT:
-                    servant++;
-                    break;
-                case SHIELD:
-                    shield++;
-                    break;
-                case STONE:
-                    stone++;
-                    break;
-                default:
-                    break;
-            }
-        }
-        for (LeaderCard i : cardsOnTable) {
-            if (i != null && i instanceof ExtraStorageLeaderCard) {
-                switch (((ExtraStorageLeaderCard) i).getStorageType()) {
+    private class TotalResourcesPlayer{
+
+        private final int coin;
+        private final int servant;
+        private final int shield;
+        private final int stone;
+
+        /**
+         * Constructor method of this class
+         */
+        private TotalResourcesPlayer(){
+            int coin = personalBoard.getStrongBox().getCoin();
+            int servant = personalBoard.getStrongBox().getServant();
+            int shield = personalBoard.getStrongBox().getShield();
+            int stone = personalBoard.getStrongBox().getStone();
+            Resource[] warehouseDepots = personalBoard.getWarehouseDepots().getResource();
+            for (Resource i : warehouseDepots) {
+                switch (i) {
                     case COIN:
-                        coin += ((ExtraStorageLeaderCard) i).occupiedResources();
+                        coin++;
                         break;
                     case SERVANT:
-                        servant += ((ExtraStorageLeaderCard) i).occupiedResources();
+                        servant++;
                         break;
                     case SHIELD:
-                        shield += ((ExtraStorageLeaderCard) i).occupiedResources();
+                        shield++;
                         break;
                     case STONE:
-                        stone += ((ExtraStorageLeaderCard) i).occupiedResources();
+                        stone++;
                         break;
                     default:
                         break;
                 }
             }
+            for (LeaderCard i : cardsOnTable) {
+                if (i != null && i instanceof ExtraStorageLeaderCard) {
+                    switch (((ExtraStorageLeaderCard) i).getStorageType()) {
+                        case COIN:
+                            coin += ((ExtraStorageLeaderCard) i).occupiedResources();
+                            break;
+                        case SERVANT:
+                            servant += ((ExtraStorageLeaderCard) i).occupiedResources();
+                            break;
+                        case SHIELD:
+                            shield += ((ExtraStorageLeaderCard) i).occupiedResources();
+                            break;
+                        case STONE:
+                            stone += ((ExtraStorageLeaderCard) i).occupiedResources();
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            this.coin = coin;
+            this.servant = servant;
+            this.shield = shield;
+            this.stone = stone;
         }
+
+    }
+
+    /**
+     * This method check if the player has at least 5 resources of the specified type
+     * @param resource: type of resource to have
+     * @return if the player has at least 5 resources of the specified type or not, of type boolean
+     */
+    private boolean checkToHaveAtLeastFiveOfThisResource(Resource resource){
+        TotalResourcesPlayer totalResourcesPlayer = new TotalResourcesPlayer();
+        int coin = totalResourcesPlayer.coin;
+        int servant = totalResourcesPlayer.servant;
+        int stone = totalResourcesPlayer.stone;
+        int shield = totalResourcesPlayer.shield;
         switch (resource){
             case COIN:
                 if(coin >= 5){
@@ -517,49 +544,11 @@ public class Player {
      * @return if you are able to activate a power production
      */
     public boolean canYouActivateAPowerProduction(){
-        int coin = personalBoard.getStrongBox().getCoin();
-        int servant = personalBoard.getStrongBox().getServant();
-        int shield = personalBoard.getStrongBox().getShield();
-        int stone = personalBoard.getStrongBox().getStone();
-        Resource[] warehouseDepots = personalBoard.getWarehouseDepots().getResource();
-        for (Resource i : warehouseDepots) {
-            switch (i) {
-                case COIN:
-                    coin++;
-                    break;
-                case SERVANT:
-                    servant++;
-                    break;
-                case SHIELD:
-                    shield++;
-                    break;
-                case STONE:
-                    stone++;
-                    break;
-                default:
-                    break;
-            }
-        }
-        for (LeaderCard i : cardsOnTable) {
-            if (i != null && i instanceof ExtraStorageLeaderCard) {
-                switch (((ExtraStorageLeaderCard) i).getStorageType()) {
-                    case COIN:
-                        coin += ((ExtraStorageLeaderCard) i).occupiedResources();
-                        break;
-                    case SERVANT:
-                        servant += ((ExtraStorageLeaderCard) i).occupiedResources();
-                        break;
-                    case SHIELD:
-                        shield += ((ExtraStorageLeaderCard) i).occupiedResources();
-                        break;
-                    case STONE:
-                        stone += ((ExtraStorageLeaderCard) i).occupiedResources();
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
+        TotalResourcesPlayer totalResourcesPlayer = new TotalResourcesPlayer();
+        int coin = totalResourcesPlayer.coin;
+        int servant = totalResourcesPlayer.servant;
+        int stone = totalResourcesPlayer.stone;
+        int shield = totalResourcesPlayer.shield;
         int sum = coin + servant + shield + stone;
         if(sum >= 2){
             return true;
@@ -662,49 +651,11 @@ public class Player {
                     0, 2, 0, 0, 0,
                     0, 1, 0));
         }
-        int coin = personalBoard.getStrongBox().getCoin();
-        int servant = personalBoard.getStrongBox().getServant();
-        int shield = personalBoard.getStrongBox().getShield();
-        int stone = personalBoard.getStrongBox().getStone();
-        Resource[] warehouseDepots = personalBoard.getWarehouseDepots().getResource();
-        for (Resource i : warehouseDepots) {
-            switch (i) {
-                case COIN:
-                    coin++;
-                    break;
-                case SERVANT:
-                    servant++;
-                    break;
-                case SHIELD:
-                    shield++;
-                    break;
-                case STONE:
-                    stone++;
-                    break;
-                default:
-                    break;
-            }
-        }
-        for (LeaderCard i : cardsOnTable) {
-            if (i != null && i instanceof ExtraStorageLeaderCard) {
-                switch (((ExtraStorageLeaderCard) i).getStorageType()) {
-                    case COIN:
-                        coin += ((ExtraStorageLeaderCard) i).occupiedResources();
-                        break;
-                    case SERVANT:
-                        servant += ((ExtraStorageLeaderCard) i).occupiedResources();
-                        break;
-                    case SHIELD:
-                        shield += ((ExtraStorageLeaderCard) i).occupiedResources();
-                        break;
-                    case STONE:
-                        stone += ((ExtraStorageLeaderCard) i).occupiedResources();
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
+        TotalResourcesPlayer totalResourcesPlayer = new TotalResourcesPlayer();
+        int coin = totalResourcesPlayer.coin;
+        int servant = totalResourcesPlayer.servant;
+        int shield = totalResourcesPlayer.shield;
+        int stone = totalResourcesPlayer.stone;
         int advance = 0;
         boolean weAre = true;
         if (coin < production.getRequiredCoin()) {
@@ -874,7 +825,7 @@ public class Player {
 
     /**
      * This method gives you the generic resources with generic possibilities for each resource
-     * @return
+     * @return if you have to obtain a generic resource or not
      */
     public boolean genericResourcesToObtain(){
         if(obtainedGeneric > 0){
@@ -913,49 +864,11 @@ public class Player {
         boolean result = false;
         for(DevelopmentCard[] k : Game.getInstance().getTable().getDevelopmentDeck().visualize()){
             for(DevelopmentCard j : k){
-                int coin = personalBoard.getStrongBox().getCoin();
-                int servant = personalBoard.getStrongBox().getServant();
-                int shield = personalBoard.getStrongBox().getShield();
-                int stone = personalBoard.getStrongBox().getStone();
-                Resource[] warehouseDepots = personalBoard.getWarehouseDepots().getResource();
-                for (Resource i : warehouseDepots) {
-                    switch (i) {
-                        case COIN:
-                            coin++;
-                            break;
-                        case SERVANT:
-                            servant++;
-                            break;
-                        case SHIELD:
-                            shield++;
-                            break;
-                        case STONE:
-                            stone++;
-                            break;
-                        default:
-                            break;
-                    }
-                }
-                for (LeaderCard i : cardsOnTable) {
-                    if (i != null && i instanceof ExtraStorageLeaderCard) {
-                        switch (((ExtraStorageLeaderCard) i).getStorageType()) {
-                            case COIN:
-                                coin += ((ExtraStorageLeaderCard) i).occupiedResources();
-                                break;
-                            case SERVANT:
-                                servant += ((ExtraStorageLeaderCard) i).occupiedResources();
-                                break;
-                            case SHIELD:
-                                shield += ((ExtraStorageLeaderCard) i).occupiedResources();
-                                break;
-                            case STONE:
-                                stone += ((ExtraStorageLeaderCard) i).occupiedResources();
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                }
+                TotalResourcesPlayer totalResourcesPlayer = new TotalResourcesPlayer();
+                int coin = totalResourcesPlayer.coin;
+                int servant = totalResourcesPlayer.servant;
+                int stone = totalResourcesPlayer.stone;
+                int shield = totalResourcesPlayer.shield;
                 Resource[] activeDiscounts = getActiveDiscount();
                 int costCoin = 0;
                 int costServant = 0;
@@ -1034,49 +947,11 @@ public class Player {
         if(selectedDevelopmentCard == null){
             throw new NoDevelopmentCardInThisPositionException();
         }
-        int coin = personalBoard.getStrongBox().getCoin();
-        int servant = personalBoard.getStrongBox().getServant();
-        int shield = personalBoard.getStrongBox().getShield();
-        int stone = personalBoard.getStrongBox().getStone();
-        Resource[] warehouseDepots = personalBoard.getWarehouseDepots().getResource();
-        for (Resource i : warehouseDepots) {
-            switch (i) {
-                case COIN:
-                    coin++;
-                    break;
-                case SERVANT:
-                    servant++;
-                    break;
-                case SHIELD:
-                    shield++;
-                    break;
-                case STONE:
-                    stone++;
-                    break;
-                default:
-                    break;
-            }
-        }
-        for (LeaderCard i : cardsOnTable) {
-            if (i != null && i instanceof ExtraStorageLeaderCard) {
-                switch (((ExtraStorageLeaderCard) i).getStorageType()) {
-                    case COIN:
-                        coin += ((ExtraStorageLeaderCard) i).occupiedResources();
-                        break;
-                    case SERVANT:
-                        servant += ((ExtraStorageLeaderCard) i).occupiedResources();
-                        break;
-                    case SHIELD:
-                        shield += ((ExtraStorageLeaderCard) i).occupiedResources();
-                        break;
-                    case STONE:
-                        stone += ((ExtraStorageLeaderCard) i).occupiedResources();
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
+        TotalResourcesPlayer totalResourcesPlayer = new TotalResourcesPlayer();
+        int coin = totalResourcesPlayer.coin;
+        int servant = totalResourcesPlayer.servant;
+        int stone = totalResourcesPlayer.stone;
+        int shield = totalResourcesPlayer.shield;
         Resource[] activeDiscounts = getActiveDiscount();
         int costCoin = 0;
         int costServant = 0;
@@ -1177,11 +1052,17 @@ public class Player {
         obtainedDevelopmentCard = null;
     }
 
+    /**
+     * this method configure the Player for a single-player game
+     */
     public void isSinglePlayer(){
         personalBoard.createFaithTrackSP();
         Game.getInstance().getTable().createActionTokenDeck();
     }
 
+    /**
+     * this method is to draw a SoloActionToken and to execute its effect
+     */
     public void drawSoloActionToken(){
         ActionToken token = Game.getInstance().getTable().getActionTokenDeck().draw();
         if (token.getWhatIAm() == Type.BLACKCROSS1) {
@@ -1208,6 +1089,10 @@ public class Player {
         return count;
     }
 
+    /**
+     * this method return victory points of the player
+     * @return victory points of the player
+     */
     public int calculateVictoryPoints(){
         int result = 0;
         for(DevelopmentCard[] i : getPersonalBoard().getSlotsDevelopmentCards().getSlot()){
