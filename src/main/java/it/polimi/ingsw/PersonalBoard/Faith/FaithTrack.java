@@ -11,14 +11,11 @@ public class FaithTrack {
 
     private int faithMarker;
     private FavorTiles[] favorTiles;
-    private final ArrayList<Player> playerList;
 
     /**
      * Constructor method of this class
-     * @param playerList: list of the player in the game
      */
-    public FaithTrack(ArrayList<Player> playerList){
-        this.playerList = playerList;
+    public FaithTrack(){
         faithMarker = 0;
         favorTiles = new FavorTiles[3];
         for(int i = 0; i < 3; i++){
@@ -79,6 +76,7 @@ public class FaithTrack {
         if(n == 2){
             threshold = 19;
         }
+        ArrayList<Player> playerList = Game.getInstance().getPlayers();
         for(Player name : playerList){
             if(name.getPersonalBoard().getFaithTrack().faithMarker >= threshold){
                 name.getPersonalBoard().getFaithTrack().favorTiles[n] =
@@ -140,6 +138,7 @@ public class FaithTrack {
      * @param discardingPlayer: is the player who has discarded a resource
      */
     public void allOtherPlayersGoOn(Player discardingPlayer){
+        ArrayList<Player> playerList = Game.getInstance().getPlayers();
         for(Player i : playerList){
             if(i != discardingPlayer){
                 i.getPersonalBoard().getFaithTrack().goOn(1);
@@ -152,7 +151,7 @@ public class FaithTrack {
      * @return a copy, of type FaithTrack
      */
     private FaithTrack copy(){
-        FaithTrack copy = new FaithTrack(playerList);
+        FaithTrack copy = new FaithTrack();
         copy.favorTiles = this.favorTiles.clone();
         return copy;
     }

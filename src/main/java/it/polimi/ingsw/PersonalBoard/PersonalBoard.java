@@ -21,7 +21,7 @@ public class PersonalBoard {
      * Constructor method of this class
      */
     public PersonalBoard(){
-        faithTrack = new FaithTrack(Game.getInstance().getPlayers());
+        faithTrack = new FaithTrack();
         warehouseDepots = new WarehouseDepots();
         strongBox = new StrongBox();
         slotsDevelopmentCards = new SlotsDevelopmentCards();
@@ -63,7 +63,7 @@ public class PersonalBoard {
      * This method creates a new faith track for Lorenzo
      */
     public void createFaithTrackSP(){
-        lorenzoTrack = new FaithTrackSP(Game.getInstance().getPlayers());
+        lorenzoTrack = new FaithTrackSP();
     }
 
     /**

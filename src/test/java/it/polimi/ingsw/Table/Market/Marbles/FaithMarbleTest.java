@@ -1,6 +1,5 @@
 package it.polimi.ingsw.Table.Market.Marbles;
 import it.polimi.ingsw.Enums.Resource;
-import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.PersonalBoard.Faith.FaithTrack;
 import it.polimi.ingsw.PersonalBoard.Warehouse.WarehouseDepots;
 import it.polimi.ingsw.Table.Decks.Leader.ExtraStorageLeaderCard;
@@ -37,7 +36,7 @@ public class FaithMarbleTest {
      */
     @Test
     void putResourceFaithTest() {
-        FaithTrack faithTrack = new FaithTrack(Game.getInstance().getPlayers());
+        FaithTrack faithTrack = new FaithTrack();
         Faith faith = new Faith();
         faith.putResource(faithTrack);
         assertSame(faithTrack.getFaithMarker(), 1);

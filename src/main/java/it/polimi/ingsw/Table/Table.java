@@ -12,7 +12,7 @@ public class Table {
     private final LeaderDeck leaderDeck;
     private final Market market;
     private final DevelopmentDeck developmentDeck;
-    private final ActionTokenDeck actionTokenDeck;
+    private ActionTokenDeck actionTokenDeck;
 
     /**
      * Constructor method of this class
@@ -21,7 +21,6 @@ public class Table {
         developmentDeck = new DevelopmentDeck();
         market = new Market();
         leaderDeck = new LeaderDeck();
-        actionTokenDeck = new ActionTokenDeck();
     }
 
     /**
@@ -46,6 +45,13 @@ public class Table {
      */
     public DevelopmentDeck getDevelopmentDeck() {
         return developmentDeck;
+    }
+
+    /**
+     * This method generates the action token deck
+     */
+    public void createActionTokenDeck(){
+        actionTokenDeck = new ActionTokenDeck();
     }
 
     /**

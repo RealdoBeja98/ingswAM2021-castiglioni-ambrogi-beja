@@ -34,18 +34,23 @@ public class FaithTrackTest {
         assertSame(test.getPersonalBoard().getFaithTrack().getFaithMarker(), 1);
     }
 
-
     /**
-     * This method tests the advancement on the faith track and the vatican report
+     * This method tests the advancement on the faith track, the vatican report and if a player discard a marble
      */
     @Test
     void popeStateAndVictoryPointsTest(){
         Game.getInstance().getPlayers().get(0).getPersonalBoard().getFaithTrack().goOn(7);
         Game.getInstance().getPlayers().get(1).getPersonalBoard().getFaithTrack().goOn(7);
         Game.getInstance().getPlayers().get(2).getPersonalBoard().getFaithTrack().goOn(2);
+        assertSame(Game.getInstance().getPlayers().get(0).getPersonalBoard().getFaithTrack().getFaithMarker(), 7);
+        assertSame(Game.getInstance().getPlayers().get(1).getPersonalBoard().getFaithTrack().getFaithMarker(), 7);
+        assertSame(Game.getInstance().getPlayers().get(2).getPersonalBoard().getFaithTrack().getFaithMarker(), 2);
         Game.getInstance().getPlayers().get(0).getPersonalBoard().getFaithTrack().goOn(1);
         Game.getInstance().getPlayers().get(1).getPersonalBoard().getFaithTrack().goOn(2);
         Game.getInstance().getPlayers().get(2).getPersonalBoard().getFaithTrack().goOn(17);
+        assertSame(Game.getInstance().getPlayers().get(0).getPersonalBoard().getFaithTrack().getFaithMarker(), 8);
+        assertSame(Game.getInstance().getPlayers().get(1).getPersonalBoard().getFaithTrack().getFaithMarker(), 9);
+        assertSame(Game.getInstance().getPlayers().get(2).getPersonalBoard().getFaithTrack().getFaithMarker(), 19);
         assertSame(Game.getInstance().getPlayers().get(0).getPersonalBoard().getFaithTrack().getFavorTiles()[0], FavorTiles.TURNED);
         assertSame(Game.getInstance().getPlayers().get(1).getPersonalBoard().getFaithTrack().getFavorTiles()[0], FavorTiles.TURNED);
         assertSame(Game.getInstance().getPlayers().get(2).getPersonalBoard().getFaithTrack().getFavorTiles()[0], FavorTiles.DITCH);
@@ -55,7 +60,14 @@ public class FaithTrackTest {
         assertSame(Game.getInstance().getPlayers().get(0).getPersonalBoard().getFaithTrack().victoryPoints(), 4);
         assertSame(Game.getInstance().getPlayers().get(1).getPersonalBoard().getFaithTrack().victoryPoints(), 6);
         assertSame(Game.getInstance().getPlayers().get(2).getPersonalBoard().getFaithTrack().victoryPoints(), 15);
+        Game.getInstance().getPlayers().get(0).getPersonalBoard().getFaithTrack().allOtherPlayersGoOn(Game.getInstance().getPlayers().get(0));
+        assertSame(Game.getInstance().getPlayers().get(0).getPersonalBoard().getFaithTrack().getFaithMarker(), 8);
+        assertSame(Game.getInstance().getPlayers().get(1).getPersonalBoard().getFaithTrack().getFaithMarker(), 10);
+        assertSame(Game.getInstance().getPlayers().get(2).getPersonalBoard().getFaithTrack().getFaithMarker(), 20);
         Game.getInstance().getPlayers().get(0).getPersonalBoard().getFaithTrack().goOn(16);
+        assertSame(Game.getInstance().getPlayers().get(0).getPersonalBoard().getFaithTrack().getFaithMarker(), 24);
+        assertSame(Game.getInstance().getPlayers().get(1).getPersonalBoard().getFaithTrack().getFaithMarker(), 10);
+        assertSame(Game.getInstance().getPlayers().get(2).getPersonalBoard().getFaithTrack().getFaithMarker(), 20);
         assertSame(Game.getInstance().getPlayers().get(0).getPersonalBoard().getFaithTrack().getFavorTiles()[2], FavorTiles.TURNED);
         assertSame(Game.getInstance().getPlayers().get(1).getPersonalBoard().getFaithTrack().getFavorTiles()[2], FavorTiles.DITCH);
         assertSame(Game.getInstance().getPlayers().get(2).getPersonalBoard().getFaithTrack().getFavorTiles()[2], FavorTiles.TURNED);
@@ -80,14 +92,6 @@ public class FaithTrackTest {
         assertSame(test[0], FavorTiles.DITCH);
         assertSame(faithTrack.getFavorTiles()[0], FavorTiles.COVERED);
         assertSame(faithTrack.getFavorTiles()[1], FavorTiles.COVERED);
-    }
-
-    /**
-     * This method tests the the advancement on the faith track when an unlucky player give the possibility to other players to advance
-     */
-    @Test
-    void advancementOtherPlayers(){
-        //<-- FIXME finish me-->
     }
 
 }

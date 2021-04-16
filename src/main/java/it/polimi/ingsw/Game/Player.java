@@ -1179,6 +1179,7 @@ public class Player {
 
     public void isSinglePlayer(){
         personalBoard.createFaithTrackSP();
+        Game.getInstance().getTable().createActionTokenDeck();
     }
 
     public void drawSoloActionToken(){
