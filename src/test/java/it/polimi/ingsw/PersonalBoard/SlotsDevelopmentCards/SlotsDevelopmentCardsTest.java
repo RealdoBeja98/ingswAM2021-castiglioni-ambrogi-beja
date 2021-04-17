@@ -32,7 +32,7 @@ public class SlotsDevelopmentCardsTest {
      */
     @Test
     void testAddDevelopmentCard() throws PositionInvalidException {
-        SlotsDevelopmentCards slots = new SlotsDevelopmentCards();
+        SlotsDevelopmentCards slots = new SlotsDevelopmentCards(40);
         DevelopmentCard card1 = exampleDevelopmentCard(1);
         DevelopmentCard card2 = exampleDevelopmentCard(1);
         DevelopmentCard card3 = exampleDevelopmentCard(1);
@@ -65,7 +65,7 @@ public class SlotsDevelopmentCardsTest {
      */
     @Test
     void testExceptionsAddDevelopmentCard() throws PositionInvalidException {
-        SlotsDevelopmentCards slots = new SlotsDevelopmentCards();
+        SlotsDevelopmentCards slots = new SlotsDevelopmentCards(41);
         DevelopmentCard card1 = exampleDevelopmentCard(1);
         DevelopmentCard card2 = exampleDevelopmentCard(1);
         DevelopmentCard card3 = exampleDevelopmentCard(2);
@@ -86,7 +86,7 @@ public class SlotsDevelopmentCardsTest {
      */
     @Test
     void testOutOfBoundExceptionsAddDevelopmentCard(){
-        SlotsDevelopmentCards slots = new SlotsDevelopmentCards();
+        SlotsDevelopmentCards slots = new SlotsDevelopmentCards(42);
         DevelopmentCard card1 = exampleDevelopmentCard(1);
         assertThrows(IndexOutOfBoundsException.class, () -> slots.addDevelopmentCard(0,card1));
         assertThrows(IndexOutOfBoundsException.class, () -> slots.addDevelopmentCard(4,card1));
@@ -97,7 +97,7 @@ public class SlotsDevelopmentCardsTest {
      */
     @Test
     void integrityTest(){
-        SlotsDevelopmentCards slots = new SlotsDevelopmentCards();
+        SlotsDevelopmentCards slots = new SlotsDevelopmentCards(43);
         DevelopmentCard[][]  test = slots.getSlot();
         assertNull(slots.getSlot()[0][0]);
         assertNull(slots.getActiveCards()[0]);

@@ -13,12 +13,14 @@ public class Table {
     private final Market market;
     private final DevelopmentDeck developmentDeck;
     private ActionTokenDeck actionTokenDeck;
+    private int gameIndex;
 
     /**
      * Constructor method of this class
      */
-    public Table(){
-        developmentDeck = new DevelopmentDeck();
+    public Table(int gameIndex){
+        this.gameIndex = gameIndex;
+        developmentDeck = new DevelopmentDeck(gameIndex);
         market = new Market();
         leaderDeck = new LeaderDeck();
     }

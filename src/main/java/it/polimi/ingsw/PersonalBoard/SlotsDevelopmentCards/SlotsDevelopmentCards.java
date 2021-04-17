@@ -1,4 +1,5 @@
 package it.polimi.ingsw.PersonalBoard.SlotsDevelopmentCards;
+import it.polimi.ingsw.App;
 import it.polimi.ingsw.Enums.Type;
 import it.polimi.ingsw.Exceptions.PositionInvalidException;
 import it.polimi.ingsw.Table.Decks.Development.DevelopmentCard;
@@ -11,11 +12,13 @@ public class SlotsDevelopmentCards {
 
     private DevelopmentCard[][] slot;
     private DevelopmentCard[] activeCards;
+    private int gameIndex;
 
     /**
      * Constructor method of this class
      */
-    public SlotsDevelopmentCards(){
+    public SlotsDevelopmentCards(int gameIndex){
+        this.gameIndex = gameIndex;
         activeCards = new DevelopmentCard[3];
         slot = new DevelopmentCard[3][3];
         for(int i = 0; i < 3; i++){
@@ -57,7 +60,7 @@ public class SlotsDevelopmentCards {
             }
         }
         if(count >= 7){
-                Game.getInstance().endGame();
+                Game.get(gameIndex).endGame();
         }
     }
 
@@ -141,7 +144,7 @@ public class SlotsDevelopmentCards {
      * @return a copy, of type SlotsDevelopmentCards
      */
     private SlotsDevelopmentCards copy(){
-        SlotsDevelopmentCards copy = new SlotsDevelopmentCards();
+        SlotsDevelopmentCards copy = new SlotsDevelopmentCards(gameIndex);
         copy.slot = this.slot.clone();
         for(int i = 0; i < copy.slot.length; i++){
             copy.slot[i] = copy.slot[i].clone();

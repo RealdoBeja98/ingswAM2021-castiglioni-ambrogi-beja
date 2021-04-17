@@ -9,9 +9,11 @@ public class Turn {
     private InWhichStatePlayer currentPlayerState = InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1;
     private boolean gameEnded = false;
     private boolean viewFinalPoints = false;
+    private int gameIndex;
 
-    public Turn(){
-        for(Player i : Game.getInstance().getPlayers()){
+    public Turn(int gameIndex){
+        this.gameIndex = gameIndex;
+        for(Player i : Game.get(gameIndex).getPlayers()){
             if(i.isInkwell()){
                 currentPlayer = i;
             }
@@ -96,7 +98,7 @@ public class Turn {
         if(currentPlayerState == InWhichStatePlayer.DISCARD_LEADER_CARD1){
             currentPlayerState = InWhichStatePlayer.SELECT_NORMAL_ACTION;
         } else if(currentPlayerState == InWhichStatePlayer.DISCARD_LEADER_CARD2){
-            if(Game.getInstance().getPlayers().size() == 1){
+            if(Game.get(gameIndex).getPlayers().size() == 1){
                 currentPlayerState = InWhichStatePlayer.DRAW_SOLO_ACTION_TOKEN;
             } else {
                 endTurn();
@@ -125,7 +127,7 @@ public class Turn {
             if(currentPlayerState == InWhichStatePlayer.DISCARD_LEADER_CARD1){
                 currentPlayerState = InWhichStatePlayer.SELECT_NORMAL_ACTION;
             } else if(currentPlayerState == InWhichStatePlayer.DISCARD_LEADER_CARD2){
-                if(Game.getInstance().getPlayers().size() == 1){
+                if(Game.get(gameIndex).getPlayers().size() == 1){
                     currentPlayerState = InWhichStatePlayer.DRAW_SOLO_ACTION_TOKEN;
                 } else {
                     endTurn();
@@ -246,7 +248,7 @@ public class Turn {
         } else if(currentPlayerState == InWhichStatePlayer.ACTIVATE_PRODUCTION){
             currentPlayerState = InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT2;
         } else if(currentPlayerState == InWhichStatePlayer.PLAY_LEADER_CARD2){
-            if(Game.getInstance().getPlayers().size() == 1){
+            if(Game.get(gameIndex).getPlayers().size() == 1){
                 currentPlayerState = InWhichStatePlayer.DRAW_SOLO_ACTION_TOKEN;
             } else {
                 endTurn();
@@ -441,7 +443,7 @@ public class Turn {
         actionLeaderDone = false;
         currentPlayerState = InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1;
         boolean found = false;
-        for(Player i : Game.getInstance().getPlayers()){
+        for(Player i : Game.get(gameIndex).getPlayers()){
             if(found == true){
                 currentPlayer = i;
                 return;
@@ -450,7 +452,7 @@ public class Turn {
                 found = true;
             }
         }
-        currentPlayer = Game.getInstance().getPlayers().get(0);
+        currentPlayer = Game.get(gameIndex).getPlayers().get(0);
         if(currentPlayer.isInkwell() && gameEnded){
             viewFinalPoints = true;
             throw new GameEndedException();

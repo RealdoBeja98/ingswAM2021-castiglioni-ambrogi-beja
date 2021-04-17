@@ -68,9 +68,9 @@ public class MarblesTest {
      */
     @Test
     void putResourceFaithTest(){
-        FaithTrack faithTrack = new FaithTrack();
+        FaithTrack faithTrack = new FaithTrack(200);
         Coin coin = new Coin();
         assertThrows(RuntimeException.class, () -> coin.putResource(faithTrack));
-
     }
+
 }

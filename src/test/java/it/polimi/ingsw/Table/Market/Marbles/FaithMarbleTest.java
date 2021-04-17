@@ -36,7 +36,7 @@ public class FaithMarbleTest {
      */
     @Test
     void putResourceFaithTest() {
-        FaithTrack faithTrack = new FaithTrack();
+        FaithTrack faithTrack = new FaithTrack(51);
         Faith faith = new Faith();
         faith.putResource(faithTrack);
         assertSame(faithTrack.getFaithMarker(), 1);

@@ -7,7 +7,8 @@ public class FaithTrackSP extends FaithTrack{ //<--FIXME finish this class-->
     /**
      * Constructor method of this class
      */
-    public FaithTrackSP() {
+    public FaithTrackSP(int gameIndex) {
+        super(gameIndex);
         faithMarkerLorenzo = 0;
     }
     public void goOnLorenzo(int n){

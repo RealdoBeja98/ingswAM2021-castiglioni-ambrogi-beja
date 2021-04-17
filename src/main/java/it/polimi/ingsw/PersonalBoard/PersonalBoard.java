@@ -16,15 +16,17 @@ public class PersonalBoard {
     private final StrongBox strongBox;
     private final SlotsDevelopmentCards slotsDevelopmentCards;
     private FaithTrackSP lorenzoTrack;
+    private int gameIndex;
 
     /**
      * Constructor method of this class
      */
-    public PersonalBoard(){
-        faithTrack = new FaithTrack();
+    public PersonalBoard(int gameIndex){
+        this.gameIndex = gameIndex;
+        faithTrack = new FaithTrack(gameIndex);
         warehouseDepots = new WarehouseDepots();
         strongBox = new StrongBox();
-        slotsDevelopmentCards = new SlotsDevelopmentCards();
+        slotsDevelopmentCards = new SlotsDevelopmentCards(gameIndex);
     }
 
     /**
@@ -63,7 +65,7 @@ public class PersonalBoard {
      * This method creates a new faith track for Lorenzo
      */
     public void createFaithTrackSP(){
-        lorenzoTrack = new FaithTrackSP();
+        lorenzoTrack = new FaithTrackSP(gameIndex);
     }
 
     /**

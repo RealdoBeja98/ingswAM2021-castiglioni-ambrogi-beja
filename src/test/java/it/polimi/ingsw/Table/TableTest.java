@@ -15,7 +15,7 @@ public class TableTest {
      */
     @Test
     void integrityTest(){
-        Table table = new Table();
+        Table table = new Table(50);
         LeaderDeck leaderDeckTest = table.getLeaderDeck();
         Market marketTest = table.getMarket();
         DevelopmentDeck developmentDeck = table.getDevelopmentDeck();
@@ -32,4 +32,5 @@ public class TableTest {
         assertNull(marketTest);
         assertNull(developmentDeck);
     }
+
 }

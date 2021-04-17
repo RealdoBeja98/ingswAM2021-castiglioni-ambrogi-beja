@@ -29,15 +29,17 @@ public class Player {
     private int obtainedGeneric = 0;
     private DevelopmentCard obtainedDevelopmentCard;
     private int selectedWarehouseDepotsSlot = 0;
+    private int gameIndex;
 
     /**
      * Constructor method of this class
      * @param nickname: the nickname of the player
      */
-    public Player(String nickname){
+    public Player(String nickname, int gameIndex){
+        this.gameIndex = gameIndex;
         this.nickname = nickname;
-        personalBoard = new PersonalBoard();
-        cardsInHand = Game.getInstance().getTable().getLeaderDeck().draw();
+        personalBoard = new PersonalBoard(gameIndex);
+        cardsInHand = Game.get(gameIndex).getTable().getLeaderDeck().draw();
         cardsOnTable = new LeaderCard[2];
         inkwell = false;
     }
@@ -233,7 +235,7 @@ public class Player {
      * This method tell if the player is able to pay at least a leader card in his hand
      * @return if the player the player is able to pay at least a leader card in his hand
      */
-    public boolean canYouPlayAtLeastALeaderCard(){
+    public boolean canYouPlayAtLeastALeaderCard(){// <-- FIXME -->
         boolean result = false;
         for(LeaderCard i : cardsInHand){
             if(i != null){
@@ -330,14 +332,14 @@ public class Player {
                 throw new IndexOutOfBoundsException();
             }
             else{
-                obtainedMarbles = Arrays.asList(Game.getInstance().getTable().getMarket().chooseColumn(pos-1));
+                obtainedMarbles = Arrays.asList(Game.get(gameIndex).getTable().getMarket().chooseColumn(pos-1));
             }
         }
         else if(rowColumn == RowColumn.ROW){
             if(pos < 1 || pos > 3){
                 throw new IndexOutOfBoundsException();
             }else{
-                obtainedMarbles = Arrays.asList(Game.getInstance().getTable().getMarket().chooseRow(pos-1));
+                obtainedMarbles = Arrays.asList(Game.get(gameIndex).getTable().getMarket().chooseRow(pos-1));
             }
         }else{
             throw new NullPointerException();
@@ -720,10 +722,21 @@ public class Player {
      * @return if you have something to pay
      */
     public boolean somethingToPay(){
-        if(payingResources.size() == 0){
+        if(payingResources.isEmpty()){
             return false;
         }
         return true;
+    }
+
+    /**
+     * This method tell show the next resource to pay
+     * @return the next resource to pay
+     */
+    public Resource nextToPay() throws NoResourceToPayException {
+        if(payingResources.isEmpty()){
+            throw new NoResourceToPayException();
+        }
+        return payingResources.get(0);
     }
 
     /**
@@ -875,7 +888,7 @@ public class Player {
      */
     public boolean canYouBuyADevelopmentCard(){
         boolean result = false;
-        for(DevelopmentCard[] k : Game.getInstance().getTable().getDevelopmentDeck().visualize()){
+        for(DevelopmentCard[] k : Game.get(gameIndex).getTable().getDevelopmentDeck().visualize()){
             for(DevelopmentCard j : k){
                 TotalResourcesPlayer totalResourcesPlayer = new TotalResourcesPlayer();
                 int coin = totalResourcesPlayer.coin;
@@ -951,12 +964,12 @@ public class Player {
      * @throws DrawnFromEmptyDeckException if the deck selected is empty
      */
     public void buyADevelopmentCard(int xx, int yy) throws PositionInvalidException, NoDevelopmentCardInThisPositionException, NotAbleToBuyThisDevelopmentCardException, NotAbleToPlaceThisDevelopmentCardException, DrawnFromEmptyDeckException {
-        int x = xx + 1;
-        int y = yy + 1;
+        int x = xx - 1;
+        int y = yy - 1;
         if(x < 0 || x >= 4 || y < 0 || y >= 3){
             throw new PositionInvalidException();
         }
-        DevelopmentCard selectedDevelopmentCard = Game.getInstance().getTable().getDevelopmentDeck().visualize()[x][y];
+        DevelopmentCard selectedDevelopmentCard = Game.get(gameIndex).getTable().getDevelopmentDeck().visualize()[x][y];
         if(selectedDevelopmentCard == null){
             throw new NoDevelopmentCardInThisPositionException();
         }
@@ -1021,7 +1034,7 @@ public class Player {
             throw new NotAbleToPlaceThisDevelopmentCardException();
         }
         obtainedDevelopmentCard = selectedDevelopmentCard;
-        Game.getInstance().getTable().getDevelopmentDeck().draw(xx,yy);
+        Game.get(gameIndex).getTable().getDevelopmentDeck().draw(xx,yy);
         for(int i = 0; i < costCoin; i++){
             payingResources.add(Resource.COIN);
         }
@@ -1070,21 +1083,21 @@ public class Player {
      */
     public void isSinglePlayer(){
         personalBoard.createFaithTrackSP();
-        Game.getInstance().getTable().createActionTokenDeck();
+        Game.get(gameIndex).getTable().createActionTokenDeck();
     }
 
     /**
      * this method is to draw a SoloActionToken and to execute its effect
      */
     public void drawSoloActionToken(){
-        ActionToken token = Game.getInstance().getTable().getActionTokenDeck().draw();
+        ActionToken token = Game.get(gameIndex).getTable().getActionTokenDeck().draw();
         if (token.getWhatIAm() == Type.BLACKCROSS1) {
             personalBoard.getLorenzoTrack().goOnLorenzo(1);
-            Game.getInstance().getTable().getActionTokenDeck().shuffle();
+            Game.get(gameIndex).getTable().getActionTokenDeck().shuffle();
         } else if (token.getWhatIAm() == Type.BLACKCROSS2) {
             personalBoard.getLorenzoTrack().goOnLorenzo(2);
         } else {
-            Game.getInstance().getTable().getDevelopmentDeck().discard(token.getWhatIAm());
+            Game.get(gameIndex).getTable().getDevelopmentDeck().discard(token.getWhatIAm());
         }
     }
 

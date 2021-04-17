@@ -13,11 +13,13 @@ import java.util.Collections;
 public class DevelopmentDeck{
 
     private final DevelopmentCard[][][] deck;
+    private int gameIndex;
 
     /**
      * Constructor method of this class
      */
-    public DevelopmentDeck(){
+    public DevelopmentDeck(int gameIndex){
+        this.gameIndex = gameIndex;
         deck = new DevelopmentCard[3][4][4];
         addCard();
     }
@@ -79,7 +81,7 @@ public class DevelopmentDeck{
         if(z == 0){
             throw new DrawnFromEmptyDeckException();
         }
-        DevelopmentCard drawnCard = visualize()[x][y];
+        DevelopmentCard drawnCard = visualize()[x-1][y-1];
         deck[x - 1][y - 1][4 - z] = null;
         return drawnCard;
     }
@@ -133,7 +135,7 @@ public class DevelopmentDeck{
             return;
         }
         else{
-            Game.getInstance().endGame();
+            Game.get(gameIndex).endGame();
         }
     }
 
@@ -172,8 +174,9 @@ public class DevelopmentDeck{
         deckGreen1.add(new DevelopmentCard(card4R, card4C, Type.GREEN, 1, req4, costReq4, prod4,costProd4, 4));
         Collections.shuffle(deckGreen1);
         for(int i = 0; i < 4; i++){
-            deck[0][0][i] = deckGreen1.get(i);
+            deck[2][0][i] = deckGreen1.get(i);
         }
         //ripeti x 11 v
     }
+
 }
