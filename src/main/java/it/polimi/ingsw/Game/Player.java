@@ -142,21 +142,23 @@ public class Player {
             int stone = personalBoard.getStrongBox().getStone();
             Resource[] warehouseDepots = personalBoard.getWarehouseDepots().getResource();
             for (Resource i : warehouseDepots) {
-                switch (i) {
-                    case COIN:
-                        coin++;
-                        break;
-                    case SERVANT:
-                        servant++;
-                        break;
-                    case SHIELD:
-                        shield++;
-                        break;
-                    case STONE:
-                        stone++;
-                        break;
-                    default:
-                        break;
+                if(i != null){
+                    switch (i) {
+                        case COIN:
+                            coin++;
+                            break;
+                        case SERVANT:
+                            servant++;
+                            break;
+                        case SHIELD:
+                            shield++;
+                            break;
+                        case STONE:
+                            stone++;
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
             for (LeaderCard i : cardsOnTable) {
@@ -451,6 +453,17 @@ public class Player {
     }
 
     /**
+     * This method returns the first marble to add from the market.
+     * @return the first marble to add from the market.
+     */
+    public Marble whichResourceToAdd() throws NoMarbleToAddFromTheMarketException {
+        if(marblesFromTheMarket.isEmpty()){
+            throw new NoMarbleToAddFromTheMarketException();
+        }
+        return marblesFromTheMarket.get(0);
+    }
+
+    /**
      * This method let player to add a resource, witch he took from the market, to the WarehouseDepots or into
      * an ExtraStorageLeaderCard or even to discard it letting other players to advance in them faith track
      * @param pos: to choose the position of the WarehouseDepots or of the LeaderCard in hand; it's unuseful in case of discarding the resource
@@ -637,7 +650,7 @@ public class Player {
      * @throws YouHaveNotSelectedAnyProductionException if you haven't selected any production power
      */
     public void startPayment() throws NotEnoughResourcesException, YouHaveNotSelectedAnyProductionException {
-        if(selectedProduction.size() == 0){
+        if(selectedProduction.size() == 0 && selectedDefaultProductionPower == false){
             throw new YouHaveNotSelectedAnyProductionException();
         }
         ResourceProduction production = new ResourceProduction(0, 0, 0, 0,
