@@ -244,14 +244,17 @@ public class Player {
                         if(personalBoard.getSlotsDevelopmentCards().checkHaveTypes(((DiscountLeaderCard)i).getCostOfLeaderCard())){
                             result = true;
                         }
+                        break;
                     case STORAGE:
                         if(checkToHaveAtLeastFiveOfThisResource(((ExtraStorageLeaderCard)i).getCostOfLeaderCard())){
                             result = true;
                         }
+                        break;
                     case PRODUCTIONPOWER:
                         if(personalBoard.getSlotsDevelopmentCards().checkHaveTypeAtLevelTwo(((ProductionPowerLeaderCard)i).getCostOfLeaderCard())){
                             result = true;
                         }
+                        break;
                     case WHITE:
                         Type[] price = new Type[3];
                         price[0] = ((WhiteMarbleLeaderCard)i).getCostOfLeaderCard()[0];
@@ -260,6 +263,7 @@ public class Player {
                         if(personalBoard.getSlotsDevelopmentCards().checkHaveTypes(price)){
                             result = true;
                         }
+                        break;
                     default:
                         throw new RuntimeException();
                 }
@@ -541,7 +545,7 @@ public class Player {
             throw new IndexOutOfBoundsException();
         }
         else{
-            WhiteMarbleLeaderCard selected = (WhiteMarbleLeaderCard)cardsOnTable[pos];
+            WhiteMarbleLeaderCard selected = (WhiteMarbleLeaderCard)cardsOnTable[pos-1];
             if(selected == null){
                 throw new NullPointerException();
             }
@@ -622,10 +626,10 @@ public class Player {
      * @param pos: to choose the position of the ProductionPowerLeaderCard
      */
     public void selectProductionPowerLeaderCard(int pos) throws NoProductionLeaderCardException {
-        if(pos <= 1 || pos > 2){
+        if(pos <= 0 || pos > 2){
             throw new IndexOutOfBoundsException();
         }
-        LeaderCard selected = cardsOnTable[pos];
+        LeaderCard selected = cardsOnTable[pos-1];
         if(!(selected instanceof ProductionPowerLeaderCard)){
             throw new NoProductionLeaderCardException();
         }
@@ -890,62 +894,64 @@ public class Player {
         boolean result = false;
         for(DevelopmentCard[] k : Game.get(gameIndex).getTable().getDevelopmentDeck().visualize()){
             for(DevelopmentCard j : k){
-                TotalResourcesPlayer totalResourcesPlayer = new TotalResourcesPlayer();
-                int coin = totalResourcesPlayer.coin;
-                int servant = totalResourcesPlayer.servant;
-                int stone = totalResourcesPlayer.stone;
-                int shield = totalResourcesPlayer.shield;
-                Resource[] activeDiscounts = getActiveDiscount();
-                int costCoin = 0;
-                int costServant = 0;
-                int costShield = 0;
-                int costStone = 0;
-                for(int i = 0; i < j.getCost().length; i++){
-                    switch (j.getCost()[i]){
-                        case COIN: costCoin += j.getCostNumber()[i];
-                            break;
-                        case SERVANT: costServant += j.getCostNumber()[i];
-                            break;
-                        case SHIELD: costShield += j.getCostNumber()[i];
-                            break;
-                        case STONE: costStone += j.getCostNumber()[i];
-                            break;
-                        default: break;
-                    }
-                }
-                for(Resource i : activeDiscounts){
-                    if(i != null){
-                        switch (i){
-                            case COIN: costCoin--;
+                if(j != null){
+                    TotalResourcesPlayer totalResourcesPlayer = new TotalResourcesPlayer();
+                    int coin = totalResourcesPlayer.coin;
+                    int servant = totalResourcesPlayer.servant;
+                    int stone = totalResourcesPlayer.stone;
+                    int shield = totalResourcesPlayer.shield;
+                    Resource[] activeDiscounts = getActiveDiscount();
+                    int costCoin = 0;
+                    int costServant = 0;
+                    int costShield = 0;
+                    int costStone = 0;
+                    for(int i = 0; i < j.getCost().length; i++){
+                        switch (j.getCost()[i]){
+                            case COIN: costCoin += j.getCostNumber()[i];
                                 break;
-                            case SERVANT: costServant--;
+                            case SERVANT: costServant += j.getCostNumber()[i];
                                 break;
-                            case SHIELD: costShield--;
+                            case SHIELD: costShield += j.getCostNumber()[i];
                                 break;
-                            case STONE: costStone--;
+                            case STONE: costStone += j.getCostNumber()[i];
                                 break;
                             default: break;
                         }
                     }
-                }
-                if(costCoin < 0){
-                    costCoin = 0;
-                }
-                if(costServant < 0){
-                    costServant = 0;
-                }
-                if(costShield < 0){
-                    costShield = 0;
-                }
-                if(costStone < 0){
-                    costStone = 0;
-                }
-                coin -= costCoin;
-                servant -= costServant;
-                shield -= costShield;
-                stone -= costStone;
-                if(!(coin < 0 || servant < 0 || shield < 0 || stone < 0)){
-                    result = true;
+                    for(Resource i : activeDiscounts){
+                        if(i != null){
+                            switch (i){
+                                case COIN: costCoin--;
+                                    break;
+                                case SERVANT: costServant--;
+                                    break;
+                                case SHIELD: costShield--;
+                                    break;
+                                case STONE: costStone--;
+                                    break;
+                                default: break;
+                            }
+                        }
+                    }
+                    if(costCoin < 0){
+                        costCoin = 0;
+                    }
+                    if(costServant < 0){
+                        costServant = 0;
+                    }
+                    if(costShield < 0){
+                        costShield = 0;
+                    }
+                    if(costStone < 0){
+                        costStone = 0;
+                    }
+                    coin -= costCoin;
+                    servant -= costServant;
+                    shield -= costShield;
+                    stone -= costStone;
+                    if(!(coin < 0 || servant < 0 || shield < 0 || stone < 0)){
+                        result = true;
+                    }
                 }
             }
         }
