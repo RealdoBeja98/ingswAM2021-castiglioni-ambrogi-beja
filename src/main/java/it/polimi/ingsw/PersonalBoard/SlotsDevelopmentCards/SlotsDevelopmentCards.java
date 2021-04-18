@@ -1,5 +1,4 @@
 package it.polimi.ingsw.PersonalBoard.SlotsDevelopmentCards;
-import it.polimi.ingsw.App;
 import it.polimi.ingsw.Enums.Type;
 import it.polimi.ingsw.Exceptions.PositionInvalidException;
 import it.polimi.ingsw.Table.Decks.Development.DevelopmentCard;

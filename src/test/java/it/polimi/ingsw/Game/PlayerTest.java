@@ -168,7 +168,7 @@ class PlayerTest {
         Player player = game.getPlayers().get(0);
         assertFalse(player.resourceToAdd());
         player.takeResourcesFromTheMarket(RowColumn.ROW, 2);
-        assertTrue(player.resourceToAdd());
+        assertTrue(player.resourceToAdd()); //<--FIXME-->
     }
 
     /**

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="it.polimi.ingsw.Table.Decks.Leader.ExtraStorageLeaderCardTest" time="0" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="it.polimi.ingsw.Game.PlayerTest" time="0.059" tests="28" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="15"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -56,5 +56,32 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="59.0"/>
   </properties>
-  <testcase name="addRemoveResourceFromExtraStorageLeaderCardTest" classname="it.polimi.ingsw.Table.Decks.Leader.ExtraStorageLeaderCardTest" time="0"/>
+  <testcase name="getNickname" classname="it.polimi.ingsw.Game.PlayerTest" time="0.02"/>
+  <testcase name="whichResourceToAdd" classname="it.polimi.ingsw.Game.PlayerTest" time="0"/>
+  <testcase name="payWithExtraStorageLeaderCard" classname="it.polimi.ingsw.Game.PlayerTest" time="0"/>
+  <testcase name="genericResourcesToObtain" classname="it.polimi.ingsw.Game.PlayerTest" time="0.001"/>
+  <testcase name="testCanYouActivateDefaultPowerProduction" classname="it.polimi.ingsw.Game.PlayerTest" time="0.001"/>
+  <testcase name="addResource" classname="it.polimi.ingsw.Game.PlayerTest" time="0.001"/>
+  <testcase name="testTakeResourcesFromTheMarket" classname="it.polimi.ingsw.Game.PlayerTest" time="0.001"/>
+  <testcase name="canYouPlayAtLeastALeaderCard" classname="it.polimi.ingsw.Game.PlayerTest" time="0.001"/>
+  <testcase name="moveResourcesFromWarehouseDepotsToExtraStorageLeaderCard" classname="it.polimi.ingsw.Game.PlayerTest" time="0.001"/>
+  <testcase name="selectProductionDevelopmentCard" classname="it.polimi.ingsw.Game.PlayerTest" time="0.002"/>
+  <testcase name="developmentCardToObtain" classname="it.polimi.ingsw.Game.PlayerTest" time="0"/>
+  <testcase name="calculateVictoryPoints" classname="it.polimi.ingsw.Game.PlayerTest" time="0.001"/>
+  <testcase name="testDiscardLeaderCard" classname="it.polimi.ingsw.Game.PlayerTest" time="0.004"/>
+  <testcase name="drawSoloActionToken" classname="it.polimi.ingsw.Game.PlayerTest" time="0.001"/>
+  <testcase name="changeWhiteMarbleWith" classname="it.polimi.ingsw.Game.PlayerTest" time="0.001"/>
+  <testcase name="obtainGenericResource" classname="it.polimi.ingsw.Game.PlayerTest" time="0.001"/>
+  <testcase name="setInkwell" classname="it.polimi.ingsw.Game.PlayerTest" time="0.001"/>
+  <testcase name="isSinglePlayer" classname="it.polimi.ingsw.Game.PlayerTest" time="0"/>
+  <testcase name="resourceToAdd" classname="it.polimi.ingsw.Game.PlayerTest" time="0"/>
+  <testcase name="obtainDevelopmentCard" classname="it.polimi.ingsw.Game.PlayerTest" time="0.001"/>
+  <testcase name="canYouBuyADevelopmentCard" classname="it.polimi.ingsw.Game.PlayerTest" time="0"/>
+  <testcase name="moveResourcesToWarehouseDepotsFromExtraStorageLeaderCard" classname="it.polimi.ingsw.Game.PlayerTest" time="0"/>
+  <testcase name="selectProductionPowerLeaderCard" classname="it.polimi.ingsw.Game.PlayerTest" time="0"/>
+  <testcase name="countLeaderCardInHand" classname="it.polimi.ingsw.Game.PlayerTest" time="0"/>
+  <testcase name="testExamplePowerProduction" classname="it.polimi.ingsw.Game.PlayerTest" time="0"/>
+  <testcase name="testMoveResourcesInWarehouseDepots" classname="it.polimi.ingsw.Game.PlayerTest" time="0.001"/>
+  <testcase name="playLeaderCard" classname="it.polimi.ingsw.Game.PlayerTest" time="0.001"/>
+  <testcase name="getActiveDiscount" classname="it.polimi.ingsw.Game.PlayerTest" time="0.001"/>
 </testsuite>
