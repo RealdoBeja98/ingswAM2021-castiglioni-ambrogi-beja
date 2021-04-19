@@ -166,9 +166,11 @@ class PlayerTest {
             e.printStackTrace();
         }
         Player player = game.getPlayers().get(0);
+        Type[] cost = {Type.PURPLE, Type.BLUE};
+        player.getCardsOnTable()[0] = new WhiteMarbleLeaderCard(3, cost, new Servant());
         assertFalse(player.resourceToAdd());
         player.takeResourcesFromTheMarket(RowColumn.ROW, 2);
-        assertTrue(player.resourceToAdd()); //<--FIXME-->
+        assertTrue(player.resourceToAdd());
     }
 
     /**
