@@ -30,7 +30,7 @@ class PlayerTest {
         Game game = new Game(1);
         try {
             game.addPlayer("Carlo");
-        } catch (NameAlreadyRegisteredException e) {
+        } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
             e.printStackTrace();
         }
         Player player = game.getPlayers().get(0);
@@ -46,7 +46,7 @@ class PlayerTest {
         Game game = new Game(1);
         try {
             game.addPlayer("Carlo");
-        } catch (NameAlreadyRegisteredException e) {
+        } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
             e.printStackTrace();
         }
         Player player = game.getPlayers().get(0);
@@ -61,7 +61,7 @@ class PlayerTest {
         Game game = new Game(1);
         try {
             game.addPlayer("Carlo");
-        } catch (NameAlreadyRegisteredException e) {
+        } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
             e.printStackTrace();
         }
         Player player = game.getPlayers().get(0);
@@ -85,7 +85,7 @@ class PlayerTest {
         Game game = new Game(1);
         try {
             game.addPlayer("Carlo");
-        } catch (NameAlreadyRegisteredException e) {
+        } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
             e.printStackTrace();
         }
         Player player = game.getPlayers().get(0);
@@ -106,7 +106,7 @@ class PlayerTest {
         Game game = new Game(1);
         try {
             game.addPlayer("Carlo");
-        } catch (NameAlreadyRegisteredException e) {
+        } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
             e.printStackTrace();
         }
         Player player = game.getPlayers().get(0);
@@ -132,7 +132,7 @@ class PlayerTest {
         Game game = new Game(1);
         try {
             game.addPlayer("Carlo");
-        } catch (NameAlreadyRegisteredException e) {
+        } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
             e.printStackTrace();
         }
         Player player = game.getPlayers().get(0);
@@ -162,7 +162,7 @@ class PlayerTest {
         Game game = new Game(1);
         try {
             game.addPlayer("Andrea");
-        } catch (NameAlreadyRegisteredException e) {
+        } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
             e.printStackTrace();
         }
         Player player = game.getPlayers().get(0);
@@ -179,7 +179,7 @@ class PlayerTest {
         Game game = new Game(1);
         try {
             game.addPlayer("Aldo");
-        } catch (NameAlreadyRegisteredException e) {
+        } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
             e.printStackTrace();
         }
         Player player = game.getPlayers().get(0);
@@ -218,7 +218,7 @@ class PlayerTest {
         Game game = new Game(1);
         try {
             game.addPlayer("Aldo");
-        } catch (NameAlreadyRegisteredException e) {
+        } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
             e.printStackTrace();
         }
         Player player = game.getPlayers().get(0);
@@ -250,7 +250,7 @@ class PlayerTest {
         Game game = new Game(1);
         try {
             game.addPlayer("Aldo");
-        } catch (NameAlreadyRegisteredException e) {
+        } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
             e.printStackTrace();
         }
         Player player = game.getPlayers().get(0);
@@ -283,7 +283,7 @@ class PlayerTest {
         Game game = new Game(1);
         try {
             game.addPlayer("Carlo");
-        } catch (NameAlreadyRegisteredException e) {
+        } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
             e.printStackTrace();
         }
         Player player = game.getPlayers().get(0);
@@ -300,7 +300,7 @@ class PlayerTest {
         Game game = new Game(1);
         try {
             game.addPlayer("Carlo");
-        } catch (NameAlreadyRegisteredException e) {
+        } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
             e.printStackTrace();
         }
         Player player = game.getPlayers().get(0);
@@ -344,7 +344,7 @@ class PlayerTest {
         Game game = new Game(1);
         try {
             game.addPlayer("Carlo");
-        } catch (NameAlreadyRegisteredException e) {
+        } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
             e.printStackTrace();
         }
         Player player = game.getPlayers().get(0);
@@ -365,7 +365,7 @@ class PlayerTest {
         Game game = new Game(1);
         try {
             game.addPlayer("Carlo");
-        } catch (NameAlreadyRegisteredException e) {
+        } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
             e.printStackTrace();
         }
         Player player = game.getPlayers().get(0);
@@ -440,7 +440,7 @@ class PlayerTest {
         Game game = new Game(1);
         try {
             game.addPlayer("Carlo");
-        } catch (NameAlreadyRegisteredException e) {
+        } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
             e.printStackTrace();
         }
         Player player = game.getPlayers().get(0);
@@ -461,7 +461,7 @@ class PlayerTest {
         Game game = new Game(1);
         try {
             game.addPlayer("Aldo");
-        } catch (NameAlreadyRegisteredException e) {
+        } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
             e.printStackTrace();
         }
         Player player = game.getPlayers().get(0);
@@ -524,7 +524,7 @@ class PlayerTest {
         Game game = new Game(1);
         try {
             game.addPlayer("Aldo");
-        } catch (NameAlreadyRegisteredException e) {
+        } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
             e.printStackTrace();
         }
         Player player = game.getPlayers().get(0);
@@ -560,7 +560,7 @@ class PlayerTest {
         Game game = new Game(1);
         try {
             game.addPlayer("Aldo");
-        } catch (NameAlreadyRegisteredException e) {
+        } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
             e.printStackTrace();
         }
         Player player = game.getPlayers().get(0);
@@ -593,7 +593,7 @@ class PlayerTest {
         Game game = new Game(1);
         try {
             game.addPlayer("Aldo");
-        } catch (NameAlreadyRegisteredException e) {
+        } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
             e.printStackTrace();
         }
         Player player = game.getPlayers().get(0);
@@ -640,7 +640,7 @@ class PlayerTest {
         Game game = new Game(1);
         try {
             game.addPlayer("Aldo");
-        } catch (NameAlreadyRegisteredException e) {
+        } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
             e.printStackTrace();
         }
         Player player = game.getPlayers().get(0);
@@ -675,7 +675,7 @@ class PlayerTest {
         Game game = new Game(1);
         try {
             game.addPlayer("Aldo");
-        } catch (NameAlreadyRegisteredException e) {
+        } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
             e.printStackTrace();
         }
         Player player = game.getPlayers().get(0);
@@ -725,7 +725,7 @@ class PlayerTest {
         Game game = new Game(1);
         try {
             game.addPlayer("Aldo");
-        } catch (NameAlreadyRegisteredException e) {
+        } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
             e.printStackTrace();
         }
         Player player = game.getPlayers().get(0);
@@ -748,7 +748,7 @@ class PlayerTest {
         Game game = new Game(1);
         try {
             game.addPlayer("Aldo");
-        } catch (NameAlreadyRegisteredException e) {
+        } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
             e.printStackTrace();
         }
         Player player = game.getPlayers().get(0);
@@ -777,7 +777,7 @@ class PlayerTest {
         Game game = new Game(1);
         try {
             game.addPlayer("Carlo");
-        } catch (NameAlreadyRegisteredException e) {
+        } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
             e.printStackTrace();
         }
         Player player = game.getPlayers().get(0);
@@ -818,7 +818,7 @@ class PlayerTest {
         Game game = new Game(1);
         try {
             game.addPlayer("Carlo");
-        } catch (NameAlreadyRegisteredException e) {
+        } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
             e.printStackTrace();
         }
         Player player = game.getPlayers().get(0);
@@ -834,7 +834,7 @@ class PlayerTest {
         Game game = new Game(1);
         try {
             game.addPlayer("Carlo");
-        } catch (NameAlreadyRegisteredException e) {
+        } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
             e.printStackTrace();
         }
         Player player = game.getPlayers().get(0);
@@ -850,7 +850,7 @@ class PlayerTest {
         Game game = new Game(1);
         try {
             game.addPlayer("Carlo");
-        } catch (NameAlreadyRegisteredException e) {
+        } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
             e.printStackTrace();
         }
         Player player = game.getPlayers().get(0);
@@ -869,7 +869,7 @@ class PlayerTest {
         Game game = new Game(1);
         try {
             game.addPlayer("Carlo");
-        } catch (NameAlreadyRegisteredException e) {
+        } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
             e.printStackTrace();
         }
         Player player = game.getPlayers().get(0);

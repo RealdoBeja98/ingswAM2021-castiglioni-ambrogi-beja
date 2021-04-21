@@ -1,6 +1,7 @@
 package it.polimi.ingsw.PersonalBoard.Faith;
 import static org.junit.jupiter.api.Assertions.*;
 
+import it.polimi.ingsw.Exceptions.GameAlreadyStartedException;
 import it.polimi.ingsw.Exceptions.NameAlreadyRegisteredException;
 import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Enums.FavorTiles;
@@ -20,7 +21,7 @@ public class FaithTrackTest {
         Game game = new Game(1);
         try {
             game.addPlayer("Andrea");
-        } catch (NameAlreadyRegisteredException e) {
+        } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
             e.printStackTrace();
         }
         Player test = game.getPlayers().get(0);
@@ -38,7 +39,7 @@ public class FaithTrackTest {
             game.addPlayer("Carlo");
             game.addPlayer("Andrea");
             game.addPlayer("Realdo");
-        } catch (NameAlreadyRegisteredException e) {
+        } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
             e.printStackTrace();
         }
         game.getPlayers().get(0).getPersonalBoard().getFaithTrack().goOn(7);
@@ -87,7 +88,7 @@ public class FaithTrackTest {
         try {
             game.addPlayer("Carlo");
             game.addPlayer("Andrea");
-        } catch (NameAlreadyRegisteredException e) {
+        } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
             e.printStackTrace();
         }
         FaithTrack faithTrack = game.getPlayers().get(0).getPersonalBoard().getFaithTrack();

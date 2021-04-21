@@ -4,6 +4,7 @@ E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\E
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Table\Decks\Card.java
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Table\Decks\Token\YellowActionToken.java
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Table\Market\Marbles\Marble.java
+E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Mains\ServerMain.java
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Table\Decks\Leader\LeaderCard.java
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Enums\FavorTiles.java
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Exceptions\NameAlreadyRegisteredException.java
@@ -12,6 +13,7 @@ E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\E
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Exceptions\NoWhiteMarbleLeaderCardException.java
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Exceptions\PlayerDoesNotExistsException.java
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Table\Market\Market.java
+E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Exceptions\GameAlreadyStartedException.java
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Table\Market\Marbles\Servant.java
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Table\Decks\Production.java
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Exceptions\GameEndedException.java
@@ -27,11 +29,11 @@ E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\E
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Enums\Type.java
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Table\Decks\DevelopmentDeck.java
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Exceptions\PositionInvalidException.java
-E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\App.java
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Exceptions\NoDevelopmentCardInThisPositionException.java
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Table\Decks\Token\BlackCross1Token.java
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Exceptions\DifferentResourceInThisShelfException.java
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Exceptions\YetEmptySlotException.java
+E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Mains\ClientMain.java
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Exceptions\NoWhiteMarbleException.java
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\PersonalBoard\Faith\FaithTrackSP.java
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Enums\Resource.java
@@ -52,6 +54,7 @@ E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\E
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Exceptions\YouHaveNotSelectedAnyProductionException.java
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Table\Decks\ActionTokenDeck.java
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Enums\LeaderWarehouse.java
+E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Mains\ClientHandler.java
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Enums\InWhichStatePlayer.java
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Exceptions\OccupiedSlotExtraStorageLeaderCardException.java
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Table\Decks\Development\DevelopmentCard.java

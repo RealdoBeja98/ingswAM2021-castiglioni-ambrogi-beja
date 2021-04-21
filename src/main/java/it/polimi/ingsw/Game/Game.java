@@ -1,4 +1,5 @@
 package it.polimi.ingsw.Game;
+import it.polimi.ingsw.Exceptions.GameAlreadyStartedException;
 import it.polimi.ingsw.Exceptions.NameAlreadyRegisteredException;
 import it.polimi.ingsw.Exceptions.PlayerDoesNotExistsException;
 import it.polimi.ingsw.Table.Table;
@@ -26,14 +27,17 @@ public class Game { //<-- FIXME finish me-->
 
     public Game(int numberOfPlayer) {
         this.numberOfPlayer = numberOfPlayer;
-        this.gameIndex = Game.numberOfGames;
-        Game.numberOfGames++;
+        this.gameIndex = numberOfGames;
+        numberOfGames = numberOfGames + 1;
         table = new Table(gameIndex);
         players = new ArrayList<>();
         games.add(this);
     }
 
-    public void addPlayer(String name) throws NameAlreadyRegisteredException {
+    public void addPlayer(String name) throws NameAlreadyRegisteredException, GameAlreadyStartedException {
+        if(players.size() == numberOfPlayer){
+            throw new GameAlreadyStartedException();
+        }
         if(checkInListForNickname(name) == true){
             throw new NameAlreadyRegisteredException();
         }
