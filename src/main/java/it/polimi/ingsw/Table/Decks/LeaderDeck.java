@@ -3,8 +3,13 @@ import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Enums.Type;
 import it.polimi.ingsw.Table.Decks.Leader.*;
 import it.polimi.ingsw.Table.Market.Marbles.*;
+
+//import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
+//import javax.json.JsonReader;
+//import com.google.gson.Gson;
 
 /**
  * This Class represents the deck of leader cards
@@ -51,6 +56,24 @@ public class LeaderDeck {
         deck.add(new ProductionPowerLeaderCard(4, Type.BLUE, Resource.SERVANT));
         deck.add(new ProductionPowerLeaderCard(4, Type.PURPLE, Resource.STONE));
         deck.add(new ProductionPowerLeaderCard(4, Type.GREEN, Resource.COIN));
+    }
+
+    public static class ContainerLeaderCard {
+
+        public List<DiscountLeaderCard> discountLeaderCardList = new ArrayList<>();
+        public List<WhiteMarbleLeaderCard> whiteMarbleLeaderCardList = new ArrayList<>();
+        public List<ExtraStorageLeaderCard> extraStorageLeaderCardList = new ArrayList<>();
+        public List<ProductionPowerLeaderCard> productionPowerLeaderCardList = new ArrayList<>();
+
+        @Override
+        public String toString() {
+            return "ContainerLeaderCard [discountLeaderCardList=" + discountLeaderCardList + ", whiteMarbleLeaderCardList=" + whiteMarbleLeaderCardList + ", extraStorageLeaderCardList=" + extraStorageLeaderCardList + ", productionPowerLeaderCardList=" + productionPowerLeaderCardList + "]";
+        }
+
+    }
+
+    private void putCardsNew(ArrayList<LeaderCard> deck){
+        //JsonReader reader = new JsonReader(new FileReader("LeaderCardsList.json"));
     }
 
     /**

@@ -18,9 +18,9 @@ public class ProductionPowerLeaderCard extends LeaderCard implements Production 
      */
     public ProductionPowerLeaderCard(int victoryPoints,Type costOfLeaderCard, Resource requirement){
         this.whatIAm = LeaderCardType.PRODUCTIONPOWER;
+        this.victoryPoints = victoryPoints;
         this.costOfLeaderCard = costOfLeaderCard;
         this.requirement = requirement;
-        this.victoryPoints = victoryPoints;
     }
 
     /**
