@@ -235,7 +235,7 @@ public class Player {
      * This method tell if the player is able to pay at least a leader card in his hand
      * @return if the player the player is able to pay at least a leader card in his hand
      */
-    public boolean canYouPlayAtLeastALeaderCard(){// <-- FIXME -->
+    public boolean canYouPlayAtLeastALeaderCard(){
         boolean result = false;
         for(LeaderCard i : cardsInHand){
             if(i != null){
