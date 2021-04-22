@@ -36,4 +36,10 @@ public class DiscountLeaderCard extends LeaderCard {
     public Type[] getCostOfLeaderCard(){
         return costOfLeaderCard.clone();
     }
+
+    @Override
+    public String toString(){
+        return "DiscountLeaderCard";
+    }
+
 }

@@ -36,4 +36,10 @@ public class WhiteMarbleLeaderCard extends LeaderCard {
     public Marble getWhiteMarble(){
         return whiteMarble;
     }
+
+    @Override
+    public String toString(){
+        return "WhiteMarbleLeaderCard";
+    }
+
 }

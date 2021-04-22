@@ -21,6 +21,28 @@ public class Turn {
     }
 
     /**
+     *This method lets the player to choose about not doing an action LeaderCard
+     *
+     * @throws ActionNotAllowedException if this action isn't allowed in this moment
+     * @throws GameEndedException if the game is finished and it's time to show final points
+     */
+    public void chooseNoActionLeaderCard() throws ActionNotAllowedException, GameEndedException {
+        if(currentPlayerState != InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1 &&
+                currentPlayerState != InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT2){
+            throw new ActionNotAllowedException();
+        }
+        if(currentPlayerState == InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1){
+            currentPlayerState = InWhichStatePlayer.SELECT_NORMAL_ACTION;
+        } else if(currentPlayerState == InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT2){
+            if(Game.get(gameIndex).getPlayers().size() == 1){
+                currentPlayerState = InWhichStatePlayer.DRAW_SOLO_ACTION_TOKEN;
+            } else {
+                endTurn();
+            }
+        }
+    }
+
+    /**
      *This method lets the player to go in the next step of discarding a leader card by controlling in
      * which steps he is currently in and before. Taking in consideration
      * that one leader move can be done only one time before or after a normal action.
@@ -184,12 +206,14 @@ public class Turn {
             throw new ActionNotAllowedException();
         }
         currentPlayer.takeResourcesFromTheMarket(rowColumn, pos);
+        if(currentPlayer.resourceToAdd() == false){
+            currentPlayerState = InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT2;
+        }
     }
 
     /**
      * This method let player to add a resource, witch he took from the market, to the WarehouseDepots or into
      * an ExtraStorageLeaderCard or even to discard it letting other players to advance in them faith track
-     *
      * @param pos: to choose the position of the WarehouseDepots or of the LeaderCard in hand; it's unuseful in case of discarding the resource
      * @throws ActionNotAllowedException if action is different from
      * TAKE_RESOURCES_FROM_THE_MARKET

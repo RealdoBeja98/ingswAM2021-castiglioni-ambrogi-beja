@@ -1,5 +1,4 @@
-[
-  {
+{
     "whatIAm": "DISCOUNT",
     "victoryPoints": 2,
     "discount": "SERVANT",
@@ -95,4 +94,3 @@
     "costOfLeaderCard": "GREEN",
     "requirement": "COIN"
   }
-]

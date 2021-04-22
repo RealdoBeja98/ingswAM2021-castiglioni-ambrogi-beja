@@ -9,6 +9,7 @@ PONG
 \
 CHOOSE_DISCARD_LEADER_CARD\
 CHOOSE_PLAY_LEADER_CARD\
+CHOOSE_NO_ACTION_LEADER_CARD\
 DISCARD_LEADER_CARD 1\
 PLAY_LEADER_CARD 1\
 {"message" = "LeaderCardPlayed", "leaderCard" = ["victoryPoints" = 3, "leaderCardType" = "whatIAm"], "discountLeaderCard" = ["discount" = "resource", "costOfLeaderCard" = ["cost" = "type"]], "extraStorageLeaderCard" = ["costOfLeaderCard" = "resource", "storageType" = "resource"], "productionPowerLeaderCard" = ["costOfLeaderCard" = "type", "requirement" = "resource"], "whiteMarbleLeaderCard" = ["costOfLeaderCard" = ["cost" = "type"], "whiteMarble" = "marble"]}\

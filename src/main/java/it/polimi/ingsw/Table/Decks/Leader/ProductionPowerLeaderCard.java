@@ -61,4 +61,9 @@ public class ProductionPowerLeaderCard extends LeaderCard implements Production 
                 0, 0, 0, 1, 1);
     }
 
+    @Override
+    public String toString(){
+        return "ProductionPowerLeaderCard";
+    }
+
 }
