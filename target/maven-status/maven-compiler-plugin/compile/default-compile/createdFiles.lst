@@ -1,3 +1,2 @@
-it/polimi/ingsw/Table/Decks/LeaderDeck$ContainerLeaderCard.class
-it/polimi/ingsw/Exceptions/GameAlreadyStartedException.class
-it/polimi/ingsw/Mains/ClientHandler.class
+it\polimi\ingsw\Mains\ClientHandler.class
+it\polimi\ingsw\Exceptions\GameAlreadyStartedException.class

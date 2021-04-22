@@ -1,7 +1,4 @@
 package it.polimi.ingsw.Mains;
-import it.polimi.ingsw.Exceptions.NameAlreadyRegisteredException;
-import it.polimi.ingsw.Game.Game;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -39,12 +36,17 @@ public class ClientMain {
                 System.out.println("Game already started, please chose a different one!");
                 return;
             }
+
             String userInput;
             while ((userInput = stdIn.readLine()) != null) {
-                System.out.println("ho letto " + userInput);
                 out.println(userInput);
+                if(userInput.equals("quit")){
+                    break;
+                }
                 System.out.println("echo: " + in.readLine());
             }
+            return;
+
         } catch (UnknownHostException e) {
             System.err.println("Don't know about host " + hostName);
             System.exit(1);

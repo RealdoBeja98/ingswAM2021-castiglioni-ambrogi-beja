@@ -4,6 +4,7 @@ import it.polimi.ingsw.Exceptions.NameAlreadyRegisteredException;
 import it.polimi.ingsw.Exceptions.PlayerDoesNotExistsException;
 import it.polimi.ingsw.Table.Table;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Game { //<-- FIXME finish me-->
 
@@ -24,6 +25,7 @@ public class Game { //<-- FIXME finish me-->
     private Turn turn;
     private int numberOfPlayer;
     private int gameIndex;
+    private boolean gameStarted;
 
     public Game(int numberOfPlayer) {
         this.numberOfPlayer = numberOfPlayer;
@@ -32,6 +34,7 @@ public class Game { //<-- FIXME finish me-->
         table = new Table(gameIndex);
         players = new ArrayList<>();
         games.add(this);
+        gameStarted = false;
     }
 
     public void addPlayer(String name) throws NameAlreadyRegisteredException, GameAlreadyStartedException {
@@ -46,12 +49,16 @@ public class Game { //<-- FIXME finish me-->
             players.get(0).isSinglePlayer();
         }
         if(players.size() == numberOfPlayer){
+            gameStarted = true;
             startGame();
         }
     }
 
     private void startGame(){
+        setInkwell();
         turn = new Turn(gameIndex);
+        System.out.println("Game: " + gameIndex + " started!");
+        //notifyAll();
     }
 
     private boolean checkInListForNickname(String nameToCheck) {
@@ -88,4 +95,18 @@ public class Game { //<-- FIXME finish me-->
         return gameIndex;
     }
 
+    public boolean isGameStarted() {
+        return gameStarted;
+    }
+
+    public Turn getTurn() {
+        return turn;
+    }
+
+    private void setInkwell(){
+        ArrayList<Player> copy = (ArrayList<Player>) players.clone();
+        Collections.shuffle(copy);
+        copy.get(0).setInkwell();
+        System.out.println("This player has the inkwell:" + copy.get(0).getNickname());
+    }
 }
