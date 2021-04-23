@@ -1,5 +1,4 @@
 package it.polimi.ingsw.PersonalBoard;
-import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.PersonalBoard.Faith.FaithTrack;
 import it.polimi.ingsw.PersonalBoard.Faith.FaithTrackSP;
 import it.polimi.ingsw.PersonalBoard.SlotsDevelopmentCards.SlotsDevelopmentCards;
@@ -16,7 +15,7 @@ public class PersonalBoard {
     private final StrongBox strongBox;
     private final SlotsDevelopmentCards slotsDevelopmentCards;
     private FaithTrackSP lorenzoTrack;
-    private int gameIndex;
+    private final int gameIndex;
 
     /**
      * Constructor method of this class

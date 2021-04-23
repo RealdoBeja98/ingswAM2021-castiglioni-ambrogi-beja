@@ -13,7 +13,7 @@ import java.util.Collections;
 public class DevelopmentDeck{
 
     private final DevelopmentCard[][][] deck;
-    private int gameIndex;
+    private final int gameIndex;
 
     /**
      * Constructor method of this class

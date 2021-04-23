@@ -11,7 +11,7 @@ public class SlotsDevelopmentCards {
 
     private DevelopmentCard[][] slot;
     private DevelopmentCard[] activeCards;
-    private int gameIndex;
+    private final int gameIndex;
 
     /**
      * Constructor method of this class

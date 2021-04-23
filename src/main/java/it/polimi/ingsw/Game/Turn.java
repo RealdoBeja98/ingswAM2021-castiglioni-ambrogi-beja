@@ -3,14 +3,15 @@ package it.polimi.ingsw.Game;
 import it.polimi.ingsw.Enums.*;
 import it.polimi.ingsw.Exceptions.*;
 
-public class Turn {
+public class Turn { //<--FIXME javadoc-->
+
     private Player currentPlayer;
     private boolean actionLeaderDone = false;
     private InWhichStatePlayer currentPlayerState = InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1;
     private boolean developmentCardTaken = false;
     private boolean gameEnded = false;
     private boolean viewFinalPoints = false;
-    private int gameIndex;
+    private final int gameIndex;
 
 
     public Turn(int gameIndex){
@@ -35,7 +36,7 @@ public class Turn {
         }
         if(currentPlayerState == InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1){
             currentPlayerState = InWhichStatePlayer.SELECT_NORMAL_ACTION;
-        } else if(currentPlayerState == InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT2){
+        } else {
             if(Game.get(gameIndex).getPlayers().size() == 1){
                 currentPlayerState = InWhichStatePlayer.DRAW_SOLO_ACTION_TOKEN;
             } else {
@@ -59,7 +60,7 @@ public class Turn {
             throw new ActionNotAllowedException();
         }
         if(currentPlayerState == InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT2 &&
-                actionLeaderDone == true){
+                actionLeaderDone){
             throw new ActionNotAllowedException();
         }
         if(currentPlayer.countLeaderCardInHand() == 0){
@@ -88,10 +89,10 @@ public class Turn {
             throw new ActionNotAllowedException();
         }
         if(currentPlayerState == InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT2 &&
-                actionLeaderDone == true){
+                actionLeaderDone){
             throw new ActionNotAllowedException();
         }
-        if(currentPlayer.canYouPlayAtLeastALeaderCard() == false){
+        if(!currentPlayer.canYouPlayAtLeastALeaderCard()){
             throw new NoLeaderCardToPlayException();
         }
         actionLeaderDone = true;
@@ -147,7 +148,7 @@ public class Turn {
             throw new ActionNotAllowedException();
         }
         currentPlayer.playLeaderCard(pos);
-        if(currentPlayer.somethingToPay() == false){
+        if(!currentPlayer.somethingToPay()){
             if(currentPlayerState == InWhichStatePlayer.DISCARD_LEADER_CARD1){
                 currentPlayerState = InWhichStatePlayer.SELECT_NORMAL_ACTION;
             } else if(currentPlayerState == InWhichStatePlayer.DISCARD_LEADER_CARD2){
@@ -211,7 +212,7 @@ public class Turn {
             throw new ActionNotAllowedException();
         }
         currentPlayer.takeResourcesFromTheMarket(rowColumn, pos);
-        if(currentPlayer.resourceToAdd() == false){
+        if(!currentPlayer.resourceToAdd()){
             currentPlayerState = InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT2;
         }
     }
@@ -229,7 +230,7 @@ public class Turn {
             throw new ActionNotAllowedException();
         }
         currentPlayer.addResource(where, pos);
-        if(currentPlayer.resourceToAdd() == false){
+        if(!currentPlayer.resourceToAdd()){
             currentPlayerState = InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT2;
         }
     }
@@ -250,7 +251,7 @@ public class Turn {
     }
 
     public void buyADevelopmentCard(int xx, int yy) throws ActionNotAllowedException, AlreadySelectedADevelopmentCardException, NotAbleToBuyThisDevelopmentCardException, DrawnFromEmptyDeckException, PositionInvalidException, NotAbleToPlaceThisDevelopmentCardException {
-        if(developmentCardTaken == true){
+        if(developmentCardTaken){
             throw new ActionNotAllowedException();
         }
         if(currentPlayerState != InWhichStatePlayer.BUY_DEVELOPMENT_CARD){
@@ -272,7 +273,7 @@ public class Turn {
             throw new ActionNotAllowedException();
         }
         currentPlayer.placeDevelopmentCard(pos);
-        if(currentPlayer.somethingToPay() == false){
+        if(!currentPlayer.somethingToPay()){
             endPayment();
         }
     }
@@ -314,7 +315,7 @@ public class Turn {
             throw new ActionNotAllowedException();
         }
         currentPlayer.payWithStrongBox(pay);
-        if(currentPlayer.somethingToPay() == false){
+        if(!currentPlayer.somethingToPay()){
             endPayment();
         }
     }
@@ -336,7 +337,7 @@ public class Turn {
             throw new ActionNotAllowedException();
         }
         currentPlayer.payWithWarehouseDepots(pos);
-        if(currentPlayer.somethingToPay() == false){
+        if(!currentPlayer.somethingToPay()){
             endPayment();
         }
     }
@@ -358,7 +359,7 @@ public class Turn {
             throw new ActionNotAllowedException();
         }
         currentPlayer.payWithExtraStorageLeaderCard(pos);
-        if(currentPlayer.somethingToPay() == false){
+        if(!currentPlayer.somethingToPay()){
             endPayment();
         }
     }
@@ -411,7 +412,7 @@ public class Turn {
      */
     public void obtainGenericResource(Resource resource) throws NoGenericResourceToObtainException, NotAResourceForStrongBoxException, GameEndedException {
         currentPlayer.obtainGenericResource(resource);
-        if(currentPlayer.somethingToPay() == false){
+        if(!currentPlayer.somethingToPay()){
             endPayment();
         }
     }
@@ -425,7 +426,7 @@ public class Turn {
         if(currentPlayerState != InWhichStatePlayer.ACTIVATE_PRODUCTION){
             throw new ActionNotAllowedException();
         }
-        if(currentPlayer.somethingToPay() == false){
+        if(!currentPlayer.somethingToPay()){
             endPayment();
         }
     }
@@ -488,7 +489,7 @@ public class Turn {
         developmentCardTaken = false;
         boolean found = false;
         for(Player i : Game.get(gameIndex).getPlayers()){
-            if(found == true){
+            if(found){
                 currentPlayer = i;
                 return;
             }
@@ -506,5 +507,10 @@ public class Turn {
     public boolean getViewFinalPoints(){
         return viewFinalPoints;
     }
-    
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+
 }

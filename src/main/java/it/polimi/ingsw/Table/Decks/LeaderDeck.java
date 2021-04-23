@@ -60,7 +60,7 @@ public class LeaderDeck {
         deck.add(new ProductionPowerLeaderCard(4, Type.GREEN, Resource.COIN));
     }
 
-    public static class ContainerLeaderCard {
+    public static class ContainerLeaderCard { //<--FIXME-->
 
         public List<DiscountLeaderCard> discountLeaderCardList = new ArrayList<>();
         public List<WhiteMarbleLeaderCard> whiteMarbleLeaderCardList = new ArrayList<>();

@@ -41,6 +41,7 @@ public class ClientMain {
 
             String userInput;
             String lines;
+
             while ((userInput = stdIn.readLine()) != null) {
                 out.println(userInput);
                 if (userInput.equals("quit")) {

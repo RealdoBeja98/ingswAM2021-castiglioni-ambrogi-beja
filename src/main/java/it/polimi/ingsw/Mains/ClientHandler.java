@@ -12,6 +12,7 @@ public class ClientHandler implements Runnable {
 
     private final Socket socket;
     private Game game;
+    private String nickname;
 
     public ClientHandler(Socket socket) {
         this.socket = socket;
@@ -58,7 +59,7 @@ public class ClientHandler implements Runnable {
                 return;
             }
         }
-        /*if (!game.isGameStarted()) { <--FIXME-->
+        /*if (!game.isGameStarted()) {
             try {
                 wait();
             } catch (InterruptedException e) {
@@ -67,7 +68,6 @@ public class ClientHandler implements Runnable {
         }*/
 
         while (true) {
-            //controllo turno
             try {
                 line = in.readLine();
             } catch (IOException e) {
@@ -76,6 +76,8 @@ public class ClientHandler implements Runnable {
             }
             if (line.equals("quit")) {
                 break;
+            } else if(!game.getTurn().getCurrentPlayer().getNickname().equals(nickname)){
+                out.println("ERROR_NOT_YOUR_TURN");
             } else {
                 String[] message = line.split(" ");
 
@@ -91,8 +93,9 @@ public class ClientHandler implements Runnable {
                     }
                 }
 
-                if(message[0].equals("DISCARD_LEADER_CARD")){
+                else if(message[0].equals("DISCARD_LEADER_CARD")){
                     try {
+                        checkLength(message, 2);
                         game.getTurn().discardLeaderCard(atoi(message[1]));
                         out.println("CONFIRMED_ACTION");
                         System.out.println("DISCARD_LEADER_CARD");
@@ -102,10 +105,12 @@ public class ClientHandler implements Runnable {
                         out.println("ERROR_INVALID_ACTION");
                     } catch (GameEndedException e) {
                         out.println("ERROR_GAME_ENDED");
+                    } catch (IllegalArgumentException e){
+                        out.println("ERROR_TYPO");
                     }
                 }
 
-                if(message[0].equals("CHOOSE_PLAY_LEADER_CARD")){
+                else if(message[0].equals("CHOOSE_PLAY_LEADER_CARD")){
                     try {
                         game.getTurn().choosePlayLeaderCard();
                         out.println("CONFIRMED_ACTION");
@@ -117,8 +122,9 @@ public class ClientHandler implements Runnable {
                     }
                 }
 
-                if(message[0].equals("PLAY_LEADER_CARD")){
+                else if(message[0].equals("PLAY_LEADER_CARD")){
                     try {
+                        checkLength(message, 2);
                         game.getTurn().playLeaderCard(atoi(message[1]));
                         out.println("CONFIRMED_ACTION");
                         System.out.println("PLAY_LEADER_CARD");
@@ -128,10 +134,12 @@ public class ClientHandler implements Runnable {
                         out.println("ERROR_INVALID_ACTION");
                     } catch (GameEndedException e) {
                         out.println("ERROR_GAME_ENDED");
+                    } catch (IllegalArgumentException e){
+                        out.println("ERROR_TYPO");
                     }
                 }
 
-                if(message[0].equals("CHOOSE_NO_ACTION_LEADER_CARD")){
+                else if(message[0].equals("CHOOSE_NO_ACTION_LEADER_CARD")){
                     try {
                         game.getTurn().chooseNoActionLeaderCard();
                         out.println("CONFIRMED_ACTION");
@@ -143,28 +151,35 @@ public class ClientHandler implements Runnable {
                     }
                 }
 
-                if(message[0].equals("SELECT_NORMAL_ACTION")){
+                else if(message[0].equals("SELECT_NORMAL_ACTION")){
                     try {
+                        checkLength(message, 2);
                         game.getTurn().selectNormalAction(NormalAction.valueOf(message[1]));
                         out.println("CONFIRMED_ACTION");
                         System.out.println("SELECT_NORMAL_ACTION");
                     } catch (ActionNotAllowedException e) {
                         out.println("ERROR_INVALID_ACTION");
+                    } catch (IllegalArgumentException e){
+                        out.println("ERROR_TYPO");
                     }
                 }
 
-                if(message[0].equals("TAKE_RESOURCES_FROM_THE_MARKET")){
+                else if(message[0].equals("TAKE_RESOURCES_FROM_THE_MARKET")){
                     try {
+                        checkLength(message, 3);
                         game.getTurn().takeResourcesFromTheMarket(RowColumn.valueOf(message[1]), atoi(message[2]));
                         out.println("CONFIRMED_ACTION");
                         System.out.println("TAKE_RESOURCES_FROM_THE_MARKET");
                     } catch (ActionNotAllowedException e) {
                         out.println("ERROR_INVALID_ACTION");
+                    } catch (IllegalArgumentException e){
+                        out.println("ERROR_TYPO");
                     }
                 }
 
-                if(message[0].equals("ADD_RESOURCE_TO")){
+                else if(message[0].equals("ADD_RESOURCE_TO")){
                     try {
+                        checkLength(message, 3);
                         game.getTurn().addResource(LeaderWarehouse.valueOf(message[1]), atoi(message[2]));
                         out.println("CONFIRMED_ACTION");
                         System.out.println("ADD_RESOURCE_TO");
@@ -186,11 +201,14 @@ public class ClientHandler implements Runnable {
                         out.println("ERROR_FAITH_MARBLE");
                     } catch (ActionNotAllowedException e) {
                         out.println("ERROR_INVALID_ACTION");
+                    } catch (IllegalArgumentException e){
+                        out.println("ERROR_TYPO");
                     }
                 }
 
-                if(message[0].equals("CHANGE_WHITE_MARBLE_WITH")){
+                else if(message[0].equals("CHANGE_WHITE_MARBLE_WITH")){
                     try {
+                        checkLength(message, 2);
                         game.getTurn().changeWhiteMarbleWith(atoi(message[1]));
                         out.println("CONFIRMED_ACTION");
                         System.out.println("CHANGE_WHITE_MARBLE_WITH");
@@ -198,11 +216,14 @@ public class ClientHandler implements Runnable {
                         out.println("ERROR_NO_WHITE_MARBLE");
                     } catch (ActionNotAllowedException e) {
                         out.println("ERROR_INVALID_ACTION");
+                    } catch (IllegalArgumentException e){
+                        out.println("ERROR_TYPO");
                     }
                 }
 
-                if(message[0].equals("BUY_DEVELOPMENT_CARD")){
+                else if(message[0].equals("BUY_DEVELOPMENT_CARD")){
                     try {
+                        checkLength(message, 3);
                         game.getTurn().buyADevelopmentCard(atoi(message[1]), atoi(message[2]));
                         out.println("CONFIRMED_ACTION");
                         System.out.println("BUY_DEVELOPMENT_CARD");
@@ -218,11 +239,14 @@ public class ClientHandler implements Runnable {
                         out.println("ERROR_INVALID_POSITION");
                     } catch (NotAbleToPlaceThisDevelopmentCardException e) {
                         out.println("ERROR_INVALID_SELECTION");
+                    } catch (IllegalArgumentException e){
+                        out.println("ERROR_TYPO");
                     }
                 }
 
-                if(message[0].equals("PAY_WITH_STRONGBOX")){
+                else if(message[0].equals("PAY_WITH_STRONGBOX")){
                     try {
+                        checkLength(message, 2);
                         game.getTurn().payWithStrongBox(Resource.valueOf(message[1]));
                         out.println("CONFIRMED_ACTION");
                         System.out.println("PAY_WITH_STRONGBOX");
@@ -240,11 +264,14 @@ public class ClientHandler implements Runnable {
                         out.println("ERROR_INVALID_ACTION");
                     } catch (GameEndedException e) {
                         out.println("ERROR_GAME_ENDED");
+                    } catch (IllegalArgumentException e){
+                        out.println("ERROR_TYPO");
                     }
                 }
 
-                if(message[0].equals("PAY_WITH_WAREHOUSE_DEPOTS")){
+                else if(message[0].equals("PAY_WITH_WAREHOUSE_DEPOTS")){
                     try {
+                        checkLength(message, 2);
                         game.getTurn().payWithWarehouseDepots(atoi(message[1]));
                         out.println("CONFIRMED_ACTION");
                         System.out.println("PAY_WITH_WAREHOUSE_DEPOTS");
@@ -258,11 +285,14 @@ public class ClientHandler implements Runnable {
                         out.println("ERROR_INVALID_ACTION");
                     } catch (GameEndedException e) {
                         out.println("ERROR_GAME_ENDED");
+                    } catch (IllegalArgumentException e){
+                        out.println("ERROR_TYPO");
                     }
                 }
 
-                if(message[0].equals("PAY_WITH_EXTRA_STORAGE_LEADER_CARD")){
+                else if(message[0].equals("PAY_WITH_EXTRA_STORAGE_LEADER_CARD")){
                     try {
+                        checkLength(message, 2);
                         game.getTurn().payWithExtraStorageLeaderCard(atoi(message[1]));
                         out.println("CONFIRMED_ACTION");
                         System.out.println("PAY_WITH_EXTRA_STORAGE_LEADER_CARD");
@@ -278,11 +308,14 @@ public class ClientHandler implements Runnable {
                         out.println("ERROR_INVALID_ACTION");
                     } catch (GameEndedException e) {
                         out.println("ERROR_GAME_ENDED");
+                    } catch (IllegalArgumentException e){
+                        out.println("ERROR_TYPO");
                     }
                 }
 
-                if(message[0].equals("PLACE_DEVELOPMENT_CARD")){
+                else if(message[0].equals("PLACE_DEVELOPMENT_CARD")){
                     try {
+                        checkLength(message, 2);
                         game.getTurn().placeDevelopmentCard(atoi(message[1]));
                         out.println("CONFIRMED_ACTION");
                         System.out.println("PLACE_DEVELOPMENT_CARD");
@@ -294,21 +327,27 @@ public class ClientHandler implements Runnable {
                         out.println("ERROR_GAME_ENDED");
                     } catch (ActionNotAllowedException e) {
                         out.println("ERROR_INVALID_ACTION");
+                    } catch (IllegalArgumentException e){
+                        out.println("ERROR_TYPO");
                     }
                 }
 
-                if(message[0].equals("SELECT_PRODUCTION_DEVELOPMENT_CARD")){
+                else if(message[0].equals("SELECT_PRODUCTION_DEVELOPMENT_CARD")){
                     try {
+                        checkLength(message, 2);
                         game.getTurn().selectProductionDevelopmentCard(atoi(message[1]));
                         out.println("CONFIRMED_ACTION");
                         System.out.println("SELECT_PRODUCTION_DEVELOPMENT_CARD");
                     } catch (ActionNotAllowedException e) {
                         out.println("ERROR_INVALID_ACTION");
+                    } catch (IllegalArgumentException e){
+                        out.println("ERROR_TYPO");
                     }
                 }
 
-                if(message[0].equals("SELECT_PRODUCTION_POWER_LEADER_CARD")){
+                else if(message[0].equals("SELECT_PRODUCTION_POWER_LEADER_CARD")){
                     try {
+                        checkLength(message, 2);
                         game.getTurn().selectProductionPowerLeaderCard(atoi(message[1]));
                         out.println("CONFIRMED_ACTION");
                         System.out.println("SELECT_PRODUCTION_POWER_LEADER_CARD");
@@ -316,10 +355,12 @@ public class ClientHandler implements Runnable {
                         out.println("ERROR_NO_PLC");
                     } catch (ActionNotAllowedException e) {
                         out.println("ERROR_INVALID_ACTION");
+                    } catch (IllegalArgumentException e){
+                        out.println("ERROR_TYPO");
                     }
                 }
 
-                if(message[0].equals("SELECT_DEFAULT_PRODUCTION_POWER")){
+                else if(message[0].equals("SELECT_DEFAULT_PRODUCTION_POWER")){
                     try {
                         game.getTurn().selectDefaultProductionPower();
                         out.println("CONFIRMED_ACTION");
@@ -329,8 +370,9 @@ public class ClientHandler implements Runnable {
                     }
                 }
 
-                if(message[0].equals("OBTAIN_GENERIC_RESOURCE")){
+                else if(message[0].equals("OBTAIN_GENERIC_RESOURCE")){
                     try {
+                        checkLength(message, 2);
                         game.getTurn().obtainGenericResource(Resource.valueOf(message[1]));
                         out.println("CONFIRMED_ACTION");
                         System.out.println("OBTAIN_GENERIC_RESOURCE");
@@ -340,10 +382,12 @@ public class ClientHandler implements Runnable {
                         out.println("ERROR_NOT_STRONGBOX");
                     } catch (GameEndedException e) {
                         out.println("ERROR_GAME_ENDED");
+                    } catch (IllegalArgumentException e){
+                        out.println("ERROR_TYPO");
                     }
                 }
 
-                if(message[0].equals("START_PAYMENT")){
+                else if(message[0].equals("START_PAYMENT")){
                     try {
                         game.getTurn().startPayment();
                         out.println("CONFIRMED_ACTION");
@@ -359,7 +403,7 @@ public class ClientHandler implements Runnable {
                     }
                 }
 
-                if(message[0].equals("DRAW_SOLO_ACTION_TOKEN")){
+                else if(message[0].equals("DRAW_SOLO_ACTION_TOKEN")){
                     try {
                         game.getTurn().drawSoloActionToken();
                         out.println("CONFIRMED_ACTION");
@@ -369,28 +413,35 @@ public class ClientHandler implements Runnable {
                     }
                 }
 
-                if(message[0].equals("SELECT_A_WAREHOUSE_DEPOTS_SLOT")){
+                else if(message[0].equals("SELECT_A_WAREHOUSE_DEPOTS_SLOT")){
                     try {
+                        checkLength(message, 2);
                         game.getTurn().selectAWarehouseDepotsSlot(atoi(message[1]));
                         out.println("CONFIRMED_ACTION");
                         System.out.println("SELECT_A_WAREHOUSE_DEPOTS_SLOT");
                     } catch (PositionInvalidException e) {
                         out.println("ERROR_INVALID_POSITION");
+                    } catch (IllegalArgumentException e){
+                        out.println("ERROR_TYPO");
                     }
                 }
 
-                if(message[0].equals("MOVE_RESOURCES_IN_WAREHOUSE_DEPOTS")){
+                else if(message[0].equals("MOVE_RESOURCES_IN_WAREHOUSE_DEPOTS")){
                     try {
+                        checkLength(message, 2);
                         game.getTurn().moveResourcesInWarehouseDepots(atoi(message[1]));
                         out.println("CONFIRMED_ACTION");
                         System.out.println("MOVE_RESOURCES_IN_WAREHOUSE_DEPOTS");
                     } catch (NotAdmittedMovementException e) {
                         out.println("ERROR_INVALID_MOVEMENT");
+                    } catch (IllegalArgumentException e){
+                        out.println("ERROR_TYPO");
                     }
                 }
 
-                if(message[0].equals("MOVE_RESOURCES_WAREHOUSE_TO_ES_LC")){
+                else if(message[0].equals("MOVE_RESOURCES_WAREHOUSE_TO_ES_LC")){
                     try {
+                        checkLength(message, 2);
                         game.getTurn().moveResourcesFromWarehouseDepotsToExtraStorageLeaderCard(atoi(message[1]));
                         out.println("CONFIRMED_ACTION");
                         System.out.println("MOVE_RESOURCES_WAREHOUSE_TO_ES_LC");
@@ -404,11 +455,14 @@ public class ClientHandler implements Runnable {
                         out.println("ERROR_OCCUPIED_SLOT_LC");
                     } catch (DifferentStorageException e) {
                         out.println("ERROR_DIFFERENT_STORAGE_TYPE");
+                    } catch (IllegalArgumentException e){
+                        out.println("ERROR_TYPO");
                     }
                 }
 
-                if(message[0].equals("MOVE_RESOURCE_ES_LC_TO_WAREHOUSE")){
+                else if(message[0].equals("MOVE_RESOURCE_ES_LC_TO_WAREHOUSE")){
                     try {
+                        checkLength(message, 2);
                         game.getTurn().moveResourcesToWarehouseDepotsFromExtraStorageLeaderCard(atoi(message[1]));
                         out.println("CONFIRMED_ACTION");
                         System.out.println("MOVE_RESOURCE_ES_LC_TO_WAREHOUSE");
@@ -424,7 +478,11 @@ public class ClientHandler implements Runnable {
                         out.println("ERROR_DIFFERENT_RESOURCE_ALREADY_PRESENT");
                     } catch (EmptySlotExtraStorageLeaderCardException e) {
                         out.println("ERROR_EMPTY_SLOT_ES");
+                    } catch (IllegalArgumentException e){
+                        out.println("ERROR_TYPO");
                     }
+                }else{
+                    out.println("ERROR_TYPO");
                 }
             }
         }
@@ -445,12 +503,18 @@ public class ClientHandler implements Runnable {
         return;
     }
 
+    private void checkLength(String[] message, int n) {
+        if(message.length != n){
+            throw new IllegalArgumentException();
+        }
+    }
+
     private int atoi(String str)
     {
         try{
             return Integer.parseInt(str);
         }catch(NumberFormatException ex){
-            return -1;
+            throw new IllegalArgumentException();
         }
     }
 
@@ -480,6 +544,7 @@ public class ClientHandler implements Runnable {
         line = in.readLine();
         try {
             game.addPlayer(line);
+            nickname = line;
             out.println("PLAYER_ADDED");
             return true;
         } catch (NameAlreadyRegisteredException e) {
