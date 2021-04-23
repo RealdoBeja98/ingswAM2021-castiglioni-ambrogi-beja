@@ -109,15 +109,15 @@ public class Player {
      * This method let player to discard a leader card in his hand advancing on him faith track
      * @param pos: number 1 or 2 to determinate the position of the leader card in hand to discard
      * @throws IndexOutOfBoundsException if the position isn't 1 or 2
-     * @throws YetDiscardedThisLeaderCardException if you try to discard a card again
+     * @throws AlreadyDiscardedThisLeaderCardException if you try to discard a card again
      */
-    public void discardLeaderCard(int pos) throws YetDiscardedThisLeaderCardException {
+    public void discardLeaderCard(int pos) throws AlreadyDiscardedThisLeaderCardException {
         if(pos < 1 || pos > 2){
             throw new IndexOutOfBoundsException();
         }
         else{
             if(cardsInHand[pos-1] == null){
-                throw new YetDiscardedThisLeaderCardException();
+                throw new AlreadyDiscardedThisLeaderCardException();
             }
             cardsInHand[pos-1] = null;
             personalBoard.getFaithTrack().goOn(1);
@@ -401,11 +401,11 @@ public class Player {
      * @param pos: to choose the number 1 or 2 to determinate the position of the ExtraStorageLeaderCard as destination
      * @throws PositionInvalidException if the position of the ExtraStorageLeaderCard isn't 1 or 2
      * @throws NotAnExtraStorageLeaderCardException if the selected LeaderCard isn't an ExtraStorageLeaderCard
-     * @throws YetEmptySlotException if the slot of the warehouseDepots was yet empty
+     * @throws AlreadyEmptySlotException if the slot of the warehouseDepots was yet empty
      * @throws OccupiedSlotExtraStorageLeaderCardException if all slot of the ExtraStorageLeaderCard are yet occupied
      * @throws DifferentStorageException if the selected resource from warehouseDepots doesn't fit with the admitted resource of the selected ExtraStorageLeaderCard
      */
-    public void moveResourcesFromWarehouseDepotsToExtraStorageLeaderCard(int pos) throws PositionInvalidException, NotAnExtraStorageLeaderCardException, YetEmptySlotException, OccupiedSlotExtraStorageLeaderCardException, DifferentStorageException {
+    public void moveResourcesFromWarehouseDepotsToExtraStorageLeaderCard(int pos) throws PositionInvalidException, NotAnExtraStorageLeaderCardException, AlreadyEmptySlotException, OccupiedSlotExtraStorageLeaderCardException, DifferentStorageException {
         if(pos < 1 || pos > 2){
             throw new PositionInvalidException();
         }
@@ -773,7 +773,7 @@ public class Player {
      * @throws NoResourceToPayException if you haven't anything to pay
      * @throws WrongPaymentException if the resources to pay are different
      */
-    public void payWithWarehouseDepots(int pos) throws WrongPaymentException, YetEmptySlotException, NoResourceToPayException {
+    public void payWithWarehouseDepots(int pos) throws WrongPaymentException, AlreadyEmptySlotException, NoResourceToPayException {
         if(payingResources.isEmpty()){
             throw new NoResourceToPayException();
         }
@@ -964,12 +964,14 @@ public class Player {
      * @param xx rows from 1 to 4
      * @param yy columns from 1 to 3
      * @throws PositionInvalidException if rows coordinate is lower than 1 and column coordination is greater than 3
-     * @throws NoDevelopmentCardInThisPositionException if you have selected a wrong spot
      * @throws NotAbleToBuyThisDevelopmentCardException when you don't have enough resources to buy a development card
      * @throws NotAbleToPlaceThisDevelopmentCardException when you dont have space in your storage after buying it
      * @throws DrawnFromEmptyDeckException if the deck selected is empty
      */
-    public void buyADevelopmentCard(int xx, int yy) throws PositionInvalidException, NoDevelopmentCardInThisPositionException, NotAbleToBuyThisDevelopmentCardException, NotAbleToPlaceThisDevelopmentCardException, DrawnFromEmptyDeckException {
+    public void buyADevelopmentCard(int xx, int yy) throws PositionInvalidException, NotAbleToBuyThisDevelopmentCardException, NotAbleToPlaceThisDevelopmentCardException, DrawnFromEmptyDeckException, AlreadySelectedADevelopmentCardException {
+        if(obtainedDevelopmentCard != null){
+            throw new AlreadySelectedADevelopmentCardException();
+        }
         int x = xx - 1;
         int y = yy - 1;
         if(x < 0 || x >= 4 || y < 0 || y >= 3){
@@ -977,7 +979,7 @@ public class Player {
         }
         DevelopmentCard selectedDevelopmentCard = Game.get(gameIndex).getTable().getDevelopmentDeck().visualize()[x][y];
         if(selectedDevelopmentCard == null){
-            throw new NoDevelopmentCardInThisPositionException();
+            throw new DrawnFromEmptyDeckException();
         }
         TotalResourcesPlayer totalResourcesPlayer = new TotalResourcesPlayer();
         int coin = totalResourcesPlayer.coin;
@@ -1076,7 +1078,7 @@ public class Player {
      * @throws NoDevelopmentCardToObtainException if the place you chose has no development card,
      * @throws PositionInvalidException if the position you chose does not exists
      */
-    public void obtainDevelopmentCard(int pos) throws NoDevelopmentCardToObtainException, PositionInvalidException {
+    public void placeDevelopmentCard(int pos) throws NoDevelopmentCardToObtainException, PositionInvalidException {
         if(obtainedDevelopmentCard == null){
             throw new NoDevelopmentCardToObtainException();
         }

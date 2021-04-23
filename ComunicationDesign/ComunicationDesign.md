@@ -15,21 +15,21 @@ PLAY_LEADER_CARD 1\
 {"message" = "LeaderCardPlayed", "leaderCard" = ["victoryPoints" = 3, "leaderCardType" = "whatIAm"], "discountLeaderCard" = ["discount" = "resource", "costOfLeaderCard" = ["cost" = "type"]], "extraStorageLeaderCard" = ["costOfLeaderCard" = "resource", "storageType" = "resource"], "productionPowerLeaderCard" = ["costOfLeaderCard" = "type", "requirement" = "resource"], "whiteMarbleLeaderCard" = ["costOfLeaderCard" = ["cost" = "type"], "whiteMarble" = "marble"]}\
 SELECT_NORMAL_ACTION NormalAction\
 TAKE_RESOURCES_FROM_THE_MARKET RowColumn 1\
-ADD_RESOURCE LeaderWarehouse 0\
+ADD_RESOURCE_TO LeaderWarehouse 0\
 CHANGE_WHITE_MARBLE_WITH 1\
-OBTAIN_DEVELOPMENT_CARD 1\
+BUY_DEVELOPMENT_CARD
 PAY_WITH_STRONGBOX Resource\
 PAY_WITH_WAREHOUSE_DEPOTS 0\
 PAY_WITH_EXTRA_STORAGE_LEADER_CARD 1\
+PLACE_DEVELOPMENT_CARD 1\
 SELECT_PRODUCTION_DEVELOPMENT_CARD 1\
 SELECT_PRODUCTION_POWER_LEADER_CARD 1\
 SELECT_DEFAULT_PRODUCTION_POWER\
 OBTAIN_GENERIC_RESOURCE Resource\
 START_PAYMENT\
 DRAW_SOLO_ACTION_TOKEN\
-SEND_ACTION_TOKED_DECK\
 {"message" = "ACTION_TOKEN_DECK", "actionTokenDeck" = [actionToken = "type"]}\
 SELECT_A_WAREHOUSE_DEPOTS_SLOT 0\
 MOVE_RESOURCES_IN_WAREHOUSE_DEPOTS 0\
-MOVE_RESOURCES_FROM_WAREHOUSE_DEPOTS_TO_EXTRA_STORAGE_LEADER_CARD 0\
-MOVE_RESOURCE_TO_WAREHOUSE_FROM_EXTRA_STORAGE_LEADER_CARD 0\
+MOVE_RESOURCES_WAREHOUSE_TO_ES_LC 0\
+MOVE_RESOURCE_ES_LC_TO_WAREHOUSE 0\

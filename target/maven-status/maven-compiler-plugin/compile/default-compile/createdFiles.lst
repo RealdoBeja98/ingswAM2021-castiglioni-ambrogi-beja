@@ -1,1 +1,2 @@
-it/polimi/ingsw/Table/Decks/LeaderDeck$ContainerLeaderCard.class
+it\polimi\ingsw\Table\Decks\LeaderDeck$ContainerLeaderCard.class
+it\polimi\ingsw\Exceptions\AlreadySelectedADevelopmentCardException.class

@@ -7,9 +7,11 @@ public class Turn {
     private Player currentPlayer;
     private boolean actionLeaderDone = false;
     private InWhichStatePlayer currentPlayerState = InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1;
+    private boolean developmentCardTaken = false;
     private boolean gameEnded = false;
     private boolean viewFinalPoints = false;
     private int gameIndex;
+
 
     public Turn(int gameIndex){
         this.gameIndex = gameIndex;
@@ -111,7 +113,7 @@ public class Turn {
      * CHOSE_ACTION_LEADER_OR_NOT1 and CHOSE_ACTION_LEADER_OR_NOT2
      * @throws GameEndedException if the game is finished and it's time to show final points
      */
-    public void discardLeaderCard(int pos) throws YetDiscardedThisLeaderCardException, ActionNotAllowedException, GameEndedException {
+    public void discardLeaderCard(int pos) throws AlreadyDiscardedThisLeaderCardException, ActionNotAllowedException, GameEndedException {
         if(currentPlayerState != InWhichStatePlayer.DISCARD_LEADER_CARD1 &&
                 currentPlayerState != InWhichStatePlayer.DISCARD_LEADER_CARD2){
             throw new ActionNotAllowedException();
@@ -173,15 +175,18 @@ public class Turn {
         switch (selectedNormalAction){
             case TAKE_RESOURCES_FROM_THE_MARKET:
                 currentPlayerState = InWhichStatePlayer.TAKE_RESOURCES_FROM_THE_MARKET;
+                break;
             case BUY_DEVELOPMENT_CARD:
                 if(currentPlayer.canYouBuyADevelopmentCard()){
                     currentPlayerState = InWhichStatePlayer.BUY_DEVELOPMENT_CARD;
+                    break;
                 } else {
                     throw new ActionNotAllowedException();
                 }
             case ACTIVATE_PRODUCTION:
                 if(currentPlayer.canYouActivateAPowerProduction()){
                     currentPlayerState = InWhichStatePlayer.ACTIVATE_PRODUCTION;
+                    break;
                 }
                 else{
                     throw new ActionNotAllowedException();
@@ -244,6 +249,17 @@ public class Turn {
         currentPlayer.changeWhiteMarbleWith(pos);
     }
 
+    public void buyADevelopmentCard(int xx, int yy) throws ActionNotAllowedException, AlreadySelectedADevelopmentCardException, NotAbleToBuyThisDevelopmentCardException, DrawnFromEmptyDeckException, PositionInvalidException, NotAbleToPlaceThisDevelopmentCardException {
+        if(developmentCardTaken == true){
+            throw new ActionNotAllowedException();
+        }
+        if(currentPlayerState != InWhichStatePlayer.BUY_DEVELOPMENT_CARD){
+            throw new ActionNotAllowedException();
+        }
+        currentPlayer.buyADevelopmentCard(xx, yy);
+        developmentCardTaken = true;
+    }
+
     /**
     * This method lets you to take a Development card
     * First choose the development card and than pay for it.
@@ -251,8 +267,11 @@ public class Turn {
     * @param pos: to choose the position of the DevelopmentCard on slotdevelopmentcard
     * @throws GameEndedException if the game is finished and it's time to show final points
     */
-    public void obtainDevelopmentCard(int pos) throws NoDevelopmentCardToObtainException, PositionInvalidException, GameEndedException {
-        currentPlayer.obtainDevelopmentCard(pos);
+    public void placeDevelopmentCard(int pos) throws NoDevelopmentCardToObtainException, PositionInvalidException, GameEndedException, ActionNotAllowedException {
+        if(currentPlayerState != InWhichStatePlayer.BUY_DEVELOPMENT_CARD){
+            throw new ActionNotAllowedException();
+        }
+        currentPlayer.placeDevelopmentCard(pos);
         if(currentPlayer.somethingToPay() == false){
             endPayment();
         }
@@ -310,7 +329,7 @@ public class Turn {
      * @throws ActionNotAllowedException if you are in the other states
      * @throws GameEndedException if the game is finished and it's time to show final points
      */
-    public void payWithWarehouseDepots(int pos) throws WrongPaymentException, YetEmptySlotException, NoResourceToPayException, ActionNotAllowedException, GameEndedException {
+    public void payWithWarehouseDepots(int pos) throws WrongPaymentException, AlreadyEmptySlotException, NoResourceToPayException, ActionNotAllowedException, GameEndedException {
         if(currentPlayerState != InWhichStatePlayer.PLAY_LEADER_CARD1 &&
                 currentPlayerState != InWhichStatePlayer.PLAY_LEADER_CARD2 &&
                 currentPlayerState != InWhichStatePlayer.BUY_DEVELOPMENT_CARD){
@@ -442,7 +461,7 @@ public class Turn {
      * the first position of the start slot of the warehouseDepots was selected using selectAWarehouseDepotsSlot and saved in var selectedWarehouseDepotsSlot of type int
      * @param pos: to choose the number 1 or 2 to determinate the position of the ExtraStorageLeaderCard as destination
      */
-    public void moveResourcesFromWarehouseDepotsToExtraStorageLeaderCard(int pos) throws PositionInvalidException, NotAnExtraStorageLeaderCardException, YetEmptySlotException, OccupiedSlotExtraStorageLeaderCardException, DifferentStorageException{
+    public void moveResourcesFromWarehouseDepotsToExtraStorageLeaderCard(int pos) throws PositionInvalidException, NotAnExtraStorageLeaderCardException, AlreadyEmptySlotException, OccupiedSlotExtraStorageLeaderCardException, DifferentStorageException{
         currentPlayer.moveResourcesFromWarehouseDepotsToExtraStorageLeaderCard(pos);
     }
 
@@ -466,6 +485,7 @@ public class Turn {
     private void endTurn() throws GameEndedException {
         actionLeaderDone = false;
         currentPlayerState = InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1;
+        developmentCardTaken = false;
         boolean found = false;
         for(Player i : Game.get(gameIndex).getPlayers()){
             if(found == true){

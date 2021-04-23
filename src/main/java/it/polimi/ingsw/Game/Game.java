@@ -107,6 +107,6 @@ public class Game { //<-- FIXME finish me-->
         ArrayList<Player> copy = (ArrayList<Player>) players.clone();
         Collections.shuffle(copy);
         copy.get(0).setInkwell();
-        System.out.println("This player has the inkwell:" + copy.get(0).getNickname());
+        System.out.println("This player has the inkwell: " + copy.get(0).getNickname());
     }
 }

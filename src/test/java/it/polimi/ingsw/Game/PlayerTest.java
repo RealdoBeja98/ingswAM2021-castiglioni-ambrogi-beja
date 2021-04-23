@@ -5,15 +5,10 @@ import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Enums.RowColumn;
 import it.polimi.ingsw.Enums.Type;
 import it.polimi.ingsw.Exceptions.*;
-import it.polimi.ingsw.PersonalBoard.Faith.FaithTrack;
-import it.polimi.ingsw.PersonalBoard.Faith.FaithTrackSP;
 import it.polimi.ingsw.Table.Decks.Development.DevelopmentCard;
 import it.polimi.ingsw.Table.Decks.Leader.*;
-import it.polimi.ingsw.Table.Decks.Production;
 import it.polimi.ingsw.Table.Market.Marbles.*;
 import org.junit.jupiter.api.Test;
-
-import java.util.concurrent.locks.ReadWriteLock;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -91,7 +86,7 @@ class PlayerTest {
         Player player = game.getPlayers().get(0);
         try {
             player.discardLeaderCard(2);
-        } catch (YetDiscardedThisLeaderCardException e) {
+        } catch (AlreadyDiscardedThisLeaderCardException e) {
             e.printStackTrace();
         }
         assertSame(1, player.getPersonalBoard().getFaithTrack().getFaithMarker());
@@ -237,7 +232,7 @@ class PlayerTest {
         player.getCardsOnTable()[0] = new ExtraStorageLeaderCard(3, Resource.COIN, Resource.COIN);
         try {
             player.moveResourcesFromWarehouseDepotsToExtraStorageLeaderCard(1);
-        } catch (PositionInvalidException | NotAnExtraStorageLeaderCardException | YetEmptySlotException | OccupiedSlotExtraStorageLeaderCardException | DifferentStorageException e) {
+        } catch (PositionInvalidException | NotAnExtraStorageLeaderCardException | AlreadyEmptySlotException | OccupiedSlotExtraStorageLeaderCardException | DifferentStorageException e) {
             e.printStackTrace();
         }
         assertNull(player.getPersonalBoard().getWarehouseDepots().getResource()[0]);
@@ -485,7 +480,7 @@ class PlayerTest {
         }
         try {
             player.payWithWarehouseDepots(0);
-        } catch (WrongPaymentException | YetEmptySlotException | NoResourceToPayException e) {
+        } catch (WrongPaymentException | AlreadyEmptySlotException | NoResourceToPayException e) {
             e.printStackTrace();
         }
         try {
@@ -765,7 +760,7 @@ class PlayerTest {
         }
         try {
             player.buyADevelopmentCard(3,1);
-        } catch (PositionInvalidException | NoDevelopmentCardInThisPositionException | NotAbleToBuyThisDevelopmentCardException | NotAbleToPlaceThisDevelopmentCardException | DrawnFromEmptyDeckException e) {
+        } catch (PositionInvalidException | NotAbleToBuyThisDevelopmentCardException | NotAbleToPlaceThisDevelopmentCardException | DrawnFromEmptyDeckException | AlreadySelectedADevelopmentCardException e) {
             e.printStackTrace();
         }
         assertTrue(player.developmentCardToObtain());
@@ -794,7 +789,7 @@ class PlayerTest {
         DevelopmentCard developmentCard = game.getTable().getDevelopmentDeck().visualize()[2][0];
         try {
             player.buyADevelopmentCard(3,1);
-        } catch (PositionInvalidException | NoDevelopmentCardInThisPositionException | NotAbleToBuyThisDevelopmentCardException | NotAbleToPlaceThisDevelopmentCardException | DrawnFromEmptyDeckException e) {
+        } catch (PositionInvalidException | NotAbleToBuyThisDevelopmentCardException | NotAbleToPlaceThisDevelopmentCardException | DrawnFromEmptyDeckException | AlreadySelectedADevelopmentCardException e) {
             e.printStackTrace();
         }
         while(player.somethingToPay()){
@@ -805,7 +800,7 @@ class PlayerTest {
             }
         }
         try {
-            player.obtainDevelopmentCard(1);
+            player.placeDevelopmentCard(1);
         } catch (NoDevelopmentCardToObtainException | PositionInvalidException e) {
             e.printStackTrace();
         }

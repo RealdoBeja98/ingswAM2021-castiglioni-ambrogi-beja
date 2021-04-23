@@ -10,17 +10,19 @@ public class ClientMain {
 
     public static void main(String[] args) throws IOException {
 
-        String hostName = "localhost";
-        int portNumber = 1234;
+        String hostName = args[0];
+        int portNumber = atoi(args[1]);
+
         try (
                 Socket echoSocket = new Socket(hostName, portNumber); //creo socket e mi connetto alla .accept
                 PrintWriter out = new PrintWriter(echoSocket.getOutputStream(), true);//scrive sul canale main
                 BufferedReader in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream())); // legge dal canale sopra
                 BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in)) //scanf
         ) {
-            int i = 0;
+
+            int i = 2;
             String init;
-            while(i<=2){
+            while(i<=4){
                 init = args[i];
                 out.println(init);
                 i++;
@@ -38,12 +40,17 @@ public class ClientMain {
             }
 
             String userInput;
+            String lines;
             while ((userInput = stdIn.readLine()) != null) {
                 out.println(userInput);
-                if(userInput.equals("quit")){
+                if (userInput.equals("quit")) {
                     break;
                 }
-                System.out.println("echo: " + in.readLine());
+
+                lines = in.readLine();
+                System.out.println(lines);
+
+                System.out.println("input next command:");
             }
             return;
 
@@ -54,6 +61,15 @@ public class ClientMain {
             System.err.println("Couldn't get I/O for the connection to " +
                     hostName);
             System.exit(1);
+        }
+    }
+
+    private static int atoi(String str)
+    {
+        try{
+            return Integer.parseInt(str);
+        }catch(NumberFormatException ex){
+            return -1;
         }
     }
 }
