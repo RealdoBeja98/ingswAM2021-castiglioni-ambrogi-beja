@@ -1175,4 +1175,8 @@ public class Player {
         return result;
     }
 
+    public List<Marble> getMarblesFromTheMarket() {
+        return marblesFromTheMarket;
+    }
+
 }

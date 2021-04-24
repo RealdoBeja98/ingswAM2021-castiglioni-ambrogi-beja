@@ -9,6 +9,7 @@ import it.polimi.ingsw.Exceptions.*;
 public class Turn {
 
     private Player currentPlayer;
+    private boolean display;
     private boolean actionLeaderDone = false;
     private InWhichStatePlayer currentPlayerState = InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1;
     private boolean developmentCardTaken = false;
@@ -25,6 +26,7 @@ public class Turn {
         for(Player i : Game.get(gameIndex).getPlayers()){
             if(i.isInkwell()){
                 currentPlayer = i;
+                display = true;
             }
         }
     }
@@ -561,6 +563,7 @@ public class Turn {
         actionLeaderDone = false;
         currentPlayerState = InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1;
         developmentCardTaken = false;
+        display = true;
         boolean found = false;
         for(Player i : Game.get(gameIndex).getPlayers()){
             if(found){
@@ -594,4 +597,11 @@ public class Turn {
         return currentPlayer;
     }
 
+    public void setDisplay(){
+        display = false;
+    }
+
+    public boolean getDisplay() {
+        return display;
+    }
 }

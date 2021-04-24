@@ -34,24 +34,33 @@ public class ClientMain {
                 System.out.println("Name already taken, please chose a different one!");
                 return;
             }
-            if(line.equals("ERROR_GAME_STARTED")){
+            else if(line.equals("ERROR_GAME_STARTED")){
                 System.out.println("Game already started, please chose a different one!");
                 return;
+            }else{
+                System.out.println("Joined the game!");
             }
 
             String userInput;
             String lines;
 
-            while ((userInput = stdIn.readLine()) != null) {
-                out.println(userInput);
-                if (userInput.equals("quit")) {
-                    break;
+            while (true) {
+                if(stdIn.ready()){
+                    userInput = stdIn.readLine();
+                    out.println(userInput);
+                    if (userInput.equals("quit")) {
+                        break;
+                    }
+                    lines = in.readLine();
+                    System.out.println(lines);
+                    System.out.println("input next command:");
                 }
 
-                lines = in.readLine();
-                System.out.println(lines);
+                if(in.ready()){
+                    lines = in.readLine();
+                    System.out.println(lines);
 
-                System.out.println("input next command:");
+                }
             }
             return;
 
