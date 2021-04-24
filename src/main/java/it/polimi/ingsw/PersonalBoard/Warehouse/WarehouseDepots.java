@@ -132,11 +132,11 @@ public class WarehouseDepots {
     /**
      * This method removes the resource in the pointed position
      * @param pos: position of the array
-     * @throws AlreadyEmptySlotException : if the slot was empty
+     * @throws EmptySlotYetException : if the slot was empty
      */
-    public void removeResource(int pos) throws AlreadyEmptySlotException {
+    public void removeResource(int pos) throws EmptySlotYetException {
         if(resource[pos] == null){
-            throw new AlreadyEmptySlotException();
+            throw new EmptySlotYetException();
         }
         resource[pos] = null;
     }

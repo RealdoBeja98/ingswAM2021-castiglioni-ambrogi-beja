@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * This Class represents the player
  */
-public class Player {//<--FIXME javadoc-->
+public class Player {
 
     private String nickname;
     private PersonalBoard personalBoard;
@@ -34,6 +34,7 @@ public class Player {//<--FIXME javadoc-->
     /**
      * Constructor method of this class
      * @param nickname: the nickname of the player
+     * @param gameIndex: the index of the Game
      */
     public Player(String nickname, int gameIndex){
         this.gameIndex = gameIndex;
@@ -108,12 +109,12 @@ public class Player {//<--FIXME javadoc-->
     /**
      * This method let player to discard a leader card in his hand advancing on him faith track
      * @param pos: number 1 or 2 to determinate the position of the leader card in hand to discard
-     * @throws IndexOutOfBoundsException if the position isn't 1 or 2
+     * @throws PositionInvalidException if the position isn't 1 or 2
      * @throws AlreadyDiscardedThisLeaderCardException if you try to discard a card again
      */
-    public void discardLeaderCard(int pos) throws AlreadyDiscardedThisLeaderCardException {
+    public void discardLeaderCard(int pos) throws AlreadyDiscardedThisLeaderCardException, PositionInvalidException {
         if(pos < 1 || pos > 2){
-            throw new IndexOutOfBoundsException();
+            throw new PositionInvalidException();
         }
         else{
             if(cardsInHand[pos-1] == null){
@@ -276,12 +277,12 @@ public class Player {//<--FIXME javadoc-->
      * This method let the player to put on the table a leader card that was in his hand
      * in case the player select a StorageLeaderCard, the list payingResources is updated with the resources the player has to pay
      * @param pos: number 1 or 2 to determinate the position of the leader card in hand to play
-     * @throws IndexOutOfBoundsException if the position isn't 1 or 2
+     * @throws PositionInvalidException if the position isn't 1 or 2
      * @throws NotSatisfiedRequirementsForThisLeaderCardException if the player isn't able to play the card
      */
-    public void playLeaderCard(int pos) throws NotSatisfiedRequirementsForThisLeaderCardException{
+    public void playLeaderCard(int pos) throws NotSatisfiedRequirementsForThisLeaderCardException, PositionInvalidException {
         if(pos < 1 || pos > 2){
-            throw new IndexOutOfBoundsException();
+            throw new PositionInvalidException();
         }
         else{
             switch(cardsInHand[pos-1].getWhatIAm()) {
@@ -327,13 +328,14 @@ public class Player {//<--FIXME javadoc-->
      * White marble could be removed, substituted or could remain
      * @param rowColumn: to choose a row or a column of the market
      * @param pos: to choose the position of the row or of the column
-     * @throws IndexOutOfBoundsException if the selected row or column is invalid
+     * @throws PositionInvalidException if the selected row or column is invalid
+     * @throws NullEnumException if you pass a null pointer instead of selecting row or column
      */
-    public void takeResourcesFromTheMarket(RowColumn rowColumn, int pos){
+    public void takeResourcesFromTheMarket(RowColumn rowColumn, int pos) throws PositionInvalidException, NullEnumException {
         List<Marble> obtainedMarbles;
         if (rowColumn == RowColumn.COLUMN){
             if(pos < 1 || pos > 4){
-                throw new IndexOutOfBoundsException();
+                throw new PositionInvalidException();
             }
             else{
                 obtainedMarbles = Arrays.asList(Game.get(gameIndex).getTable().getMarket().chooseColumn(pos-1));
@@ -341,12 +343,12 @@ public class Player {//<--FIXME javadoc-->
         }
         else if(rowColumn == RowColumn.ROW){
             if(pos < 1 || pos > 3){
-                throw new IndexOutOfBoundsException();
+                throw new PositionInvalidException();
             }else{
                 obtainedMarbles = Arrays.asList(Game.get(gameIndex).getTable().getMarket().chooseRow(pos-1));
             }
-        }else{
-            throw new NullPointerException();
+        } else {
+            throw new NullEnumException();
         }
         for(Marble i : obtainedMarbles){
             if(i instanceof Faith){
@@ -401,11 +403,11 @@ public class Player {//<--FIXME javadoc-->
      * @param pos: to choose the number 1 or 2 to determinate the position of the ExtraStorageLeaderCard as destination
      * @throws PositionInvalidException if the position of the ExtraStorageLeaderCard isn't 1 or 2
      * @throws NotAnExtraStorageLeaderCardException if the selected LeaderCard isn't an ExtraStorageLeaderCard
-     * @throws AlreadyEmptySlotException if the slot of the warehouseDepots was yet empty
+     * @throws EmptySlotYetException if the slot of the warehouseDepots was yet empty
      * @throws OccupiedSlotExtraStorageLeaderCardException if all slot of the ExtraStorageLeaderCard are yet occupied
      * @throws DifferentStorageException if the selected resource from warehouseDepots doesn't fit with the admitted resource of the selected ExtraStorageLeaderCard
      */
-    public void moveResourcesFromWarehouseDepotsToExtraStorageLeaderCard(int pos) throws PositionInvalidException, NotAnExtraStorageLeaderCardException, AlreadyEmptySlotException, OccupiedSlotExtraStorageLeaderCardException, DifferentStorageException {
+    public void moveResourcesFromWarehouseDepotsToExtraStorageLeaderCard(int pos) throws PositionInvalidException, NotAnExtraStorageLeaderCardException, EmptySlotYetException, OccupiedSlotExtraStorageLeaderCardException, DifferentStorageException {
         if(pos < 1 || pos > 2){
             throw new PositionInvalidException();
         }
@@ -472,6 +474,7 @@ public class Player {//<--FIXME javadoc-->
     /**
      * This method let player to add a resource, witch he took from the market, to the WarehouseDepots or into
      * an ExtraStorageLeaderCard or even to discard it letting other players to advance in them faith track
+     * @param where: to choose the WarehouseDepots or the LeaderCard or even to choose to discard the resource
      * @param pos: to choose the position of the WarehouseDepots or of the LeaderCard in hand; it's unuseful in case of discarding the resource
      * @throws NoResourceToAddException if the list marblesFromTheMarket, in witch there are all the resources to add, is empty
      * @throws DifferentStorageException if you select an ExtraStorageLeaderCard of another type of the resource to add
@@ -536,18 +539,21 @@ public class Player {//<--FIXME javadoc-->
     /**
      * This method is to be called when the player is going to add a white marble: this marble is changed with another marble using a WhiteMarbleLeaderCard
      * @param pos: to choose the position of the WhiteMarbleLeaderCard on the table
-     * @throws NullPointerException if the selected position is empty (without any LeaderCard)
-     * @throws ClassCastException if the selected position contains a LeaderCard witch is not a WhiteMarbleLeaderCard
+     * @throws NoWhiteMarbleLeaderCardException if the selected position doesn't contain a LeaderCard
      * @throws NoWhiteMarbleException if you are going to change a Marble witch is not White
+     * @throws PositionInvalidException if the position isn't 1 or 2
      */
-    public void changeWhiteMarbleWith(int pos) throws NullPointerException, ClassCastException, NoWhiteMarbleException {
+    public void changeWhiteMarbleWith(int pos) throws NoWhiteMarbleLeaderCardException, NoWhiteMarbleException, PositionInvalidException {
         if(pos <= 0 || pos > 2){
-            throw new IndexOutOfBoundsException();
+            throw new PositionInvalidException();
         }
         else{
+            if(!(cardsOnTable[pos-1] instanceof WhiteMarbleLeaderCard)){
+                throw new NoWhiteMarbleLeaderCardException();
+            }
             WhiteMarbleLeaderCard selected = (WhiteMarbleLeaderCard)cardsOnTable[pos-1];
             if(selected == null){
-                throw new NullPointerException();
+                throw new NoWhiteMarbleLeaderCardException();
             }
             if(marblesFromTheMarket.get(0) instanceof White){
                 marblesFromTheMarket.set(0, selected.getWhiteMarble());
@@ -605,14 +611,16 @@ public class Player {//<--FIXME javadoc-->
     /**
      * This method let you select or deselect a production power from a DevelopmentCard
      * @param pos: to choose the position of the DevelopmentCard
+     * @throws PositionInvalidException if the position isn't 1, 2 or 3
+     * @throws NoDevelopmentCardInThisPositionException if there is no DevelopmentCard in the selected position
      */
-    public void selectProductionDevelopmentCard(int pos){
+    public void selectProductionDevelopmentCard(int pos) throws PositionInvalidException, NoDevelopmentCardInThisPositionException {
         if(pos < 1 || pos > 3){
-            throw new IndexOutOfBoundsException();
+            throw new PositionInvalidException();
         }
         DevelopmentCard selected = personalBoard.getSlotsDevelopmentCards().getActiveCards()[pos - 1];
         if(selected == null){
-            throw new NullPointerException();
+            throw new NoDevelopmentCardInThisPositionException();
         }
         if(selectedProduction.contains(selected)){
             selectedProduction.remove(selected);
@@ -624,17 +632,19 @@ public class Player {//<--FIXME javadoc-->
     /**
      * This method let you select or deselect a production power from a ProductionPowerLeaderCard
      * @param pos: to choose the position of the ProductionPowerLeaderCard
+     * @throws PositionInvalidException if the position isn't 1 or 2
+     * @throws NoProductionLeaderCardException if you haven't selected a ProductionPowerLeaderCard
      */
-    public void selectProductionPowerLeaderCard(int pos) throws NoProductionLeaderCardException {
+    public void selectProductionPowerLeaderCard(int pos) throws NoProductionLeaderCardException, PositionInvalidException {
         if(pos <= 0 || pos > 2){
-            throw new IndexOutOfBoundsException();
+            throw new PositionInvalidException();
         }
         LeaderCard selected = cardsOnTable[pos-1];
-        if(!(selected instanceof ProductionPowerLeaderCard)){
+        if(selected == null){
             throw new NoProductionLeaderCardException();
         }
-        if(selected == null){
-            throw new NullPointerException();
+        if(!(selected instanceof ProductionPowerLeaderCard)){
+            throw new NoProductionLeaderCardException();
         }
         if(selectedProduction.contains(selected)){
             selectedProduction.remove(selected);
@@ -768,12 +778,12 @@ public class Player {//<--FIXME javadoc-->
      * This method lets you pay a resource with a resource located in
      * the warehousedepots. When action is chosen it cheks if
      * resource are of the same type or not.
-     *
      * @param pos:Location of the resource to pay from werehousedepots
      * @throws NoResourceToPayException if you haven't anything to pay
      * @throws WrongPaymentException if the resources to pay are different
+     * @throws EmptySlotYetException if the selected slot is empty
      */
-    public void payWithWarehouseDepots(int pos) throws WrongPaymentException, AlreadyEmptySlotException, NoResourceToPayException {
+    public void payWithWarehouseDepots(int pos) throws WrongPaymentException, EmptySlotYetException, NoResourceToPayException {
         if(payingResources.isEmpty()){
             throw new NoResourceToPayException();
         }
@@ -796,14 +806,15 @@ public class Player {//<--FIXME javadoc-->
      * @throws NotAnExtraStorageLeaderCardException if card chosen is not an Extra Strorage Leader Card
      * @throws WrongPaymentException if cards choese are not the same type of extra storage leader card
      * @throws NoResourceToPayException if you don't have any resources left.
-     * @throws IndexOutOfBoundsException if the position is lower than 1 e greater than 2
+     * @throws PositionInvalidException if the position is lower than 1 e greater than 2
+     * @throws EmptySlotExtraStorageLeaderCardException if the operation of removing a resource from an ExtraStorageLeaderCard fails
      */
-    public void payWithExtraStorageLeaderCard(int pos) throws NotAnExtraStorageLeaderCardException, WrongPaymentException, EmptySlotExtraStorageLeaderCardException, NoResourceToPayException {
+    public void payWithExtraStorageLeaderCard(int pos) throws NotAnExtraStorageLeaderCardException, WrongPaymentException, EmptySlotExtraStorageLeaderCardException, NoResourceToPayException, PositionInvalidException {
         if(payingResources.isEmpty()){
             throw new NoResourceToPayException();
         }
         if(pos <= 1 || pos > 2){
-            throw new IndexOutOfBoundsException();
+            throw new PositionInvalidException();
         }
         LeaderCard selected = cardsOnTable[pos - 1];
         if(!(selected instanceof ExtraStorageLeaderCard)){
@@ -869,6 +880,7 @@ public class Player {//<--FIXME javadoc-->
      * at your choice
      * @param resource it takes a resource ball with a generic power
      * @throws NoGenericResourceToObtainException there ane not any generic resource to obtain
+     * @throws NotAResourceForStrongBoxException if the resource in input isn't nor COIN, STONE, SERVANT or SHIELD
      */
     public void obtainGenericResource(Resource resource) throws NoGenericResourceToObtainException, NotAResourceForStrongBoxException {
         if(obtainedGeneric <= 0){
@@ -887,7 +899,6 @@ public class Player {//<--FIXME javadoc-->
      * This method lets you buy a DevelopmentCard, but first checking your resources from ware house depots.
      * second checks cards on table.
      * third adds all the costs of the resources after discount.
-     *
      * @return true or false by all the checkings done as mention before
      */
     public boolean canYouBuyADevelopmentCard(){
@@ -967,10 +978,11 @@ public class Player {//<--FIXME javadoc-->
      * @throws NotAbleToBuyThisDevelopmentCardException when you don't have enough resources to buy a development card
      * @throws NotAbleToPlaceThisDevelopmentCardException when you dont have space in your storage after buying it
      * @throws DrawnFromEmptyDeckException if the deck selected is empty
+     * @throws SelectedADevelopmentCardYetException if you have yet selected a DevelopmentCard
      */
-    public void buyADevelopmentCard(int xx, int yy) throws PositionInvalidException, NotAbleToBuyThisDevelopmentCardException, NotAbleToPlaceThisDevelopmentCardException, DrawnFromEmptyDeckException, AlreadySelectedADevelopmentCardException {
+    public void buyADevelopmentCard(int xx, int yy) throws PositionInvalidException, NotAbleToBuyThisDevelopmentCardException, NotAbleToPlaceThisDevelopmentCardException, DrawnFromEmptyDeckException, SelectedADevelopmentCardYetException {
         if(obtainedDevelopmentCard != null){
-            throw new AlreadySelectedADevelopmentCardException();
+            throw new SelectedADevelopmentCardYetException();
         }
         int x = xx - 1;
         int y = yy - 1;
@@ -1073,8 +1085,7 @@ public class Player {//<--FIXME javadoc-->
     /**
      * This method lets you to take a Development card
      * First choose the development card and than pay for it.
-     *
-     * @param pos: to choose the position of the DevelopmentCard on slotdevelopmentcard
+     * @param pos: to choose the position of the DevelopmentCard on SlotDevelopmentCard
      * @throws NoDevelopmentCardToObtainException if the place you chose has no development card,
      * @throws PositionInvalidException if the position you chose does not exists
      */
