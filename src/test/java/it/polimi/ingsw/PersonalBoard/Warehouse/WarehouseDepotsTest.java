@@ -102,7 +102,7 @@ public class WarehouseDepotsTest {
         }
         try {
             warehouseDepots.removeResource(2);
-        } catch (AlreadyEmptySlotException e) {
+        } catch (EmptySlotYetException e) {
             e.printStackTrace();
         }
         assertNull(warehouseDepots.getResource()[2]);

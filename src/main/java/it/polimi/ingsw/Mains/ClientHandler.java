@@ -105,6 +105,8 @@ public class ClientHandler implements Runnable {
                         out.println("ERROR_INVALID_ACTION");
                     } catch (GameEndedException e) {
                         out.println("ERROR_GAME_ENDED");
+                    } catch (PositionInvalidException e) {
+                        out.println("ERROR_INVALID_POSITION");
                     } catch (IllegalArgumentException e){
                         out.println("ERROR_TYPO");
                     }
@@ -134,6 +136,8 @@ public class ClientHandler implements Runnable {
                         out.println("ERROR_INVALID_ACTION");
                     } catch (GameEndedException e) {
                         out.println("ERROR_GAME_ENDED");
+                    } catch (PositionInvalidException e) {
+                        out.println("ERROR_INVALID_POSITION");
                     } catch (IllegalArgumentException e){
                         out.println("ERROR_TYPO");
                     }
@@ -172,8 +176,12 @@ public class ClientHandler implements Runnable {
                         System.out.println("TAKE_RESOURCES_FROM_THE_MARKET");
                     } catch (ActionNotAllowedException e) {
                         out.println("ERROR_INVALID_ACTION");
+                    } catch (PositionInvalidException e) {
+                        out.println("ERROR_INVALID_POSITION");
                     } catch (IllegalArgumentException e){
                         out.println("ERROR_TYPO");
+                    } catch (NullEnumException e) {
+                        out.println("ERROR_INVALID_ENUM");
                     }
                 }
 
@@ -216,8 +224,12 @@ public class ClientHandler implements Runnable {
                         out.println("ERROR_NO_WHITE_MARBLE");
                     } catch (ActionNotAllowedException e) {
                         out.println("ERROR_INVALID_ACTION");
+                    } catch (PositionInvalidException e) {
+                        out.println("ERROR_INVALID_POSITION");
                     } catch (IllegalArgumentException e){
                         out.println("ERROR_TYPO");
+                    } catch (NoWhiteMarbleLeaderCardException e) {
+                        out.println("ERROR_NO_WHITE_MARBLE");
                     }
                 }
 
@@ -229,7 +241,7 @@ public class ClientHandler implements Runnable {
                         System.out.println("BUY_DEVELOPMENT_CARD");
                     } catch (ActionNotAllowedException e) {
                         out.println("ERROR_INVALID_ACTION");
-                    } catch (AlreadySelectedADevelopmentCardException e) {
+                    } catch (SelectedADevelopmentCardYetException e) {
                         out.println("ERROR_ALREADY_SELECTED_SOMETHING");
                     } catch (NotAbleToBuyThisDevelopmentCardException e) {
                         out.println("ERROR_NOT_ENOUGH_RESOURCES");
@@ -252,8 +264,6 @@ public class ClientHandler implements Runnable {
                         System.out.println("PAY_WITH_STRONGBOX");
                     } catch (WrongPaymentException e) {
                         out.println("ERROR_WRONG_RESOURCE");
-                    } catch (NotEnoughResourcesException e) {
-                        out.println("ERROR_NOT_ENOUGH_R");
                     } catch (NegativeResourceException e) {
                         out.println("ERROR_MISSING_RESOURCE");
                     } catch (NotAResourceForStrongBoxException e) {
@@ -277,7 +287,7 @@ public class ClientHandler implements Runnable {
                         System.out.println("PAY_WITH_WAREHOUSE_DEPOTS");
                     } catch (WrongPaymentException e) {
                         out.println("ERROR_WRONG_RESOURCE");
-                    } catch (AlreadyEmptySlotException e) {
+                    } catch (EmptySlotYetException e) {
                         out.println("ERROR_ALREADY_EMPTY");
                     } catch (NoResourceToPayException e) {
                         out.println("ERROR_NO_RESOURCE_P");
@@ -306,6 +316,8 @@ public class ClientHandler implements Runnable {
                         out.println("ERROR_NO_RESOURCE_P");
                     } catch (ActionNotAllowedException e) {
                         out.println("ERROR_INVALID_ACTION");
+                    } catch (PositionInvalidException e) {
+                        out.println("ERROR_INVALID_POSITION");
                     } catch (GameEndedException e) {
                         out.println("ERROR_GAME_ENDED");
                     } catch (IllegalArgumentException e){
@@ -340,8 +352,12 @@ public class ClientHandler implements Runnable {
                         System.out.println("SELECT_PRODUCTION_DEVELOPMENT_CARD");
                     } catch (ActionNotAllowedException e) {
                         out.println("ERROR_INVALID_ACTION");
+                    } catch (PositionInvalidException e) {
+                        out.println("ERROR_INVALID_POSITION");
                     } catch (IllegalArgumentException e){
                         out.println("ERROR_TYPO");
+                    } catch (NoDevelopmentCardInThisPositionException e) {
+                        out.println("ERROR_NO_DEVELOPMENT_CARD");
                     }
                 }
 
@@ -355,6 +371,8 @@ public class ClientHandler implements Runnable {
                         out.println("ERROR_NO_PLC");
                     } catch (ActionNotAllowedException e) {
                         out.println("ERROR_INVALID_ACTION");
+                    } catch (PositionInvalidException e) {
+                        out.println("ERROR_INVALID_POSITION");
                     } catch (IllegalArgumentException e){
                         out.println("ERROR_TYPO");
                     }
@@ -449,7 +467,7 @@ public class ClientHandler implements Runnable {
                         out.println("ERROR_INVALID_POSITION");
                     } catch (NotAnExtraStorageLeaderCardException e) {
                         out.println("ERROR_NOT_ES");
-                    } catch (AlreadyEmptySlotException e) {
+                    } catch (EmptySlotYetException e) {
                         out.println("ERROR_ALREADY_EMPTY");
                     } catch (OccupiedSlotExtraStorageLeaderCardException e) {
                         out.println("ERROR_OCCUPIED_SLOT_LC");
