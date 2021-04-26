@@ -1,17 +1,16 @@
 package it.polimi.ingsw.Table.Decks;
-import com.google.gson.Gson;
-//import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
 import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Enums.Type;
 import it.polimi.ingsw.Table.Decks.Leader.*;
 import it.polimi.ingsw.Table.Market.Marbles.*;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
-//import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
+import java.io.IOException;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  * This Class represents the deck of leader cards
@@ -60,40 +59,54 @@ public class LeaderDeck {
         deck.add(new ProductionPowerLeaderCard(4, Type.GREEN, Resource.COIN));
     }
 
-    public static class ContainerLeaderCard { //<--FIXME-->
-
-        public List<DiscountLeaderCard> discountLeaderCardList = new ArrayList<>();
-        public List<WhiteMarbleLeaderCard> whiteMarbleLeaderCardList = new ArrayList<>();
-        public List<ExtraStorageLeaderCard> extraStorageLeaderCardList = new ArrayList<>();
-        public List<ProductionPowerLeaderCard> productionPowerLeaderCardList = new ArrayList<>();
-
-        @Override
-        public String toString() {
-            return "ContainerLeaderCard [discountLeaderCardList=" + discountLeaderCardList + ", whiteMarbleLeaderCardList=" + whiteMarbleLeaderCardList + ", extraStorageLeaderCardList=" + extraStorageLeaderCardList + ", productionPowerLeaderCardList=" + productionPowerLeaderCardList + "]";
-        }
-
-    }
-
     private void putCardsNew(ArrayList<LeaderCard> deck){
 
-        // https://codingjam.it/gson-da-java-a-json-e-viceversa-primi-passi/
+        JSONParser jsonParser = new JSONParser();
+        try (FileReader reader = new FileReader("src/main/resources/LeaderCardsList.json"))
+        {
+            Object obj = jsonParser.parse(reader);
+            JSONArray json = (JSONArray) obj;
+            for(Object i : json) {
+                int n = (int) ((JSONObject) i).get("victoryPoints");
 
-        JsonReader reader = null;
-        try {
-            reader = new JsonReader(new FileReader("src/main/resources/LeaderCardsList.json"));
-        } catch (FileNotFoundException e) {
+                switch ((String)(((JSONObject) i).get("whatIAm"))){
+                    case "DISCOUNT":
+                        deck.add(new DiscountLeaderCard(n, (Resource) ((JSONObject) i).get("discount"), (Type[]) ((JSONObject) i).get("costOfLeaderCard")));
+                        break;
+
+                    case "WHITE":
+                        Type[] param = (Type[]) ((JSONObject) i).get("costOfLeaderCard");
+                        switch ((String)(((JSONObject) i).get("whiteMarble"))){
+                            case "Servant":
+                                deck.add(new WhiteMarbleLeaderCard(n, param, new Servant()));
+                                break;
+                            case "Shield":
+                                deck.add(new WhiteMarbleLeaderCard(n, param, new Shield()));
+                                break;
+                            case "Stone":
+                                deck.add(new WhiteMarbleLeaderCard(n, param, new Stone()));
+                                break;
+                            case "Coin":
+                                deck.add(new WhiteMarbleLeaderCard(n, param, new Coin()));
+                                break;
+                            default: break;
+                        }
+
+                    case "STORAGE":
+                        deck.add(new ExtraStorageLeaderCard(n, (Resource) ((JSONObject) i).get("costOfLeaderCard"), (Resource) ((JSONObject) i).get("storageType")));
+                        break;
+
+                    case "PRODUCTIONPOWER":
+                        deck.add(new ProductionPowerLeaderCard(n, (Type) ((JSONObject) i).get("costOfLeaderCard"), (Resource) ((JSONObject) i).get("requirement")));
+                        break;
+                    default: break;
+                }
+            }
+
+
+        } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
-        System.out.println(reader);
-
-        Gson gson = new Gson();
-        ContainerLeaderCard container = gson.fromJson(reader, ContainerLeaderCard.class);
-        System.out.println(container);
-
-        //ContainerLeaderCard[] reviews = new Gson().fromJson(reader, ContainerLeaderCard[].class);
-        //List<ContainerLeaderCard> asList = Arrays.asList(reviews);
-        //System.out.println(asList);
-
     }
 
     /**

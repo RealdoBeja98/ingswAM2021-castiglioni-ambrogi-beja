@@ -1,96 +1,99 @@
+[{
+  "whatIAm": "DISCOUNT",
+  "victoryPoints": 2,
+  "discount": "SERVANT",
+  "costOfLeaderCard": [
+    "YELLOW",
+    "GREEN"
+  ]
+},
 {
-    "whatIAm": "DISCOUNT",
-    "victoryPoints": 2,
-    "discount": "SERVANT",
-    "costOfLeaderCard": ["YELLOW", "GREEN"]
-  },
-  {
-    "whatIAm": "DISCOUNT",
-    "victoryPoints": 2,
-    "discount": "SHIELD",
-    "costOfLeaderCard": ["BLUE", "PURPLE"]
-  },
-  {
-    "whatIAm": "DISCOUNT",
-    "victoryPoints": 2,
-    "discount": "STONE",
-    "costOfLeaderCard": ["GREEN", "BLUE"]
-  },
-  {
-    "whatIAm": "DISCOUNT",
-    "victoryPoints": 2,
-    "discount": "COIN",
-    "costOfLeaderCard": ["YELLOW", "PURPLE"]
-  },
-  {
-    "whatIAm": "WHITE",
-    "victoryPoints": 5,
-    "costOfLeaderCard": ["YELLOW", "BLUE"],
-    "whiteMarble": "Servant"
-  },
-  {
-    "whatIAm": "WHITE",
-    "victoryPoints": 5,
-    "costOfLeaderCard": ["GREEN", "PURPLE"],
-    "whiteMarble": "Shield"
-  },
-  {
-    "whatIAm": "WHITE",
-    "victoryPoints": 5,
-    "costOfLeaderCard": ["BLUE", "YELLOW"],
-    "whiteMarble": "Stone"
-  },
-  {
-    "whatIAm": "WHITE",
-    "victoryPoints": 5,
-    "costOfLeaderCard": ["PURPLE", "GREEN"],
-    "whiteMarble": "Coin"
-  },
-  {
-    "whatIAm": "STORAGE",
-    "victoryPoints": 3,
-    "costOfLeaderCard": "COIN",
-    "storageType": "STONE"
-  },
-  {
-    "whatIAm": "STORAGE",
-    "victoryPoints": 3,
-    "costOfLeaderCard": "STONE",
-    "storageType": "SERVANT"
-  },
-  {
-    "whatIAm": "STORAGE",
-    "victoryPoints": 3,
-    "costOfLeaderCard": "SERVANT",
-    "storageType": "SHIELD"
-  },
-  {
-    "whatIAm": "STORAGE",
-    "victoryPoints": 3,
-    "costOfLeaderCard": "SHIELD",
-    "storageType": "COIN"
-  },
-  {
-    "whatIAm": "PRODUCTIONPOWER",
-    "victoryPoints": 4,
-    "costOfLeaderCard": "YELLOW",
-    "requirement": "SHIELD"
-  },
-  {
-    "whatIAm": "PRODUCTIONPOWER",
-    "victoryPoints": 4,
-    "costOfLeaderCard": "BLUE",
-    "requirement": "SERVANT"
-  },
-  {
-    "whatIAm": "PRODUCTIONPOWER",
-    "victoryPoints": 4,
-    "costOfLeaderCard": "PURPLE",
-    "requirement": "STONE"
-  },
-  {
-    "whatIAm": "PRODUCTIONPOWER",
-    "victoryPoints": 4,
-    "costOfLeaderCard": "GREEN",
-    "requirement": "COIN"
-  }
+"whatIAm": "DISCOUNT",
+"victoryPoints": 2,
+"discount": "SHIELD",
+"costOfLeaderCard": ["BLUE", "PURPLE"]
+},
+{
+"whatIAm": "DISCOUNT",
+"victoryPoints": 2,
+"discount": "STONE",
+"costOfLeaderCard": ["GREEN", "BLUE"]
+},
+{
+"whatIAm": "DISCOUNT",
+"victoryPoints": 2,
+"discount": "COIN",
+"costOfLeaderCard": ["YELLOW", "PURPLE"]
+},
+{
+"whatIAm": "WHITE",
+"victoryPoints": 5,
+"costOfLeaderCard": ["YELLOW", "BLUE"],
+"whiteMarble": "Servant"
+},
+{
+"whatIAm": "WHITE",
+"victoryPoints": 5,
+"costOfLeaderCard": ["GREEN", "PURPLE"],
+"whiteMarble": "Shield"
+},
+{
+"whatIAm": "WHITE",
+"victoryPoints": 5,
+"costOfLeaderCard": ["BLUE", "YELLOW"],
+"whiteMarble": "Stone"
+},
+{
+"whatIAm": "WHITE",
+"victoryPoints": 5,
+"costOfLeaderCard": ["PURPLE", "GREEN"],
+"whiteMarble": "Coin"
+},
+{
+"whatIAm": "STORAGE",
+"victoryPoints": 3,
+"costOfLeaderCard": "COIN",
+"storageType": "STONE"
+},
+{
+"whatIAm": "STORAGE",
+"victoryPoints": 3,
+"costOfLeaderCard": "STONE",
+"storageType": "SERVANT"
+},
+{
+"whatIAm": "STORAGE",
+"victoryPoints": 3,
+"costOfLeaderCard": "SERVANT",
+"storageType": "SHIELD"
+},
+{
+"whatIAm": "STORAGE",
+"victoryPoints": 3,
+"costOfLeaderCard": "SHIELD",
+"storageType": "COIN"
+},
+{
+"whatIAm": "PRODUCTIONPOWER",
+"victoryPoints": 4,
+"costOfLeaderCard": "YELLOW",
+"requirement": "SHIELD"
+},
+{
+"whatIAm": "PRODUCTIONPOWER",
+"victoryPoints": 4,
+"costOfLeaderCard": "BLUE",
+"requirement": "SERVANT"
+},
+{
+"whatIAm": "PRODUCTIONPOWER",
+"victoryPoints": 4,
+"costOfLeaderCard": "PURPLE",
+"requirement": "STONE"
+},
+{
+"whatIAm": "PRODUCTIONPOWER",
+"victoryPoints": 4,
+"costOfLeaderCard": "GREEN",
+"requirement": "COIN"
+}]

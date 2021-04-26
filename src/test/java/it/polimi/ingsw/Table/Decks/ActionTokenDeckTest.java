@@ -3,8 +3,6 @@ import it.polimi.ingsw.Table.Decks.Token.ActionToken;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-// <-- FIXME I've commented this test because otherwise (strangely) Maven didn't work -->
-
 /**
  * Test class for the class: ActionTokenDeck
  */
