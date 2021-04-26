@@ -24,7 +24,8 @@ public class LeaderDeck {
      */
     public LeaderDeck(){
         deck = new ArrayList<>();
-        putCards(deck);
+        putCardsNew(deck);
+        //putCards(deck);
         Collections.shuffle(deck);
     }
 
@@ -59,6 +60,10 @@ public class LeaderDeck {
         deck.add(new ProductionPowerLeaderCard(4, Type.GREEN, Resource.COIN));
     }
 
+    /**
+     * This method receives an ArrayList as parameter and fills it with new leader cards
+     * @param deck: an ArrayList where the cards are stored
+     */
     private void putCardsNew(ArrayList<LeaderCard> deck){
 
         JSONParser jsonParser = new JSONParser();
@@ -67,37 +72,40 @@ public class LeaderDeck {
             Object obj = jsonParser.parse(reader);
             JSONArray json = (JSONArray) obj;
             for(Object i : json) {
-                int n = (int) ((JSONObject) i).get("victoryPoints");
+                int n = (int)((Long) ((JSONObject) i).get("victoryPoints")).longValue();
 
                 switch ((String)(((JSONObject) i).get("whatIAm"))){
                     case "DISCOUNT":
-                        deck.add(new DiscountLeaderCard(n, (Resource) ((JSONObject) i).get("discount"), (Type[]) ((JSONObject) i).get("costOfLeaderCard")));
+                        JSONArray temp1 = (JSONArray) ((JSONObject) i).get("costOfLeaderCard");
+                        Type[] temp2 = {Type.valueOf((String)temp1.get(0)), Type.valueOf((String)temp1.get(1))};
+                        deck.add(new DiscountLeaderCard(n, Resource.valueOf((String)((JSONObject) i).get("discount")), temp2));
                         break;
-
                     case "WHITE":
-                        Type[] param = (Type[]) ((JSONObject) i).get("costOfLeaderCard");
+
+                        JSONArray temp3 = (JSONArray) ((JSONObject) i).get("costOfLeaderCard");
+                        Type[] temp4 = {Type.valueOf((String)temp3.get(0)), Type.valueOf((String)temp3.get(1))};
+
                         switch ((String)(((JSONObject) i).get("whiteMarble"))){
                             case "Servant":
-                                deck.add(new WhiteMarbleLeaderCard(n, param, new Servant()));
+                                deck.add(new WhiteMarbleLeaderCard(n, temp4, new Servant()));
                                 break;
                             case "Shield":
-                                deck.add(new WhiteMarbleLeaderCard(n, param, new Shield()));
+                                deck.add(new WhiteMarbleLeaderCard(n, temp4, new Shield()));
                                 break;
                             case "Stone":
-                                deck.add(new WhiteMarbleLeaderCard(n, param, new Stone()));
+                                deck.add(new WhiteMarbleLeaderCard(n, temp4, new Stone()));
                                 break;
                             case "Coin":
-                                deck.add(new WhiteMarbleLeaderCard(n, param, new Coin()));
+                                deck.add(new WhiteMarbleLeaderCard(n, temp4, new Coin()));
                                 break;
                             default: break;
                         }
-
-                    case "STORAGE":
-                        deck.add(new ExtraStorageLeaderCard(n, (Resource) ((JSONObject) i).get("costOfLeaderCard"), (Resource) ((JSONObject) i).get("storageType")));
                         break;
-
+                    case "STORAGE":
+                        deck.add(new ExtraStorageLeaderCard(n, Resource.valueOf((String)((JSONObject) i).get("costOfLeaderCard")), Resource.valueOf((String)((JSONObject) i).get("storageType"))));
+                        break;
                     case "PRODUCTIONPOWER":
-                        deck.add(new ProductionPowerLeaderCard(n, (Type) ((JSONObject) i).get("costOfLeaderCard"), (Resource) ((JSONObject) i).get("requirement")));
+                        deck.add(new ProductionPowerLeaderCard(n, Type.valueOf((String)((JSONObject) i).get("costOfLeaderCard")), Resource.valueOf((String)((JSONObject) i).get("requirement"))));
                         break;
                     default: break;
                 }

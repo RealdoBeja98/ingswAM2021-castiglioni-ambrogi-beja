@@ -22,6 +22,7 @@ public class LeaderDeckTest {
         assertNotNull(leaderDeck.getDeck().get(0));
         assertNull(deck.get(0));
     }
+
     /**
      * This method tests the drawing of two cards from LeaderDeck
      */

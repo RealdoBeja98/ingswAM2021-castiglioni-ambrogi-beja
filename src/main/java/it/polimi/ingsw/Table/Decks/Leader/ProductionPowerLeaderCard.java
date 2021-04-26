@@ -63,7 +63,7 @@ public class ProductionPowerLeaderCard extends LeaderCard implements Production 
 
     @Override
     public String toString(){
-        return "ProductionPowerLeaderCard";
+        return "ProductionPowerLeaderCard"+victoryPoints+costOfLeaderCard+requirement;
     }
 
 }

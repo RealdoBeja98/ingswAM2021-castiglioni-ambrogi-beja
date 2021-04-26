@@ -11,7 +11,6 @@ class ActionTokenDeckTest {
     /**
      * This method tests drawing a card from the action token deck
      */
-
     @Test
     void draw() {
         ActionTokenDeck deck = new ActionTokenDeck();

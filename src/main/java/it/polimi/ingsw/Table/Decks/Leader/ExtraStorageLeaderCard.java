@@ -90,7 +90,7 @@ public class ExtraStorageLeaderCard extends LeaderCard {
 
     @Override
     public String toString(){
-        return "ExtraStorageLeaderCard";
+        return "ExtraStorageLeaderCard"+victoryPoints+costOfLeaderCard+storageType;
     }
 
 }

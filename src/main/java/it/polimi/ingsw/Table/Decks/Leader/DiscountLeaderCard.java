@@ -39,7 +39,11 @@ public class DiscountLeaderCard extends LeaderCard {
 
     @Override
     public String toString(){
-        return "DiscountLeaderCard";
+        StringBuilder cost = new StringBuilder();
+        for(Type i : costOfLeaderCard){
+            cost.append(i.toString());
+        }
+        return "DiscountLeaderCard"+victoryPoints+discount+cost;
     }
 
 }
