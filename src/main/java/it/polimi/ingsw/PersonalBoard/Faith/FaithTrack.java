@@ -43,6 +43,24 @@ public class FaithTrack {
     }
 
     /**
+     * This method return the list of faithTrack of all the players
+     * @return the list of faithTrack of all the players
+     */
+    private ArrayList<FaithTrack> faithTrackOfAllPlayers(){
+        ArrayList<FaithTrack> result = new ArrayList<>();
+        ArrayList<Player> playerList = Game.get(gameIndex).getPlayers();
+        if(playerList.size() == 1){
+            result.add(this);
+            result.add(playerList.get(0).getPersonalBoard().getLorenzoTrack());
+            return result;
+        }
+        for(Player i : playerList){
+            result.add(i.getPersonalBoard().getFaithTrack());
+        }
+        return result;
+    }
+
+    /**
      * This method receives the number of position the player has to move on the faith track,
      * then based on the ending position can trigger a Vatican Report and/or the end of the game
      * @param n: number of slot the player has to advance
@@ -78,14 +96,13 @@ public class FaithTrack {
         if(n == 2){
             threshold = 19;
         }
-        ArrayList<Player> playerList = Game.get(gameIndex).getPlayers();
-        for(Player name : playerList){
-            if(name.getPersonalBoard().getFaithTrack().faithMarker >= threshold){
-                name.getPersonalBoard().getFaithTrack().favorTiles[n] =
+        for(FaithTrack i : faithTrackOfAllPlayers()){
+            if(i.faithMarker >= threshold){
+                i.favorTiles[n] =
                         FavorTiles.TURNED;
             }
             else{
-                name.getPersonalBoard().getFaithTrack().favorTiles[n] =
+                i.favorTiles[n] =
                         FavorTiles.DITCH;
             }
         }
@@ -141,9 +158,13 @@ public class FaithTrack {
      */
     public void allOtherPlayersGoOn(Player discardingPlayer){
         ArrayList<Player> playerList = Game.get(gameIndex).getPlayers();
-        for(Player i : playerList){
-            if(i != discardingPlayer){
-                i.getPersonalBoard().getFaithTrack().goOn(1);
+        if(playerList.size() == 1){
+            playerList.get(0).getPersonalBoard().getLorenzoTrack().goOn(1);
+        } else {
+            for(Player i : playerList){
+                if(i != discardingPlayer){
+                    i.getPersonalBoard().getFaithTrack().goOn(1);
+                }
             }
         }
     }

@@ -9,6 +9,13 @@ public abstract class ActionToken extends Card {
 
     protected Type whatIAm;
 
-    public Type getWhatIAm(){ return whatIAm; }
+    public Type getWhatIAm(){
+        return whatIAm;
+    }
+
+    @Override
+    public String toString() {
+        return whatIAm.toString();
+    }
 
 }
