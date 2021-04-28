@@ -577,4 +577,5 @@ public class Turn {
     public boolean getDisplay() {
         return display;
     }
+
 }

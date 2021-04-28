@@ -1,6 +1,7 @@
 package it.polimi.ingsw.Game;
 import it.polimi.ingsw.Exceptions.GameAlreadyStartedException;
 import it.polimi.ingsw.Exceptions.NameAlreadyRegisteredException;
+import it.polimi.ingsw.Mains.ClientHandler;
 import it.polimi.ingsw.Table.Table;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -70,6 +71,22 @@ public class Game {
         }
     }
 
+    public void addPlayer(String name, ClientHandler clientHandler) throws NameAlreadyRegisteredException, GameAlreadyStartedException {
+        if(players.size() == numberOfPlayer){
+            throw new GameAlreadyStartedException();
+        }
+        if(checkInListForNickname(name)){
+            throw new NameAlreadyRegisteredException();
+        }
+        players.add(new Player(name, gameIndex, clientHandler));
+        if(numberOfPlayer == 1){
+            players.get(0).isSinglePlayer();
+        }
+        if(players.size() == numberOfPlayer){
+            startGame();
+        }
+    }
+
     /**
      * This method add the communication channel "out" of the recently added player to a list
      * @param printWriter: the channel to talk with the player
@@ -85,7 +102,15 @@ public class Game {
         setInkwell();
         turn = new Turn(gameIndex);
         System.out.println("Game: " + gameIndex + " started!");
-        //notifyAll();
+        for(Player i : players){
+            ClientHandler clientHandler = i.getClientHandler();
+            if(clientHandler != null){
+                //clientHandler.notifyAll();
+                //System.out.println("NORMALEEEEEE NORMLAAAAA");
+            } else {
+                //System.out.println("ERROREEEE REEOREEEEEE");
+            }
+        }
     }
 
     /**

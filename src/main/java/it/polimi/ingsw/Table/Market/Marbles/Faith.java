@@ -39,4 +39,9 @@ public class Faith extends Marble {
         faithTrack.goOn(1);
     }
 
+    @Override
+    public String toString(){
+        return whatIAm.toString();
+    }
+
 }

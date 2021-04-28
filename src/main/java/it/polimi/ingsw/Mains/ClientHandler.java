@@ -77,11 +77,20 @@ public class ClientHandler implements Runnable {
             }
         }*/
         System.out.println("sleeping");
+        /*
+        try {
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        */
+
         try {
             Thread.sleep(20*1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
         System.out.println("woke up"); //blocco per testare, rimuovere dopo wait fix also dobbiamo ridurre cpu usage
 
 
@@ -563,7 +572,7 @@ public class ClientHandler implements Runnable {
         out.println(game.getGameIndex());
         line = in.readLine();
         try {
-            game.addPlayer(line);
+            game.addPlayer(line, this);
             game.addSocket(out);
             nickname = line;
             out.println("PLAYER_ADDED");

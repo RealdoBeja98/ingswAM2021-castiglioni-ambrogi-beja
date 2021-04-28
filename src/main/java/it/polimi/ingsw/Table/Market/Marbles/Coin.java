@@ -57,4 +57,9 @@ public class Coin extends Marble {
         throw new RuntimeException();
     }
 
+    @Override
+    public String toString(){
+        return whatIAm.toString();
+    }
+
 }

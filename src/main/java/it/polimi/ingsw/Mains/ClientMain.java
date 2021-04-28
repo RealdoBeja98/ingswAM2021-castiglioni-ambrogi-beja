@@ -48,6 +48,9 @@ public class ClientMain {
             String lines;
 
             while (true) {
+
+                //waitABit();
+
                 if(stdIn.ready()){
                     userInput = stdIn.readLine();
                     out.println(userInput);
@@ -59,11 +62,14 @@ public class ClientMain {
                     System.out.println("input next command:");
                 }
 
+                //waitABit();
+
                 if(in.ready()){
                     lines = in.readLine();
                     System.out.println(lines);
 
                 }
+
             }
             return;
 
@@ -83,6 +89,14 @@ public class ClientMain {
             return Integer.parseInt(str);
         }catch(NumberFormatException ex){
             return -1;
+        }
+    }
+
+    static private void waitABit(){
+        try {
+            Thread.sleep(25);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 

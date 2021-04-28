@@ -57,4 +57,9 @@ public class Servant extends Marble {
         throw new RuntimeException();
     }
 
+    @Override
+    public String toString(){
+        return whatIAm.toString();
+    }
+
 }
