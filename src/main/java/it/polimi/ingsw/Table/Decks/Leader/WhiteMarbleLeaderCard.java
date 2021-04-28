@@ -37,13 +37,4 @@ public class WhiteMarbleLeaderCard extends LeaderCard {
         return whiteMarble;
     }
 
-    @Override
-    public String toString(){
-        StringBuilder cost = new StringBuilder();
-        for(Type i : costOfLeaderCard){
-            cost.append(i.toString());
-        }
-        return "WhiteMarbleLeaderCard"+victoryPoints+cost+whiteMarble;
-    }
-
 }

@@ -37,13 +37,4 @@ public class DiscountLeaderCard extends LeaderCard {
         return costOfLeaderCard.clone();
     }
 
-    @Override
-    public String toString(){
-        StringBuilder cost = new StringBuilder();
-        for(Type i : costOfLeaderCard){
-            cost.append(i.toString());
-        }
-        return "DiscountLeaderCard"+victoryPoints+discount+cost;
-    }
-
 }

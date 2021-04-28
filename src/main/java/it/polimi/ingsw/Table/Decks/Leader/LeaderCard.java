@@ -10,8 +10,16 @@ public abstract class LeaderCard extends Card {
     protected int victoryPoints;
     protected LeaderCardType whatIAm;
 
+    /**
+     * Getter of the parameter whatIAm
+     * @return the type of the card, of type LeaderCardType
+     */
     public LeaderCardType getWhatIAm(){ return whatIAm; }
 
+    /**
+     * Getter of the parameter victoryPoints
+     * @return the number of victory points of the card, of type int
+     */
     public int getVictoryPoints(){ return victoryPoints; }
 
 }

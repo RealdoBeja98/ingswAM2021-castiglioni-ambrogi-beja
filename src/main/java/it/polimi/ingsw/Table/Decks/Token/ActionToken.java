@@ -9,6 +9,9 @@ public abstract class ActionToken extends Card {
 
     protected Type whatIAm;
 
+    /**
+     *abstract method: see implementation in son classes for the details
+     */
     public Type getWhatIAm(){ return whatIAm; }
 
 }

@@ -24,8 +24,7 @@ public class LeaderDeck {
      */
     public LeaderDeck(){
         deck = new ArrayList<>();
-        putCardsNew(deck);
-        //putCards(deck);
+        putCards(deck);
         Collections.shuffle(deck);
     }
 
@@ -34,37 +33,6 @@ public class LeaderDeck {
      * @param deck: an ArrayList where the cards are stored
      */
     private void putCards(ArrayList<LeaderCard> deck){
-        Type[] card1 = {Type.YELLOW, Type.GREEN};
-        deck.add(new DiscountLeaderCard(2, Resource.SERVANT, card1));
-        Type[] card2 = {Type.BLUE, Type.PURPLE};
-        deck.add(new DiscountLeaderCard(2, Resource.SHIELD, card2));
-        Type[] card3 = {Type.GREEN, Type.BLUE};
-        deck.add(new DiscountLeaderCard(2, Resource.STONE, card3));
-        Type[] card4 = {Type.YELLOW, Type.PURPLE};
-        deck.add(new DiscountLeaderCard(2, Resource.COIN, card4));
-        Type[] card5 = {Type.YELLOW, Type.BLUE};
-        deck.add(new WhiteMarbleLeaderCard(5, card5, new Servant()));
-        Type[] card6 = {Type.GREEN, Type.PURPLE};
-        deck.add(new WhiteMarbleLeaderCard(5, card6, new Shield()));
-        Type[] card7 = {Type.BLUE, Type.YELLOW};
-        deck.add(new WhiteMarbleLeaderCard(5, card7, new Stone()));
-        Type[] card8 = {Type.PURPLE, Type.GREEN};
-        deck.add(new WhiteMarbleLeaderCard(5, card8, new Coin()));
-        deck.add(new ExtraStorageLeaderCard(3, Resource.COIN, Resource.STONE));
-        deck.add(new ExtraStorageLeaderCard(3, Resource.STONE, Resource.SERVANT));
-        deck.add(new ExtraStorageLeaderCard(3, Resource.SERVANT, Resource.SHIELD));
-        deck.add(new ExtraStorageLeaderCard(3, Resource.SHIELD, Resource.COIN));
-        deck.add(new ProductionPowerLeaderCard(4, Type.YELLOW, Resource.SHIELD));
-        deck.add(new ProductionPowerLeaderCard(4, Type.BLUE, Resource.SERVANT));
-        deck.add(new ProductionPowerLeaderCard(4, Type.PURPLE, Resource.STONE));
-        deck.add(new ProductionPowerLeaderCard(4, Type.GREEN, Resource.COIN));
-    }
-
-    /**
-     * This method receives an ArrayList as parameter and fills it with new leader cards
-     * @param deck: an ArrayList where the cards are stored
-     */
-    private void putCardsNew(ArrayList<LeaderCard> deck){
 
         JSONParser jsonParser = new JSONParser();
         try (FileReader reader = new FileReader("src/main/resources/LeaderCardsList.json"))
