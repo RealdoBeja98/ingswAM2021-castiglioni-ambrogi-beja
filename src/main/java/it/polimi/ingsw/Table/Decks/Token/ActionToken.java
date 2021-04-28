@@ -14,6 +14,10 @@ public abstract class ActionToken extends Card {
      */
     public Type getWhatIAm(){ return whatIAm; }
 
+    /**
+     * This method overrides the classic toString
+     * @return a line with the type of the token, of type String
+     */
     @Override
     public String toString() {
         return whatIAm.toString();

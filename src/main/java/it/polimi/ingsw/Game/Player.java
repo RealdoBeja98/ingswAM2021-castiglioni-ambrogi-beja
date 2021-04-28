@@ -1,4 +1,5 @@
-package it.polimi.ingsw.Game; import it.polimi.ingsw.Enums.*;
+package it.polimi.ingsw.Game;
+import it.polimi.ingsw.Enums.*;
 import it.polimi.ingsw.Exceptions.*;
 import it.polimi.ingsw.Table.Decks.*;
 import it.polimi.ingsw.PersonalBoard.PersonalBoard;
@@ -15,7 +16,7 @@ import java.util.List;
 /**
  * This Class represents the player
  */
-public class Player {
+public class Player {//<--FIXME check javadoc from here-->
 
     private String nickname;
     private PersonalBoard personalBoard;

@@ -43,8 +43,8 @@ public class FaithTrack {
     }
 
     /**
-     * This method return the list of faithTrack of all the players
-     * @return the list of faithTrack of all the players
+     * This method returns the list of faith track of the current players
+     * @return a list of faithTrack, of type ArrayList of FaithTrack
      */
     private ArrayList<FaithTrack> faithTrackOfAllPlayers(){
         ArrayList<FaithTrack> result = new ArrayList<>();

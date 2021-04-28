@@ -6,6 +6,9 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+/**
+ * This class represents the client of the game
+ */
 public class ClientMain {
 
     public static void main(String[] args) throws IOException {

@@ -1,11 +1,10 @@
 package it.polimi.ingsw.Game;
-
 import it.polimi.ingsw.Enums.*;
 import it.polimi.ingsw.Exceptions.*;
 import it.polimi.ingsw.Table.Decks.Token.ActionToken;
 
 /**
- * This Class represents the turn (both the turn of a player and the changing turn between players)
+ * This Class represents the turn
  */
 public class Turn {
 
@@ -33,9 +32,9 @@ public class Turn {
     }
 
     /**
-     *This method lets the player to choose about not doing an action LeaderCard
+     * This method advances the turn if the player refuse to play a leader card
      * @throws ActionNotAllowedException if this action isn't allowed in this moment
-     * @throws GameEndedException if the game is finished and it's time to show final points
+     * @throws GameEndedException if the game is finished
      */
     public void chooseNoActionLeaderCard() throws ActionNotAllowedException, GameEndedException {
         if(currentPlayerState != InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1 &&
@@ -54,13 +53,9 @@ public class Turn {
     }
 
     /**
-     *This method lets the player to go in the next step of discarding a leader card by controlling in
-     * which steps he is currently in and before. Taking in consideration
-     * that one leader move can be done only one time before or after a normal action.
-     * @throws ActionNotAllowedException if other steps are different from
-     * CHOSE_ACTION_LEADER_OR_NOT1 and CHOSE_ACTION_LEADER_OR_NOT2 and if a leader action
-     * is done before can cannot do it for a second time
-     * @throws NoLeaderCardToDiscardException if you haven't any LeaderCard to discard
+     * This method advances the turn if the player choose to discard a leader card
+     * @throws ActionNotAllowedException if this action isn't allowed in this moment
+     * @throws NoLeaderCardToDiscardException if there isn't any LeaderCard in the hand
      */
     public void chooseDiscardLeaderCard() throws NoLeaderCardToDiscardException, ActionNotAllowedException {
         if(currentPlayerState != InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1 &&
@@ -83,13 +78,9 @@ public class Turn {
     }
 
     /**
-     *This method lets the player to go in the next step of choosing a leader card to play by controlling in
-     * which steps he is currently in and before. Taking in consideration
-     * that one leader move can be done only one time before or after a normal action.
-     * @throws ActionNotAllowedException if other steps are different from
-     * CHOSE_ACTION_LEADER_OR_NOT1 and CHOSE_ACTION_LEADER_OR_NOT2 and if a leader action
-     * is done before cannot do it for a second time
-     * @throws NoLeaderCardToPlayException if you haven't any LeaderCard to play
+     * This method advances the turn if the player choose to play a leader card
+     * @throws ActionNotAllowedException if this action isn't allowed in this moment
+     * @throws NoLeaderCardToPlayException if there isn't any LeaderCard in the hand that can be placed
      */
     public void choosePlayLeaderCard() throws ActionNotAllowedException, NoLeaderCardToPlayException {
         if(currentPlayerState != InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1 &&
@@ -112,16 +103,12 @@ public class Turn {
     }
 
     /**
-     *This method lets the player to discard one leader card from his hand.Also keeping
-     * track of hic actions, by controlling if he has done the action leader before or after a normal move.
-     * If the game is played by one person
-     * he will have the ability to choose an action token.
-     * @param pos: number 1 or 2 to determinate the position of the leader card in hand to discard
-     * @throws ActionNotAllowedException if other steps are different from
-     * CHOSE_ACTION_LEADER_OR_NOT1 and CHOSE_ACTION_LEADER_OR_NOT2
-     * @throws GameEndedException if the game is finished and it's time to show final points
+     * This method lets the player discard one leader card from his hand
+     * @param pos: position of the leader card in the hand
+     * @throws ActionNotAllowedException if this action isn't allowed in this moment
+     * @throws GameEndedException if the game is finished
      * @throws PositionInvalidException if the position isn't 1 or 2
-     * @throws AlreadyDiscardedThisLeaderCardException if you try to discard a card again
+     * @throws AlreadyDiscardedThisLeaderCardException if you try to discard a card from an empty position
      */
     public void discardLeaderCard(int pos) throws AlreadyDiscardedThisLeaderCardException, ActionNotAllowedException, GameEndedException, PositionInvalidException {
         if(currentPlayerState != InWhichStatePlayer.DISCARD_LEADER_CARD1 &&
@@ -141,16 +128,12 @@ public class Turn {
     }
 
     /**
-     * This method let the player to put on the table a leader card that was in his hand
-     * in case the player select a StorageLeaderCard, the list payingResources is updated with the resources the player has to pay
-     * If the game is played by one person
-     * he will have the ability to choose an action token.
-     * @param pos: number 1 or 2 to determinate the position of the leader card in hand to play
-     * @throws ActionNotAllowedException if other steps are different from
-     * PLAY_LEADER_CARD1 AND PLAY_LEADER_CARD2
-     * @throws GameEndedException if the game is finished and it's time to show final points
+     * This method lets the player play one leader card from his hand
+     * @param pos: position of the leader card in the hand
+     * @throws ActionNotAllowedException if this action isn't allowed in this moment
+     * @throws GameEndedException if the game is finished
      * @throws PositionInvalidException if the position isn't 1 or 2
-     * @throws NotSatisfiedRequirementsForThisLeaderCardException if the player isn't able to play the card
+     * @throws NotSatisfiedRequirementsForThisLeaderCardException if the requirements to play the card aren't met
      */
     public void playLeaderCard(int pos) throws NotSatisfiedRequirementsForThisLeaderCardException, ActionNotAllowedException, GameEndedException, PositionInvalidException {
         if(currentPlayerState != InWhichStatePlayer.PLAY_LEADER_CARD1 &&
@@ -172,12 +155,8 @@ public class Turn {
     }
 
     /**
-     * This method let the player to select a normal action which are
-     * take resource from the market, buy development card and controlling if he can really
-     * afford to buy one, activate production by controlling if he can can activate a power
-     * production
-     * @throws ActionNotAllowedException if other steps are different from
-     * SELECT_NORMAL_ACTION, AND BY CONTROLLING THE POSSIBILITIES IF THE PLAYER CAN AFFORD A MOVE
+     * This method advances the turn if the player choose to do a normal action
+     * @throws ActionNotAllowedException if this action isn't allowed in this moment
      */
     public void selectNormalAction(NormalAction selectedNormalAction) throws ActionNotAllowedException {
         if(currentPlayerState != InWhichStatePlayer.SELECT_NORMAL_ACTION){
@@ -207,16 +186,12 @@ public class Turn {
     }
 
     /**
-     * This method let player to take resources from the market
-     * Taken resources are added to the list marblesFromTheMarket
-     * Faith marble are removed advancing on the faith track
-     * White marble could be removed, substituted or could remain
-     * @param rowColumn: to choose a row or a column of the market
-     * @param pos: to choose the position of the row or of the column
-     * @throws ActionNotAllowedException if action is different from
-     * TAKE_RESOURCES_FROM_THE_MARKET
+     * This method lets the player take resources from the market
+     * @param rowColumn: indicates a row or a column
+     * @param pos: indicates the number of the row or column
+     * @throws ActionNotAllowedException if this action isn't allowed in this moment
      * @throws PositionInvalidException if the selected row or column is invalid
-     * @throws NullEnumException if you pass a null pointer instead of selecting row or column
+     * @throws NullEnumException if there is a null pointer instead of a row or column
      */
     public void takeResourcesFromTheMarket(RowColumn rowColumn, int pos) throws ActionNotAllowedException, PositionInvalidException, NullEnumException {
         if(currentPlayerState != InWhichStatePlayer.TAKE_RESOURCES_FROM_THE_MARKET){
@@ -229,19 +204,18 @@ public class Turn {
     }
 
     /**
-     * This method let player to add a resource, witch he took from the market, to the WarehouseDepots or into
-     * an ExtraStorageLeaderCard or even to discard it letting other players to advance in them faith track
-     * @param pos: to choose the position of the WarehouseDepots or of the LeaderCard in hand; it's unuseful in case of discarding the resource
-     * @throws ActionNotAllowedException if action is different from
-     * TAKE_RESOURCES_FROM_THE_MARKET
-     * @throws NoResourceToAddException if the list marblesFromTheMarket, in witch there are all the resources to add, is empty
-     * @throws DifferentStorageException if you select an ExtraStorageLeaderCard of another type of the resource to add
-     * @throws OccupiedSlotExtraStorageLeaderCardException if you select an ExtraStorageLeaderCard yet occupied
-     * @throws PositionAlreadyOccupiedException if you select a position yet occupied of the WarehouseDepots
-     * @throws ResourceAlreadyPlacedException if you place in WarehouseDepots a type of resource you yet placed in another shielf
-     * @throws DifferentResourceInThisShelfException if you place in WarehouseDepots the resource in a shelf where there is yet another resource of another type
-     * @throws UnexpectedWhiteMarbleException if it's unexpectly found you are going to place a white marble
-     * @throws UnexpectedFaithMarbleException if it's unexpectly found you are going to place a faith marble
+     * This method lets the player deposit or discard a resource
+     * @param where: indicates a warehouse, a leader card or to discard
+     * @param pos: indicates the number of the slot in the storage
+     * @throws ActionNotAllowedException if this action isn't allowed in this moment
+     * @throws NoResourceToAddException if all the marbles are been placed
+     * @throws DifferentStorageException if you select an ExtraStorageLeaderCard of a wrong type
+     * @throws OccupiedSlotExtraStorageLeaderCardException if you select an ExtraStorageLeaderCard slot already occupied
+     * @throws PositionAlreadyOccupiedException if you select a WarehouseDepots slot already occupied
+     * @throws ResourceAlreadyPlacedException if you place in the WarehouseDepots a resource already present on another shelf
+     * @throws DifferentResourceInThisShelfException if you place in the WarehouseDepots a different resource from the one already present in the shelf
+     * @throws UnexpectedWhiteMarbleException if there is an unexpected white marble
+     * @throws UnexpectedFaithMarbleException if there is an unexpected faith marble
      */
     public void addResource(LeaderWarehouse where, int pos) throws NoResourceToAddException, DifferentStorageException, OccupiedSlotExtraStorageLeaderCardException, PositionAlreadyOccupiedException, ResourceAlreadyPlacedException, DifferentResourceInThisShelfException, UnexpectedWhiteMarbleException, UnexpectedFaithMarbleException, ActionNotAllowedException {
         if(currentPlayerState != InWhichStatePlayer.TAKE_RESOURCES_FROM_THE_MARKET){
@@ -252,15 +226,13 @@ public class Turn {
             currentPlayerState = InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT2;
         }
     }
-
+    //<--FIXME check javadoc from here-->
     /**
-     * This method is to be called when the player is going to add a white marble:
-     * this marble is changed with another marble using a WhiteMarbleLeaderCard
-     * @param pos: to choose the position of the WhiteMarbleLeaderCard on the table
-     * @throws ActionNotAllowedException if action is different from
-     * TAKE_RESOURCES_FROM_THE_MARKET
-     * @throws NoWhiteMarbleLeaderCardException if the selected position doesn't contain a LeaderCard
-     * @throws NoWhiteMarbleException if you are going to change a Marble witch is not White
+     * This method lets the player change a white marble with another resource
+     * @param pos: the position of a WhiteMarbleLeaderCard on the table
+     * @throws ActionNotAllowedException if this action isn't allowed in this moment
+     * @throws NoWhiteMarbleLeaderCardException if in the selected position there's not a WhiteMarbleLeaderCard
+     * @throws NoWhiteMarbleException if the current marble is not white
      * @throws PositionInvalidException if the position isn't 1 or 2
      */
     public void changeWhiteMarbleWith(int pos) throws NoWhiteMarbleLeaderCardException, NoWhiteMarbleException, ActionNotAllowedException, PositionInvalidException {
