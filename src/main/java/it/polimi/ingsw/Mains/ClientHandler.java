@@ -5,6 +5,8 @@ import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Enums.RowColumn;
 import it.polimi.ingsw.Exceptions.*;
 import it.polimi.ingsw.Game.Game;
+import it.polimi.ingsw.Table.Decks.Token.ActionToken;
+
 import java.io.*;
 import java.net.Socket;
 
@@ -16,6 +18,14 @@ public class ClientHandler implements Runnable {
 
     public ClientHandler(Socket socket) {
         this.socket = socket;
+    }
+
+    private void forward(String message, PrintWriter toExclude){
+        for(PrintWriter i : game.getPrintWriterList()){
+            if(i != toExclude){
+                i.println(message);
+            }
+        }
     }
 
     public void run() {
@@ -85,6 +95,7 @@ public class ClientHandler implements Runnable {
                 if (in.ready()) {
                     line = in.readLine();
                     if (line.equals("quit")) {
+                        forward(nickname+" quited", out);
                         break;
                     } else if (!game.getTurn().getCurrentPlayer().getNickname().equals(nickname)) {
                         out.println("ERROR_NOT_YOUR_TURN");
@@ -176,6 +187,7 @@ public class ClientHandler implements Runnable {
                                 for (int i = 0; i < size; i++) {
                                     out.println(game.getTurn().getCurrentPlayer().getMarblesFromTheMarket().get(i));
                                 }
+                                forward("UPDATE_MARKET "+message[1]+" "+message[2], out);
                             } catch (ActionNotAllowedException e) {
                                 out.println("ERROR_INVALID_ACTION");
                             } catch (PositionInvalidException e) {
@@ -187,10 +199,27 @@ public class ClientHandler implements Runnable {
                             }
                         } else if (message[0].equals("ADD_RESOURCE_TO")) {
                             try {
-                                checkLength(message, 3);
-                                game.getTurn().addResource(LeaderWarehouse.valueOf(message[1]), atoi(message[2]));
-                                out.println("CONFIRMED_ACTION");
-                                System.out.println("ADD_RESOURCE_TO");
+                                boolean weAre = false;
+                                try {
+                                    checkLength(message, 1);
+                                } catch (IllegalArgumentException e){
+                                    weAre = true;
+                                }
+                                if(weAre == false){
+                                    throw new IllegalArgumentException();
+                                }
+                                if(message[1].equals("DISCARD")){
+                                    checkLength(message, 2);
+                                    game.getTurn().addResource(LeaderWarehouse.DISCARD, 0);
+                                    out.println("CONFIRMED_ACTION");
+                                    System.out.println("ADD_RESOURCE_TO");
+                                    forward("ADVANCE_FAITH_TRACK", out);
+                                } else {
+                                    checkLength(message, 3);
+                                    game.getTurn().addResource(LeaderWarehouse.valueOf(message[1]), atoi(message[2]));
+                                    out.println("CONFIRMED_ACTION");
+                                    System.out.println("ADD_RESOURCE_TO");
+                                }
                             } catch (NoResourceToAddException e) {
                                 out.println("ERROR_NO_RESOURCE_A");
                             } catch (DifferentStorageException e) {
@@ -235,6 +264,7 @@ public class ClientHandler implements Runnable {
                                 game.getTurn().buyADevelopmentCard(atoi(message[1]), atoi(message[2]));
                                 out.println("CONFIRMED_ACTION");
                                 System.out.println("BUY_DEVELOPMENT_CARD");
+                                forward("UPDATE_DEVELOPMENT_CARD "+message[1]+" "+message[2], out);
                             } catch (ActionNotAllowedException e) {
                                 out.println("ERROR_INVALID_ACTION");
                             } catch (SelectedADevelopmentCardYetException e) {
@@ -399,8 +429,8 @@ public class ClientHandler implements Runnable {
                             }
                         } else if (message[0].equals("DRAW_SOLO_ACTION_TOKEN")) {
                             try {
-                                game.getTurn().drawSoloActionToken();
-                                out.println("CONFIRMED_ACTION");
+                                ActionToken actionToken = game.getTurn().drawSoloActionToken();
+                                out.println("UPDATE_SOLO_ACTION_TOKEN "+actionToken);
                                 System.out.println("DRAW_SOLO_ACTION_TOKEN");
                             } catch (ActionNotAllowedException e) {
                                 out.println("ERROR_INVALID_ACTION");
@@ -534,6 +564,7 @@ public class ClientHandler implements Runnable {
         line = in.readLine();
         try {
             game.addPlayer(line);
+            game.addSocket(out);
             nickname = line;
             out.println("PLAYER_ADDED");
             return true;
@@ -547,4 +578,5 @@ public class ClientHandler implements Runnable {
             return false;
         }
     }
+
 }

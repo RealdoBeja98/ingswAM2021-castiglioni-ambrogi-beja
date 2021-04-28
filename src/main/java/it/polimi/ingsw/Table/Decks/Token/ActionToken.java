@@ -14,4 +14,9 @@ public abstract class ActionToken extends Card {
      */
     public Type getWhatIAm(){ return whatIAm; }
 
+    @Override
+    public String toString() {
+        return whatIAm.toString();
+    }
+
 }

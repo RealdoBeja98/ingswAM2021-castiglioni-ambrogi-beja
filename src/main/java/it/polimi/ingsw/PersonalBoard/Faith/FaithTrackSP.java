@@ -1,17 +1,15 @@
 package it.polimi.ingsw.PersonalBoard.Faith;
 
-
-public class FaithTrackSP extends FaithTrack{ //<--FIXME finish this class-->
-    private int faithMarkerLorenzo;
+/**
+ * This class represents the FaithTrack of Lorenzo
+ */
+public class FaithTrackSP extends FaithTrack{
 
     /**
      * Constructor method of this class
      */
     public FaithTrackSP(int gameIndex) {
         super(gameIndex);
-        faithMarkerLorenzo = 0;
     }
-    public void goOnLorenzo(int n){
 
-    }
 }

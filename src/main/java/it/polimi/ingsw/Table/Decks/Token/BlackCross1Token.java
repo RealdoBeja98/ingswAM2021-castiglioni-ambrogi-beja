@@ -14,4 +14,5 @@ public class BlackCross1Token extends ActionToken {
     public BlackCross1Token(){
         whatIAm = Type.BLACKCROSS1;
     }
+
 }

@@ -3,6 +3,8 @@ import it.polimi.ingsw.Exceptions.GameAlreadyStartedException;
 import it.polimi.ingsw.Exceptions.NameAlreadyRegisteredException;
 import it.polimi.ingsw.Exceptions.PlayerDoesNotExistsException;
 import it.polimi.ingsw.Table.Table;
+
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -22,6 +24,8 @@ public class Game { //<-- FIXME finish me-->
 
     private Table table;
     private ArrayList<Player> players;
+
+    private ArrayList<PrintWriter> printWriterList;
     private Turn turn;
     private int numberOfPlayer;
     private int gameIndex;
@@ -33,6 +37,7 @@ public class Game { //<-- FIXME finish me-->
         numberOfGames = numberOfGames + 1;
         table = new Table(gameIndex);
         players = new ArrayList<>();
+        printWriterList = new ArrayList<>();
         games.add(this);
         gameStarted = false;
     }
@@ -52,6 +57,10 @@ public class Game { //<-- FIXME finish me-->
             gameStarted = true;
             startGame();
         }
+    }
+
+    public void addSocket(PrintWriter printWriter){
+        printWriterList.add(printWriter);
     }
 
     private void startGame(){
@@ -109,4 +118,9 @@ public class Game { //<-- FIXME finish me-->
         copy.get(0).setInkwell();
         System.out.println("This player has the inkwell: " + copy.get(0).getNickname());
     }
+
+    public ArrayList<PrintWriter> getPrintWriterList() {
+        return printWriterList;
+    }
+
 }

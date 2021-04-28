@@ -1108,16 +1108,17 @@ public class Player {
     /**
      * this method is to draw a SoloActionToken and to execute its effect
      */
-    public void drawSoloActionToken(){
+    public ActionToken drawSoloActionToken(){
         ActionToken token = Game.get(gameIndex).getTable().getActionTokenDeck().draw();
         if (token.getWhatIAm() == Type.BLACKCROSS1) {
-            personalBoard.getLorenzoTrack().goOnLorenzo(1);
+            personalBoard.getLorenzoTrack().goOn(1);
             Game.get(gameIndex).getTable().getActionTokenDeck().shuffle();
         } else if (token.getWhatIAm() == Type.BLACKCROSS2) {
-            personalBoard.getLorenzoTrack().goOnLorenzo(2);
+            personalBoard.getLorenzoTrack().goOn(2);
         } else {
             Game.get(gameIndex).getTable().getDevelopmentDeck().discard(token.getWhatIAm());
         }
+        return token;
     }
 
     /**

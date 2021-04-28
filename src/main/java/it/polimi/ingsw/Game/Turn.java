@@ -2,6 +2,7 @@ package it.polimi.ingsw.Game;
 
 import it.polimi.ingsw.Enums.*;
 import it.polimi.ingsw.Exceptions.*;
+import it.polimi.ingsw.Table.Decks.Token.ActionToken;
 
 /**
  * This Class represents the turn (both the turn of a player and the changing turn between players)
@@ -490,11 +491,11 @@ public class Turn {
      * this method is to draw a SoloActionToken and to execute its effect
      * @throws ActionNotAllowedException if you are in the other states
      */
-    public void drawSoloActionToken() throws ActionNotAllowedException {
+    public ActionToken drawSoloActionToken() throws ActionNotAllowedException {
         if(currentPlayerState != InWhichStatePlayer.DRAW_SOLO_ACTION_TOKEN){
             throw new ActionNotAllowedException();
         }
-        currentPlayer.drawSoloActionToken();
+        return currentPlayer.drawSoloActionToken();
     }
 
     /**
