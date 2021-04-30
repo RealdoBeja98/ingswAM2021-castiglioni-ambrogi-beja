@@ -25,7 +25,7 @@ public class ClientMain {
 
             int i = 2;
             String init;
-            while(i<=4){
+            while (i <= 4) {
                 init = args[i];
                 out.println(init);
                 i++;
@@ -33,45 +33,22 @@ public class ClientMain {
             String line = in.readLine();
             System.out.println("Joining game number: " + line);
             line = in.readLine();
-            if(line.equals("ERROR_NAME_TAKEN")){
+            if (line.equals("ERROR_NAME_TAKEN")) {
                 System.out.println("Name already taken, please chose a different one!");
                 return;
-            }
-            else if(line.equals("ERROR_GAME_STARTED")){
+            } else if (line.equals("ERROR_GAME_STARTED")) {
                 System.out.println("Game already started, please chose a different one!");
                 return;
-            }else{
+            } else {
                 System.out.println("Joined the game!");
             }
 
-            String userInput;
-            String lines;
-
-            while (true) {
-
-                //waitABit();
-
-                if(stdIn.ready()){
-                    userInput = stdIn.readLine();
-                    out.println(userInput);
-                    if (userInput.equals("quit")) {
-                        break;
-                    }
-                    lines = in.readLine();
-                    System.out.println(lines);
-                    System.out.println("input next command:");
-                }
-
-                //waitABit();
-
-                if(in.ready()){
-                    lines = in.readLine();
-                    System.out.println(lines);
-
-                }
-
-            }
-            return;
+            ThreadReaderIO io = new ThreadReaderIO(out, stdIn);
+            Thread ioT = new Thread(io);
+            ioT.start();
+            ThreadReaderNET net = new ThreadReaderNET(in);
+            Thread netT = new Thread(net);
+            netT.start();
 
         } catch (UnknownHostException e) {
             System.err.println("Don't know about host " + hostName);
@@ -92,12 +69,59 @@ public class ClientMain {
         }
     }
 
-    static private void waitABit(){
-        try {
-            Thread.sleep(25);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+    private static class ThreadReaderIO implements Runnable{
+
+        String userInput;
+        PrintWriter out;
+        BufferedReader stdIn;
+
+        public ThreadReaderIO(PrintWriter out, BufferedReader stdIn){
+            this.out = out;
+            this.stdIn = stdIn;
         }
+
+        @Override
+        public void run() {
+            while (true) {
+                try {
+                    userInput = stdIn.readLine();
+                    out.println(userInput);
+                    if (userInput.equals("quit")) {
+                        break;
+                    }
+                } catch (IOException e) {
+                    System.err.println("Couldn't get I/O for the connection to the keyboard");
+                    System.exit(1);
+                }
+            }
+        }
+
+    }
+
+    private static class ThreadReaderNET implements Runnable{
+
+        String userInput;
+        BufferedReader in;
+
+        public ThreadReaderNET(BufferedReader in){
+            this.in = in;
+        }
+
+        @Override
+        public void run() {
+            while (true) {
+                try {
+                    userInput = in.readLine();
+                    if (userInput.equals("quit")) {
+                        break;
+                    }
+                } catch (IOException e) {
+                    System.err.println("Couldn't get I/O for the connection to the server");
+                    System.exit(1);
+                }
+            }
+        }
+
     }
 
 }

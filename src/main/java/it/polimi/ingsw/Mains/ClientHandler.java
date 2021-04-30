@@ -6,7 +6,6 @@ import it.polimi.ingsw.Enums.RowColumn;
 import it.polimi.ingsw.Exceptions.*;
 import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Table.Decks.Token.ActionToken;
-
 import java.io.*;
 import java.net.Socket;
 
@@ -69,15 +68,15 @@ public class ClientHandler implements Runnable {
                 return;
             }
         }
-        /*if (!game.isGameStarted()) {
+        /*if (!game.isGameStarted()) {<--FIXME-->
             try {
                 wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }*/
+        }
         System.out.println("sleeping");
-        /*
+
         try {
             wait();
         } catch (InterruptedException e) {
@@ -95,109 +94,110 @@ public class ClientHandler implements Runnable {
 
 
         while (true) { //questo pezzo consuma troppo
-            if (game.getTurn().getCurrentPlayer().getNickname().equals(nickname) && game.getTurn().getDisplay()) {
+            /*if (game.getTurn().getCurrentPlayer().getNickname().equals(nickname) && game.getTurn().getDisplay()) {
                 out.println("It's your turn!");
                 game.getTurn().setDisplay();
-            }
-
+            }*/
+            /*metto a dormire per 10 sec?*/
             try {
-                if (in.ready()) {
-                    line = in.readLine();
-                    if (line.equals("quit")) {
-                        forward(nickname+" quited", out);
-                        break;
-                    } else if (!game.getTurn().getCurrentPlayer().getNickname().equals(nickname)) {
-                        out.println("ERROR_NOT_YOUR_TURN");
-                    } else {
-                        String[] message = line.split(" ");
 
-                        if (message[0].equals("CHOOSE_DISCARD_LEADER_CARD")) {
-                            try {
-                                game.getTurn().chooseDiscardLeaderCard();
-                                out.println("CONFIRMED_ACTION");
-                                System.out.println("CHOOSE_DISCARD_LEADER_CARD");
-                            } catch (NoLeaderCardToDiscardException e) {
-                                out.println("ERROR_NO_CARDS_DISCARD");
-                            } catch (ActionNotAllowedException e) {
-                                out.println("ERROR_INVALID_ACTION");
+                line = in.readLine();
+                if (line.equals("quit")) {
+                    out.println("quit");
+                    forward(nickname + " quited", out);
+                    break;
+                } else if (!game.getTurn().getCurrentPlayer().getNickname().equals(nickname)) {
+                    out.println("ERROR_NOT_YOUR_TURN");
+                } else {
+                    String[] message = line.split(" ");
+
+                    if (message[0].equals("CHOOSE_DISCARD_LEADER_CARD")) {
+                        try {
+                            game.getTurn().chooseDiscardLeaderCard();
+                            out.println("CONFIRMED_ACTION");
+                            System.out.println("CHOOSE_DISCARD_LEADER_CARD");
+                        } catch (NoLeaderCardToDiscardException e) {
+                            out.println("ERROR_NO_CARDS_DISCARD");
+                        } catch (ActionNotAllowedException e) {
+                            out.println("ERROR_INVALID_ACTION");
+                        }
+                    } else if (message[0].equals("DISCARD_LEADER_CARD")) {
+                        try {
+                            checkLength(message, 2);
+                            game.getTurn().discardLeaderCard(atoi(message[1]));
+                            out.println("CONFIRMED_ACTION");
+                            System.out.println("DISCARD_LEADER_CARD");
+                        } catch (AlreadyDiscardedThisLeaderCardException e) {
+                            out.println("ERROR_ALREADY_DISCARDED_POSITION");
+                        } catch (ActionNotAllowedException e) {
+                            out.println("ERROR_INVALID_ACTION");
+                        } catch (GameEndedException e) {
+                            out.println("ERROR_GAME_ENDED");
+                        } catch (PositionInvalidException e) {
+                            out.println("ERROR_INVALID_POSITION");
+                        } catch (IllegalArgumentException e) {
+                            out.println("ERROR_TYPO");
+                        }
+                    } else if (message[0].equals("CHOOSE_PLAY_LEADER_CARD")) {
+                        try {
+                            game.getTurn().choosePlayLeaderCard();
+                            out.println("CONFIRMED_ACTION");
+                            System.out.println("CHOOSE_PLAY_LEADER_CARD");
+                        } catch (NoLeaderCardToPlayException e) {
+                            out.println("ERROR_NO_CARDS_PLAY");
+                        } catch (ActionNotAllowedException e) {
+                            out.println("ERROR_INVALID_ACTION");
+                        }
+                    } else if (message[0].equals("PLAY_LEADER_CARD")) {
+                        try {
+                            checkLength(message, 2);
+                            game.getTurn().playLeaderCard(atoi(message[1]));
+                            out.println("CONFIRMED_ACTION");
+                            System.out.println("PLAY_LEADER_CARD");
+                        } catch (NotSatisfiedRequirementsForThisLeaderCardException e) {
+                            out.println("ERROR_REQUIREMENTS");
+                        } catch (ActionNotAllowedException e) {
+                            out.println("ERROR_INVALID_ACTION");
+                        } catch (GameEndedException e) {
+                            out.println("ERROR_GAME_ENDED");
+                        } catch (PositionInvalidException e) {
+                            out.println("ERROR_INVALID_POSITION");
+                        } catch (IllegalArgumentException e) {
+                            out.println("ERROR_TYPO");
+                        }
+                    } else if (message[0].equals("CHOOSE_NO_ACTION_LEADER_CARD")) {
+                        try {
+                            game.getTurn().chooseNoActionLeaderCard();
+                            out.println("CONFIRMED_ACTION");
+                            System.out.println("CHOOSE_NO_ACTION_LEADER_CARD");
+                        } catch (GameEndedException e) {
+                            out.println("ERROR_GAME_ENDED");
+                        } catch (ActionNotAllowedException e) {
+                            out.println("ERROR_INVALID_ACTION");
+                        }
+                    } else if (message[0].equals("SELECT_NORMAL_ACTION")) {
+                        try {
+                            checkLength(message, 2);
+                            game.getTurn().selectNormalAction(NormalAction.valueOf(message[1]));
+                            out.println("CONFIRMED_ACTION");
+                            System.out.println("SELECT_NORMAL_ACTION");
+                        } catch (ActionNotAllowedException e) {
+                            out.println("ERROR_INVALID_ACTION");
+                        } catch (IllegalArgumentException e) {
+                            out.println("ERROR_TYPO");
+                        }
+                    } else if (message[0].equals("TAKE_RESOURCES_FROM_THE_MARKET")) {
+                        try {
+                            checkLength(message, 3);
+                            game.getTurn().takeResourcesFromTheMarket(RowColumn.valueOf(message[1]), atoi(message[2]));
+                            out.println("CONFIRMED_ACTION");
+                            System.out.println("TAKE_RESOURCES_FROM_THE_MARKET");
+                            int size = game.getTurn().getCurrentPlayer().getMarblesFromTheMarket().size();
+                            for (int i = 0; i < size; i++) {
+                                out.println(game.getTurn().getCurrentPlayer().getMarblesFromTheMarket().get(i));
                             }
-                        } else if (message[0].equals("DISCARD_LEADER_CARD")) {
-                            try {
-                                checkLength(message, 2);
-                                game.getTurn().discardLeaderCard(atoi(message[1]));
-                                out.println("CONFIRMED_ACTION");
-                                System.out.println("DISCARD_LEADER_CARD");
-                            } catch (AlreadyDiscardedThisLeaderCardException e) {
-                                out.println("ERROR_ALREADY_DISCARDED_POSITION");
-                            } catch (ActionNotAllowedException e) {
-                                out.println("ERROR_INVALID_ACTION");
-                            } catch (GameEndedException e) {
-                                out.println("ERROR_GAME_ENDED");
-                            } catch (PositionInvalidException e) {
-                                out.println("ERROR_INVALID_POSITION");
-                            } catch (IllegalArgumentException e) {
-                                out.println("ERROR_TYPO");
-                            }
-                        } else if (message[0].equals("CHOOSE_PLAY_LEADER_CARD")) {
-                            try {
-                                game.getTurn().choosePlayLeaderCard();
-                                out.println("CONFIRMED_ACTION");
-                                System.out.println("CHOOSE_PLAY_LEADER_CARD");
-                            } catch (NoLeaderCardToPlayException e) {
-                                out.println("ERROR_NO_CARDS_PLAY");
-                            } catch (ActionNotAllowedException e) {
-                                out.println("ERROR_INVALID_ACTION");
-                            }
-                        } else if (message[0].equals("PLAY_LEADER_CARD")) {
-                            try {
-                                checkLength(message, 2);
-                                game.getTurn().playLeaderCard(atoi(message[1]));
-                                out.println("CONFIRMED_ACTION");
-                                System.out.println("PLAY_LEADER_CARD");
-                            } catch (NotSatisfiedRequirementsForThisLeaderCardException e) {
-                                out.println("ERROR_REQUIREMENTS");
-                            } catch (ActionNotAllowedException e) {
-                                out.println("ERROR_INVALID_ACTION");
-                            } catch (GameEndedException e) {
-                                out.println("ERROR_GAME_ENDED");
-                            } catch (PositionInvalidException e) {
-                                out.println("ERROR_INVALID_POSITION");
-                            } catch (IllegalArgumentException e) {
-                                out.println("ERROR_TYPO");
-                            }
-                        } else if (message[0].equals("CHOOSE_NO_ACTION_LEADER_CARD")) {
-                            try {
-                                game.getTurn().chooseNoActionLeaderCard();
-                                out.println("CONFIRMED_ACTION");
-                                System.out.println("CHOOSE_NO_ACTION_LEADER_CARD");
-                            } catch (GameEndedException e) {
-                                out.println("ERROR_GAME_ENDED");
-                            } catch (ActionNotAllowedException e) {
-                                out.println("ERROR_INVALID_ACTION");
-                            }
-                        } else if (message[0].equals("SELECT_NORMAL_ACTION")) {
-                            try {
-                                checkLength(message, 2);
-                                game.getTurn().selectNormalAction(NormalAction.valueOf(message[1]));
-                                out.println("CONFIRMED_ACTION");
-                                System.out.println("SELECT_NORMAL_ACTION");
-                            } catch (ActionNotAllowedException e) {
-                                out.println("ERROR_INVALID_ACTION");
-                            } catch (IllegalArgumentException e) {
-                                out.println("ERROR_TYPO");
-                            }
-                        } else if (message[0].equals("TAKE_RESOURCES_FROM_THE_MARKET")) {
-                            try {
-                                checkLength(message, 3);
-                                game.getTurn().takeResourcesFromTheMarket(RowColumn.valueOf(message[1]), atoi(message[2]));
-                                out.println("CONFIRMED_ACTION");
-                                System.out.println("TAKE_RESOURCES_FROM_THE_MARKET");
-                                int size = game.getTurn().getCurrentPlayer().getMarblesFromTheMarket().size();
-                                for (int i = 0; i < size; i++) {
-                                    out.println(game.getTurn().getCurrentPlayer().getMarblesFromTheMarket().get(i));
-                                }
-                                forward("UPDATE_MARKET "+message[1]+" "+message[2], out);
-                            } catch (ActionNotAllowedException e) {
+                            forward("UPDATE_MARKET " + message[1] + " " + message[2], out);
+                        } catch (ActionNotAllowedException e) {
                                 out.println("ERROR_INVALID_ACTION");
                             } catch (PositionInvalidException e) {
                                 out.println("ERROR_INVALID_POSITION");
@@ -510,7 +510,7 @@ public class ClientHandler implements Runnable {
                             out.println("ERROR_TYPO");
                         }
                     }
-                }
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
