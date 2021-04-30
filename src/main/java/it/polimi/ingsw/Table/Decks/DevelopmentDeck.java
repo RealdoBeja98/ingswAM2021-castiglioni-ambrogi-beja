@@ -4,6 +4,21 @@ import it.polimi.ingsw.Enums.Type;
 import it.polimi.ingsw.Exceptions.DrawnFromEmptyDeckException;
 import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Table.Decks.Development.DevelopmentCard;
+import it.polimi.ingsw.Table.Decks.Leader.DiscountLeaderCard;
+import it.polimi.ingsw.Table.Decks.Leader.ExtraStorageLeaderCard;
+import it.polimi.ingsw.Table.Decks.Leader.ProductionPowerLeaderCard;
+import it.polimi.ingsw.Table.Decks.Leader.WhiteMarbleLeaderCard;
+import it.polimi.ingsw.Table.Market.Marbles.Coin;
+import it.polimi.ingsw.Table.Market.Marbles.Servant;
+import it.polimi.ingsw.Table.Market.Marbles.Shield;
+import it.polimi.ingsw.Table.Market.Marbles.Stone;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -21,7 +36,8 @@ public class DevelopmentDeck{
     public DevelopmentDeck(int gameIndex){
         this.gameIndex = gameIndex;
         deck = new DevelopmentCard[3][4][4];
-        addCard();
+        //addCard();
+        addCardNew();
     }
 
     /**
@@ -142,7 +158,7 @@ public class DevelopmentDeck{
     /**
      * This method fills all the decks with cards
      */
-    private void addCard(){//<--FIXME-->
+    private void addCard(){//vecchio metodo
         ArrayList<DevelopmentCard> deckGreen1 = new ArrayList<>();
         Resource[] card1R = {Resource.SHIELD};
         int[] card1C = {2};
@@ -177,6 +193,119 @@ public class DevelopmentDeck{
             deck[2][0][i] = deckGreen1.get(i);
         }
         //ripeti x 11 v
+    }
+
+    //<--FIXME--> javadock qui, ma soprattutto: usa il toString per controllare che effettivamente funzioni (che effettivamente il mazzo prodotto sia fatto giusto!)
+    private void addCardNew(){
+
+        ArrayList<DevelopmentCard> developmentCardsToAdd = new ArrayList<>();
+
+        JSONParser jsonParser = new JSONParser();
+        try (FileReader reader = new FileReader("src/main/resources/DevelopmentCardsList.json"))
+        {
+            Object obj = jsonParser.parse(reader);
+            JSONArray json = (JSONArray) obj;
+            for(Object i : json) {
+
+                JSONArray tempCost = (JSONArray) ((JSONObject) i).get("cost");
+                int sizeCost = tempCost.size();
+                Resource[] cost = new Resource[sizeCost];
+                for(int ii = 0; ii < sizeCost; ii++){
+                    cost[ii] = Resource.valueOf((String)tempCost.get(ii));
+                }
+
+                JSONArray tempCostNumber = (JSONArray) ((JSONObject) i).get("costNumber");
+                int sizeCostNumber = tempCostNumber.size();
+                int[] costNumber = new int[sizeCostNumber];
+                for(int ii = 0; ii < sizeCostNumber; ii++){
+                    costNumber[ii] = (int)((Long)tempCostNumber.get(ii)).longValue();
+                }
+
+                Type type = Type.valueOf((String)((JSONObject) i).get("type"));
+
+                int level = (int)((Long) ((JSONObject) i).get("level")).longValue();
+
+                JSONArray tempRequirements = (JSONArray) ((JSONObject) i).get("requirements");
+                int sizeRequirements = tempRequirements.size();
+                Resource[] requirements = new Resource[sizeRequirements];
+                for(int ii = 0; ii < sizeRequirements; ii++){
+                    requirements[ii] = Resource.valueOf((String)tempRequirements.get(ii));
+                }
+
+                JSONArray tempCostRequirements = (JSONArray) ((JSONObject) i).get("costRequirements");
+                int sizeCostRequirements = tempCostRequirements.size();
+                int[] costRequirements = new int[sizeCostRequirements];
+                for(int ii = 0; ii < sizeCostRequirements; ii++){
+                    costRequirements[ii] = (int)((Long)tempCostRequirements.get(ii)).longValue();
+                }
+
+                JSONArray tempProducts = (JSONArray) ((JSONObject) i).get("products");
+                int sizeProducts = tempProducts.size();
+                Resource[] products = new Resource[sizeProducts];
+                for(int ii = 0; ii < sizeProducts; ii++){
+                    products[ii] = Resource.valueOf((String)tempProducts.get(ii));
+                }
+
+                JSONArray tempCostProducts = (JSONArray) ((JSONObject) i).get("costProducts");
+                int sizeCostProducts = tempCostProducts.size();
+                int[] costProducts = new int[sizeCostProducts];
+                for(int ii = 0; ii < sizeCostProducts; ii++){
+                    costProducts[ii] = (int)((Long)tempCostProducts.get(ii)).longValue();
+                }
+
+                int victoryPoints = (int)((Long) ((JSONObject) i).get("victoryPoints")).longValue();
+
+                DevelopmentCard developmentCard = new DevelopmentCard(cost, costNumber, type, level, requirements, costRequirements, products, costProducts, victoryPoints);
+
+                developmentCardsToAdd.add(developmentCard);
+            }
+
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
+        int x = 2;
+        while(x >= 0){
+            ArrayList<DevelopmentCard> green = new ArrayList<>();
+            ArrayList<DevelopmentCard> purple = new ArrayList<>();
+            ArrayList<DevelopmentCard> blue = new ArrayList<>();
+            ArrayList<DevelopmentCard> yellow = new ArrayList<>();
+            for(int i = 0; i < 16; i++){
+                DevelopmentCard developmentCard = developmentCardsToAdd.remove(0);
+                switch (developmentCard.getType()){
+                    case GREEN:
+                        green.add(developmentCard);
+                        break;
+                    case BLUE:
+                        blue.add(developmentCard);
+                        break;
+                    case YELLOW:
+                        yellow.add(developmentCard);
+                        break;
+                    case PURPLE:
+                        purple.add(developmentCard);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            Collections.shuffle(green);
+            Collections.shuffle(blue);
+            Collections.shuffle(yellow);
+            Collections.shuffle(purple);
+            for(int ii = 0; ii < 4; ii++){
+                deck[x][0][ii] = green.get(ii);
+            }
+            for(int ii = 0; ii < 4; ii++){
+                deck[x][1][ii] = blue.get(ii);
+            }
+            for(int ii = 0; ii < 4; ii++){
+                deck[x][2][ii] = yellow.get(ii);
+            }
+            for(int ii = 0; ii < 4; ii++){
+                deck[x][3][ii] = purple.get(ii);
+            }
+            x = x - 1;
+        }
     }
 
 }

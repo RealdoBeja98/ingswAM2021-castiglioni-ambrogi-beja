@@ -32,7 +32,6 @@ public class Player {//<--FIXME check javadoc from here-->
     private DevelopmentCard obtainedDevelopmentCard;
     private int selectedWarehouseDepotsSlot = 0;
     private int gameIndex;
-    private ClientHandler clientHandler = null;
 
     /**
      * Constructor method of this class
@@ -46,15 +45,6 @@ public class Player {//<--FIXME check javadoc from here-->
         cardsInHand = Game.get(gameIndex).getTable().getLeaderDeck().draw();
         cardsOnTable = new LeaderCard[2];
         inkwell = false;
-    }
-
-    public Player(String nickname, int gameIndex, ClientHandler clientHandler){
-        this(nickname, gameIndex);
-        this.clientHandler = clientHandler;
-    }
-
-    public ClientHandler getClientHandler(){
-        return clientHandler;
     }
 
     /**
