@@ -1,6 +1,7 @@
 package it.polimi.ingsw.Table.Decks.Development;
 import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Enums.Type;
+import it.polimi.ingsw.Table.Decks.DevelopmentDeck;
 import it.polimi.ingsw.Table.Decks.ResourceProduction;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -9,6 +10,14 @@ import static org.junit.jupiter.api.Assertions.assertSame;
  * Test class for the class: DevelopmentCard
  */
 public class DevelopmentCardTest {
+
+    /*
+    //questo non c'entra
+    @Test
+    void aaa(){
+        DevelopmentDeck developmentDeck = new DevelopmentDeck(0);
+    }
+    */
 
     /**
      * This method tests the creation of a ResourceProduction from a DevelopmentCard
