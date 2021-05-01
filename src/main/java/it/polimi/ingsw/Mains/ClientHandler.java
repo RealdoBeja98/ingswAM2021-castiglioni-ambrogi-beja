@@ -68,18 +68,18 @@ public class ClientHandler implements Runnable {
                 return;
             }
         }
+        if (!game.getStarted()) {
 
+            WakeUpThread wut = new WakeUpThread(in, out);
+            Thread t = new Thread(wut);
+            t.start();
 
-        /*try { //<--FIXME-->
-            out.println("waiting to fill the lobby");
-            if(game.getStarted() == false){
-                wait();
+            try {
+                t.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-        } catch (InterruptedException e) {
-            System.out.println("Player quit before game start");
         }
-        out.println("Game started");*/
-
 
         while (true) {
             try {
@@ -554,9 +554,8 @@ public class ClientHandler implements Runnable {
         out.println(game.getGameIndex());
         line = in.readLine();
         try {
-            game.addSocket(out);
-            game.addHandler(this);
             game.addPlayer(line);
+            game.addSocket(out);
             nickname = line;
             out.println("PLAYER_ADDED");
             return true;

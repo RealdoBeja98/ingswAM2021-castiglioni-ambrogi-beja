@@ -67,6 +67,7 @@ public class Game {
             throw new NameAlreadyRegisteredException();
         }
         players.add(new Player(name, gameIndex));
+        //<--FIXME aggiungere out qui e non in un altro metodo-->
         if(numberOfPlayer == 1){
             players.get(0).isSinglePlayer();
         }
@@ -97,12 +98,9 @@ public class Game {
     private void startGame(){
         setInkwell();
         turn = new Turn(gameIndex);
-        /*for(int i = 0; i < (handlerList.size()-1); i++){
-            System.out.println(handlerList.get(i));
-            System.out.println("a");
-            //handlerList.get(i).notTest(); <--FIXME-->
-            System.out.println("b");
-        }*/
+        for(int i = 0; i < printWriterList.size(); i++){
+            printWriterList.get(i).println("wakeup");
+        }
         started = true;
         System.out.println("Game: " + gameIndex + " started!");
     }

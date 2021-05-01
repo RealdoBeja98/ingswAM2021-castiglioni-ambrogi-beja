@@ -55,7 +55,12 @@ public class ClientMain {
                             if (serverMessage.equals("quit")) {
                                 break;
                             }
-                            System.out.println(serverMessage);
+                            else if (serverMessage.equals("wakeup")) {
+                                out.println("wakeup");
+                            }
+                            else{
+                                System.out.println(serverMessage);
+                            }
 
                         }
                     } catch (IOException e) {
@@ -68,9 +73,14 @@ public class ClientMain {
             String clientMessage;
             try {
                 while ((clientMessage = stdIn.readLine()) != null) {
-                    out.println(clientMessage);
-                    if (clientMessage.equals("quit")) {
-                        break;
+                    if (clientMessage.equals("wakeup")){
+
+                    }
+                    else{
+                        out.println(clientMessage);
+                        if (clientMessage.equals("quit")) {
+                            break;
+                        }
                     }
                 }
             } catch (IOException e) {
@@ -96,61 +106,5 @@ public class ClientMain {
             return -1;
         }
     }
-
-    /*private static class ThreadReaderIO implements Runnable{
-
-        String userInput;
-        PrintWriter out;
-        BufferedReader stdIn;
-
-        public ThreadReaderIO(PrintWriter out, BufferedReader stdIn){
-            this.out = out;
-            this.stdIn = stdIn;
-        }
-
-        @Override
-        public void run() {
-
-            try {
-                while ((userInput = stdIn.readLine()) != null){
-                    out.println(userInput);
-                    if (userInput.equals("quit")) {
-                        break;
-                    }
-                }
-            } catch (IOException e) {
-                System.err.println("Couldn't get I/O for the connection to the keyboard");
-                System.exit(1);
-            }
-
-        }
-
-    }
-
-    private static class ThreadReaderNET implements Runnable{
-
-        String userInput;
-        BufferedReader in;
-
-        public ThreadReaderNET(BufferedReader in){
-            this.in = in;
-        }
-
-        @Override
-        public void run() {
-            try {
-                while ((userInput = in.readLine()) != null){
-                    if (userInput.equals("quit")) {
-                        break;
-                    }
-                    System.out.println(userInput);
-                }
-            } catch (IOException e) {
-                System.err.println("Couldn't get I/O for the connection to the server");
-                System.exit(1);
-            }
-        }
-
-    }*/
 
 }
