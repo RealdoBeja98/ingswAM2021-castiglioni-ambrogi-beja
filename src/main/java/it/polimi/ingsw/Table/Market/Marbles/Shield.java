@@ -57,6 +57,10 @@ public class Shield extends Marble {
         throw new RuntimeException();
     }
 
+    /**
+     * This method overrides the classic toString
+     * @return the type of the marble in a string, of type String
+     */
     @Override
     public String toString(){
         return whatIAm.toString();

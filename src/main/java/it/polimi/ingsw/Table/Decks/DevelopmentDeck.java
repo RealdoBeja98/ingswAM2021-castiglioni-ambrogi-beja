@@ -36,8 +36,7 @@ public class DevelopmentDeck{
     public DevelopmentDeck(int gameIndex){
         this.gameIndex = gameIndex;
         deck = new DevelopmentCard[3][4][4];
-        //addCard();
-        addCardNew();
+        addCard();
     }
 
     /**
@@ -158,45 +157,7 @@ public class DevelopmentDeck{
     /**
      * This method fills all the decks with cards
      */
-    private void addCard(){//vecchio metodo
-        ArrayList<DevelopmentCard> deckGreen1 = new ArrayList<>();
-        Resource[] card1R = {Resource.SHIELD};
-        int[] card1C = {2};
-        Resource[] req1 = {Resource.COIN};
-        int[] costReq1 = {1};
-        Resource[] prod1 = {Resource.FAITH};
-        int[] costProd1 = {1};
-        deckGreen1.add(new DevelopmentCard(card1R, card1C, Type.GREEN, 1, req1, costReq1, prod1,costProd1, 1));
-        Resource[] card2R = {Resource.SHIELD, Resource.SERVANT, Resource.STONE};
-        int[] card2C = {1, 1, 1};
-        Resource[] req2 = {Resource.STONE};
-        int[] costReq2 = {1};
-        Resource[] prod2 = {Resource.SERVANT};
-        int[] costProd2 = {1};
-        deckGreen1.add(new DevelopmentCard(card2R, card2C, Type.GREEN, 1, req2, costReq2, prod2,costProd2, 2));
-        Resource[] card3R = {Resource.SHIELD};
-        int[] card3C = {3};
-        Resource[] req3 = {Resource.SERVANT};
-        int[] costReq3 = {2};
-        Resource[] prod3 = {Resource.COIN, Resource.SHIELD, Resource.STONE};
-        int[] costProd3 = {1, 1, 1};
-        deckGreen1.add(new DevelopmentCard(card3R, card3C, Type.GREEN, 1, req3, costReq3, prod3,costProd3, 3));
-        Resource[] card4R = {Resource.SHIELD, Resource.COIN};
-        int[] card4C = {2, 2};
-        Resource[] req4 = {Resource.STONE, Resource.SERVANT};
-        int[] costReq4 = {1, 1};
-        Resource[] prod4 = {Resource.COIN, Resource.FAITH};
-        int[] costProd4 = {2, 1};
-        deckGreen1.add(new DevelopmentCard(card4R, card4C, Type.GREEN, 1, req4, costReq4, prod4,costProd4, 4));
-        Collections.shuffle(deckGreen1);
-        for(int i = 0; i < 4; i++){
-            deck[2][0][i] = deckGreen1.get(i);
-        }
-        //ripeti x 11 v
-    }
-
-    //<--FIXME--> javadock qui, ma soprattutto: usa il toString per controllare che effettivamente funzioni (che effettivamente il mazzo prodotto sia fatto giusto!)
-    private void addCardNew(){
+    private void addCard(){
 
         ArrayList<DevelopmentCard> developmentCardsToAdd = new ArrayList<>();
 

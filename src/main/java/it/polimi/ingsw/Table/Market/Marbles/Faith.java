@@ -39,6 +39,10 @@ public class Faith extends Marble {
         faithTrack.goOn(1);
     }
 
+    /**
+     * This method overrides the classic toString
+     * @return the type of the marble in a string, of type String
+     */
     @Override
     public String toString(){
         return whatIAm.toString();

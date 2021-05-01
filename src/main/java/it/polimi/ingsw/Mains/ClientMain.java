@@ -21,6 +21,7 @@ public class ClientMain {
                 PrintWriter out = new PrintWriter(echoSocket.getOutputStream(), true);//scrive sul canale main
                 BufferedReader in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream())); // legge dal canale sopra
                 BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in)) //scanf
+
         ) {
 
             int i = 2;
@@ -43,12 +44,39 @@ public class ClientMain {
                 System.out.println("Joined the game!");
             }
 
-            ThreadReaderIO io = new ThreadReaderIO(out, stdIn);
-            Thread ioT = new Thread(io);
-            ioT.start();
-            ThreadReaderNET net = new ThreadReaderNET(in);
-            Thread netT = new Thread(net);
-            netT.start();
+            (new Thread(){
+
+                @Override
+                public void run() {
+                    String serverMessage;
+
+                    try {
+                        while ((serverMessage = in.readLine()) != null) {
+                            if (serverMessage.equals("quit")) {
+                                break;
+                            }
+                            System.out.println(serverMessage);
+
+                        }
+                    } catch (IOException e) {
+                        System.err.println("Couldn't get I/O for the connection to the server");
+                        System.exit(1);
+                    }
+                }
+            }).start();
+
+            String clientMessage;
+            try {
+                while ((clientMessage = stdIn.readLine()) != null) {
+                    out.println(clientMessage);
+                    if (clientMessage.equals("quit")) {
+                        break;
+                    }
+                }
+            } catch (IOException e) {
+                System.err.println("Couldn't get I/O for the connection to the keyboard");
+                System.exit(1);
+            }
 
         } catch (UnknownHostException e) {
             System.err.println("Don't know about host " + hostName);
@@ -69,7 +97,7 @@ public class ClientMain {
         }
     }
 
-    private static class ThreadReaderIO implements Runnable{
+    /*private static class ThreadReaderIO implements Runnable{
 
         String userInput;
         PrintWriter out;
@@ -82,18 +110,19 @@ public class ClientMain {
 
         @Override
         public void run() {
-            while (true) {
-                try {
-                    userInput = stdIn.readLine();
+
+            try {
+                while ((userInput = stdIn.readLine()) != null){
                     out.println(userInput);
                     if (userInput.equals("quit")) {
                         break;
                     }
-                } catch (IOException e) {
-                    System.err.println("Couldn't get I/O for the connection to the keyboard");
-                    System.exit(1);
                 }
+            } catch (IOException e) {
+                System.err.println("Couldn't get I/O for the connection to the keyboard");
+                System.exit(1);
             }
+
         }
 
     }
@@ -109,19 +138,19 @@ public class ClientMain {
 
         @Override
         public void run() {
-            while (true) {
-                try {
-                    userInput = in.readLine();
+            try {
+                while ((userInput = in.readLine()) != null){
                     if (userInput.equals("quit")) {
                         break;
                     }
-                } catch (IOException e) {
-                    System.err.println("Couldn't get I/O for the connection to the server");
-                    System.exit(1);
+                    System.out.println(userInput);
                 }
+            } catch (IOException e) {
+                System.err.println("Couldn't get I/O for the connection to the server");
+                System.exit(1);
             }
         }
 
-    }
+    }*/
 
 }

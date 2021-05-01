@@ -9,7 +9,6 @@ import it.polimi.ingsw.Table.Decks.Token.ActionToken;
 public class Turn {
 
     private Player currentPlayer;
-    private boolean display;
     private boolean actionLeaderDone = false;
     private InWhichStatePlayer currentPlayerState = InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1;
     private boolean developmentCardTaken = false;
@@ -23,11 +22,15 @@ public class Turn {
      */
     public Turn(int gameIndex){
         this.gameIndex = gameIndex;
+        int n = 0;
         for(Player i : Game.get(gameIndex).getPlayers()){
             if(i.isInkwell()){
                 currentPlayer = i;
-                display = true;
+                if (Game.get(gameIndex).getPrintWriterList().size() != 0) {
+                    Game.get(gameIndex).getPrintWriterList().get(n).println("It's your turn!");
+                }
             }
+            n++;
         }
     }
 
@@ -536,18 +539,21 @@ public class Turn {
         actionLeaderDone = false;
         currentPlayerState = InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1;
         developmentCardTaken = false;
-        display = true;
         boolean found = false;
+        int n = 0;
         for(Player i : Game.get(gameIndex).getPlayers()){
             if(found){
                 currentPlayer = i;
+                Game.get(gameIndex).getPrintWriterList().get(n).println("It's your turn!");
                 return;
             }
             if(i == currentPlayer){
                 found = true;
             }
+            n++;
         }
         currentPlayer = Game.get(gameIndex).getPlayers().get(0);
+        Game.get(gameIndex).getPrintWriterList().get(0).println("It's your turn!");
         if(currentPlayer.isInkwell() && gameEnded){
             viewFinalPoints = true;
             throw new GameEndedException();
@@ -570,12 +576,5 @@ public class Turn {
         return currentPlayer;
     }
 
-    public void setDisplay(){
-        display = false;
-    }
-
-    public boolean getDisplay() {
-        return display;
-    }
 
 }

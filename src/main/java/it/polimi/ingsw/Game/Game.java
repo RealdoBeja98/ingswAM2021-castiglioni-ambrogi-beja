@@ -17,9 +17,11 @@ public class Game {
     private final Table table;
     private final ArrayList<Player> players;
     private final ArrayList<PrintWriter> printWriterList;
+    private final ArrayList<ClientHandler> handlerList;
     private Turn turn;
     private final int numberOfPlayer;
     private final int gameIndex;
+    private boolean started;
 
 
     /**
@@ -32,7 +34,9 @@ public class Game {
         table = new Table(gameIndex);
         players = new ArrayList<>();
         printWriterList = new ArrayList<>();
+        handlerList = new ArrayList<>();
         games.add(this);
+        started = false;
     }
 
     /**
@@ -73,10 +77,18 @@ public class Game {
 
     /**
      * This method add the communication channel "out" of the recently added player to a list
-     * @param printWriter: the channel to talk with the player
+     * @param printWriter: the channel to talk with the players
      */
     public void addSocket(PrintWriter printWriter){
         printWriterList.add(printWriter);
+    }
+
+    /**
+     * This method add the client handler of the recently added player to a list
+     * @param handler: the handler to manage the players
+     */
+    public void addHandler(ClientHandler handler){
+        handlerList.add(handler);
     }
 
     /**
@@ -85,6 +97,13 @@ public class Game {
     private void startGame(){
         setInkwell();
         turn = new Turn(gameIndex);
+        /*for(int i = 0; i < (handlerList.size()-1); i++){
+            System.out.println(handlerList.get(i));
+            System.out.println("a");
+            //handlerList.get(i).notTest(); <--FIXME-->
+            System.out.println("b");
+        }*/
+        started = true;
         System.out.println("Game: " + gameIndex + " started!");
     }
 
@@ -157,6 +176,10 @@ public class Game {
      */
     public ArrayList<PrintWriter> getPrintWriterList() {
         return printWriterList;
+    }
+
+    public boolean getStarted(){
+        return started;
     }
 
 }

@@ -68,39 +68,21 @@ public class ClientHandler implements Runnable {
                 return;
             }
         }
-        /*if (!game.isGameStarted()) {<--FIXME-->
-            try {
+
+
+        /*try { //<--FIXME-->
+            out.println("waiting to fill the lobby");
+            if(game.getStarted() == false){
                 wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
             }
-        }
-        System.out.println("sleeping");
-
-        try {
-            wait();
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            System.out.println("Player quit before game start");
         }
-        */
-
-        try {
-            Thread.sleep(20*1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        System.out.println("woke up"); //blocco per testare, rimuovere dopo wait fix also dobbiamo ridurre cpu usage
+        out.println("Game started");*/
 
 
-        while (true) { //questo pezzo consuma troppo
-            /*if (game.getTurn().getCurrentPlayer().getNickname().equals(nickname) && game.getTurn().getDisplay()) {
-                out.println("It's your turn!");
-                game.getTurn().setDisplay();
-            }*/
-            /*metto a dormire per 10 sec?*/
+        while (true) {
             try {
-
                 line = in.readLine();
                 if (line.equals("quit")) {
                     out.println("quit");
@@ -572,8 +554,9 @@ public class ClientHandler implements Runnable {
         out.println(game.getGameIndex());
         line = in.readLine();
         try {
-            game.addPlayer(line);
             game.addSocket(out);
+            game.addHandler(this);
+            game.addPlayer(line);
             nickname = line;
             out.println("PLAYER_ADDED");
             return true;

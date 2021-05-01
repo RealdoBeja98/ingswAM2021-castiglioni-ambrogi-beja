@@ -11,14 +11,6 @@ import static org.junit.jupiter.api.Assertions.assertSame;
  */
 public class DevelopmentCardTest {
 
-    /*
-    //questo non c'entra
-    @Test
-    void aaa(){
-        DevelopmentDeck developmentDeck = new DevelopmentDeck(0);
-    }
-    */
-
     /**
      * This method tests the creation of a ResourceProduction from a DevelopmentCard
      */
