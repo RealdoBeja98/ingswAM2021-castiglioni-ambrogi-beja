@@ -40,7 +40,11 @@ public class ClientMain {
             } else if (line.equals("ERROR_GAME_STARTED")) {
                 System.out.println("Game already started, please chose a different one!");
                 return;
-            } else {
+            } else if (line.equals("You have the inkwell!")){
+                System.out.println("Joined the game!");
+                System.out.println("You have the inkwell!");
+                line = in.readLine();
+            } else{
                 System.out.println("Joined the game!");
             }
 

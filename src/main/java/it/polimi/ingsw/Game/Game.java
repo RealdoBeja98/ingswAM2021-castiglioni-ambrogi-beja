@@ -109,7 +109,7 @@ public class Game {
     private void startGame(){
         setInkwell();
         turn = new Turn(gameIndex);
-        for(int i = 0; i < printWriterList.size(); i++){
+        for(int i = 0; i < (printWriterList.size()-1); i++){
             if(printWriterList.get(i) != null){
                 printWriterList.get(i).println("wakeup");
             }

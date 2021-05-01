@@ -30,7 +30,7 @@ public class Turn {
             if(i.isInkwell()){
                 currentPlayer = i;
                 if (Game.get(gameIndex).getPrintWriterList().size() != 0 && listWithoutNullPointers(Game.get(gameIndex).getPrintWriterList())) {
-                    Game.get(gameIndex).getPrintWriterList().get(n).println("It's your turn!"); //<--FIXME se l'ultimo giocatore ha l'inkwell si pianta perchè il out del socket non è ancora stato passato, vedi game per fix-->
+                    Game.get(gameIndex).getPrintWriterList().get(n).println("You have the inkwell!"); //<--FIXME se l'ultimo giocatore ha l'inkwell si pianta perchè il out del socket non è ancora stato passato, vedi game per fix-->
                 }
             }
             n++;

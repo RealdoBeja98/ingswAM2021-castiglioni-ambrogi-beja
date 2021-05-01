@@ -69,7 +69,6 @@ public class ClientHandler implements Runnable {
             }
         }
         if (!game.getStarted()) {
-
             WakeUpThread wut = new WakeUpThread(in, out);
             Thread t = new Thread(wut);
             t.start();
@@ -80,13 +79,13 @@ public class ClientHandler implements Runnable {
                 e.printStackTrace();
             }
         }
-
+        out.println("GAME START!");
         while (true) {
             try {
                 line = in.readLine();
                 if (line.equals("quit")) {
                     out.println("quit");
-                    forward(nickname + " quited", out);
+                    forward(nickname + " quit", out);
                     break;
                 } else if (!game.getTurn().getCurrentPlayer().getNickname().equals(nickname)) {
                     out.println("ERROR_NOT_YOUR_TURN");
@@ -494,7 +493,8 @@ public class ClientHandler implements Runnable {
                     }
 
             } catch (IOException e) {
-                e.printStackTrace();
+                forward(nickname + " crashed", out);
+                break;
             }
         }
 
@@ -510,7 +510,7 @@ public class ClientHandler implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("Player quit the game");
+        System.out.println("Player: " + nickname + " quit game " + game.getGameIndex());
         return;
     }
 
