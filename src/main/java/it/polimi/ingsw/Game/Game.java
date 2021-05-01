@@ -56,10 +56,11 @@ public class Game {
     /**
      * This method adds a player to the game
      * @param name: the nickname of the player
+     * @param printWriter it's for adding the communication channel "out" of the added player
      * @throws NameAlreadyRegisteredException if the name has been already added
      * @throws GameAlreadyStartedException if the game is already started
      */
-    public void addPlayer(String name) throws NameAlreadyRegisteredException, GameAlreadyStartedException {
+    public void addPlayer(String name, PrintWriter printWriter) throws NameAlreadyRegisteredException, GameAlreadyStartedException {
         if(players.size() == numberOfPlayer){
             throw new GameAlreadyStartedException();
         }
@@ -67,13 +68,23 @@ public class Game {
             throw new NameAlreadyRegisteredException();
         }
         players.add(new Player(name, gameIndex));
-        //<--FIXME aggiungere out qui e non in un altro metodo-->
+        printWriterList.add(printWriter);
         if(numberOfPlayer == 1){
             players.get(0).isSinglePlayer();
         }
         if(players.size() == numberOfPlayer){
             startGame();
         }
+    }
+
+    /**
+     * This method adds a player to the game (without passing the PrintWriter socket)
+     * @param name: the nickname of the player
+     * @throws NameAlreadyRegisteredException if the name has been already added
+     * @throws GameAlreadyStartedException if the game is already started
+     */
+    public void addPlayer(String name) throws NameAlreadyRegisteredException, GameAlreadyStartedException {
+        addPlayer(name, null);
     }
 
     /**
@@ -99,7 +110,9 @@ public class Game {
         setInkwell();
         turn = new Turn(gameIndex);
         for(int i = 0; i < printWriterList.size(); i++){
-            printWriterList.get(i).println("wakeup");
+            if(printWriterList.get(i) != null){
+                printWriterList.get(i).println("wakeup");
+            }
         }
         started = true;
         System.out.println("Game: " + gameIndex + " started!");

@@ -3,6 +3,9 @@ import it.polimi.ingsw.Enums.*;
 import it.polimi.ingsw.Exceptions.*;
 import it.polimi.ingsw.Table.Decks.Token.ActionToken;
 
+import java.io.PrintWriter;
+import java.util.ArrayList;
+
 /**
  * This Class represents the turn
  */
@@ -26,12 +29,26 @@ public class Turn {
         for(Player i : Game.get(gameIndex).getPlayers()){
             if(i.isInkwell()){
                 currentPlayer = i;
-                if (Game.get(gameIndex).getPrintWriterList().size() != 0) {
+                if (Game.get(gameIndex).getPrintWriterList().size() != 0 && listWithoutNullPointers(Game.get(gameIndex).getPrintWriterList())) {
                     Game.get(gameIndex).getPrintWriterList().get(n).println("It's your turn!"); //<--FIXME se l'ultimo giocatore ha l'inkwell si pianta perchè il out del socket non è ancora stato passato, vedi game per fix-->
                 }
             }
             n++;
         }
+    }
+
+    /**
+     * This method return if an ArrayList of PrintWriter is a list without null pointers or not
+     * @param list an ArrayList of PrintWriter
+     * @return if it's a list without null pointers or not
+     */
+    private boolean listWithoutNullPointers(ArrayList<PrintWriter> list){
+        for(PrintWriter i : list){
+            if(i == null){
+                return false;
+            }
+        }
+        return true;
     }
 
     /**

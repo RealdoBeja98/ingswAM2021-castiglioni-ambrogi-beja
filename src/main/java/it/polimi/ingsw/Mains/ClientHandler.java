@@ -554,8 +554,7 @@ public class ClientHandler implements Runnable {
         out.println(game.getGameIndex());
         line = in.readLine();
         try {
-            game.addPlayer(line);
-            game.addSocket(out);
+            game.addPlayer(line, out);
             nickname = line;
             out.println("PLAYER_ADDED");
             return true;
