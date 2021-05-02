@@ -340,7 +340,7 @@ public class ClientHandler implements Runnable {
                                 out.println("CONFIRMED_ACTION");
                                 System.out.println("PLACE_DEVELOPMENT_CARD");
                             } catch (NoDevelopmentCardToObtainException e) {
-                                out.println("ERROR_NO_CARD_OBTAINABLE");///////////////////////////////////
+                                out.println("ERROR_NO_CARD_OBTAINABLE");
                             } catch (PositionInvalidException e) {
                                 out.println("ERROR_INVALID_POSITION");
                             } catch (GameEndedException e) {

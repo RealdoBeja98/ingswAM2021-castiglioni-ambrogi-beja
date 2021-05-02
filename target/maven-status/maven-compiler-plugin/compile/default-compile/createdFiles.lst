@@ -5,7 +5,9 @@ it/polimi/ingsw/Messages/ErrorMessages/InvalidActionErrorMessage.class
 it/polimi/ingsw/Messages/ErrorMessages/DifferentStorageTypeErrorMessage.class
 it/polimi/ingsw/Messages/ErrorMessages/OccupiedSlotWDErrorMessage.class
 it/polimi/ingsw/Messages/ErrorMessages/NotYourTurnErrorMessage.class
+it/polimi/ingsw/Messages/GameMessages/PlayLeaderCardGameMessage.class
 it/polimi/ingsw/Messages/ErrorMessages/NotStrongboxErrorMessage.class
+it/polimi/ingsw/Messages/ConfirmedActionMessage.class
 it/polimi/ingsw/Messages/ErrorMessages/NoCardDiscardErrorMessage.class
 it/polimi/ingsw/Messages/ErrorMessage.class
 it/polimi/ingsw/Messages/ErrorMessages/InvalidEnumErrorMessage.class
@@ -24,6 +26,8 @@ it/polimi/ingsw/Messages/GameMessage.class
 it/polimi/ingsw/Messages/ErrorMessages/NoResourceAErrorMessage.class
 it/polimi/ingsw/Messages/ErrorMessages/NotEnoughResourcesErrorMessage.class
 it/polimi/ingsw/Messages/ErrorMessages/GenericResourceErrorMessage.class
+it/polimi/ingsw/Messages/GameMessages/DiscardLeaderCardGameMessage.class
+it/polimi/ingsw/Messages/GameMessages/ChoosePlayLeaderCardGameMessage.class
 it/polimi/ingsw/Messages/ErrorMessages/ResourceAlreadyPresentOtherShelfErrorMessage.class
 it/polimi/ingsw/Messages/ErrorMessages/NoCardObtainableErrorMessage.class
 it/polimi/ingsw/Messages/GameMessages/ChooseDiscardLeaderCardGameMessage.class

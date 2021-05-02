@@ -8,6 +8,9 @@ import it.polimi.ingsw.Exceptions.*;
 import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Messages.ErrorMessages.*;
 import it.polimi.ingsw.Messages.GameMessages.ChooseDiscardLeaderCardGameMessage;
+import it.polimi.ingsw.Messages.GameMessages.ChoosePlayLeaderCardGameMessage;
+import it.polimi.ingsw.Messages.GameMessages.DiscardLeaderCardGameMessage;
+import it.polimi.ingsw.Messages.GameMessages.PlayLeaderCardGameMessage;
 import it.polimi.ingsw.Table.Decks.Token.ActionToken;
 
 import java.io.PrintWriter;
@@ -16,8 +19,17 @@ public abstract class Message {
 
     public abstract void execute(Game game, PrintWriter out);
 
-    private void checkLength(String[] message, int n) {
+    private static void checkLength(String[] message, int n) {
         if(message.length != n){
+            throw new IllegalArgumentException();
+        }
+    }
+
+    private static int atoi(String str)
+    {
+        try{
+            return Integer.parseInt(str);
+        }catch(NumberFormatException ex){
             throw new IllegalArgumentException();
         }
     }
@@ -143,57 +155,30 @@ public abstract class Message {
             return new GameStartedErrorMessage();
         }
 
+        if(string.equals("CONFIRMED_ACTION")){
+            return new ConfirmedActionMessage();
+        }
+
 
 
         String[] message = string.split(" ");
 
+
         /*
+        /////////////////////////SISTEMAZIONE DEL GRANDE TRY CATCH DI IllegalArgumentException
+        /////////////////////////che crei il messaggio che all'esecuzione invii il messagio di error typo
         if (message[0].equals("CHOOSE_DISCARD_LEADER_CARD")) {
+            checkLength(message, 1);
             return new ChooseDiscardLeaderCardGameMessage();
         } else if (message[0].equals("DISCARD_LEADER_CARD")) {
-            try {
-                checkLength(message, 2);
-                game.getTurn().discardLeaderCard(atoi(message[1]));
-                out.println("CONFIRMED_ACTION");
-                System.out.println("DISCARD_LEADER_CARD");
-            } catch (AlreadyDiscardedThisLeaderCardException e) {
-                out.println("ERROR_ALREADY_DISCARDED_POSITION");
-            } catch (ActionNotAllowedException e) {
-                out.println("ERROR_INVALID_ACTION");
-            } catch (GameEndedException e) {
-                out.println("ERROR_GAME_ENDED");
-            } catch (PositionInvalidException e) {
-                out.println("ERROR_INVALID_POSITION");
-            } catch (IllegalArgumentException e) {
-                out.println("ERROR_TYPO");
-            }
+            checkLength(message, 2);
+            return new DiscardLeaderCardGameMessage(atoi(message[1]));
         } else if (message[0].equals("CHOOSE_PLAY_LEADER_CARD")) {
-            try {
-                game.getTurn().choosePlayLeaderCard();
-                out.println("CONFIRMED_ACTION");
-                System.out.println("CHOOSE_PLAY_LEADER_CARD");
-            } catch (NoLeaderCardToPlayException e) {
-                out.println("ERROR_NO_CARDS_PLAY");
-            } catch (ActionNotAllowedException e) {
-                out.println("ERROR_INVALID_ACTION");
-            }
+            checkLength(message, 1);
+            return new ChoosePlayLeaderCardGameMessage();
         } else if (message[0].equals("PLAY_LEADER_CARD")) {
-            try {
-                checkLength(message, 2);
-                game.getTurn().playLeaderCard(atoi(message[1]));
-                out.println("CONFIRMED_ACTION");
-                System.out.println("PLAY_LEADER_CARD");
-            } catch (NotSatisfiedRequirementsForThisLeaderCardException e) {
-                out.println("ERROR_REQUIREMENTS");
-            } catch (ActionNotAllowedException e) {
-                out.println("ERROR_INVALID_ACTION");
-            } catch (GameEndedException e) {
-                out.println("ERROR_GAME_ENDED");
-            } catch (PositionInvalidException e) {
-                out.println("ERROR_INVALID_POSITION");
-            } catch (IllegalArgumentException e) {
-                out.println("ERROR_TYPO");
-            }
+            checkLength(message, 2);
+            return new PlayLeaderCardGameMessage(atoi(message[1]));
         } else if (message[0].equals("CHOOSE_NO_ACTION_LEADER_CARD")) {
             try {
                 game.getTurn().chooseNoActionLeaderCard();
@@ -539,6 +524,7 @@ public abstract class Message {
             out.println("ERROR_TYPO");
         }
         */
+
 
 
         return null;
