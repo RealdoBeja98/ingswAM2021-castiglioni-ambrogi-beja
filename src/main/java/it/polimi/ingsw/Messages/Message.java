@@ -115,6 +115,34 @@ public abstract class Message {
         if(string.equals("ERROR_EMPTY_SLOT_ES")){
             return new EmptySlotEsErrorMessage();
         }
+        if(string.equals("ERROR_NO_CARD_OBTAINABLE")){
+            return new NoCardObtainableErrorMessage();
+        }
+        if(string.equals("ERROR_NO_DEVELOPMENT_CARD")){
+            return new NoDevelopmentCardErrorMessage();
+        }
+        if(string.equals("ERROR_NO_PLC")){
+            return new NoPLCErrorMessage();
+        }
+        if(string.equals("ERROR_GENERIC_RESOURCE")){
+            return new GenericResourceErrorMessage();
+        }
+        if(string.equals("ERROR_NOT_ENOUGH_R")){
+            return new NotEnoughRErrorMessage();
+        }
+        if(string.equals("ERROR_NO_SELECTED_POWERS")){
+            return new NoSelectedPowersErrorMessage();
+        }
+        if(string.equals("ERROR_INVALID_MOVEMENT")){
+            return new InvalidMovementErrorMessage();
+        }
+        if(string.equals("ERROR_NAME_TAKEN")){
+            return new NameTakenErrorMessage();
+        }
+        if(string.equals("ERROR_GAME_STARTED")){
+            return new GameStartedErrorMessage();
+        }
+
 
 
         String[] message = string.split(" ");
