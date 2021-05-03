@@ -16,7 +16,6 @@ public class Turn {
     private InWhichStatePlayer currentPlayerState = InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1;
     private boolean developmentCardTaken = false;
     private boolean gameEnded = false;
-    private boolean viewFinalPoints = false;
     private final int gameIndex;
 
     /**
@@ -64,7 +63,7 @@ public class Turn {
         if(currentPlayerState == InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1){
             currentPlayerState = InWhichStatePlayer.SELECT_NORMAL_ACTION;
         } else {
-            if(Game.get(gameIndex).getPlayers().size() == 1){
+            if(Game.get(gameIndex).getNumberOfPlayer() == 1){
                 currentPlayerState = InWhichStatePlayer.DRAW_SOLO_ACTION_TOKEN;
             } else {
                 endTurn();
@@ -139,7 +138,7 @@ public class Turn {
         if(currentPlayerState == InWhichStatePlayer.DISCARD_LEADER_CARD1){
             currentPlayerState = InWhichStatePlayer.SELECT_NORMAL_ACTION;
         } else if(currentPlayerState == InWhichStatePlayer.DISCARD_LEADER_CARD2){
-            if(Game.get(gameIndex).getPlayers().size() == 1){
+            if(Game.get(gameIndex).getNumberOfPlayer() == 1){
                 currentPlayerState = InWhichStatePlayer.DRAW_SOLO_ACTION_TOKEN;
             } else {
                 endTurn();
@@ -165,7 +164,7 @@ public class Turn {
             if(currentPlayerState == InWhichStatePlayer.DISCARD_LEADER_CARD1){
                 currentPlayerState = InWhichStatePlayer.SELECT_NORMAL_ACTION;
             } else if(currentPlayerState == InWhichStatePlayer.DISCARD_LEADER_CARD2){
-                if(Game.get(gameIndex).getPlayers().size() == 1){
+                if(Game.get(gameIndex).getNumberOfPlayer() == 1){
                     currentPlayerState = InWhichStatePlayer.DRAW_SOLO_ACTION_TOKEN;
                 } else {
                     endTurn();
@@ -246,7 +245,18 @@ public class Turn {
             currentPlayerState = InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT2;
         }
     }
+
     //<--FIXME check javadoc from here-->
+    public void addResource(LeaderWarehouse where) throws NoResourceToAddException, DifferentStorageException, OccupiedSlotExtraStorageLeaderCardException, PositionAlreadyOccupiedException, ResourceAlreadyPlacedException, DifferentResourceInThisShelfException, UnexpectedWhiteMarbleException, UnexpectedFaithMarbleException, ActionNotAllowedException {
+        if(currentPlayerState != InWhichStatePlayer.TAKE_RESOURCES_FROM_THE_MARKET){
+            throw new ActionNotAllowedException();
+        }
+        currentPlayer.addResource(where);
+        if(!currentPlayer.resourceToAdd()){
+            currentPlayerState = InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT2;
+        }
+    }
+
     /**
      * This method lets the player change a white marble with another resource
      * @param pos: the position of a WhiteMarbleLeaderCard on the table
@@ -323,7 +333,7 @@ public class Turn {
         } else if(currentPlayerState == InWhichStatePlayer.ACTIVATE_PRODUCTION){
             currentPlayerState = InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT2;
         } else if(currentPlayerState == InWhichStatePlayer.PLAY_LEADER_CARD2){
-            if(Game.get(gameIndex).getPlayers().size() == 1){
+            if(Game.get(gameIndex).getNumberOfPlayer() == 1){
                 currentPlayerState = InWhichStatePlayer.DRAW_SOLO_ACTION_TOKEN;
             } else {
                 endTurn();
@@ -572,17 +582,13 @@ public class Turn {
         currentPlayer = Game.get(gameIndex).getPlayers().get(0);
         Game.get(gameIndex).getPrintWriterList().get(0).println("It's your turn!");
         if(currentPlayer.isInkwell() && gameEnded){
-            viewFinalPoints = true;
-            throw new GameEndedException();
+            Game.get(gameIndex).notifyScore();
+            for(PrintWriter i : Game.get(gameIndex).getPrintWriterList()){
+                i.println("GAME_ENDED");
+            }
+            System.out.println("Game " + gameIndex + " ended!");
+            throw new GameEndedException(); //<--FIXME secondo me può essere tolta-->
         }
-    }
-
-    /**
-     * Getter of the parameter viewFinalPoints
-     * @return if it's time to view FinalPoints
-     */
-    public boolean getViewFinalPoints(){
-        return viewFinalPoints;
     }
 
     /**
@@ -592,6 +598,5 @@ public class Turn {
     public Player getCurrentPlayer() {
         return currentPlayer;
     }
-
 
 }

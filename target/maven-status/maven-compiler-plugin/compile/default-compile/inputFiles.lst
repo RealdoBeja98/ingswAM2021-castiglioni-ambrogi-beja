@@ -59,6 +59,8 @@ E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\M
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\PersonalBoard\Warehouse\WarehouseDepots.java
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Table\Decks\Token\BlueActionToken.java
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Exceptions\ResourceAlreadyPlacedException.java
+E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Messages\GameMessages\ChooseNoActionLeaderCardGameMessage.java
+E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Messages\GameMessages\AddResourceToGameMessage.java
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Messages\ErrorMessages\InvalidPositionErrorMessage.java
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Messages\ErrorMessages\NoPLCErrorMessage.java
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Table\Market\Marbles\Marble.java
@@ -74,6 +76,7 @@ E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\T
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Messages\ErrorMessages\NoDevelopmentCardErrorMessage.java
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Table\Decks\LeaderDeck.java
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Table\Decks\Token\PurpleActionToken.java
+E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Messages\GameMessages\SelectNormalActionGameMessage.java
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Exceptions\NotAdmittedMovementException.java
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Messages\GameMessages\ChooseDiscardLeaderCardGameMessage.java
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Exceptions\NoDevelopmentCardToObtainException.java
@@ -119,6 +122,7 @@ E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\M
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Exceptions\NoResourceToPayException.java
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Table\Market\Marbles\Shield.java
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Messages\ErrorMessages\AlreadyDiscardedPositionErrorMessage.java
+E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Messages\GameMessages\TakeResourcesFromTheMarketGameMessage.java
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Exceptions\NoResourceToAddException.java
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Messages\ErrorMessages\GameEndedErrorMessage.java
 E:\progetto\ingswAM2021-castiglioni-ambrogi-beja\src\main\java\it\polimi\ingsw\Messages\GameMessage.java

@@ -102,10 +102,17 @@ public class ClientHandler implements Runnable {
                         e.printStackTrace();
                     }
                     forward(nickname + " quit", out);
-                    break;
-                } else if (!game.getTurn().getCurrentPlayer().getNickname().equals(nickname)) {
+                    closeCommunicationChannel(in, out);
+                    return;
+                }
+                else if (line.equals("GAME_ENDED")){
+                    closeCommunicationChannel(in, out);
+                    return;
+                }
+                else if (!game.getTurn().getCurrentPlayer().getNickname().equals(nickname)) {
                     out.println("ERROR_NOT_YOUR_TURN");
-                } else {
+                }
+                else {
                     String[] message = line.split(" ");
 
                     if (message[0].equals("CHOOSE_DISCARD_LEADER_CARD")) {
@@ -216,7 +223,7 @@ public class ClientHandler implements Runnable {
                                 }
                                 if(message[1].equals("DISCARD")){
                                     checkLength(message, 2);
-                                    game.getTurn().addResource(LeaderWarehouse.DISCARD, 0);
+                                    game.getTurn().addResource(LeaderWarehouse.DISCARD);
                                     out.println("CONFIRMED_ACTION");
                                     System.out.println("ADD_RESOURCE_TO");
                                     forward("ADVANCE_FAITH_TRACK", out);

@@ -1,6 +1,4 @@
 package it.polimi.ingsw.Messages.GameMessages;
-
-import com.sun.rowset.internal.Row;
 import it.polimi.ingsw.Enums.RowColumn;
 import it.polimi.ingsw.Exceptions.ActionNotAllowedException;
 import it.polimi.ingsw.Exceptions.NullEnumException;

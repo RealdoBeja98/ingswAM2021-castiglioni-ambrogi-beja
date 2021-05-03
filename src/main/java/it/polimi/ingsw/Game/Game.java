@@ -22,7 +22,6 @@ public class Game {
     private final int gameIndex;
     private boolean started;
 
-
     /**
      * Constructor method of this class
      */
@@ -59,7 +58,7 @@ public class Game {
      * @throws GameAlreadyStartedException if the game is already started
      */
     public void addPlayer(String name, PrintWriter printWriter) throws NameAlreadyRegisteredException, GameAlreadyStartedException {
-        if(players.size() == numberOfPlayer){
+        if(started){
             throw new GameAlreadyStartedException();
         }
         if(checkInListForNickname(name)){
@@ -186,20 +185,26 @@ public class Game {
             }
             else{
                 if((players.size() -1) < 2){
-                    if(players.get(i).getNickname().equals(Game.get(gameIndex).getTurn().getCurrentPlayer().getNickname())){
-                        Game.get(gameIndex).getTurn().endTurn();
-                    }
                     if(players.get(i).getNickname().equals(nickname)){
+                        if(players.get(i).getNickname().equals(Game.get(gameIndex).getTurn().getCurrentPlayer().getNickname())){
+                            Game.get(gameIndex).getTurn().endTurn();
+                        }
+                        if(players.get(i).isInkwell()){
+                            players.get(i+1).setInkwell();
+                        }
                         players.remove(i);
                         printWriterList.remove(i);
                         return;
                     }
                     endGame();
                 }else{
-                    if(players.get(i).getNickname().equals(Game.get(gameIndex).getTurn().getCurrentPlayer().getNickname())){
-                        Game.get(gameIndex).getTurn().endTurn();
-                    }
                     if(players.get(i).getNickname().equals(nickname)){
+                        if(players.get(i).getNickname().equals(Game.get(gameIndex).getTurn().getCurrentPlayer().getNickname())){
+                            Game.get(gameIndex).getTurn().endTurn();
+                        }
+                        if(players.get(i).isInkwell()){
+                            players.get(i+1).setInkwell();
+                        }
                         players.remove(i);
                         printWriterList.remove(i);
                         return;
@@ -207,6 +212,33 @@ public class Game {
                 }
             }
         }
+    }
+
+    public void notifyScore(){
+        int[] points = new int[players.size()];
+        for(int i = 0; i < players.size(); i++){
+            points[i] = players.get(i).calculateVictoryPoints();
+        }
+        for(int y = 0; y < printWriterList.size(); y++){
+            for(int z = 0; z < players.size(); z++){
+                printWriterList.get(y).println(players.get(z).getNickname() + " scored: " + String.valueOf(points[z]) + " points");
+            }
+        }
+        int max = points[0];
+        int winner = 0;
+        for(int f = 1; f < points.length; f++){
+            if(max < points[f]){
+                max = points[f];
+                winner = f;
+            }
+        }
+        for(int o = 0; o < printWriterList.size(); o++){
+            printWriterList.get(o).println("The winner is: " + players.get(winner).getNickname());
+        }
+    }
+
+    public int getNumberOfPlayer() {
+        return numberOfPlayer;
     }
 
 }
