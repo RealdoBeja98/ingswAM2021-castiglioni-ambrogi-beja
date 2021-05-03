@@ -30,7 +30,7 @@ public class Turn {
             if(i.isInkwell()){
                 currentPlayer = i;
                 if (Game.get(gameIndex).getPrintWriterList().size() != 0 && listWithoutNullPointers(Game.get(gameIndex).getPrintWriterList())) {
-                    Game.get(gameIndex).getPrintWriterList().get(n).println("You have the inkwell!"); //<--FIXME se l'ultimo giocatore ha l'inkwell si pianta perchè il out del socket non è ancora stato passato, vedi game per fix-->
+                    Game.get(gameIndex).getPrintWriterList().get(n).println("You have the inkwell!");
                 }
             }
             n++;
@@ -552,7 +552,7 @@ public class Turn {
      * a new chose action leader. At the end of the methods it cheks por the next player
      * @throws GameEndedException if the game is finished and it's time to show final points
      */
-    private void endTurn() throws GameEndedException {
+    public void endTurn() throws GameEndedException {
         actionLeaderDone = false;
         currentPlayerState = InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1;
         developmentCardTaken = false;

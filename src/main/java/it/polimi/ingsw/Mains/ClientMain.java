@@ -45,6 +45,7 @@ public class ClientMain {
                 System.out.println("You have the inkwell!");
                 line = in.readLine();
             } else{
+                System.out.println(line);
                 System.out.println("Joined the game!");
             }
 

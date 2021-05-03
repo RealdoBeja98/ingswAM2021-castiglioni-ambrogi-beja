@@ -78,13 +78,29 @@ public class ClientHandler implements Runnable {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            if(wut.getReturnValue() == 1){
+                closeCommunicationChannel(in, out);
+                try {
+                    game.removePlayer(nickname);
+                } catch (GameEndedException e) {
+                    e.printStackTrace();
+                }
+                return;
+            }
         }
+
+
         out.println("GAME START!");
         while (true) {
             try {
                 line = in.readLine();
                 if (line.equals("quit")) {
                     out.println("quit");
+                    try {
+                        game.removePlayer(nickname);
+                    } catch (GameEndedException e) {
+                        e.printStackTrace();
+                    }
                     forward(nickname + " quit", out);
                     break;
                 } else if (!game.getTurn().getCurrentPlayer().getNickname().equals(nickname)) {
@@ -498,7 +514,11 @@ public class ClientHandler implements Runnable {
             }
         }
 
+        closeCommunicationChannel(in, out);
 
+    }
+
+    private void closeCommunicationChannel(BufferedReader in, PrintWriter out) {
         try {
             in.close();
         } catch (IOException e) {
