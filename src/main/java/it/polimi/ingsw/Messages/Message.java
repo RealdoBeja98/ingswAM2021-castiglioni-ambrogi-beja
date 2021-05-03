@@ -7,10 +7,7 @@ import it.polimi.ingsw.Enums.RowColumn;
 import it.polimi.ingsw.Exceptions.*;
 import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Messages.ErrorMessages.*;
-import it.polimi.ingsw.Messages.GameMessages.ChooseDiscardLeaderCardGameMessage;
-import it.polimi.ingsw.Messages.GameMessages.ChoosePlayLeaderCardGameMessage;
-import it.polimi.ingsw.Messages.GameMessages.DiscardLeaderCardGameMessage;
-import it.polimi.ingsw.Messages.GameMessages.PlayLeaderCardGameMessage;
+import it.polimi.ingsw.Messages.GameMessages.*;
 import it.polimi.ingsw.Table.Decks.Token.ActionToken;
 
 import java.io.PrintWriter;
@@ -164,6 +161,8 @@ public abstract class Message {
         String[] message = string.split(" ");
 
 
+
+        ///////<--FIXME-->
         /*
         /////////////////////////SISTEMAZIONE DEL GRANDE TRY CATCH DI IllegalArgumentException
         /////////////////////////che crei il messaggio che all'esecuzione invii il messagio di error typo
@@ -180,46 +179,14 @@ public abstract class Message {
             checkLength(message, 2);
             return new PlayLeaderCardGameMessage(atoi(message[1]));
         } else if (message[0].equals("CHOOSE_NO_ACTION_LEADER_CARD")) {
-            try {
-                game.getTurn().chooseNoActionLeaderCard();
-                out.println("CONFIRMED_ACTION");
-                System.out.println("CHOOSE_NO_ACTION_LEADER_CARD");
-            } catch (GameEndedException e) {
-                out.println("ERROR_GAME_ENDED");
-            } catch (ActionNotAllowedException e) {
-                out.println("ERROR_INVALID_ACTION");
-            }
+            checkLength(message, 1);
+            return new ChooseNoActionLeaderCardGameMessage();
         } else if (message[0].equals("SELECT_NORMAL_ACTION")) {
-            try {
-                checkLength(message, 2);
-                game.getTurn().selectNormalAction(NormalAction.valueOf(message[1]));
-                out.println("CONFIRMED_ACTION");
-                System.out.println("SELECT_NORMAL_ACTION");
-            } catch (ActionNotAllowedException e) {
-                out.println("ERROR_INVALID_ACTION");
-            } catch (IllegalArgumentException e) {
-                out.println("ERROR_TYPO");
-            }
+            checkLength(message, 2);
+            return new SelectNormalActionGameMessage(NormalAction.valueOf(message[1]));
         } else if (message[0].equals("TAKE_RESOURCES_FROM_THE_MARKET")) {
-            try {
-                checkLength(message, 3);
-                game.getTurn().takeResourcesFromTheMarket(RowColumn.valueOf(message[1]), atoi(message[2]));
-                out.println("CONFIRMED_ACTION");
-                System.out.println("TAKE_RESOURCES_FROM_THE_MARKET");
-                int size = game.getTurn().getCurrentPlayer().getMarblesFromTheMarket().size();
-                for (int i = 0; i < size; i++) {
-                    out.println(game.getTurn().getCurrentPlayer().getMarblesFromTheMarket().get(i));
-                }
-                forward("UPDATE_MARKET " + message[1] + " " + message[2], out);
-            } catch (ActionNotAllowedException e) {
-                out.println("ERROR_INVALID_ACTION");
-            } catch (PositionInvalidException e) {
-                out.println("ERROR_INVALID_POSITION");
-            } catch (IllegalArgumentException e) {
-                out.println("ERROR_TYPO");
-            } catch (NullEnumException e) {
-                out.println("ERROR_INVALID_ENUM");
-            }
+            checkLength(message, 3);
+            return new TakeResourcesFromTheMarketGameMessage(RowColumn.valueOf(message[1]), atoi(message[2]));
         } else if (message[0].equals("ADD_RESOURCE_TO")) {
             try {
                 boolean weAre = false;
@@ -233,37 +200,11 @@ public abstract class Message {
                 }
                 if(message[1].equals("DISCARD")){
                     checkLength(message, 2);
-                    game.getTurn().addResource(LeaderWarehouse.DISCARD, 0);
-                    out.println("CONFIRMED_ACTION");
-                    System.out.println("ADD_RESOURCE_TO");
-                    forward("ADVANCE_FAITH_TRACK", out);
+                    return new AddResourceToGameMessage(LeaderWarehouse.DISCARD, 0);
                 } else {
                     checkLength(message, 3);
-                    game.getTurn().addResource(LeaderWarehouse.valueOf(message[1]), atoi(message[2]));
-                    out.println("CONFIRMED_ACTION");
-                    System.out.println("ADD_RESOURCE_TO");
+                    return new AddResourceToGameMessage(LeaderWarehouse.valueOf(message[1]), atoi(message[2]));
                 }
-            } catch (NoResourceToAddException e) {
-                out.println("ERROR_NO_RESOURCE_A");
-            } catch (DifferentStorageException e) {
-                out.println("ERROR_DIFFERENT_STORAGE_TYPE");
-            } catch (OccupiedSlotExtraStorageLeaderCardException e) {
-                out.println("ERROR_OCCUPIED_SLOT_LC");
-            } catch (PositionAlreadyOccupiedException e) {
-                out.println("ERROR_OCCUPIED_SLOT_WD");
-            } catch (ResourceAlreadyPlacedException e) {
-                out.println("ERROR_RESOURCE_ALREADY_PRESENT_OTHER_SHELF");
-            } catch (DifferentResourceInThisShelfException e) {
-                out.println("ERROR_DIFFERENT_RESOURCE_ALREADY_PRESENT");
-            } catch (UnexpectedWhiteMarbleException e) {
-                out.println("ERROR_WHITE_MARBLE");
-            } catch (UnexpectedFaithMarbleException e) {
-                out.println("ERROR_FAITH_MARBLE");
-            } catch (ActionNotAllowedException e) {
-                out.println("ERROR_INVALID_ACTION");
-            } catch (IllegalArgumentException e) {
-                out.println("ERROR_TYPO");
-            }
         } else if (message[0].equals("CHANGE_WHITE_MARBLE_WITH")) {
             try {
                 checkLength(message, 2);
