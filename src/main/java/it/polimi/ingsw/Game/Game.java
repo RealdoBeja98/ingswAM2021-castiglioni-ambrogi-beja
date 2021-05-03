@@ -1,7 +1,7 @@
 package it.polimi.ingsw.Game;
 import it.polimi.ingsw.Exceptions.GameAlreadyStartedException;
+import it.polimi.ingsw.Exceptions.GameEndedException;
 import it.polimi.ingsw.Exceptions.NameAlreadyRegisteredException;
-import it.polimi.ingsw.Mains.ClientHandler;
 import it.polimi.ingsw.Table.Table;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -17,12 +17,10 @@ public class Game {
     private final Table table;
     private final ArrayList<Player> players;
     private final ArrayList<PrintWriter> printWriterList;
-    private final ArrayList<ClientHandler> handlerList;
     private Turn turn;
     private final int numberOfPlayer;
     private final int gameIndex;
     private boolean started;
-
 
     /**
      * Constructor method of this class
@@ -34,7 +32,6 @@ public class Game {
         table = new Table(gameIndex);
         players = new ArrayList<>();
         printWriterList = new ArrayList<>();
-        handlerList = new ArrayList<>();
         games.add(this);
         started = false;
     }
@@ -61,7 +58,7 @@ public class Game {
      * @throws GameAlreadyStartedException if the game is already started
      */
     public void addPlayer(String name, PrintWriter printWriter) throws NameAlreadyRegisteredException, GameAlreadyStartedException {
-        if(players.size() == numberOfPlayer){
+        if(started){
             throw new GameAlreadyStartedException();
         }
         if(checkInListForNickname(name)){
@@ -85,22 +82,6 @@ public class Game {
      */
     public void addPlayer(String name) throws NameAlreadyRegisteredException, GameAlreadyStartedException {
         addPlayer(name, null);
-    }
-
-    /**
-     * This method add the communication channel "out" of the recently added player to a list
-     * @param printWriter: the channel to talk with the players
-     */
-    public void addSocket(PrintWriter printWriter){
-        printWriterList.add(printWriter);
-    }
-
-    /**
-     * This method add the client handler of the recently added player to a list
-     * @param handler: the handler to manage the players
-     */
-    public void addHandler(ClientHandler handler){
-        handlerList.add(handler);
     }
 
     /**
@@ -191,6 +172,73 @@ public class Game {
 
     public boolean getStarted(){
         return started;
+    }
+
+    public void removePlayer(String nickname) throws GameEndedException {
+        for(int i = 0; i < players.size(); i++){
+            if(!started){
+                if(players.get(i).getNickname().equals(nickname)){
+                    players.remove(i);
+                    printWriterList.remove(i);
+                    return;
+                }
+            }
+            else{
+                if((players.size() -1) < 2){
+                    if(players.get(i).getNickname().equals(nickname)){
+                        if(players.get(i).getNickname().equals(Game.get(gameIndex).getTurn().getCurrentPlayer().getNickname())){
+                            Game.get(gameIndex).getTurn().endTurn();
+                        }
+                        if(players.get(i).isInkwell()){
+                            players.get(i+1).setInkwell();
+                        }
+                        players.remove(i);
+                        printWriterList.remove(i);
+                        return;
+                    }
+                    endGame();
+                }else{
+                    if(players.get(i).getNickname().equals(nickname)){
+                        if(players.get(i).getNickname().equals(Game.get(gameIndex).getTurn().getCurrentPlayer().getNickname())){
+                            Game.get(gameIndex).getTurn().endTurn();
+                        }
+                        if(players.get(i).isInkwell()){
+                            players.get(i+1).setInkwell();
+                        }
+                        players.remove(i);
+                        printWriterList.remove(i);
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
+    public void notifyScore(){
+        int[] points = new int[players.size()];
+        for(int i = 0; i < players.size(); i++){
+            points[i] = players.get(i).calculateVictoryPoints();
+        }
+        for(int y = 0; y < printWriterList.size(); y++){
+            for(int z = 0; z < players.size(); z++){
+                printWriterList.get(y).println(players.get(z).getNickname() + " scored: " + String.valueOf(points[z]) + " points");
+            }
+        }
+        int max = points[0];
+        int winner = 0;
+        for(int f = 1; f < points.length; f++){
+            if(max < points[f]){
+                max = points[f];
+                winner = f;
+            }
+        }
+        for(int o = 0; o < printWriterList.size(); o++){
+            printWriterList.get(o).println("The winner is: " + players.get(winner).getNickname());
+        }
+    }
+
+    public int getNumberOfPlayer() {
+        return numberOfPlayer;
     }
 
 }

@@ -1,7 +1,6 @@
 package it.polimi.ingsw.Game;
 import it.polimi.ingsw.Enums.*;
 import it.polimi.ingsw.Exceptions.*;
-import it.polimi.ingsw.Mains.ClientHandler;
 import it.polimi.ingsw.Table.Decks.*;
 import it.polimi.ingsw.PersonalBoard.PersonalBoard;
 import it.polimi.ingsw.Table.Decks.Development.DevelopmentCard;
@@ -504,9 +503,22 @@ public class Player {//<--FIXME check javadoc from here-->
             marblesFromTheMarket.get(0).putResource(personalBoard.getWarehouseDepots(), pos);
         }
         if(where == LeaderWarehouse.DISCARD){
-            personalBoard.getFaithTrack().allOtherPlayersGoOn(this);
+            throw new IllegalArgumentException();
         }
         marblesFromTheMarket.remove(0);
+    }
+
+    public void addResource(LeaderWarehouse where){
+        if(where != LeaderWarehouse.DISCARD){
+            throw new IllegalArgumentException();
+        }
+        else if(Game.get(gameIndex).getNumberOfPlayer() != 1 && Game.get(gameIndex).getPlayers().size() == 1){
+            marblesFromTheMarket.remove(0);
+        }
+        else{
+            personalBoard.getFaithTrack().allOtherPlayersGoOn(this);
+            marblesFromTheMarket.remove(0);
+        }
     }
 
     /**

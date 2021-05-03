@@ -62,6 +62,10 @@ public class ClientMain {
                             else if (serverMessage.equals("wakeup")) {
                                 out.println("wakeup");
                             }
+                            else if(serverMessage.equals("GAME_ENDED")){
+                                out.println("GAME_ENDED");
+                                break;
+                            }
                             else{
                                 System.out.println(serverMessage);
                             }
