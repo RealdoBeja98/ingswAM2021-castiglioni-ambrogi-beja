@@ -4,11 +4,11 @@ import it.polimi.ingsw.Enums.LeaderWarehouse;
 import it.polimi.ingsw.Enums.NormalAction;
 import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Enums.RowColumn;
-import it.polimi.ingsw.Exceptions.*;
 import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Messages.ErrorMessages.*;
+import it.polimi.ingsw.Messages.ForwardMessages.AdvanceFaithTrackForwardMessage;
+import it.polimi.ingsw.Messages.ForwardMessages.UpdateMarketForwardMessage;
 import it.polimi.ingsw.Messages.GameMessages.*;
-import it.polimi.ingsw.Table.Decks.Token.ActionToken;
 
 import java.io.PrintWriter;
 
@@ -32,7 +32,6 @@ public abstract class Message {
     }
 
     public static Message fromString(String string){
-
 
         if(string.equals("ERROR_NO_CARDS_DISCARD")){
             return new NoCardDiscardErrorMessage();
@@ -156,39 +155,40 @@ public abstract class Message {
             return new ConfirmedActionMessage();
         }
 
-
+        if(string.equals("ADVANCE_FAITH_TRACK")){
+            return new AdvanceFaithTrackForwardMessage();
+        }
 
         String[] message = string.split(" ");
 
+        try {
+            if (message[0].equals("UPDATE_MARKET")) {
+                checkLength(message, 3);
+                return new UpdateMarketForwardMessage(RowColumn.valueOf(message[1]), atoi(message[2]));
+            } else
 
-
-        ///////<--FIXME-->
-        /*
-        /////////////////////////SISTEMAZIONE DEL GRANDE TRY CATCH DI IllegalArgumentException
-        /////////////////////////che crei il messaggio che all'esecuzione invii il messagio di error typo
-        if (message[0].equals("CHOOSE_DISCARD_LEADER_CARD")) {
-            checkLength(message, 1);
-            return new ChooseDiscardLeaderCardGameMessage();
-        } else if (message[0].equals("DISCARD_LEADER_CARD")) {
-            checkLength(message, 2);
-            return new DiscardLeaderCardGameMessage(atoi(message[1]));
-        } else if (message[0].equals("CHOOSE_PLAY_LEADER_CARD")) {
-            checkLength(message, 1);
-            return new ChoosePlayLeaderCardGameMessage();
-        } else if (message[0].equals("PLAY_LEADER_CARD")) {
-            checkLength(message, 2);
-            return new PlayLeaderCardGameMessage(atoi(message[1]));
-        } else if (message[0].equals("CHOOSE_NO_ACTION_LEADER_CARD")) {
-            checkLength(message, 1);
-            return new ChooseNoActionLeaderCardGameMessage();
-        } else if (message[0].equals("SELECT_NORMAL_ACTION")) {
-            checkLength(message, 2);
-            return new SelectNormalActionGameMessage(NormalAction.valueOf(message[1]));
-        } else if (message[0].equals("TAKE_RESOURCES_FROM_THE_MARKET")) {
-            checkLength(message, 3);
-            return new TakeResourcesFromTheMarketGameMessage(RowColumn.valueOf(message[1]), atoi(message[2]));
-        } else if (message[0].equals("ADD_RESOURCE_TO")) {
-            try {
+            if (message[0].equals("CHOOSE_DISCARD_LEADER_CARD")) {
+                checkLength(message, 1);
+                return new ChooseDiscardLeaderCardGameMessage();
+            } else if (message[0].equals("DISCARD_LEADER_CARD")) {
+                checkLength(message, 2);
+                return new DiscardLeaderCardGameMessage(atoi(message[1]));
+            } else if (message[0].equals("CHOOSE_PLAY_LEADER_CARD")) {
+                checkLength(message, 1);
+                return new ChoosePlayLeaderCardGameMessage();
+            } else if (message[0].equals("PLAY_LEADER_CARD")) {
+                checkLength(message, 2);
+                return new PlayLeaderCardGameMessage(atoi(message[1]));
+            } else if (message[0].equals("CHOOSE_NO_ACTION_LEADER_CARD")) {
+                checkLength(message, 1);
+                return new ChooseNoActionLeaderCardGameMessage();
+            } else if (message[0].equals("SELECT_NORMAL_ACTION")) {
+                checkLength(message, 2);
+                return new SelectNormalActionGameMessage(NormalAction.valueOf(message[1]));
+            } else if (message[0].equals("TAKE_RESOURCES_FROM_THE_MARKET")) {
+                checkLength(message, 3);
+                return new TakeResourcesFromTheMarketGameMessage(RowColumn.valueOf(message[1]), atoi(message[2]));
+            } else if (message[0].equals("ADD_RESOURCE_TO")) {
                 boolean weAre = false;
                 try {
                     checkLength(message, 1);
@@ -205,270 +205,60 @@ public abstract class Message {
                     checkLength(message, 3);
                     return new AddResourceToGameMessage(LeaderWarehouse.valueOf(message[1]), atoi(message[2]));
                 }
-        } else if (message[0].equals("CHANGE_WHITE_MARBLE_WITH")) {
-            try {
+            } else if (message[0].equals("CHANGE_WHITE_MARBLE_WITH")) {
                 checkLength(message, 2);
-                game.getTurn().changeWhiteMarbleWith(atoi(message[1]));
-                out.println("CONFIRMED_ACTION");
-                System.out.println("CHANGE_WHITE_MARBLE_WITH");
-            } catch (NoWhiteMarbleException e) {
-                out.println("ERROR_NO_WHITE_MARBLE");
-            } catch (ActionNotAllowedException e) {
-                out.println("ERROR_INVALID_ACTION");
-            } catch (PositionInvalidException e) {
-                out.println("ERROR_INVALID_POSITION");
-            } catch (IllegalArgumentException e) {
-                out.println("ERROR_TYPO");
-            } catch (NoWhiteMarbleLeaderCardException e) {
-                out.println("ERROR_NO_WHITE_MARBLE");
-            }
-        } else if (message[0].equals("BUY_DEVELOPMENT_CARD")) {
-            try {
+                return new ChangeWhiteMarbleWithGameMessage(atoi(message[1]));
+            } else if (message[0].equals("BUY_DEVELOPMENT_CARD")) {
                 checkLength(message, 3);
-                game.getTurn().buyADevelopmentCard(atoi(message[1]), atoi(message[2]));
-                out.println("CONFIRMED_ACTION");
-                System.out.println("BUY_DEVELOPMENT_CARD");
-                forward("UPDATE_DEVELOPMENT_CARD "+message[1]+" "+message[2], out);
-            } catch (ActionNotAllowedException e) {
-                out.println("ERROR_INVALID_ACTION");
-            } catch (SelectedADevelopmentCardYetException e) {
-                out.println("ERROR_ALREADY_SELECTED_SOMETHING");
-            } catch (NotAbleToBuyThisDevelopmentCardException e) {
-                out.println("ERROR_NOT_ENOUGH_RESOURCES");
-            } catch (DrawnFromEmptyDeckException e) {
-                out.println("ERROR_EMPTY_DECK");
-            } catch (PositionInvalidException e) {
-                out.println("ERROR_INVALID_POSITION");
-            } catch (NotAbleToPlaceThisDevelopmentCardException e) {
-                out.println("ERROR_INVALID_SELECTION");
-            } catch (IllegalArgumentException e) {
-                out.println("ERROR_TYPO");
-            }
-        } else if (message[0].equals("PAY_WITH_STRONGBOX")) {
-            try {
+                return new BuyDevelopmentCardGameMessage(atoi(message[1]), atoi(message[2]));
+            } else if (message[0].equals("PAY_WITH_STRONGBOX")) {
                 checkLength(message, 2);
-                game.getTurn().payWithStrongBox(Resource.valueOf(message[1]));
-                out.println("CONFIRMED_ACTION");
-                System.out.println("PAY_WITH_STRONGBOX");
-            } catch (WrongPaymentException e) {
-                out.println("ERROR_WRONG_RESOURCE");
-            } catch (NegativeResourceException e) {
-                out.println("ERROR_MISSING_RESOURCE");
-            } catch (NotAResourceForStrongBoxException e) {
-                out.println("ERROR_NOT_STRONGBOX");
-            } catch (NoResourceToPayException e) {
-                out.println("ERROR_NO_RESOURCE_P");
-            } catch (ActionNotAllowedException e) {
-                out.println("ERROR_INVALID_ACTION");
-            } catch (GameEndedException e) {
-                out.println("ERROR_GAME_ENDED");
-            } catch (IllegalArgumentException e) {
-                out.println("ERROR_TYPO");
-            }
-        } else if (message[0].equals("PAY_WITH_WAREHOUSE_DEPOTS")) {
-            try {
+                return new PayWithStrongboxGameMessage(Resource.valueOf(message[1]));
+            } else if (message[0].equals("PAY_WITH_WAREHOUSE_DEPOTS")) {
                 checkLength(message, 2);
-                game.getTurn().payWithWarehouseDepots(atoi(message[1]));
-                out.println("CONFIRMED_ACTION");
-                System.out.println("PAY_WITH_WAREHOUSE_DEPOTS");
-            } catch (WrongPaymentException e) {
-                out.println("ERROR_WRONG_RESOURCE");
-            } catch (EmptySlotYetException e) {
-                out.println("ERROR_ALREADY_EMPTY");
-            } catch (NoResourceToPayException e) {
-                out.println("ERROR_NO_RESOURCE_P");
-            } catch (ActionNotAllowedException e) {
-                out.println("ERROR_INVALID_ACTION");
-            } catch (GameEndedException e) {
-                out.println("ERROR_GAME_ENDED");
-            } catch (IllegalArgumentException e) {
-                out.println("ERROR_TYPO");
-            }
-        } else if (message[0].equals("PAY_WITH_EXTRA_STORAGE_LEADER_CARD")) {
-            try {
+                return new PayWithWarehouseDepotsGameMessage(atoi(message[1]));
+            } else if (message[0].equals("PAY_WITH_EXTRA_STORAGE_LEADER_CARD")) {
                 checkLength(message, 2);
-                game.getTurn().payWithExtraStorageLeaderCard(atoi(message[1]));
-                out.println("CONFIRMED_ACTION");
-                System.out.println("PAY_WITH_EXTRA_STORAGE_LEADER_CARD");
-            } catch (NotAnExtraStorageLeaderCardException e) {
-                out.println("ERROR_NOT_ES");
-            } catch (WrongPaymentException e) {
-                out.println("ERROR_WRONG_RESOURCE");
-            } catch (EmptySlotExtraStorageLeaderCardException e) {
-                out.println("ERROR_EMPTY_SLOT_ES");
-            } catch (NoResourceToPayException e) {
-                out.println("ERROR_NO_RESOURCE_P");
-            } catch (ActionNotAllowedException e) {
-                out.println("ERROR_INVALID_ACTION");
-            } catch (PositionInvalidException e) {
-                out.println("ERROR_INVALID_POSITION");
-            } catch (GameEndedException e) {
-                out.println("ERROR_GAME_ENDED");
-            } catch (IllegalArgumentException e) {
-                out.println("ERROR_TYPO");
-            }
-        } else if (message[0].equals("PLACE_DEVELOPMENT_CARD")) {
-            try {
+                return new PayWithExtraStorageLeaderCardGameMessage(atoi(message[1]));
+            } else if (message[0].equals("PLACE_DEVELOPMENT_CARD")) {
                 checkLength(message, 2);
-                game.getTurn().placeDevelopmentCard(atoi(message[1]));
-                out.println("CONFIRMED_ACTION");
-                System.out.println("PLACE_DEVELOPMENT_CARD");
-            } catch (NoDevelopmentCardToObtainException e) {
-                out.println("ERROR_NO_CARD_OBTAINABLE");
-            } catch (PositionInvalidException e) {
-                out.println("ERROR_INVALID_POSITION");
-            } catch (GameEndedException e) {
-                out.println("ERROR_GAME_ENDED");
-            } catch (ActionNotAllowedException e) {
-                out.println("ERROR_INVALID_ACTION");
-            } catch (IllegalArgumentException e) {
-                out.println("ERROR_TYPO");
-            }
-        } else if (message[0].equals("SELECT_PRODUCTION_DEVELOPMENT_CARD")) {
-            try {
+                return new PlaceDevelopmentCardGameMessage(atoi(message[1]));
+            } else if (message[0].equals("SELECT_PRODUCTION_DEVELOPMENT_CARD")) {
                 checkLength(message, 2);
-                game.getTurn().selectProductionDevelopmentCard(atoi(message[1]));
-                out.println("CONFIRMED_ACTION");
-                System.out.println("SELECT_PRODUCTION_DEVELOPMENT_CARD");
-            } catch (ActionNotAllowedException e) {
-                out.println("ERROR_INVALID_ACTION");
-            } catch (PositionInvalidException e) {
-                out.println("ERROR_INVALID_POSITION");
-            } catch (IllegalArgumentException e) {
-                out.println("ERROR_TYPO");
-            } catch (NoDevelopmentCardInThisPositionException e) {
-                out.println("ERROR_NO_DEVELOPMENT_CARD");
-            }
-        } else if (message[0].equals("SELECT_PRODUCTION_POWER_LEADER_CARD")) {
-            try {
+                return new SelectProductionDevelopmentCardGameMessage(atoi(message[1]));
+            } else if (message[0].equals("SELECT_PRODUCTION_POWER_LEADER_CARD")) {
                 checkLength(message, 2);
-                game.getTurn().selectProductionPowerLeaderCard(atoi(message[1]));
-                out.println("CONFIRMED_ACTION");
-                System.out.println("SELECT_PRODUCTION_POWER_LEADER_CARD");
-            } catch (NoProductionLeaderCardException e) {
-                out.println("ERROR_NO_PLC");
-            } catch (ActionNotAllowedException e) {
-                out.println("ERROR_INVALID_ACTION");
-            } catch (PositionInvalidException e) {
-                out.println("ERROR_INVALID_POSITION");
-            } catch (IllegalArgumentException e) {
-                out.println("ERROR_TYPO");
-            }
-        } else if (message[0].equals("SELECT_DEFAULT_PRODUCTION_POWER")) {
-            try {
-                game.getTurn().selectDefaultProductionPower();
-                out.println("CONFIRMED_ACTION");
-                System.out.println("SELECT_DEFAULT_PRODUCTION_POWER");
-            } catch (ActionNotAllowedException e) {
-                out.println("ERROR_INVALID_ACTION");
-            }
-        } else if (message[0].equals("OBTAIN_GENERIC_RESOURCE")) {
-            try {
+                return new SelectProductionPowerLeaderCardGameMessage(atoi(message[1]));
+            } else if (message[0].equals("SELECT_DEFAULT_PRODUCTION_POWER")) {
+                checkLength(message, 1);
+                return new SelectDefaultProductionPowerGameMessage();
+            } else if (message[0].equals("OBTAIN_GENERIC_RESOURCE")) {
                 checkLength(message, 2);
-                game.getTurn().obtainGenericResource(Resource.valueOf(message[1]));
-                out.println("CONFIRMED_ACTION");
-                System.out.println("OBTAIN_GENERIC_RESOURCE");
-            } catch (NoGenericResourceToObtainException e) {
-                out.println("ERROR_GENERIC_RESOURCE");
-            } catch (NotAResourceForStrongBoxException e) {
-                out.println("ERROR_NOT_STRONGBOX");
-            } catch (GameEndedException e) {
-                out.println("ERROR_GAME_ENDED");
-            } catch (IllegalArgumentException e) {
-                out.println("ERROR_TYPO");
-            }
-        } else if (message[0].equals("START_PAYMENT")) {
-            try {
-                game.getTurn().startPayment();
-                out.println("CONFIRMED_ACTION");
-                System.out.println("START_PAYMENT");
-            } catch (NotEnoughResourcesException e) {
-                out.println("ERROR_NOT_ENOUGH_R");
-            } catch (YouHaveNotSelectedAnyProductionException e) {
-                out.println("ERROR_NO_SELECTED_POWERS");
-            } catch (ActionNotAllowedException e) {
-                out.println("ERROR_INVALID_ACTION");
-            } catch (GameEndedException e) {
-                out.println("ERROR_GAME_ENDED");
-            }
-        } else if (message[0].equals("DRAW_SOLO_ACTION_TOKEN")) {
-            try {
-                ActionToken actionToken = game.getTurn().drawSoloActionToken();
-                out.println("UPDATE_SOLO_ACTION_TOKEN "+actionToken);
-                System.out.println("DRAW_SOLO_ACTION_TOKEN");
-            } catch (ActionNotAllowedException e) {
-                out.println("ERROR_INVALID_ACTION");
-            }
-        } else if (message[0].equals("SELECT_A_WAREHOUSE_DEPOTS_SLOT")) {
-            try {
+                return new ObtainGenericResourceGameMessage(Resource.valueOf(message[1]));
+            } else if (message[0].equals("START_PAYMENT")) {
+                checkLength(message, 1);
+                return new StartPaymentGameMessage();
+            } else if (message[0].equals("DRAW_SOLO_ACTION_TOKEN")) {
+                checkLength(message, 1);
+                return new DrawSoloActionTokenGameMessage();
+            } else if (message[0].equals("SELECT_A_WAREHOUSE_DEPOTS_SLOT")) {
                 checkLength(message, 2);
-                game.getTurn().selectAWarehouseDepotsSlot(atoi(message[1]));
-                out.println("CONFIRMED_ACTION");
-                System.out.println("SELECT_A_WAREHOUSE_DEPOTS_SLOT");
-            } catch (PositionInvalidException e) {
-                out.println("ERROR_INVALID_POSITION");
-            } catch (IllegalArgumentException e) {
-                out.println("ERROR_TYPO");
-            }
-        } else if (message[0].equals("MOVE_RESOURCES_IN_WAREHOUSE_DEPOTS")) {
-            try {
+                return new SelectAWarehouseDepotsSlotGameMessage(atoi(message[1]));
+            } else if (message[0].equals("MOVE_RESOURCES_IN_WAREHOUSE_DEPOTS")) {
                 checkLength(message, 2);
-                game.getTurn().moveResourcesInWarehouseDepots(atoi(message[1]));
-                out.println("CONFIRMED_ACTION");
-                System.out.println("MOVE_RESOURCES_IN_WAREHOUSE_DEPOTS");
-            } catch (NotAdmittedMovementException e) {
-                out.println("ERROR_INVALID_MOVEMENT");
-            } catch (IllegalArgumentException e) {
-                out.println("ERROR_TYPO");
-            }
-        } else if (message[0].equals("MOVE_RESOURCES_WAREHOUSE_TO_ES_LC")) {
-            try {
+                return new MoveResourcesInWarehouseDepotsGameMessage(atoi(message[1]));
+            } else if (message[0].equals("MOVE_RESOURCES_WAREHOUSE_TO_ES_LC")) {
                 checkLength(message, 2);
-                game.getTurn().moveResourcesFromWarehouseDepotsToExtraStorageLeaderCard(atoi(message[1]));
-                out.println("CONFIRMED_ACTION");
-                System.out.println("MOVE_RESOURCES_WAREHOUSE_TO_ES_LC");
-            } catch (PositionInvalidException e) {
-                out.println("ERROR_INVALID_POSITION");
-            } catch (NotAnExtraStorageLeaderCardException e) {
-                out.println("ERROR_NOT_ES");
-            } catch (EmptySlotYetException e) {
-                out.println("ERROR_ALREADY_EMPTY");
-            } catch (OccupiedSlotExtraStorageLeaderCardException e) {
-                out.println("ERROR_OCCUPIED_SLOT_LC");
-            } catch (DifferentStorageException e) {
-                out.println("ERROR_DIFFERENT_STORAGE_TYPE");
-            } catch (IllegalArgumentException e) {
-                out.println("ERROR_TYPO");
-            }
-        } else if (message[0].equals("MOVE_RESOURCE_ES_LC_TO_WAREHOUSE")) {
-            try {
+                return new MoveResourcesInWarehouseDepotsGameMessage(atoi(message[1]));
+            } else if (message[0].equals("MOVE_RESOURCE_ES_LC_TO_WAREHOUSE")) {
                 checkLength(message, 2);
-                game.getTurn().moveResourcesToWarehouseDepotsFromExtraStorageLeaderCard(atoi(message[1]));
-                out.println("CONFIRMED_ACTION");
-                System.out.println("MOVE_RESOURCE_ES_LC_TO_WAREHOUSE");
-            } catch (PositionInvalidException e) {
-                out.println("ERROR_INVALID_POSITION");
-            } catch (NotAnExtraStorageLeaderCardException e) {
-                out.println("ERROR_NOT_ES");
-            } catch (PositionAlreadyOccupiedException e) {
-                out.println("ERROR_OCCUPIED_SLOT_WD");
-            } catch (ResourceAlreadyPlacedException e) {
-                out.println("ERROR_RESOURCE_ALREADY_PRESENT_OTHER_SHELF");
-            } catch (DifferentResourceInThisShelfException e) {
-                out.println("ERROR_DIFFERENT_RESOURCE_ALREADY_PRESENT");
-            } catch (EmptySlotExtraStorageLeaderCardException e) {
-                out.println("ERROR_EMPTY_SLOT_ES");
-            } catch (IllegalArgumentException e) {
-                out.println("ERROR_TYPO");
+                return new MoveResourceESLCToEarehouseGameMessage(atoi(message[1]));
             }
-        } else {
-            out.println("ERROR_TYPO");
+        } catch (IllegalArgumentException e){
+            return new ToErrorTypoGameMessage();
         }
-        */
 
-
-
-        return null;
+        return new ToErrorTypoGameMessage();
     }
 
 }

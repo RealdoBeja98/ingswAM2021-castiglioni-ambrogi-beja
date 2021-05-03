@@ -8,7 +8,7 @@ public abstract class ErrorMessage extends Message{
 
     @Override
     public void execute(Game game, PrintWriter out) {
-        throw new RuntimeException();
+        System.out.println(this);
     }
 
 }

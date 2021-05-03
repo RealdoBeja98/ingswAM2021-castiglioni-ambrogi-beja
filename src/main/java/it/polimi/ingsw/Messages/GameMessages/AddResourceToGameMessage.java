@@ -26,7 +26,7 @@ public class AddResourceToGameMessage extends GameMessage {
             if(leaderWarehouse == LeaderWarehouse.DISCARD){
                 out.println(new ConfirmedActionMessage());
                 System.out.println(this);
-                //forward("ADVANCE_FAITH_TRACK", out);<--FIXME forward message-->
+                forward(game, "ADVANCE_FAITH_TRACK", out);
             } else {
                 out.println(new ConfirmedActionMessage());
                 System.out.println(this);

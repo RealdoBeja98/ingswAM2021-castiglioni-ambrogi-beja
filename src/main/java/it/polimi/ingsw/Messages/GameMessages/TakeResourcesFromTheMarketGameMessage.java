@@ -1,6 +1,5 @@
 package it.polimi.ingsw.Messages.GameMessages;
 
-import com.sun.rowset.internal.Row;
 import it.polimi.ingsw.Enums.RowColumn;
 import it.polimi.ingsw.Exceptions.ActionNotAllowedException;
 import it.polimi.ingsw.Exceptions.NullEnumException;
@@ -34,7 +33,7 @@ public class TakeResourcesFromTheMarketGameMessage extends GameMessage {
             for (int i = 0; i < size; i++) {
                 out.println(game.getTurn().getCurrentPlayer().getMarblesFromTheMarket().get(i));
             }
-            //forward("UPDATE_MARKET " + rowColumn + " " + String.valueOf(place), out);<--FIXME forward message-->
+            forward(game, "UPDATE_MARKET " + rowColumn + " " + place, out);
         } catch (ActionNotAllowedException e) {
             out.println(new InvalidActionErrorMessage());
         } catch (PositionInvalidException e) {
