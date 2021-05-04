@@ -4,9 +4,13 @@ import it.polimi.ingsw.Messages.ErrorMessage;
 
 public class DifferentStorageTypeErrorMessage extends ErrorMessage {
 
+    public DifferentStorageTypeErrorMessage(){
+        identifier = "ERROR_DIFFERENT_STORAGE_TYPE";
+    }
+
     @Override
     public String toString(){
-        return "ERROR_DIFFERENT_STORAGE_TYPE";
+        return "Error: you've selected a different storage type!";
     }
 
 }

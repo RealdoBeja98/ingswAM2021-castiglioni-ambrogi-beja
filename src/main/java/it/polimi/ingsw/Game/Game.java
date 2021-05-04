@@ -190,7 +190,11 @@ public class Game {
                             Game.get(gameIndex).getTurn().endTurn();
                         }
                         if(players.get(i).isInkwell()){
-                            players.get(i+1).setInkwell();
+                            if(i+1 >= players.size()){
+                                players.get(0).setInkwell();
+                            } else {
+                                players.get(i+1).setInkwell();
+                            }
                         }
                         players.remove(i);
                         printWriterList.remove(i);
@@ -203,7 +207,11 @@ public class Game {
                             Game.get(gameIndex).getTurn().endTurn();
                         }
                         if(players.get(i).isInkwell()){
-                            players.get(i+1).setInkwell();
+                            if(i+1 >= players.size()){
+                                players.get(0).setInkwell();
+                            } else {
+                                players.get(i+1).setInkwell();
+                            }
                         }
                         players.remove(i);
                         printWriterList.remove(i);

@@ -6,14 +6,13 @@ import java.io.PrintWriter;
 
 public class ConfirmedActionMessage extends Message{
 
-    @Override
-    public void execute(Game game, PrintWriter out) {
-        System.out.println(this);
+    public ConfirmedActionMessage(){
+        identifier = "CONFIRMED_ACTION";
     }
 
     @Override
-    public String toString(){
-        return "CONFIRMED_ACTION";
+    public void execute(Game game, PrintWriter out) {
+        System.out.println(this);
     }
 
 }

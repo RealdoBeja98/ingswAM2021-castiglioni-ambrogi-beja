@@ -5,6 +5,7 @@ import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Messages.ConfirmedActionMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.*;
 import it.polimi.ingsw.Messages.GameMessage;
+import it.polimi.ingsw.Messages.Message;
 
 import java.io.PrintWriter;
 
@@ -13,6 +14,7 @@ public class MoveResourceESLCToEarehouseGameMessage extends GameMessage {
     private int leaderCardPosition;
 
     public MoveResourceESLCToEarehouseGameMessage(int leaderCardPosition){
+        identifier = "MOVE_RESOURCE_ES_LC_TO_WAREHOUSE";
         this.leaderCardPosition = leaderCardPosition;
     }
 
@@ -20,26 +22,21 @@ public class MoveResourceESLCToEarehouseGameMessage extends GameMessage {
     public void execute(Game game, PrintWriter out) {
         try {
             game.getTurn().moveResourcesToWarehouseDepotsFromExtraStorageLeaderCard(leaderCardPosition);
-            out.println(new ConfirmedActionMessage());
-            System.out.println(this);
+            Message.sendMessage(out, new ConfirmedActionMessage());
+            System.out.println(identifier);
         } catch (PositionInvalidException e) {
-            out.println(new InvalidPositionErrorMessage());
+            Message.sendMessage(out, new InvalidPositionErrorMessage());
         } catch (NotAnExtraStorageLeaderCardException e) {
-            out.println(new NotEsErrorMessage());
+            Message.sendMessage(out, new NotEsErrorMessage());
         } catch (PositionAlreadyOccupiedException e) {
-            out.println(new OccupiedSlotWDErrorMessage());
+            Message.sendMessage(out, new OccupiedSlotWDErrorMessage());
         } catch (ResourceAlreadyPlacedException e) {
-            out.println(new ResourceAlreadyPresentOtherShelfErrorMessage());
+            Message.sendMessage(out, new ResourceAlreadyPresentOtherShelfErrorMessage());
         } catch (DifferentResourceInThisShelfException e) {
-            out.println(new DifferentResourceAlreadyPresentErrorMessage());
+            Message.sendMessage(out, new DifferentResourceAlreadyPresentErrorMessage());
         } catch (EmptySlotExtraStorageLeaderCardException e) {
-            out.println(new EmptySlotEsErrorMessage());
+            Message.sendMessage(out, new EmptySlotEsErrorMessage());
         }
-    }
-
-    @Override
-    public String toString(){
-        return "MOVE_RESOURCE_ES_LC_TO_WAREHOUSE";
     }
 
 }

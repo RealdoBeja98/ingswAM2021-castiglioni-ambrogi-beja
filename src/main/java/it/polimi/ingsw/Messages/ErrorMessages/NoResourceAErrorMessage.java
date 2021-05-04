@@ -4,9 +4,13 @@ import it.polimi.ingsw.Messages.ErrorMessage;
 
 public class NoResourceAErrorMessage extends ErrorMessage {
 
+    public NoResourceAErrorMessage(){
+        identifier = "ERROR_NO_RESOURCE_A";
+    }
+
     @Override
     public String toString(){
-        return "ERROR_NO_RESOURCE_A";
+        return "Error: you haven't any resource to add!";
     }
 
 }

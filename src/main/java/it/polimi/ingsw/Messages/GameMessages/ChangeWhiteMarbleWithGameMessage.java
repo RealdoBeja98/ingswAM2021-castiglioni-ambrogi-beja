@@ -10,6 +10,7 @@ import it.polimi.ingsw.Messages.ErrorMessages.InvalidActionErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.InvalidPositionErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.NoWhiteMarbleErrorMessage;
 import it.polimi.ingsw.Messages.GameMessage;
+import it.polimi.ingsw.Messages.Message;
 
 import java.io.PrintWriter;
 
@@ -18,6 +19,7 @@ public class ChangeWhiteMarbleWithGameMessage extends GameMessage {
     private int leaderCardPosition;
 
     public ChangeWhiteMarbleWithGameMessage(int leaderCardPosition){
+        identifier = "CHANGE_WHITE_MARBLE_WITH";
         this.leaderCardPosition = leaderCardPosition;
     }
 
@@ -25,22 +27,17 @@ public class ChangeWhiteMarbleWithGameMessage extends GameMessage {
     public void execute(Game game, PrintWriter out) {
         try {
             game.getTurn().changeWhiteMarbleWith(leaderCardPosition);
-            out.println(new ConfirmedActionMessage());
-            System.out.println(this);
+            Message.sendMessage(out, new ConfirmedActionMessage());
+            System.out.println(identifier);
         } catch (NoWhiteMarbleException e) {
-            out.println(new NoWhiteMarbleErrorMessage());
+            Message.sendMessage(out, new NoWhiteMarbleErrorMessage());
         } catch (ActionNotAllowedException e) {
-            out.println(new InvalidActionErrorMessage());
+            Message.sendMessage(out, new InvalidActionErrorMessage());
         } catch (PositionInvalidException e) {
-            out.println(new InvalidPositionErrorMessage());
+            Message.sendMessage(out, new InvalidPositionErrorMessage());
         } catch (NoWhiteMarbleLeaderCardException e) {
-            out.println(new NoWhiteMarbleErrorMessage());
+            Message.sendMessage(out, new NoWhiteMarbleErrorMessage());
         }
-    }
-
-    @Override
-    public String toString(){
-        return "CHANGE_WHITE_MARBLE_WITH";
     }
 
 }

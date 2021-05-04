@@ -11,6 +11,7 @@ import it.polimi.ingsw.Messages.ErrorMessages.InvalidActionErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.InvalidPositionErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.NoCardObtainableErrorMessage;
 import it.polimi.ingsw.Messages.GameMessage;
+import it.polimi.ingsw.Messages.Message;
 
 import java.io.PrintWriter;
 
@@ -19,6 +20,7 @@ public class PlaceDevelopmentCardGameMessage extends GameMessage {
     private int position;
 
     public PlaceDevelopmentCardGameMessage(int position){
+        identifier = "PLACE_DEVELOPMENT_CARD";
         this.position = position;
     }
 
@@ -26,22 +28,17 @@ public class PlaceDevelopmentCardGameMessage extends GameMessage {
     public void execute(Game game, PrintWriter out) {
         try {
             game.getTurn().placeDevelopmentCard(position);
-            out.println(new ConfirmedActionMessage());
-            System.out.println(this);
+            Message.sendMessage(out, new ConfirmedActionMessage());
+            System.out.println(identifier);
         } catch (NoDevelopmentCardToObtainException e) {
-            out.println(new NoCardObtainableErrorMessage());
+            Message.sendMessage(out, new NoCardObtainableErrorMessage());
         } catch (PositionInvalidException e) {
-            out.println(new InvalidPositionErrorMessage());
+            Message.sendMessage(out, new InvalidPositionErrorMessage());
         } catch (GameEndedException e) {
-            out.println(new GameEndedErrorMessage());
+            Message.sendMessage(out, new GameEndedErrorMessage());
         } catch (ActionNotAllowedException e) {
-            out.println(new InvalidActionErrorMessage());
+            Message.sendMessage(out, new InvalidActionErrorMessage());
         }
-    }
-
-    @Override
-    public String toString(){
-        return "PLACE_DEVELOPMENT_CARD";
     }
 
 }

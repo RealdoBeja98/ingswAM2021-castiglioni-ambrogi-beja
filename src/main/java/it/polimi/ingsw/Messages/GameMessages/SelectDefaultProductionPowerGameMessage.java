@@ -5,25 +5,25 @@ import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Messages.ConfirmedActionMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.InvalidActionErrorMessage;
 import it.polimi.ingsw.Messages.GameMessage;
+import it.polimi.ingsw.Messages.Message;
 
 import java.io.PrintWriter;
 
 public class SelectDefaultProductionPowerGameMessage extends GameMessage {
 
+    public SelectDefaultProductionPowerGameMessage(){
+        identifier = "SELECT_DEFAULT_PRODUCTION_POWER";
+    }
+
     @Override
     public void execute(Game game, PrintWriter out) {
         try {
             game.getTurn().selectDefaultProductionPower();
-            out.println(new ConfirmedActionMessage());
-            System.out.println(this);
+            Message.sendMessage(out, new ConfirmedActionMessage());
+            System.out.println(identifier);
         } catch (ActionNotAllowedException e) {
-            out.println(new InvalidActionErrorMessage());
+            Message.sendMessage(out, new InvalidActionErrorMessage());
         }
-    }
-
-    @Override
-    public String toString(){
-        return "SELECT_DEFAULT_PRODUCTION_POWER";
     }
 
 }

@@ -4,9 +4,13 @@ import it.polimi.ingsw.Messages.ErrorMessage;
 
 public class NoCardObtainableErrorMessage extends ErrorMessage {
 
+    public NoCardObtainableErrorMessage(){
+        identifier = "ERROR_NO_CARD_OBTAINABLE";
+    }
+
     @Override
     public String toString() {
-        return "ERROR_NO_CARD_OBTAINABLE";
+        return "Error: you haven't any development card to obtain!";
     }
 
 }

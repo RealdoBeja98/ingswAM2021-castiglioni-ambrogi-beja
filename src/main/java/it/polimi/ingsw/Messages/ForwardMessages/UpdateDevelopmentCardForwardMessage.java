@@ -5,10 +5,15 @@ import it.polimi.ingsw.Messages.ForwardMessage;
 
 import java.io.PrintWriter;
 
-public class AdvanceFaithTrackForwardMessage extends ForwardMessage {
+public class UpdateDevelopmentCardForwardMessage extends ForwardMessage {
 
-    public AdvanceFaithTrackForwardMessage(){
-        identifier = "ADVANCE_FAITH_TRACK";
+    private int x;
+    private int y;
+
+    public UpdateDevelopmentCardForwardMessage(int x, int y){
+        identifier = "UPDATE_DEVELOPMENT_CARD";
+        this.x = x;
+        this.y = y;
     }
 
     @Override
@@ -18,7 +23,7 @@ public class AdvanceFaithTrackForwardMessage extends ForwardMessage {
 
     @Override
     public String toString(){
-        return "ADVANCE_FAITH_TRACK";
+        return "UPDATE_DEVELOPMENT_CARD "+x+" "+y;
     }
 
 }

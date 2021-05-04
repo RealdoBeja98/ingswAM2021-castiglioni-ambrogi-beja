@@ -5,6 +5,7 @@ import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Messages.ConfirmedActionMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.*;
 import it.polimi.ingsw.Messages.GameMessage;
+import it.polimi.ingsw.Messages.Message;
 
 import java.io.PrintWriter;
 
@@ -13,6 +14,7 @@ public class PayWithWarehouseDepotsGameMessage extends GameMessage {
     private int position;
 
     public PayWithWarehouseDepotsGameMessage(int position){
+        identifier = "PAY_WITH_WAREHOUSE_DEPOTS";
         this.position = position;
     }
 
@@ -20,24 +22,19 @@ public class PayWithWarehouseDepotsGameMessage extends GameMessage {
     public void execute(Game game, PrintWriter out) {
         try {
             game.getTurn().payWithWarehouseDepots(position);
-            out.println(new ConfirmedActionMessage());
-            System.out.println(this);
+            Message.sendMessage(out, new ConfirmedActionMessage());
+            System.out.println(identifier);
         } catch (WrongPaymentException e) {
-            out.println(new WrongResourceErrorMessage());
+            Message.sendMessage(out, new WrongResourceErrorMessage());
         } catch (EmptySlotYetException e) {
-            out.println(new AlreadyEmptyErrorMessage());
+            Message.sendMessage(out, new AlreadyEmptyErrorMessage());
         } catch (NoResourceToPayException e) {
-            out.println(new NoResourcePErrorMessage());
+            Message.sendMessage(out, new NoResourcePErrorMessage());
         } catch (ActionNotAllowedException e) {
-            out.println(new InvalidActionErrorMessage());
+            Message.sendMessage(out, new InvalidActionErrorMessage());
         } catch (GameEndedException e) {
-            out.println(new GameEndedErrorMessage());
+            Message.sendMessage(out, new GameEndedErrorMessage());
         }
-    }
-
-    @Override
-    public String toString(){
-        return "PAY_WITH_WAREHOUSE_DEPOTS";
     }
 
 }

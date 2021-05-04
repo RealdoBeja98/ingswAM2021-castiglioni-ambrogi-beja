@@ -11,4 +11,8 @@ public abstract class ErrorMessage extends Message{
         System.out.println(this);
     }
 
+    public void execute(){
+        System.out.println(this);
+    }
+
 }

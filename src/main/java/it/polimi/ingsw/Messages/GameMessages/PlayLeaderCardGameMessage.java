@@ -11,6 +11,7 @@ import it.polimi.ingsw.Messages.ErrorMessages.InvalidActionErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.InvalidPositionErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.RequirementsErrorMessage;
 import it.polimi.ingsw.Messages.GameMessage;
+import it.polimi.ingsw.Messages.Message;
 
 import java.io.PrintWriter;
 
@@ -19,6 +20,7 @@ public class PlayLeaderCardGameMessage extends GameMessage {
     private int leaderCardToPlay;
 
     public PlayLeaderCardGameMessage(int leaderCardToPlay){
+        identifier = "PLAY_LEADER_CARD";
         this.leaderCardToPlay = leaderCardToPlay;
     }
 
@@ -26,22 +28,17 @@ public class PlayLeaderCardGameMessage extends GameMessage {
     public void execute(Game game, PrintWriter out) {
         try {
             game.getTurn().playLeaderCard(leaderCardToPlay);
-            out.println(new ConfirmedActionMessage());
-            System.out.println(this);
+            Message.sendMessage(out, new ConfirmedActionMessage());
+            System.out.println(identifier);
         } catch (NotSatisfiedRequirementsForThisLeaderCardException e) {
-            out.println(new RequirementsErrorMessage());
+            Message.sendMessage(out, new RequirementsErrorMessage());
         } catch (ActionNotAllowedException e) {
-            out.println(new InvalidActionErrorMessage());
+            Message.sendMessage(out, new InvalidActionErrorMessage());
         } catch (GameEndedException e) {
-            out.println(new GameEndedErrorMessage());
+            Message.sendMessage(out, new GameEndedErrorMessage());
         } catch (PositionInvalidException e) {
-            out.println(new InvalidPositionErrorMessage());
+            Message.sendMessage(out, new InvalidPositionErrorMessage());
         }
-    }
-
-    @Override
-    public String toString(){
-        return "PLAY_LEADER_CARD";
     }
 
 }

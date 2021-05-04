@@ -508,7 +508,16 @@ public class Player {//<--FIXME check javadoc from here-->
         marblesFromTheMarket.remove(0);
     }
 
-    public void addResource(LeaderWarehouse where){
+    public void addResource(LeaderWarehouse where) throws NoResourceToAddException, UnexpectedWhiteMarbleException, UnexpectedFaithMarbleException {
+        if(marblesFromTheMarket.size() == 0) {
+            throw new NoResourceToAddException();
+        }
+        if(marblesFromTheMarket.get(0) instanceof White){
+            throw new UnexpectedWhiteMarbleException();
+        }
+        if(marblesFromTheMarket.get(0) instanceof Faith){
+            throw new UnexpectedFaithMarbleException();
+        }
         if(where != LeaderWarehouse.DISCARD){
             throw new IllegalArgumentException();
         }

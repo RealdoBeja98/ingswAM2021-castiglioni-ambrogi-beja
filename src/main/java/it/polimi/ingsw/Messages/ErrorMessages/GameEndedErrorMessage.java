@@ -4,9 +4,13 @@ import it.polimi.ingsw.Messages.ErrorMessage;
 
 public class GameEndedErrorMessage extends ErrorMessage {
 
+    public GameEndedErrorMessage(){
+        identifier = "ERROR_GAME_ENDED";
+    }
+
     @Override
     public String toString(){
-        return "ERROR_GAME_ENDED";
+        return "Error: the game is ended!";
     }
 
 }

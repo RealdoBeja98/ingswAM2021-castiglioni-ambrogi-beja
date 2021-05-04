@@ -1,11 +1,10 @@
 package it.polimi.ingsw.Mains;
-import it.polimi.ingsw.Enums.LeaderWarehouse;
-import it.polimi.ingsw.Enums.NormalAction;
-import it.polimi.ingsw.Enums.Resource;
-import it.polimi.ingsw.Enums.RowColumn;
 import it.polimi.ingsw.Exceptions.*;
 import it.polimi.ingsw.Game.Game;
-import it.polimi.ingsw.Table.Decks.Token.ActionToken;
+import it.polimi.ingsw.Messages.ErrorMessages.GameStartedErrorMessage;
+import it.polimi.ingsw.Messages.ErrorMessages.NameTakenErrorMessage;
+import it.polimi.ingsw.Messages.ErrorMessages.NotYourTurnErrorMessage;
+import it.polimi.ingsw.Messages.Message;
 import java.io.*;
 import java.net.Socket;
 
@@ -110,9 +109,12 @@ public class ClientHandler implements Runnable {
                     return;
                 }
                 else if (!game.getTurn().getCurrentPlayer().getNickname().equals(nickname)) {
-                    out.println("ERROR_NOT_YOUR_TURN");
+                    Message.sendMessage(out, new NotYourTurnErrorMessage());
                 }
                 else {
+                    Message message = Message.fromString(line);
+                    message.execute(game, out);
+                    /*
                     String[] message = line.split(" ");
 
                     if (message[0].equals("CHOOSE_DISCARD_LEADER_CARD")) {
@@ -513,16 +515,14 @@ public class ClientHandler implements Runnable {
                         } else {
                             out.println("ERROR_TYPO");
                         }
+                    */
                     }
-
             } catch (IOException e) {
                 forward(nickname + " crashed", out);
                 break;
             }
         }
-
         closeCommunicationChannel(in, out);
-
     }
 
     private void closeCommunicationChannel(BufferedReader in, PrintWriter out) {
@@ -565,8 +565,6 @@ public class ClientHandler implements Runnable {
         return addingPlayer(in, out);
     }
 
-
-
     private boolean joiningGame(String line, BufferedReader in, PrintWriter out) throws IOException {
         line = in.readLine();
         int numGM = atoi(line);
@@ -587,11 +585,11 @@ public class ClientHandler implements Runnable {
             return true;
         } catch (NameAlreadyRegisteredException e) {
             System.out.println("Name already taken, rejecting the player");
-            out.println("ERROR_NAME_TAKEN");
+            Message.sendMessage(out, new NameTakenErrorMessage());
             return false;
         } catch (GameAlreadyStartedException e) {
             System.out.println("Game already started, rejecting the player");
-            out.println("ERROR_GAME_STARTED");
+            out.println(new GameStartedErrorMessage());
             return false;
         }
     }

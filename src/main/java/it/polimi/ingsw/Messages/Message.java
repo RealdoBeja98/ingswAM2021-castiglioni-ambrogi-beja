@@ -7,12 +7,20 @@ import it.polimi.ingsw.Enums.RowColumn;
 import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Messages.ErrorMessages.*;
 import it.polimi.ingsw.Messages.ForwardMessages.AdvanceFaithTrackForwardMessage;
+import it.polimi.ingsw.Messages.ForwardMessages.UpdateDevelopmentCardForwardMessage;
 import it.polimi.ingsw.Messages.ForwardMessages.UpdateMarketForwardMessage;
 import it.polimi.ingsw.Messages.GameMessages.*;
+import it.polimi.ingsw.Table.Decks.Token.ActionToken;
 
 import java.io.PrintWriter;
 
 public abstract class Message {
+
+    protected String identifier;
+
+    public String getIdentifier() {
+        return identifier;
+    }
 
     public abstract void execute(Game game, PrintWriter out);
 
@@ -32,6 +40,8 @@ public abstract class Message {
     }
 
     public static Message fromString(String string){
+
+        //System.out.println("Converting from string: " + string);
 
         if(string.equals("ERROR_NO_CARDS_DISCARD")){
             return new NoCardDiscardErrorMessage();
@@ -165,6 +175,14 @@ public abstract class Message {
             if (message[0].equals("UPDATE_MARKET")) {
                 checkLength(message, 3);
                 return new UpdateMarketForwardMessage(RowColumn.valueOf(message[1]), atoi(message[2]));
+            } else if (message[0].equals("UPDATE_DEVELOPMENT_CARD")) {
+                checkLength(message, 3);
+                return new UpdateDevelopmentCardForwardMessage(atoi(message[1]), atoi(message[2]));
+            } else
+
+            if (message[0].equals("UPDATE_SOLO_ACTION_TOKEN")) {
+                checkLength(message, 2);
+                return new UpdateSoloActionTokenMessage(ActionToken.valueof(message[1]));
             } else
 
             if (message[0].equals("CHOOSE_DISCARD_LEADER_CARD")) {
@@ -249,7 +267,7 @@ public abstract class Message {
                 return new MoveResourcesInWarehouseDepotsGameMessage(atoi(message[1]));
             } else if (message[0].equals("MOVE_RESOURCES_WAREHOUSE_TO_ES_LC")) {
                 checkLength(message, 2);
-                return new MoveResourcesInWarehouseDepotsGameMessage(atoi(message[1]));
+                return new MoveResourcesWarehouseToESLCGameMessage(atoi(message[1]));
             } else if (message[0].equals("MOVE_RESOURCE_ES_LC_TO_WAREHOUSE")) {
                 checkLength(message, 2);
                 return new MoveResourceESLCToEarehouseGameMessage(atoi(message[1]));
@@ -258,7 +276,23 @@ public abstract class Message {
             return new ToErrorTypoGameMessage();
         }
 
-        return new ToErrorTypoGameMessage();
+        return new ToErrorTypoGameMessage(string);
+    }
+
+    public static void sendMessage(PrintWriter dest, Message message){
+        dest.println(message.identifier);
+    }
+
+    public boolean isEqual(Message other){
+        if(this.identifier.equals(other.identifier)){
+            return  true;
+        }
+        return false;
+    }
+
+    @Override
+    public String toString(){
+        return identifier;
     }
 
 }

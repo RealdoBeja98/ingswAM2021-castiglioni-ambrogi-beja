@@ -10,6 +10,7 @@ import it.polimi.ingsw.Messages.ErrorMessages.GameEndedErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.GenericResourceErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.NotStrongboxErrorMessage;
 import it.polimi.ingsw.Messages.GameMessage;
+import it.polimi.ingsw.Messages.Message;
 
 import java.io.PrintWriter;
 
@@ -18,6 +19,7 @@ public class ObtainGenericResourceGameMessage extends GameMessage {
     private Resource resource;
 
     public ObtainGenericResourceGameMessage(Resource resource){
+        identifier = "OBTAIN_GENERIC_RESOURCE";
         this.resource = resource;
     }
 
@@ -25,20 +27,15 @@ public class ObtainGenericResourceGameMessage extends GameMessage {
     public void execute(Game game, PrintWriter out) {
         try {
             game.getTurn().obtainGenericResource(resource);
-            out.println(new ConfirmedActionMessage());
-            System.out.println(this);
+            Message.sendMessage(out, new ConfirmedActionMessage());
+            System.out.println(identifier);
         } catch (NoGenericResourceToObtainException e) {
-            out.println(new GenericResourceErrorMessage());
+            Message.sendMessage(out, new GenericResourceErrorMessage());
         } catch (NotAResourceForStrongBoxException e) {
-            out.println(new NotStrongboxErrorMessage());
+            Message.sendMessage(out, new NotStrongboxErrorMessage());
         } catch (GameEndedException e) {
-            out.println(new GameEndedErrorMessage());
+            Message.sendMessage(out, new GameEndedErrorMessage());
         }
-    }
-
-    @Override
-    public String toString(){
-        return "OBTAIN_GENERIC_RESOURCE";
     }
 
 }

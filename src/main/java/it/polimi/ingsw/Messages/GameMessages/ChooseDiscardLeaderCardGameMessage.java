@@ -7,27 +7,27 @@ import it.polimi.ingsw.Messages.ConfirmedActionMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.InvalidActionErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.NoCardDiscardErrorMessage;
 import it.polimi.ingsw.Messages.GameMessage;
+import it.polimi.ingsw.Messages.Message;
 
 import java.io.PrintWriter;
 
 public class ChooseDiscardLeaderCardGameMessage extends GameMessage {
 
+    public ChooseDiscardLeaderCardGameMessage(){
+        identifier = "CHOOSE_DISCARD_LEADER_CARD";
+    }
+
     @Override
     public void execute(Game game, PrintWriter out) {
         try {
             game.getTurn().chooseDiscardLeaderCard();
-            out.println(new ConfirmedActionMessage());
-            System.out.println(this);
+            Message.sendMessage(out, new ConfirmedActionMessage());
+            System.out.println(identifier);
         } catch (NoLeaderCardToDiscardException e) {
-            out.println(new NoCardDiscardErrorMessage());
+            Message.sendMessage(out, new NoCardDiscardErrorMessage());
         } catch (ActionNotAllowedException e) {
-            out.println(new InvalidActionErrorMessage());
+            Message.sendMessage(out, new InvalidActionErrorMessage());
         }
-    }
-
-    @Override
-    public String toString(){
-        return "CHOOSE_DISCARD_LEADER_CARD";
     }
 
 }

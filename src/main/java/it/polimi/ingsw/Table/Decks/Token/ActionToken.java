@@ -23,4 +23,25 @@ public abstract class ActionToken extends Card {
         return whatIAm.toString();
     }
 
+    /**
+     * This method let obtaining an instance of an ActionToken from a String
+     * @param string the String representing the ActionToken
+     * @return the ActionToken
+     */
+    public static ActionToken valueof(String string){
+        Type type = Type.valueOf(string);
+        if(type == null){
+            throw new IllegalArgumentException();
+        }
+        switch (type){
+            case GREEN: return new GreenActionToken();
+            case BLUE: return new BlueActionToken();
+            case YELLOW: return new YellowActionToken();
+            case PURPLE: return new PurpleActionToken();
+            case BLACKCROSS1: return new BlackCross1Token();
+            case BLACKCROSS2: return new BlackCross2Token();
+            default: throw new IllegalArgumentException();
+        }
+    }
+
 }

@@ -4,9 +4,13 @@ import it.polimi.ingsw.Messages.ErrorMessage;
 
 public class NoResourcePErrorMessage extends ErrorMessage {
 
+    public NoResourcePErrorMessage(){
+        identifier = "ERROR_NO_RESOURCE_P";
+    }
+
     @Override
     public String toString(){
-        return "ERROR_NO_RESOURCE_P";
+        return "Error: you haven't any resource to pay!";
     }
 
 }

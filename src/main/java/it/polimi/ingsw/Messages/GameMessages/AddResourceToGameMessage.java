@@ -5,7 +5,9 @@ import it.polimi.ingsw.Exceptions.*;
 import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Messages.ConfirmedActionMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.*;
+import it.polimi.ingsw.Messages.ForwardMessages.AdvanceFaithTrackForwardMessage;
 import it.polimi.ingsw.Messages.GameMessage;
+import it.polimi.ingsw.Messages.Message;
 
 import java.io.PrintWriter;
 
@@ -15,6 +17,7 @@ public class AddResourceToGameMessage extends GameMessage {
     private int place;
 
     public AddResourceToGameMessage(LeaderWarehouse leaderWarehouse, int place){
+        identifier = "ADD_RESOURCE_TO";
         this.leaderWarehouse = leaderWarehouse;
         this.place = place;
     }
@@ -22,39 +25,35 @@ public class AddResourceToGameMessage extends GameMessage {
     @Override
     public void execute(Game game, PrintWriter out) {
         try {
-            game.getTurn().addResource(leaderWarehouse, place);
             if(leaderWarehouse == LeaderWarehouse.DISCARD){
-                out.println(new ConfirmedActionMessage());
-                System.out.println(this);
-                forward(game, "ADVANCE_FAITH_TRACK", out);
+                game.getTurn().addResource(LeaderWarehouse.DISCARD);
+                Message.sendMessage(out, new ConfirmedActionMessage());
+                System.out.println(identifier);
+                forward(game, new AdvanceFaithTrackForwardMessage(), out);
             } else {
-                out.println(new ConfirmedActionMessage());
-                System.out.println(this);
+                game.getTurn().addResource(leaderWarehouse, place);
+                Message.sendMessage(out, new ConfirmedActionMessage());
+                System.out.println(identifier);
             }
         } catch (NoResourceToAddException e) {
-            out.println(new NoResourceAErrorMessage());
+            Message.sendMessage(out, new NoResourceAErrorMessage());
         } catch (DifferentStorageException e) {
-            out.println(new DifferentStorageTypeErrorMessage());
+            Message.sendMessage(out, new DifferentStorageTypeErrorMessage());
         } catch (OccupiedSlotExtraStorageLeaderCardException e) {
-            out.println(new OccupiedSlotLCErrorMessage());
+            Message.sendMessage(out, new OccupiedSlotLCErrorMessage());
         } catch (PositionAlreadyOccupiedException e) {
-            out.println(new OccupiedSlotWDErrorMessage());
+            Message.sendMessage(out, new OccupiedSlotWDErrorMessage());
         } catch (ResourceAlreadyPlacedException e) {
-            out.println(new ResourceAlreadyPresentOtherShelfErrorMessage());
+            Message.sendMessage(out, new ResourceAlreadyPresentOtherShelfErrorMessage());
         } catch (DifferentResourceInThisShelfException e) {
-            out.println(new DifferentResourceAlreadyPresentErrorMessage());
+            Message.sendMessage(out, new DifferentResourceAlreadyPresentErrorMessage());
         } catch (UnexpectedWhiteMarbleException e) {
-            out.println(new WhiteMarbleErrorMessage());
+            Message.sendMessage(out, new WhiteMarbleErrorMessage());
         } catch (UnexpectedFaithMarbleException e) {
-            out.println(new FaithMarbleErrorMessage());
+            Message.sendMessage(out, new FaithMarbleErrorMessage());
         } catch (ActionNotAllowedException e) {
-            out.println(new InvalidActionErrorMessage());
+            Message.sendMessage(out, new InvalidActionErrorMessage());
         }
-    }
-
-    @Override
-    public String toString(){
-        return "ADD_RESOURCE_TO";
     }
 
 }

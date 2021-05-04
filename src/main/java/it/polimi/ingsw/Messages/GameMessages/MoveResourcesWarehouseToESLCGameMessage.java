@@ -5,6 +5,7 @@ import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Messages.ConfirmedActionMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.*;
 import it.polimi.ingsw.Messages.GameMessage;
+import it.polimi.ingsw.Messages.Message;
 
 import java.io.PrintWriter;
 
@@ -13,6 +14,7 @@ public class MoveResourcesWarehouseToESLCGameMessage extends GameMessage {
     private int leaderCardPosition;
 
     public MoveResourcesWarehouseToESLCGameMessage(int leaderCardPosition){
+        identifier = "MOVE_RESOURCES_WAREHOUSE_TO_ES_LC";
         this.leaderCardPosition = leaderCardPosition;
     }
 
@@ -20,24 +22,19 @@ public class MoveResourcesWarehouseToESLCGameMessage extends GameMessage {
     public void execute(Game game, PrintWriter out) {
         try {
             game.getTurn().moveResourcesFromWarehouseDepotsToExtraStorageLeaderCard(leaderCardPosition);
-            out.println(new ConfirmedActionMessage());
-            System.out.println(this);
+            Message.sendMessage(out, new ConfirmedActionMessage());
+            System.out.println(identifier);
         } catch (PositionInvalidException e) {
-            out.println(new InvalidPositionErrorMessage());
+            Message.sendMessage(out, new InvalidPositionErrorMessage());
         } catch (NotAnExtraStorageLeaderCardException e) {
-            out.println(new NotEsErrorMessage());
+            Message.sendMessage(out, new NotEsErrorMessage());
         } catch (EmptySlotYetException e) {
-            out.println(new AlreadyEmptyErrorMessage());
+            Message.sendMessage(out, new AlreadyEmptyErrorMessage());
         } catch (OccupiedSlotExtraStorageLeaderCardException e) {
-            out.println(new OccupiedSlotLCErrorMessage());
+            Message.sendMessage(out, new OccupiedSlotLCErrorMessage());
         } catch (DifferentStorageException e) {
-            out.println(new DifferentStorageTypeErrorMessage());
+            Message.sendMessage(out, new DifferentStorageTypeErrorMessage());
         }
-    }
-
-    @Override
-    public String toString(){
-        return "MOVE_RESOURCES_WAREHOUSE_TO_ES_LC";
     }
 
 }

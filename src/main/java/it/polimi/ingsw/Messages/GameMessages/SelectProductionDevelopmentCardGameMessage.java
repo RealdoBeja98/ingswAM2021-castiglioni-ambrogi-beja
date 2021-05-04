@@ -9,6 +9,7 @@ import it.polimi.ingsw.Messages.ErrorMessages.InvalidActionErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.InvalidPositionErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.NoDevelopmentCardErrorMessage;
 import it.polimi.ingsw.Messages.GameMessage;
+import it.polimi.ingsw.Messages.Message;
 
 import java.io.PrintWriter;
 
@@ -17,6 +18,7 @@ public class SelectProductionDevelopmentCardGameMessage extends GameMessage {
     private int position;
 
     public SelectProductionDevelopmentCardGameMessage(int position){
+        identifier = "SELECT_PRODUCTION_DEVELOPMENT_CARD";
         this.position = position;
     }
 
@@ -24,20 +26,15 @@ public class SelectProductionDevelopmentCardGameMessage extends GameMessage {
     public void execute(Game game, PrintWriter out) {
         try {
             game.getTurn().selectProductionDevelopmentCard(position);
-            out.println(new ConfirmedActionMessage());
-            System.out.println(this);
+            Message.sendMessage(out, new ConfirmedActionMessage());
+            System.out.println(identifier);
         } catch (ActionNotAllowedException e) {
-            out.println(new InvalidActionErrorMessage());
+            Message.sendMessage(out, new InvalidActionErrorMessage());
         } catch (PositionInvalidException e) {
-            out.println(new InvalidPositionErrorMessage());
+            Message.sendMessage(out, new InvalidPositionErrorMessage());
         } catch (NoDevelopmentCardInThisPositionException e) {
-            out.println(new NoDevelopmentCardErrorMessage());
+            Message.sendMessage(out, new NoDevelopmentCardErrorMessage());
         }
-    }
-
-    @Override
-    public String toString(){
-        return "SELECT_PRODUCTION_DEVELOPMENT_CARD";
     }
 
 }

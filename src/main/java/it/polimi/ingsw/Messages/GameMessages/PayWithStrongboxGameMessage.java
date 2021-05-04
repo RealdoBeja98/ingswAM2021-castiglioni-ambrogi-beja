@@ -6,6 +6,7 @@ import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Messages.ConfirmedActionMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.*;
 import it.polimi.ingsw.Messages.GameMessage;
+import it.polimi.ingsw.Messages.Message;
 
 import java.io.PrintWriter;
 
@@ -14,6 +15,7 @@ public class PayWithStrongboxGameMessage extends GameMessage {
     private Resource resource;
 
     public PayWithStrongboxGameMessage(Resource resource){
+        identifier = "PAY_WITH_STRONGBOX";
         this.resource = resource;
     }
 
@@ -21,26 +23,21 @@ public class PayWithStrongboxGameMessage extends GameMessage {
     public void execute(Game game, PrintWriter out) {
         try {
             game.getTurn().payWithStrongBox(resource);
-            out.println(new ConfirmedActionMessage());
-            System.out.println(this);
+            Message.sendMessage(out, new ConfirmedActionMessage());
+            System.out.println(identifier);
         } catch (WrongPaymentException e) {
-            out.println(new WrongResourceErrorMessage());
+            Message.sendMessage(out, new WrongResourceErrorMessage());
         } catch (NegativeResourceException e) {
-            out.println(new MissingResourceErrorMessage());
+            Message.sendMessage(out, new MissingResourceErrorMessage());
         } catch (NotAResourceForStrongBoxException e) {
-            out.println(new NotStrongboxErrorMessage());
+            Message.sendMessage(out, new NotStrongboxErrorMessage());
         } catch (NoResourceToPayException e) {
-            out.println(new NoResourcePErrorMessage());
+            Message.sendMessage(out, new NoResourcePErrorMessage());
         } catch (ActionNotAllowedException e) {
-            out.println(new InvalidActionErrorMessage());
+            Message.sendMessage(out, new InvalidActionErrorMessage());
         } catch (GameEndedException e) {
-            out.println(new GameEndedErrorMessage());
+            Message.sendMessage(out, new GameEndedErrorMessage());
         }
-    }
-
-    @Override
-    public String toString(){
-        return "PAY_WITH_STRONGBOX";
     }
 
 }

@@ -4,7 +4,9 @@ import it.polimi.ingsw.Exceptions.*;
 import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Messages.ConfirmedActionMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.*;
+import it.polimi.ingsw.Messages.ForwardMessages.UpdateDevelopmentCardForwardMessage;
 import it.polimi.ingsw.Messages.GameMessage;
+import it.polimi.ingsw.Messages.Message;
 
 import java.io.PrintWriter;
 
@@ -14,6 +16,7 @@ public class BuyDevelopmentCardGameMessage extends GameMessage {
     private int y;
 
     public BuyDevelopmentCardGameMessage(int x, int y){
+        identifier = "BUY_DEVELOPMENT_CARD";
         this.x = x;
         this.y = y;
     }
@@ -22,27 +25,22 @@ public class BuyDevelopmentCardGameMessage extends GameMessage {
     public void execute(Game game, PrintWriter out) {
         try {
             game.getTurn().buyADevelopmentCard(x, y);
-            out.println(new ConfirmedActionMessage());
-            System.out.println(this);
-            //forward("UPDATE_DEVELOPMENT_CARD "+message[1]+" "+message[2], out);<---FIXME->>
+            Message.sendMessage(out, new ConfirmedActionMessage());
+            System.out.println(identifier);
+            forward(game, new UpdateDevelopmentCardForwardMessage(x, y), out);
         } catch (ActionNotAllowedException e) {
-            out.println(new InvalidPositionErrorMessage());
+            Message.sendMessage(out, new InvalidPositionErrorMessage());
         } catch (SelectedADevelopmentCardYetException e) {
-            out.println(new AlreadySelectedSomethingErrorMessage());
+            Message.sendMessage(out, new AlreadySelectedSomethingErrorMessage());
         } catch (NotAbleToBuyThisDevelopmentCardException e) {
-            out.println(new NotEnoughResourcesErrorMessage());
+            Message.sendMessage(out, new NotEnoughResourcesErrorMessage());
         } catch (DrawnFromEmptyDeckException e) {
-            out.println(new EmptyDeckErrorMessage());
+            Message.sendMessage(out, new EmptyDeckErrorMessage());
         } catch (PositionInvalidException e) {
-            out.println(new InvalidPositionErrorMessage());
+            Message.sendMessage(out, new InvalidPositionErrorMessage());
         } catch (NotAbleToPlaceThisDevelopmentCardException e) {
-            out.println(new InvalidSelectionErrorMessage());
+            Message.sendMessage(out, new InvalidSelectionErrorMessage());
         }
-    }
-
-    @Override
-    public String toString(){
-        return "BUY_DEVELOPMENT_CARD";
     }
 
 }

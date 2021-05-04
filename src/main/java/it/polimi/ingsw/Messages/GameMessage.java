@@ -6,7 +6,8 @@ import java.io.PrintWriter;
 
 public abstract class GameMessage extends Message{
 
-    protected void forward(Game game, String message, PrintWriter toExclude){
+    protected void forward(Game game, ForwardMessage forwardMessage, PrintWriter toExclude){
+        String message = forwardMessage.toString();
         for(PrintWriter i : game.getPrintWriterList()){
             if(i != toExclude){
                 i.println(message);

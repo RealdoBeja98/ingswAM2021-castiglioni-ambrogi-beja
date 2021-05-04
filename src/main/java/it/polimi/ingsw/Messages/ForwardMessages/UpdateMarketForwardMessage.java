@@ -12,6 +12,7 @@ public class UpdateMarketForwardMessage extends ForwardMessage {
     private int place;
 
     public UpdateMarketForwardMessage(RowColumn rowColumn, int place){
+        identifier = "UPDATE_MARKET";
         this.rowColumn = rowColumn;
         this.place = place;
     }

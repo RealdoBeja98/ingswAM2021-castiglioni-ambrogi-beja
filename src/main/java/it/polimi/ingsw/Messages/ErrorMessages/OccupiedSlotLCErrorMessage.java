@@ -4,9 +4,13 @@ import it.polimi.ingsw.Messages.ErrorMessage;
 
 public class OccupiedSlotLCErrorMessage extends ErrorMessage {
 
+    public OccupiedSlotLCErrorMessage(){
+        identifier = "ERROR_OCCUPIED_SLOT_LC";
+    }
+
     @Override
     public String toString(){
-        return "ERROR_OCCUPIED_SLOT_LC";
+        return "Error: all slots of this ExtraStorageLeaderCard are occupied!";
     }
 
 }

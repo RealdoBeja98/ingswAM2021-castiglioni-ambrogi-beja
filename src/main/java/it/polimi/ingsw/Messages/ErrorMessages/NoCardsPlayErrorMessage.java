@@ -4,9 +4,13 @@ import it.polimi.ingsw.Messages.ErrorMessage;
 
 public class NoCardsPlayErrorMessage extends ErrorMessage {
 
+    public NoCardsPlayErrorMessage(){
+        identifier = "ERROR_NO_CARDS_PLAY";
+    }
+
     @Override
     public String toString(){
-        return "ERROR_NO_CARDS_PLAY";
+        return "Error: you haven't any leader card to play!";
     }
 
 }

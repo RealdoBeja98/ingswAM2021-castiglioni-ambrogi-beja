@@ -1,4 +1,8 @@
 package it.polimi.ingsw.Mains;
+import it.polimi.ingsw.Messages.ErrorMessages.GameStartedErrorMessage;
+import it.polimi.ingsw.Messages.ErrorMessages.NameTakenErrorMessage;
+import it.polimi.ingsw.Messages.Message;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -34,11 +38,12 @@ public class ClientMain {
             String line = in.readLine();
             System.out.println("Joining game number: " + line);
             line = in.readLine();
-            if (line.equals("ERROR_NAME_TAKEN")) {
-                System.out.println("Name already taken, please chose a different one!");
+            Message lineMessage = Message.fromString(line);
+            if (lineMessage.isEqual(new NameTakenErrorMessage())) {
+                (new NameTakenErrorMessage()).execute();
                 return;
-            } else if (line.equals("ERROR_GAME_STARTED")) {
-                System.out.println("Game already started, please chose a different one!");
+            } else if (lineMessage.isEqual(new GameStartedErrorMessage())) {
+                (new GameStartedErrorMessage()).execute();
                 return;
             } else if (line.equals("You have the inkwell!")){
                 System.out.println("Joined the game!");
@@ -66,8 +71,8 @@ public class ClientMain {
                                 out.println("GAME_ENDED");
                                 break;
                             }
-                            else{
-                                System.out.println(serverMessage);
+                            else {
+                                System.out.println(Message.fromString(serverMessage));
                             }
 
                         }

@@ -11,31 +11,31 @@ import it.polimi.ingsw.Messages.ErrorMessages.InvalidActionErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.NoSelectedPowersErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.NotEnoughRErrorMessage;
 import it.polimi.ingsw.Messages.GameMessage;
+import it.polimi.ingsw.Messages.Message;
 
 import java.io.PrintWriter;
 
 public class StartPaymentGameMessage extends GameMessage {
 
+    public StartPaymentGameMessage(){
+        identifier = "START_PAYMENT";
+    }
+
     @Override
     public void execute(Game game, PrintWriter out) {
         try {
             game.getTurn().startPayment();
-            out.println(new ConfirmedActionMessage());
-            System.out.println(this);
+            Message.sendMessage(out, new ConfirmedActionMessage());
+            System.out.println(identifier);
         } catch (NotEnoughResourcesException e) {
-            out.println(new NotEnoughRErrorMessage());
+            Message.sendMessage(out, new NotEnoughRErrorMessage());
         } catch (YouHaveNotSelectedAnyProductionException e) {
-            out.println(new NoSelectedPowersErrorMessage());
+            Message.sendMessage(out, new NoSelectedPowersErrorMessage());
         } catch (ActionNotAllowedException e) {
-            out.println(new InvalidActionErrorMessage());
+            Message.sendMessage(out, new InvalidActionErrorMessage());
         } catch (GameEndedException e) {
-            out.println(new GameEndedErrorMessage());
+            Message.sendMessage(out, new GameEndedErrorMessage());
         }
-    }
-
-    @Override
-    public String toString(){
-        return "START_PAYMENT";
     }
 
 }

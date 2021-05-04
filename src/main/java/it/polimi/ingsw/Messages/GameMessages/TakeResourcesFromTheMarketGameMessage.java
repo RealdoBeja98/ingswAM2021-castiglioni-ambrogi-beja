@@ -9,7 +9,9 @@ import it.polimi.ingsw.Messages.ConfirmedActionMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.InvalidActionErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.InvalidEnumErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.InvalidPositionErrorMessage;
+import it.polimi.ingsw.Messages.ForwardMessages.UpdateMarketForwardMessage;
 import it.polimi.ingsw.Messages.GameMessage;
+import it.polimi.ingsw.Messages.Message;
 
 import java.io.PrintWriter;
 
@@ -19,6 +21,7 @@ public class TakeResourcesFromTheMarketGameMessage extends GameMessage {
     private int place;
 
     public TakeResourcesFromTheMarketGameMessage(RowColumn rowColumn, int place){
+        identifier = "TAKE_RESOURCES_FROM_THE_MARKET";
         this.rowColumn = rowColumn;
         this.place = place;
     }
@@ -27,25 +30,20 @@ public class TakeResourcesFromTheMarketGameMessage extends GameMessage {
     public void execute(Game game, PrintWriter out) {
         try {
             game.getTurn().takeResourcesFromTheMarket(rowColumn, place);
-            out.println(new ConfirmedActionMessage());
+            Message.sendMessage(out, new ConfirmedActionMessage());
             System.out.println(this);
             int size = game.getTurn().getCurrentPlayer().getMarblesFromTheMarket().size();
             for (int i = 0; i < size; i++) {
                 out.println(game.getTurn().getCurrentPlayer().getMarblesFromTheMarket().get(i));
             }
-            forward(game, "UPDATE_MARKET " + rowColumn + " " + place, out);
+            forward(game, new UpdateMarketForwardMessage(rowColumn, place), out);
         } catch (ActionNotAllowedException e) {
-            out.println(new InvalidActionErrorMessage());
+            Message.sendMessage(out, new InvalidActionErrorMessage());
         } catch (PositionInvalidException e) {
-            out.println(new InvalidPositionErrorMessage());
+            Message.sendMessage(out, new InvalidPositionErrorMessage());
         } catch (NullEnumException e) {
-            out.println(new InvalidEnumErrorMessage());
+            Message.sendMessage(out, new InvalidEnumErrorMessage());
         }
-    }
-
-    @Override
-    public String toString(){
-        return "TAKE_RESOURCES_FROM_THE_MARKET";
     }
 
 }

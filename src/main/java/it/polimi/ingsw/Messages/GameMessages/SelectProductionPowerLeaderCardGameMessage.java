@@ -9,6 +9,7 @@ import it.polimi.ingsw.Messages.ErrorMessages.InvalidActionErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.InvalidPositionErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.NoPLCErrorMessage;
 import it.polimi.ingsw.Messages.GameMessage;
+import it.polimi.ingsw.Messages.Message;
 
 import java.io.PrintWriter;
 
@@ -17,6 +18,7 @@ public class SelectProductionPowerLeaderCardGameMessage extends GameMessage {
     private int leaderCardPosition;
 
     public SelectProductionPowerLeaderCardGameMessage(int leaderCardPosition){
+        identifier = "SELECT_PRODUCTION_POWER_LEADER_CARD";
         this.leaderCardPosition = leaderCardPosition;
     }
 
@@ -24,20 +26,15 @@ public class SelectProductionPowerLeaderCardGameMessage extends GameMessage {
     public void execute(Game game, PrintWriter out) {
         try {
             game.getTurn().selectProductionPowerLeaderCard(leaderCardPosition);
-            out.println(new ConfirmedActionMessage());
-            System.out.println(this);
+            Message.sendMessage(out, new ConfirmedActionMessage());
+            System.out.println(identifier);
         } catch (NoProductionLeaderCardException e) {
-            out.println(new NoPLCErrorMessage());
+            Message.sendMessage(out, new NoPLCErrorMessage());
         } catch (ActionNotAllowedException e) {
-            out.println(new InvalidActionErrorMessage());
+            Message.sendMessage(out, new InvalidActionErrorMessage());
         } catch (PositionInvalidException e) {
-            out.println(new InvalidPositionErrorMessage());
+            Message.sendMessage(out, new InvalidPositionErrorMessage());
         }
-    }
-
-    @Override
-    public String toString(){
-        return "SELECT_PRODUCTION_POWER_LEADER_CARD";
     }
 
 }

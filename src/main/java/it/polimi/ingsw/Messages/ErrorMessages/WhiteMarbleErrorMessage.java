@@ -4,9 +4,13 @@ import it.polimi.ingsw.Messages.ErrorMessage;
 
 public class WhiteMarbleErrorMessage extends ErrorMessage {
 
+    public WhiteMarbleErrorMessage(){
+        identifier = "ERROR_WHITE_MARBLE";
+    }
+
     @Override
     public String toString(){
-        return "ERROR_WHITE_MARBLE";
+        return "Error: unexpected white marble!";
     }
 
 }
