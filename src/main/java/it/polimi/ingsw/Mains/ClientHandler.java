@@ -589,7 +589,7 @@ public class ClientHandler implements Runnable {
             return false;
         } catch (GameAlreadyStartedException e) {
             System.out.println("Game already started, rejecting the player");
-            out.println(new GameStartedErrorMessage());
+            Message.sendMessage(out, new GameStartedErrorMessage());
             return false;
         }
     }

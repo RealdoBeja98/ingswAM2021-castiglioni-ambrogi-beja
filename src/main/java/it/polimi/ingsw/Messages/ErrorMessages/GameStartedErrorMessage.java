@@ -10,7 +10,7 @@ public class GameStartedErrorMessage extends ErrorMessage {
 
     @Override
     public String toString() {
-        return "Error: the game is yet started!";
+        return "Error: the game is already started!";
     }
 
 }

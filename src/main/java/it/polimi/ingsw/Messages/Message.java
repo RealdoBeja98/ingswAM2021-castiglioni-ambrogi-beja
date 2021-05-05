@@ -1,5 +1,4 @@
 package it.polimi.ingsw.Messages;
-
 import it.polimi.ingsw.Enums.LeaderWarehouse;
 import it.polimi.ingsw.Enums.NormalAction;
 import it.polimi.ingsw.Enums.Resource;
@@ -11,7 +10,6 @@ import it.polimi.ingsw.Messages.ForwardMessages.UpdateDevelopmentCardForwardMess
 import it.polimi.ingsw.Messages.ForwardMessages.UpdateMarketForwardMessage;
 import it.polimi.ingsw.Messages.GameMessages.*;
 import it.polimi.ingsw.Table.Decks.Token.ActionToken;
-
 import java.io.PrintWriter;
 
 public abstract class Message {
