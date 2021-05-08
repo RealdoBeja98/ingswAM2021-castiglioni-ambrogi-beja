@@ -35,7 +35,7 @@ public abstract class LeaderCard extends Card {
      * @param importedString the string to import
      * @return the LeaderCard imported
      */
-    public LeaderCard importLeaderCard(String importedString){
+    public static LeaderCard importLeaderCard(String importedString){
         String leaderCardType = importedString.substring(0, 1);
         if(leaderCardType.equals("D")){
             return new DiscountLeaderCard(importedString);

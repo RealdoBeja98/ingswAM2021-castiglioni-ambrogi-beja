@@ -9,6 +9,8 @@ import it.polimi.ingsw.Game.Game;
  */
 public class SlotsDevelopmentCards {
 
+    private static final int unusefulGameIndex = -1;
+
     private DevelopmentCard[][] slot;
     private DevelopmentCard[] activeCards;
     private final int gameIndex;
@@ -18,6 +20,20 @@ public class SlotsDevelopmentCards {
      */
     public SlotsDevelopmentCards(int gameIndex){
         this.gameIndex = gameIndex;
+        activeCards = new DevelopmentCard[3];
+        slot = new DevelopmentCard[3][3];
+        for(int i = 0; i < 3; i++){
+            for(int j = 0; j < 3; j++){
+                slot[i][j] = null;
+            }
+        }
+    }
+
+    /**
+     * Constructor method of this class without gameIndex
+     */
+    public SlotsDevelopmentCards(){
+        this.gameIndex = unusefulGameIndex;
         activeCards = new DevelopmentCard[3];
         slot = new DevelopmentCard[3][3];
         for(int i = 0; i < 3; i++){
@@ -59,7 +75,9 @@ public class SlotsDevelopmentCards {
             }
         }
         if(count >= 7){
+            if(gameIndex != unusefulGameIndex){
                 Game.get(gameIndex).endGame();
+            }
         }
     }
 

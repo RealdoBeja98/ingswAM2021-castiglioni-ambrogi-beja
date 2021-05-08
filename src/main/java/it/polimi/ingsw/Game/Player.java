@@ -1203,4 +1203,12 @@ public class Player {//<--FIXME check javadoc from here-->
         return marblesFromTheMarket;
     }
 
+    public String exportForPlayersAndCardsInHand(){
+        String s1 = cardsInHand[0].export();
+        String s2 = cardsInHand[1].export();
+        String s3 = nickname;
+        String result = s1 + "/" + s2 + "/" + s3;
+        return result;
+    }
+
 }
