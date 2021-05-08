@@ -133,4 +133,90 @@ public class Market {
         extraMarble = extra;
     }
 
+    /**
+     * This method is to export the Market to a String
+     * @return the String exported
+     */
+    public String export(){
+        String result = "";
+        for(int i = 0; i < 3; i++){
+            for(int j = 0; j < 4; j++){
+                String toAdd = "";
+                switch (marketTray[i][j].getWhatIAm()){
+                    case FAITH: toAdd = "0";
+                        break;
+                    case COIN: toAdd = "1";
+                        break;
+                    case STONE: toAdd = "2";
+                        break;
+                    case SERVANT: toAdd = "3";
+                        break;
+                    case SHIELD: toAdd = "4";
+                        break;
+                    case WHITE: toAdd = "5";
+                        break;
+                }
+                result = new StringBuilder().append(result).append(toAdd).toString();
+            }
+        }
+        String toAdd = "";
+        switch (extraMarble.getWhatIAm()){
+            case FAITH: toAdd = "0";
+                break;
+            case COIN: toAdd = "1";
+                break;
+            case STONE: toAdd = "2";
+                break;
+            case SERVANT: toAdd = "3";
+                break;
+            case SHIELD: toAdd = "4";
+                break;
+            case WHITE: toAdd = "5";
+                break;
+        }
+        result = new StringBuilder().append(result).append(toAdd).toString();
+        return result;
+    }
+
+    /**
+     * Constructor method of this class from the exported string
+     */
+    public Market(String importedString){
+        marketTray = new Marble[3][4];
+        int x = 0;
+        for(int i = 0; i < 3; i++) {
+            for (int j = 0; j < 4; j++) {
+                String toAdd = importedString.substring(x, x+1);
+                if(toAdd.equals("0")){
+                    marketTray[i][j] = new Faith();
+                } else if(toAdd.equals("1")){
+                    marketTray[i][j] = new Coin();
+                } else if(toAdd.equals("2")){
+                    marketTray[i][j] = new Stone();
+                } else if(toAdd.equals("3")){
+                    marketTray[i][j] = new Servant();
+                } else if(toAdd.equals("4")){
+                    marketTray[i][j] = new Shield();
+                } else if(toAdd.equals("5")){
+                    marketTray[i][j] = new White();
+                }
+                x++;
+            }
+        }
+        String toAdd = importedString.substring(x, x+1);
+        if(toAdd.equals("0")){
+            extraMarble = new Faith();
+        } else if(toAdd.equals("1")){
+            extraMarble = new Coin();
+        } else if(toAdd.equals("2")){
+            extraMarble = new Stone();
+        } else if(toAdd.equals("3")){
+            extraMarble = new Servant();
+        } else if(toAdd.equals("4")){
+            extraMarble = new Shield();
+        } else if(toAdd.equals("5")){
+            extraMarble = new White();
+        }
+    }
+
 }

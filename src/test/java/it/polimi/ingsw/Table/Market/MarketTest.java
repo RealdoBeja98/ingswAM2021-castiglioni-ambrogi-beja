@@ -75,4 +75,23 @@ public class MarketTest {
         assertSame(newExtraMarble, oldMarketTray[0][2]);
     }
 
+    /**
+     * This method tests creating a Market from an exported string
+     */
+    @Test
+    void testExportMarket(){
+        Market market = new Market();
+        Marble[][] oldMarketTray = market.getMarketTray();
+        Marble oldExtraMarble = market.getExtraMarble();
+        Market newMarker = new Market(market.export());
+        Marble[][] newMarketTray = newMarker.getMarketTray();
+        Marble newExtraMarble = newMarker.getExtraMarble();
+        for(int i = 0; i < 3; i++) {
+            for (int j = 0; j < 4; j++) {
+                assertSame(oldMarketTray[i][j].getWhatIAm(), newMarketTray[i][j].getWhatIAm());
+            }
+        }
+        assertSame(oldExtraMarble.getWhatIAm(), newExtraMarble.getWhatIAm());
+    }
+
 }

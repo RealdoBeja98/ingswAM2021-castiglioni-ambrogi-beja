@@ -76,4 +76,13 @@ class DevelopmentDeckTest {
         assertThrows(RuntimeException.class, () -> deck.discard(type));
     }
 
+    /**
+     * This method tests creating a DevelopmentDeck from an exported string
+     */
+    @Test
+    void testExportDevelopmentDeck(){
+        DevelopmentDeck deck = new DevelopmentDeck(999);
+        assertTrue(deck.export().equals((new DevelopmentDeck(deck.export())).export()));
+    }
+
 }

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.Table.Decks.Leader;
 import it.polimi.ingsw.Enums.Resource;
+import it.polimi.ingsw.Enums.Type;
 import it.polimi.ingsw.Exceptions.EmptySlotExtraStorageLeaderCardException;
 import it.polimi.ingsw.Exceptions.OccupiedSlotExtraStorageLeaderCardException;
 import org.junit.jupiter.api.Test;
@@ -41,6 +42,19 @@ public class ExtraStorageLeaderCardTest {
             e.printStackTrace();
         }
         assertSame(extraStorageLeaderCard.occupiedResources(), 1);
+    }
+
+    /**
+     * This method tests creating a ExtraStorageLeaderCard from an exported string
+     */
+    @Test
+    void testExportExtraStorageLeaderCard(){
+        ExtraStorageLeaderCard oldExtraStorageLeaderCard = new ExtraStorageLeaderCard(3, Resource.COIN, Resource.STONE);
+        ExtraStorageLeaderCard newExtraStorageLeaderCard = new ExtraStorageLeaderCard(oldExtraStorageLeaderCard.export());
+        assertSame(oldExtraStorageLeaderCard.getWhatIAm(), newExtraStorageLeaderCard.getWhatIAm());
+        assertSame(oldExtraStorageLeaderCard.getStorageType(), newExtraStorageLeaderCard.getStorageType());
+        assertSame(oldExtraStorageLeaderCard.getCostOfLeaderCard(), newExtraStorageLeaderCard.getCostOfLeaderCard());
+        assertSame(oldExtraStorageLeaderCard.getVictoryPoints(), newExtraStorageLeaderCard.getVictoryPoints());
     }
 
 }

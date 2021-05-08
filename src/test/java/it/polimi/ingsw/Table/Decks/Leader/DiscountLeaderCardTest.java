@@ -2,6 +2,8 @@ package it.polimi.ingsw.Table.Decks.Leader;
 import it.polimi.ingsw.Enums.LeaderCardType;
 import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Enums.Type;
+import it.polimi.ingsw.Table.Market.Marbles.Marble;
+import it.polimi.ingsw.Table.Market.Market;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -38,4 +40,22 @@ public class DiscountLeaderCardTest {
         assertNotNull(discountLeaderCard.getWhatIAm());
         assertSame(discountLeaderCard.getVictoryPoints(), 2);
     }
+
+    /**
+     * This method tests creating a DiscountLeaderCard from an exported string
+     */
+    @Test
+    void testExportDiscountLeaderCard(){
+        Type[] card1 = {Type.YELLOW, Type.GREEN};
+        DiscountLeaderCard oldDiscountLeaderCard = new DiscountLeaderCard(2, Resource.SERVANT, card1);
+        DiscountLeaderCard newDiscountLeaderCard = new DiscountLeaderCard(oldDiscountLeaderCard.export());
+        assertSame(oldDiscountLeaderCard.getWhatIAm(), newDiscountLeaderCard.getWhatIAm());
+        assertSame(oldDiscountLeaderCard.getVictoryPoints(), newDiscountLeaderCard.getVictoryPoints());
+        assertSame(oldDiscountLeaderCard.getCostOfLeaderCard().length, newDiscountLeaderCard.getCostOfLeaderCard().length);
+        for(int i = 0; i < oldDiscountLeaderCard.getCostOfLeaderCard().length; i++){
+            assertSame(oldDiscountLeaderCard.getCostOfLeaderCard()[i], newDiscountLeaderCard.getCostOfLeaderCard()[i]);
+        }
+        assertSame(oldDiscountLeaderCard.getDiscount(), newDiscountLeaderCard.getDiscount());
+    }
+
 }

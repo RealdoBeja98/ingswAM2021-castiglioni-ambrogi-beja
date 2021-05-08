@@ -269,4 +269,39 @@ public class DevelopmentDeck{
         }
     }
 
+    /**
+     * This method is to export the DevelopmentDeck to a String
+     * @return the String exported
+     */
+    public String export(){
+        String result = "";
+        for(int i = 0; i < 3; i++){
+            for(int j = 0; j < 4; j++){
+                for(int k = 0; k < 4; k++){
+                    result = new StringBuilder().append(result).append(deck[i][j][k].export() + "/").toString();
+                }
+            }
+        }
+        result = new StringBuilder().append(result).append(String.valueOf(gameIndex)).toString();
+        return result;
+    }
+
+    /**
+     * Constructor method of this class from the exported string
+     */
+    public DevelopmentDeck(String importedString){
+        String[] strings = importedString.split("/");
+        deck = new DevelopmentCard[3][4][4];
+        int x = 0;
+        for(int i = 0; i < 3; i++){
+            for(int j = 0; j < 4; j++){
+                for(int k = 0; k < 4; k++){
+                    deck[i][j][k] = new DevelopmentCard(strings[x]);
+                    x++;
+                }
+            }
+        }
+        gameIndex = Integer.parseInt(strings[x]);
+    }
+
 }

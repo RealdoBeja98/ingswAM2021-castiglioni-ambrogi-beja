@@ -30,4 +30,16 @@ public class ProductionPowerLeaderCardTest {
         assertSame(resourceProduction.getProductionFaith(), 1);
     }
 
+    /**
+     * This method tests creating a ProductionPowerLeaderCard from an exported string
+     */
+    @Test
+    void testExportProductionPowerLeaderCard(){
+        ProductionPowerLeaderCard oldProductionPowerLeaderCard = new ProductionPowerLeaderCard(3, Type.BLUE, Resource.SERVANT);
+        ProductionPowerLeaderCard newProductionPowerLeaderCard = new ProductionPowerLeaderCard(oldProductionPowerLeaderCard.export());
+        assertSame(newProductionPowerLeaderCard.getWhatIAm(), oldProductionPowerLeaderCard.getWhatIAm());
+        assertSame(newProductionPowerLeaderCard.getCostOfLeaderCard(), oldProductionPowerLeaderCard.getCostOfLeaderCard());
+        assertSame(newProductionPowerLeaderCard.getVictoryPoints(), oldProductionPowerLeaderCard.getVictoryPoints());
+    }
+
 }

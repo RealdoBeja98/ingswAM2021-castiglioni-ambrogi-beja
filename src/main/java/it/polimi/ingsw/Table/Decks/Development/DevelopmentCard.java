@@ -163,4 +163,185 @@ public class DevelopmentCard extends Card implements Production {
         return new ResourceProduction(costCoin, costServant, costShield, costStone, 0, productionCoin,
                 productionServant, productionShield, productionStone, 0, productionFaith);
     }
+
+    /**
+     * This method is to export the DevelopmentCard to a String
+     * @return the String exported
+     */
+    public String export(){
+        String result = "";
+        for(Resource i: cost){
+            String toAdd = "";
+            switch (i){
+                case FAITH: toAdd = "0";
+                    break;
+                case COIN: toAdd = "1";
+                    break;
+                case STONE: toAdd = "2";
+                    break;
+                case SERVANT: toAdd = "3";
+                    break;
+                case SHIELD: toAdd = "4";
+                    break;
+                case WHITE: toAdd = "5";
+                    break;
+            }
+            result = new StringBuilder().append(result).append(toAdd).toString();
+        }
+        result = new StringBuilder().append(result).append(":").toString();
+        for(int i: costNumber){
+            String toAdd = String.valueOf(i);
+            result = new StringBuilder().append(result).append(toAdd).toString();
+        }
+        result = new StringBuilder().append(result).append(":").toString();
+        switch (type){
+            case GREEN: result = new StringBuilder().append(result).append("g").toString();
+                break;
+            case BLUE: result = new StringBuilder().append(result).append("b").toString();
+                break;
+            case YELLOW: result = new StringBuilder().append(result).append("y").toString();
+                break;
+            case PURPLE: result = new StringBuilder().append(result).append("p").toString();
+                break;
+            default: break;
+        }
+        result = new StringBuilder().append(result).append(":").toString();
+        result = new StringBuilder().append(result).append(String.valueOf(level)).toString();
+        result = new StringBuilder().append(result).append(":").toString();
+        for(Resource i: requirements){
+            String toAdd = "";
+            switch (i){
+                case FAITH: toAdd = "0";
+                    break;
+                case COIN: toAdd = "1";
+                    break;
+                case STONE: toAdd = "2";
+                    break;
+                case SERVANT: toAdd = "3";
+                    break;
+                case SHIELD: toAdd = "4";
+                    break;
+                case WHITE: toAdd = "5";
+                    break;
+            }
+            result = new StringBuilder().append(result).append(toAdd).toString();
+        }
+        result = new StringBuilder().append(result).append(":").toString();
+        for(int i: costRequirements){
+            String toAdd = String.valueOf(i);
+            result = new StringBuilder().append(result).append(toAdd).toString();
+        }
+        result = new StringBuilder().append(result).append(":").toString();
+        for(Resource i: products){
+            String toAdd = "";
+            switch (i){
+                case FAITH: toAdd = "0";
+                    break;
+                case COIN: toAdd = "1";
+                    break;
+                case STONE: toAdd = "2";
+                    break;
+                case SERVANT: toAdd = "3";
+                    break;
+                case SHIELD: toAdd = "4";
+                    break;
+                case WHITE: toAdd = "5";
+                    break;
+            }
+            result = new StringBuilder().append(result).append(toAdd).toString();
+        }
+        result = new StringBuilder().append(result).append(":").toString();
+        for(int i: costProducts){
+            String toAdd = String.valueOf(i);
+            result = new StringBuilder().append(result).append(toAdd).toString();
+        }
+        result = new StringBuilder().append(result).append(":").toString();
+        result = new StringBuilder().append(result).append(String.valueOf(victoryPoints)).toString();
+        return result;
+    }
+
+    /**
+     * Constructor method of this class from the exported string
+     */
+    public DevelopmentCard(String importedString){
+        String[] strings = importedString.split(":");
+        cost = new Resource[strings[0].length()];
+        for(int i = 0; i < strings[0].length(); i++){
+            String toAdd = strings[0].substring(i, i+1);
+            if(toAdd.equals("0")){
+                cost[i] = Resource.FAITH;
+            } else if(toAdd.equals("1")){
+                cost[i] = Resource.COIN;
+            } else if(toAdd.equals("2")){
+                cost[i] = Resource.STONE;
+            } else if(toAdd.equals("3")){
+                cost[i] = Resource.SERVANT;
+            } else if(toAdd.equals("4")){
+                cost[i] = Resource.SHIELD;
+            } else if(toAdd.equals("5")){
+                cost[i] = Resource.WHITE;
+            }
+        }
+        costNumber = new int[strings[1].length()];
+        for(int i = 0; i < strings[1].length(); i++){
+            String toAdd = strings[1].substring(i, i+1);
+            costNumber[i] = Integer.parseInt(toAdd);
+        }
+        if(strings[2].equals("g")){
+            type = Type.GREEN;
+        } else if(strings[2].equals("b")){
+            type = Type.BLUE;
+        } else if(strings[2].equals("y")){
+            type = Type.YELLOW;
+        } else {
+            type = Type.PURPLE;
+        }
+        level = Integer.parseInt(strings[3]);
+        requirements = new Resource[strings[4].length()];
+        for(int i = 0; i < strings[4].length(); i++){
+            String toAdd = strings[4].substring(i, i+1);
+            if(toAdd.equals("0")){
+                requirements[i] = Resource.FAITH;
+            } else if(toAdd.equals("1")){
+                requirements[i] = Resource.COIN;
+            } else if(toAdd.equals("2")){
+                requirements[i] = Resource.STONE;
+            } else if(toAdd.equals("3")){
+                requirements[i] = Resource.SERVANT;
+            } else if(toAdd.equals("4")){
+                requirements[i] = Resource.SHIELD;
+            } else if(toAdd.equals("5")){
+                requirements[i] = Resource.WHITE;
+            }
+        }
+        costRequirements = new int[strings[5].length()];
+        for(int i = 0; i < strings[5].length(); i++){
+            String toAdd = strings[5].substring(i, i+1);
+            costRequirements[i] = Integer.parseInt(toAdd);
+        }
+        products = new Resource[strings[6].length()];
+        for(int i = 0; i < strings[6].length(); i++){
+            String toAdd = strings[6].substring(i, i+1);
+            if(toAdd.equals("0")){
+                products[i] = Resource.FAITH;
+            } else if(toAdd.equals("1")){
+                products[i] = Resource.COIN;
+            } else if(toAdd.equals("2")){
+                products[i] = Resource.STONE;
+            } else if(toAdd.equals("3")){
+                products[i] = Resource.SERVANT;
+            } else if(toAdd.equals("4")){
+                products[i] = Resource.SHIELD;
+            } else if(toAdd.equals("5")){
+                products[i] = Resource.WHITE;
+            }
+        }
+        costProducts = new int[strings[7].length()];
+        for(int i = 0; i < strings[7].length(); i++){
+            String toAdd = strings[7].substring(i, i+1);
+            costProducts[i] = Integer.parseInt(toAdd);
+        }
+        victoryPoints = Integer.parseInt(strings[8]);
+    }
+
 }
