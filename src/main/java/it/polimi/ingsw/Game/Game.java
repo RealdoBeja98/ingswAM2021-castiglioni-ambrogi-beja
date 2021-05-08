@@ -94,6 +94,7 @@ public class Game {
         Cli screen = new Cli();
         screen.showMarket(gameIndex);
         screen.showDevCard(gameIndex);
+        screen.showPersonalBoard(gameIndex);
         turn = new Turn(gameIndex);
         for(int i = 0; i < (printWriterList.size()-1); i++){
             if(printWriterList.get(i) != null){
