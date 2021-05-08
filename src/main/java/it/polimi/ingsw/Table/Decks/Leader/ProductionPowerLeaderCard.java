@@ -24,6 +24,14 @@ public class ProductionPowerLeaderCard extends LeaderCard implements Production 
     }
 
     /**
+     * Getter of the parameter requirement
+     * @return the requirement of the card production, of type Resource
+     */
+    public Resource getRequirement(){
+        return requirement;
+    }
+
+    /**
      * Getter of the parameter costOfLeaderCard
      * @return the cost of the card, of type Type
      */

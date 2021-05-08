@@ -1,20 +1,21 @@
 package it.polimi.ingsw.View;
 import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Enums.Type;
+import it.polimi.ingsw.Enums.LeaderCardType;
 import it.polimi.ingsw.Game.Game;
+import it.polimi.ingsw.Game.Player;
 import it.polimi.ingsw.Table.Decks.Development.DevelopmentCard;
+import it.polimi.ingsw.Table.Decks.Leader.*;
 import it.polimi.ingsw.Table.Market.Marbles.Marble;
+
+import java.util.ArrayList;
 
 public class Cli extends View{
 
     @Override
     public void showMarket(int index) {
         Marble[][] visualize = Game.get(index).getTable().getMarket().getMarketTray();
-        System.out.print("╔");
-        for(int i = 1; i < 8; i++){
-            System.out.print("═");
-        }
-        System.out.println("╗");
+        System.out.println("╔═══════╗");
         int j = 0;
         for (int i = 0; i <= 8; i++) {
             if (i % 2 == 0) {
@@ -25,11 +26,7 @@ public class Cli extends View{
             }
         }
         System.out.println();
-        System.out.print("╠");
-        for(int i = 1; i < 8; i++){
-            System.out.print("═");
-        }
-        System.out.println("╣");
+        System.out.println("╠═══════╣");
         j = 0;
         for (int i = 0; i <= 8; i++) {
             if (i % 2 == 0) {
@@ -40,11 +37,8 @@ public class Cli extends View{
             }
         }
         System.out.println();
-        System.out.print("╠");
-        for(int i = 1; i < 8; i++){
-            System.out.print("═");
-        }
-        System.out.println("╣");
+        System.out.println("╠═══════╣");
+
         j = 0;
         for (int i = 0; i <= 8; i++) {
             if (i % 2 == 0) {
@@ -55,57 +49,326 @@ public class Cli extends View{
             }
         }
         System.out.println();
-        System.out.print("╚");
-        for(int i = 1; i < 8; i++){
-            System.out.print("═");
-        }
-        System.out.println("╝");
+        System.out.println("╚═══════╝");
         Marble extra = Game.get(index).getTable().getMarket().getExtraMarble();
         System.out.println("Extra: " + resourceToColorASCI(extra.getWhatIAm()));
     }
 
     @Override
     public void showDevCard(int index) {
+
+        System.out.println("╔════════════════════════════════════════════════════════════════════════════════════════════════════════════╗");
+
         DevelopmentCard[][] visualize = Game.get(index).getTable().getDevelopmentDeck().visualize();
-        for(int j = 0; j < 3; j++){
-            for(int i = 0; i < 4; i++){
-                int tot = 0;
+        int j = 0;
+        String escapeW = Color.ANSI_WHITE.escape();
+        String escapeG = Color.ANSI_GREEN.escape();
+        String escapeB = Color.ANSI_BLUE.escape();
+        String escapeY = Color.ANSI_YELLOW.escape();
+        String escapeP = Color.ANSI_PURPLE.escape();
+        System.out.println("║" + escapeG + "╔═════════════════════════╦"+ escapeB + "╦═════════════════════════╦" +
+                            escapeY + "╦═════════════════════════╦" + escapeP + "╦═════════════════════════╗" + escapeW + "║");
+
+        for(int z = 0; z < 7; z++){
+            if(z % 2 == 0){
+                System.out.println("║" + escapeG + "╠═════════════════════════╬"+ escapeB + "╬═════════════════════════╬" +
+                                    escapeY + "╬═════════════════════════╬" + escapeP + "╬═════════════════════════╣" + escapeW + "║");
+            }
+            else{
                 System.out.print("║");
-                Type type = visualize[j][i].getType();
-                Resource[] cost = visualize[j][i].getCost();
-                int[] costN = visualize[j][i].getCostNumber();
-                for (int n = 0; n < cost.length; n++){
-                    System.out.print(costN[n] + resourceToColorASCI(cost[n]));
+                for(int i = 0; i < 4; i++){
+                    printDevCard(visualize[j][i]);
                 }
-                System.out.print(typeToColorASCI(type));
-                Resource[] requirements = visualize[j][i].getRequirements();
-                int[] costRequirements = visualize[j][i].getCostRequirements();
-                for (int n = 0; n < requirements.length; n++){
-                    System.out.print(costRequirements[n] + resourceToColorASCI(requirements[n]));
-                }
-                System.out.print(typeToColorASCI(type));
-                Resource[] products = visualize[j][i].getProducts();
-                int[] costProducts = visualize[j][i].getCostProducts();
-                for (int n = 0; n < products.length; n++){
-                    System.out.print(costProducts[n] + resourceToColorASCI(products[n]));
-                }
-                System.out.print(typeToColorASCI(type));
-                System.out.print(visualize[j][i].getVictoryPoints() + "VP");
-                if(visualize[j][i].getVictoryPoints() >= 10){
-                    tot = ((cost.length + requirements.length + products.length) * 2) + 7;
-                }
-                else{
-                    tot = ((cost.length + requirements.length + products.length) * 2) + 6;
-                }
-                while(tot < 25){
+                System.out.println("║");
+                j++;
+            }
+
+        }
+        System.out.println("║" + escapeG + "╚═════════════════════════╩"+ escapeB + "╩═════════════════════════╩" +
+                escapeY + "╩═════════════════════════╩" + escapeP + "╩═════════════════════════╝" + escapeW + "║");
+        System.out.println("╚════════════════════════════════════════════════════════════════════════════════════════════════════════════╝");
+    }
+
+    @Override
+    public void showPersonalBoard(int index) {
+        ArrayList<Player> players = Game.get(index).getPlayers();
+        for(Player n : players){
+            System.out.println("╔════════════════════════════════════════════════════════════════════════════════════════════════════════════╗");
+            System.out.println("║╔══════════════════════════════════════════════════════════════════════════════════════════════════════════╗║");
+            int l = n.getNickname().length();
+            System.out.print("║║"+ n.getNickname());
+            while(l < 106){
+                System.out.print(" ");
+                l++;
+            }
+            System.out.println("║║");
+            System.out.println("║╚══════════════════════════════════════════════════════════════════════════════════════════════════════════╝║");
+            System.out.println("║╔══════════════════════════════════════════════════════════════════════════════════════════════════════════╗║");
+            System.out.println("║║ Faithtrack                                                                                               ║║");
+            System.out.println("║╚══════════════════════════════════════════════════════════════════════════════════════════════════════════╝║");
+            System.out.println("║╔══════════════════════════════════════════════════════════════════════════════════════════════════════════╗║");
+            int f = n.getPersonalBoard().getFaithTrack().getFaithMarker();
+            System.out.print("║║");
+            int i = 0;
+            while(i < (f * 2)){
+                System.out.print(" ");
+                i++;
+            }
+            System.out.print(Color.ANSI_RED.escape() + "x" + Color.ANSI_WHITE.escape());
+            while(i < 105){
+                System.out.print(" ");
+                i++;
+            }
+            System.out.println("║║");
+            System.out.print("║║");
+            int j = 0;
+            int p = 0;
+            while (j < 50){
+                if(j % 2 == 0){
+                    if(p == 3 || p == 6 || p == 9 || p == 12 || p == 15 || p == 18 || p == 21){
+                        System.out.print(Color.ANSI_YELLOW.escape() + "_" + Color.ANSI_WHITE.escape());
+                    }else if(p == 8 || p == 16 || p == 24){
+                        System.out.print(Color.ANSI_RED.escape() + "_" + Color.ANSI_WHITE.escape());
+                    }else{
+                        System.out.print("_");
+                    }
+                    p++;
+                }else{
                     System.out.print(" ");
-                    tot++;
+                }
+                j++;
+            }
+            while(j < 106){
+                System.out.print(" ");
+                j++;
+            }
+            System.out.println("║║");
+            System.out.println("║╚══════════════════════════════════════════════════════════════════════════════════════════════════════════╝║");
+            System.out.println("║╔════════════════════════════╦═════════════════════════════════════════════════════════════════════════════╗║");
+            System.out.println("║║ Warehouse                  ║ Card slot                                                                   ║║");
+            System.out.println("║╚════════════════════════════╩═════════════════════════════════════════════════════════════════════════════╝║");
+            System.out.println("║╔════════════════════════════╦═════════════════════════╦═════════════════════════╦═════════════════════════╗║");
+            Resource[] resource = n.getPersonalBoard().getWarehouseDepots().getResource();
+            DevelopmentCard[][] visualize = n.getPersonalBoard().getSlotsDevelopmentCards().getSlot();
+            System.out.print("║║");
+            int w1 = 0;
+            while(w1 <= 12){
+                System.out.print(" ");
+                w1++;
+            }
+            if(resource[0] != null){
+                System.out.print(resourceToColorASCI(resource[0]));
+            }
+            else {
+                System.out.print(" ");
+            }
+            while(w1 <= 26){
+                System.out.print(" ");
+                w1++;
+            }
+            System.out.print("║");
+            for(int col = 0; col < 3; col++){
+                if(visualize[0][col] != null){
+                    printDevCard(visualize[0][col]);
+                }else{
+                    int c00 = 0;
+                    while(c00 <= 24){
+                        System.out.print(" ");
+                        c00++;
+                    }
                 }
                 System.out.print("║");
             }
-            System.out.println();
-        }
+            System.out.println("║");
+            System.out.println("║╠════════════════════════════╬═════════════════════════╬═════════════════════════╬═════════════════════════╣║");
+            System.out.print("║║");
+            int w2 = 0;
+            while(w2 <= 11){
+                System.out.print(" ");
+                w2++;
+            }
+            if(resource[1] != null){
+                System.out.print(resourceToColorASCI(resource[1]) + " ");
 
+            }
+            else {
+                System.out.print("  ");
+            }
+            if(resource[2] != null){
+                System.out.print(resourceToColorASCI(resource[2]));
+
+            }
+            else {
+                System.out.print(" ");
+            }
+            w2 += 2;
+            while(w2 <= 26){
+                System.out.print(" ");
+                w2++;
+            }
+            System.out.print("║");
+            for(int col = 0; col < 3; col++){
+                if(visualize[1][col] != null){
+                    printDevCard(visualize[1][col]);
+                }else{
+                    int c00 = 0;
+                    while(c00 <= 24){
+                        System.out.print(" ");
+                        c00++;
+                    }
+                }
+                System.out.print("║");
+            }
+            System.out.println("║");
+            System.out.println("║╠════════════════════════════╬═════════════════════════╬═════════════════════════╬═════════════════════════╣║");
+            System.out.print("║║");
+            int w3 = 0;
+            while(w3 <= 10){
+                System.out.print(" ");
+                w3++;
+            }
+            if(resource[3] != null){
+                System.out.print(resourceToColorASCI(resource[3]) + " ");
+            }
+            else {
+                System.out.print("  ");
+            }
+            if(resource[4] != null){
+                System.out.print(resourceToColorASCI(resource[4]) + " ");
+            }
+            else {
+                System.out.print("  ");
+            }
+            if(resource[5] != null){
+                System.out.print(resourceToColorASCI(resource[5]));
+            }
+            else {
+                System.out.print(" ");
+            }
+            w3 += 4;
+            while(w3 <= 26){
+                System.out.print(" ");
+                w3++;
+            }
+            System.out.print("║");
+            for(int col = 0; col < 3; col++){
+                if(visualize[1][col] != null){
+                    printDevCard(visualize[1][col]);
+                }else{
+                    int c00 = 0;
+                    while(c00 <= 24){
+                        System.out.print(" ");
+                        c00++;
+                    }
+                }
+                System.out.print("║");
+            }
+            System.out.println("║");
+            System.out.println("║╚════════════════════════════╩═════════════════════════╩═════════════════════════╩═════════════════════════╝║");
+            System.out.println("║╔══════════════════════════════════════════════════════╦═══════════════════════════════════════════════════╗║");
+            System.out.println("║║ Strongbox                                            ║ Leader card                                       ║║");
+            System.out.println("║╚══════════════════════════════════════════════════════╩═══════════════════════════════════════════════════╝║");
+            int coin = n.getPersonalBoard().getStrongBox().getCoin();
+            int shield = n.getPersonalBoard().getStrongBox().getShield();
+            int servant = n.getPersonalBoard().getStrongBox().getServant();
+            int stone = n.getPersonalBoard().getStrongBox().getStone();
+            LeaderCard[] cardsInHand = n.getCardsInHand();
+            LeaderCard[] cardsOnTable = n.getCardsOnTable();
+            System.out.println("║╔════════════════════════════╦═════════════════════════╦═══════════════════════════════════════════════════╗║");
+            System.out.println("║║ Coin                       ║ Shield                  ║ In hand                                           ║║");
+            System.out.println("║╠════════════════════════════╬═════════════════════════╬═════════════════════════╦═════════════════════════╣║");
+            System.out.print("║║ " + coin);
+            int x = 0;
+            if(coin < 10){
+                x = 2;
+            }else if(coin >= 10 && coin < 100){
+                x = 3;
+            }else{
+                x = 4;
+            }
+            while(x <28){
+                System.out.print(" ");
+                x++;
+            }
+            System.out.print("║ ");
+
+            System.out.print(shield);
+            int xx = 0;
+            if(shield < 10){
+                xx = 2;
+            }else if(shield >= 10 && shield < 100){
+                xx = 3;
+            }else{
+                xx = 4;
+            }
+            while(xx <25){
+                System.out.print(" ");
+                xx++;
+            }
+            System.out.print("║ ");
+            if(cardsInHand[0] != null){
+                printLeadCard(cardsInHand[0]);
+            } else {
+                System.out.print("                        ");
+            }
+
+            System.out.print("║ ");
+
+            if(cardsInHand[1] != null){
+                printLeadCard(cardsInHand[1]);
+            } else {
+                System.out.print("                        ");
+            }
+            System.out.println("║║");
+            System.out.println("║╠════════════════════════════╬═════════════════════════╬═════════════════════════╩═════════════════════════╣║");
+            System.out.println("║║ Servant                    ║ Stone                   ║ On Table                                          ║║");
+            System.out.println("║╠════════════════════════════╬═════════════════════════╬═════════════════════════╦═════════════════════════╣║");
+            System.out.print("║║ " + servant);
+            int xxx = 0;
+            if(servant < 10){
+                xxx = 2;
+            }else if(servant >= 10 && servant < 100){
+                xxx = 3;
+            }else{
+                xxx = 4;
+            }
+            while(xxx <28){
+                System.out.print(" ");
+                xxx++;
+            }
+            System.out.print("║ ");
+
+            System.out.print(stone);
+            int xxxx = 0;
+            if(stone < 10){
+                xxxx = 2;
+            }else if(stone >= 10 && stone < 100){
+                xxxx = 3;
+            }else{
+                xxxx = 4;
+            }
+            while(xxxx <25){
+                System.out.print(" ");
+                xxxx++;
+            }
+            System.out.print("║ ");
+            if(cardsOnTable[0] != null){
+                printLeadCard(cardsOnTable[0]);
+            } else {
+                System.out.print("                        ");
+            }
+
+            System.out.print("║ ");
+
+            if(cardsOnTable[1] != null){
+                printLeadCard(cardsOnTable[1]);
+            } else {
+                System.out.print("                        ");
+            }
+            System.out.println("║║");
+            System.out.println("║╚════════════════════════════╩═════════════════════════╩═════════════════════════╩═════════════════════════╝║");
+            System.out.println("╚════════════════════════════════════════════════════════════════════════════════════════════════════════════╝");
+        }
     }
 
     private String resourceToColorASCI(Resource r){
@@ -129,15 +392,90 @@ public class Cli extends View{
     private String typeToColorASCI(Type t){
         switch (t){
             case GREEN:
-                return (Color.ANSI_YELLOW.escape() + "/" + Color.ANSI_WHITE.escape());
+                return (Color.ANSI_GREEN.escape());
             case BLUE:
-                return (Color.ANSI_RED.escape() + "/" + Color.ANSI_WHITE.escape());
-            case PURPLE:
-                return (Color.ANSI_PURPLE.escape() + "/" + Color.ANSI_WHITE.escape());
+                return (Color.ANSI_BLUE.escape());
             case YELLOW:
-                return (Color.ANSI_CYAN.escape() + "/" + Color.ANSI_WHITE.escape());
+                return (Color.ANSI_YELLOW.escape());
+            case PURPLE:
+                return (Color.ANSI_PURPLE.escape());
             default: return null;
         }
     }
 
+
+    private void printDevCard(DevelopmentCard visualize) {
+        String escapeW = Color.ANSI_WHITE.escape();
+
+        int tot = 0;
+
+        Type type = visualize.getType();
+        String escapeT = typeToColorASCI(type);
+        System.out.print(escapeT + "║" + escapeW);
+
+        Resource[] cost = visualize.getCost();
+        int[] costN = visualize.getCostNumber();
+        for (int n = 0; n < cost.length; n++) {
+            System.out.print(costN[n] + resourceToColorASCI(cost[n]));
+        }
+        System.out.print(escapeT + "/" + escapeW);
+        Resource[] requirements = visualize.getRequirements();
+        int[] costRequirements = visualize.getCostRequirements();
+        for (int n = 0; n < requirements.length; n++) {
+            System.out.print(costRequirements[n] + resourceToColorASCI(requirements[n]));
+        }
+        System.out.print(escapeT + "/" + escapeW);
+        Resource[] products = visualize.getProducts();
+        int[] costProducts = visualize.getCostProducts();
+        for (int n = 0; n < products.length; n++) {
+            System.out.print(costProducts[n] + resourceToColorASCI(products[n]));
+        }
+        System.out.print(escapeT + "/" + escapeW);
+        System.out.print(visualize.getVictoryPoints() + "VP");
+        if (visualize.getVictoryPoints() >= 10) {
+            tot = ((cost.length + requirements.length + products.length) * 2) + 7;
+        } else {
+            tot = ((cost.length + requirements.length + products.length) * 2) + 6;
+        }
+        while (tot < 25) {
+            System.out.print(" ");
+            tot++;
+        }
+        System.out.print(escapeT + "║" + escapeW);
+    }
+    private void printLeadCard(LeaderCard visualize){
+        String escapeW = Color.ANSI_WHITE.escape();
+        switch (visualize.getWhatIAm()) {
+            case DISCOUNT:
+                DiscountLeaderCard d = (DiscountLeaderCard) visualize;
+                Type[] t = d.getCostOfLeaderCard();
+                Resource r = d.getDiscount();
+                int v = d.getVictoryPoints();
+                System.out.print("D: -1" + resourceToColorASCI(r) + "/1" + typeToColorASCI(t[0]) + "x" + escapeW + "1" + typeToColorASCI(t[1]) + "x" + escapeW + "/" + v + "VP         ");
+                break;
+            case STORAGE:
+                ExtraStorageLeaderCard s = (ExtraStorageLeaderCard) visualize;
+                Resource sr = s.getCostOfLeaderCard();
+                Resource srr = s.getStorageType();
+                int sv = s.getVictoryPoints();
+                System.out.print("S: 1-1" + resourceToColorASCI(srr) + "/5" + resourceToColorASCI(sr) + "/" + sv + "VP          ");
+                break;
+            case PRODUCTIONPOWER:
+                ProductionPowerLeaderCard p = (ProductionPowerLeaderCard) visualize;
+                Type pt = p.getCostOfLeaderCard();
+                Resource pr = p.getRequirement();
+                int pv = p.getVictoryPoints();
+                System.out.print("P: 1?+" + resourceToColorASCI(Resource.FAITH) + "/1" + resourceToColorASCI(pr) + "/1" + typeToColorASCI(pt) + "xx" + escapeW + "/"+ pv + "VP      ");
+                break;
+            case WHITE:
+                WhiteMarbleLeaderCard w = (WhiteMarbleLeaderCard) visualize;
+                Type[] wt = w.getCostOfLeaderCard();
+                Marble m = w.getWhiteMarble();
+                Resource wr = m.getWhatIAm();
+                int wv = w.getVictoryPoints();
+                System.out.print("W: " + resourceToColorASCI(wr) + "/2" + typeToColorASCI(wt[0]) + "x" + escapeW + "1" + typeToColorASCI(wt[1]) + "x" + escapeW + "/" + wv + "VP           ");
+                break;
+            default: break;
+        }
+    }
 }
