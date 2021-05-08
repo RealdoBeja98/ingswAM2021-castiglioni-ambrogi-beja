@@ -5,6 +5,8 @@ import it.polimi.ingsw.Messages.ErrorMessages.GameStartedErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.NameTakenErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.NotYourTurnErrorMessage;
 import it.polimi.ingsw.Messages.Message;
+
+
 import java.io.*;
 import java.net.Socket;
 
@@ -13,6 +15,7 @@ public class ClientHandler implements Runnable {
     private final Socket socket;
     private Game game;
     private String nickname;
+    private boolean cli = true;
 
     public ClientHandler(Socket socket) {
         this.socket = socket;
@@ -49,6 +52,7 @@ public class ClientHandler implements Runnable {
             boolean create = false;
             try {
                 create = creatingGame(line, in, out);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -87,9 +91,8 @@ public class ClientHandler implements Runnable {
                 return;
             }
         }
-
-
         out.println("GAME START!");
+
         while (true) {
             try {
                 line = in.readLine();

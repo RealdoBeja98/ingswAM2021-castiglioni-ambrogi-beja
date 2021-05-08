@@ -9,7 +9,12 @@ import it.polimi.ingsw.PersonalBoard.Warehouse.WarehouseDepots;
  */
 public class White extends Marble {
 
-    private final Resource whatIAm = Resource.WHITE;
+    /**
+     * Constructor method of this class
+     */
+    public White(){
+        whatIAm = Resource.WHITE;
+    }
 
     /**
      * this method does nothing

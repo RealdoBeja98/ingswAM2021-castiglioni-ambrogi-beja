@@ -14,7 +14,12 @@ import it.polimi.ingsw.Exceptions.OccupiedSlotExtraStorageLeaderCardException;
  */
 public class Shield extends Marble {
 
-    private final Resource whatIAm = Resource.SHIELD;
+    /**
+     * Constructor method of this class
+     */
+    public Shield(){
+        whatIAm = Resource.SHIELD;
+    }
 
     /**
      * This method receives the current player warehouse depots and a position in it, then calls

@@ -9,7 +9,12 @@ import it.polimi.ingsw.PersonalBoard.Warehouse.WarehouseDepots;
  */
 public class Faith extends Marble {
 
-    private final Resource whatIAm = Resource.FAITH;
+    /**
+     * Constructor method of this class
+     */
+    public Faith(){
+        whatIAm = Resource.FAITH;
+    }
 
     /**
      * This method only throws an exception when accessed by this marble

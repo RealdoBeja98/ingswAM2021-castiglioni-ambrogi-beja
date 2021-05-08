@@ -62,6 +62,38 @@ public class DevelopmentCard extends Card implements Production {
     }
 
     /**
+     * Getter of the parameter requirements
+     * @return a copy of the type of card's requirements, of type Resource[]
+     */
+    public Resource[] getRequirements() {
+        return requirements.clone();
+    }
+
+    /**
+     * Getter of the parameter costRequirements
+     * @return a copy of the number of card's requirements, of type int[]
+     */
+    public int[] getCostRequirements() {
+        return costRequirements.clone();
+    }
+
+    /**
+     * Getter of the parameter products
+     * @return a copy of the type of card's products, of type Resource[]
+     */
+    public Resource[] getProducts() {
+        return products.clone();
+    }
+
+    /**
+     * Getter of the parameter costProducts
+     * @return a copy of the number of card's products, of type int[]
+     */
+    public int[] getCostProducts() {
+        return costProducts.clone();
+    }
+
+    /**
      * Getter of the parameter type
      * @return the type of the card, of type Type
      */

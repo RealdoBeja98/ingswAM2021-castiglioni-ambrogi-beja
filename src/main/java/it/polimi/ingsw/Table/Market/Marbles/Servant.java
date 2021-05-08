@@ -14,7 +14,12 @@ import it.polimi.ingsw.Table.Decks.Leader.ExtraStorageLeaderCard;
  */
 public class Servant extends Marble {
 
-    private final Resource whatIAm = Resource.SERVANT;
+    /**
+     * Constructor method of this class
+     */
+    public Servant(){
+        whatIAm = Resource.SERVANT;
+    }
 
     /**
      * This method receives the current player warehouse depots and a position in it, then calls

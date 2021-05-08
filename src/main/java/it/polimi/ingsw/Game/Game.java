@@ -3,6 +3,8 @@ import it.polimi.ingsw.Exceptions.GameAlreadyStartedException;
 import it.polimi.ingsw.Exceptions.GameEndedException;
 import it.polimi.ingsw.Exceptions.NameAlreadyRegisteredException;
 import it.polimi.ingsw.Table.Table;
+import it.polimi.ingsw.View.Cli;
+
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -89,6 +91,9 @@ public class Game {
      */
     private void startGame(){
         setInkwell();
+        Cli screen = new Cli();
+        screen.showMarket(gameIndex);
+        screen.showDevCard(gameIndex);
         turn = new Turn(gameIndex);
         for(int i = 0; i < (printWriterList.size()-1); i++){
             if(printWriterList.get(i) != null){

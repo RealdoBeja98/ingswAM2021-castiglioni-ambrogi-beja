@@ -14,7 +14,12 @@ import it.polimi.ingsw.Exceptions.OccupiedSlotExtraStorageLeaderCardException;
  */
 public class Coin extends Marble {
 
-    private final Resource whatIAm = Resource.COIN;
+    /**
+     * Constructor method of this class
+     */
+    public Coin(){
+        whatIAm = Resource.COIN;
+    }
 
     /**
      * This method receives the current player warehouse depots and a position in it, then calls

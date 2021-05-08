@@ -17,6 +17,7 @@ public class ClientMain {
 
     public static void main(String[] args) throws IOException {
 
+
         String hostName = args[0];
         int portNumber = atoi(args[1]);
 
@@ -71,6 +72,7 @@ public class ClientMain {
                                 out.println("GAME_ENDED");
                                 break;
                             }
+
                             else {
                                 System.out.println(Message.fromString(serverMessage));
                             }
