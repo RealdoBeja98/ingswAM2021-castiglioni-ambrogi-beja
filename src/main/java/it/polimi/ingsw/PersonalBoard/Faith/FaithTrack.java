@@ -2,12 +2,16 @@ package it.polimi.ingsw.PersonalBoard.Faith;
 import it.polimi.ingsw.Enums.FavorTiles;
 import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Game.Player;
+import it.polimi.ingsw.Game.PlayerGame;
+
 import java.util.ArrayList;
 
 /**
  * This Class represents the faith track associate to a player
  */
 public class FaithTrack {
+
+    private static final int unusefulGameIndex = -1;
 
     private int faithMarker;
     private FavorTiles[] favorTiles;
@@ -18,6 +22,18 @@ public class FaithTrack {
      */
     public FaithTrack(int gameIndex){
         this.gameIndex = gameIndex;
+        faithMarker = 0;
+        favorTiles = new FavorTiles[3];
+        for(int i = 0; i < 3; i++){
+            favorTiles[i] = FavorTiles.COVERED;
+        }
+    }
+
+    /**
+     * Constructor method of this class without gameIndex
+     */
+    public FaithTrack(){
+        this.gameIndex = unusefulGameIndex;
         faithMarker = 0;
         favorTiles = new FavorTiles[3];
         for(int i = 0; i < 3; i++){
@@ -47,6 +63,9 @@ public class FaithTrack {
      * @return a list of faithTrack, of type ArrayList of FaithTrack
      */
     private ArrayList<FaithTrack> faithTrackOfAllPlayers(){
+        if(gameIndex == unusefulGameIndex){
+            return PlayerGame.getAllFaithTrack();
+        }
         ArrayList<FaithTrack> result = new ArrayList<>();
         ArrayList<Player> playerList = Game.get(gameIndex).getPlayers();
         if(playerList.size() == 1){
@@ -80,7 +99,9 @@ public class FaithTrack {
 
         if (faithMarker >= 24 && favorTiles[2] == FavorTiles.COVERED) {
             popeState(2);
-            Game.get(gameIndex).endGame();
+            if(gameIndex != unusefulGameIndex){
+                Game.get(gameIndex).endGame();
+            }
         }
     }
 
@@ -157,6 +178,9 @@ public class FaithTrack {
      * @param discardingPlayer: is the player who has discarded a resource
      */
     public void allOtherPlayersGoOn(Player discardingPlayer){
+        if(gameIndex == unusefulGameIndex){
+            return;
+        }
         ArrayList<Player> playerList = Game.get(gameIndex).getPlayers();
         if(playerList.size() == 1){
             playerList.get(0).getPersonalBoard().getLorenzoTrack().goOn(1);

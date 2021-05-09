@@ -1,7 +1,9 @@
 package it.polimi.ingsw.Mains;
+import it.polimi.ingsw.Game.PlayerGame;
 import it.polimi.ingsw.Messages.ErrorMessages.GameStartedErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.NameTakenErrorMessage;
 import it.polimi.ingsw.Messages.Message;
+import it.polimi.ingsw.Messages.ServiceMessage;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,6 +16,16 @@ import java.net.UnknownHostException;
  * This class represents the client of the game
  */
 public class ClientMain {
+
+    private static PlayerGame playerGame;
+
+    public static PlayerGame getPlayerGame(){
+        return playerGame;
+    }
+
+    public static void setPlayerGame(PlayerGame playerGame){
+        ClientMain.playerGame = playerGame;
+    }
 
     public static void main(String[] args) throws IOException {
 
@@ -74,7 +86,12 @@ public class ClientMain {
                             }
 
                             else {
-                                System.out.println(Message.fromString(serverMessage));
+                                Message messageServerMessage = Message.fromString(serverMessage);
+                                if(messageServerMessage instanceof ServiceMessage){
+                                    messageServerMessage.execute(null, null);
+                                } else {
+                                    System.out.println(messageServerMessage);
+                                }
                             }
 
                         }

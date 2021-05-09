@@ -9,6 +9,7 @@ import it.polimi.ingsw.Messages.ForwardMessages.AdvanceFaithTrackForwardMessage;
 import it.polimi.ingsw.Messages.ForwardMessages.UpdateDevelopmentCardForwardMessage;
 import it.polimi.ingsw.Messages.ForwardMessages.UpdateMarketForwardMessage;
 import it.polimi.ingsw.Messages.GameMessages.*;
+import it.polimi.ingsw.Messages.ServiceMessages.GameStartServiceMessage;
 import it.polimi.ingsw.Table.Decks.Token.ActionToken;
 import java.io.PrintWriter;
 
@@ -38,8 +39,6 @@ public abstract class Message {
     }
 
     public static Message fromString(String string){
-
-        //System.out.println("Converting from string: " + string);
 
         if(string.equals("ERROR_NO_CARDS_DISCARD")){
             return new NoCardDiscardErrorMessage();
@@ -181,6 +180,11 @@ public abstract class Message {
             if (message[0].equals("UPDATE_SOLO_ACTION_TOKEN")) {
                 checkLength(message, 2);
                 return new UpdateSoloActionTokenMessage(ActionToken.valueof(message[1]));
+            } else
+
+            if (message[0].equals("GAME_START")) {
+                checkLength(message, 2);
+                return new GameStartServiceMessage(message[1]);
             } else
 
             if (message[0].equals("CHOOSE_DISCARD_LEADER_CARD")) {

@@ -90,4 +90,5 @@ ERROR_NO_DEVELOPMENT_CARD\
 TO_ERROR_TYPO
 Waiting all the player\
 GAME START!\
-nickname quit
+nickname quit\
+GAME_START

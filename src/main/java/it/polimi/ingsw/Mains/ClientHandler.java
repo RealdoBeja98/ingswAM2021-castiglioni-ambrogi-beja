@@ -5,6 +5,7 @@ import it.polimi.ingsw.Messages.ErrorMessages.GameStartedErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.NameTakenErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.NotYourTurnErrorMessage;
 import it.polimi.ingsw.Messages.Message;
+import it.polimi.ingsw.Messages.ServiceMessages.GameStartServiceMessage;
 
 
 import java.io.*;
@@ -91,7 +92,8 @@ public class ClientHandler implements Runnable {
                 return;
             }
         }
-        out.println("GAME START!");
+        //out.println("GAME START!");
+        out.println(new GameStartServiceMessage(game));
 
         while (true) {
             try {
