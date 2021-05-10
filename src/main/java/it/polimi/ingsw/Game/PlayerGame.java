@@ -5,6 +5,7 @@ import it.polimi.ingsw.Enums.RowColumn;
 import it.polimi.ingsw.Enums.Type;
 import it.polimi.ingsw.Exceptions.*;
 import it.polimi.ingsw.PersonalBoard.Faith.FaithTrack;
+import it.polimi.ingsw.PersonalBoard.Faith.FaithTrackSP;
 import it.polimi.ingsw.PersonalBoard.SlotsDevelopmentCards.SlotsDevelopmentCards;
 import it.polimi.ingsw.PersonalBoard.StrongBox.StrongBox;
 import it.polimi.ingsw.PersonalBoard.Warehouse.WarehouseDepots;
@@ -47,6 +48,7 @@ public class PlayerGame {
     private ArrayList<PlayerPlayer> players;
     private Market market;
     private DevelopmentDeck developmentDeck;
+    private FaithTrackSP lorenzoTrack;
 
     public PlayerGame(String market, String developmentDeck, ArrayList<String> playersAndCardsInHand){
         this.market = new Market(market);
@@ -66,6 +68,10 @@ public class PlayerGame {
             playerPlayer.strongBox = new StrongBox();
             playerPlayer.slotsDevelopmentCards = new SlotsDevelopmentCards();
             players.add(playerPlayer);
+        }
+        if(playersAndCardsInHand.size() == 1){
+            lorenzoTrack = new FaithTrackSP();
+            allFaithTrack.add(lorenzoTrack);
         }
     }
 
@@ -161,6 +167,13 @@ public class PlayerGame {
                 i.faithTrack.goOn(1);
             }
         }
+        if(lorenzoTrack != null){
+            lorenzoTrack.goOn(1);
+        }
+    }
+
+    public void loernzoGoOn(){
+        lorenzoTrack.goOn(1);
     }
 
 }

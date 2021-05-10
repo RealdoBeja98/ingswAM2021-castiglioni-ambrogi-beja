@@ -1,6 +1,7 @@
 package it.polimi.ingsw.Messages.ForwardMessages;
 
 import it.polimi.ingsw.Game.Game;
+import it.polimi.ingsw.Mains.ClientMain;
 import it.polimi.ingsw.Messages.ForwardMessage;
 
 import java.io.PrintWriter;
@@ -18,12 +19,12 @@ public class UpdateDevelopmentCardForwardMessage extends ForwardMessage {
 
     @Override
     public void execute(Game game, PrintWriter out) {
-        //<--FIXME implement method-->
+        ClientMain.getPlayerGame().updateDevelopmentDeck(x, y);
     }
 
     @Override
     public String toString(){
-        return "UPDATE_DEVELOPMENT_CARD "+x+" "+y;
+        return "UPDATE_DEVELOPMENT_CARD" + " "+x+" "+y;
     }
 
 }

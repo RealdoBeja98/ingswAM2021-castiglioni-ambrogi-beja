@@ -1,11 +1,14 @@
 package it.polimi.ingsw.Messages.GameMessages;
 
 import it.polimi.ingsw.Enums.LeaderWarehouse;
+import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Exceptions.*;
 import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Messages.ConfirmedActionMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.*;
+import it.polimi.ingsw.Messages.ForwardMessages.AddedResourceToForwardMessage;
 import it.polimi.ingsw.Messages.ForwardMessages.AdvanceFaithTrackForwardMessage;
+import it.polimi.ingsw.Messages.ForwardMessages.PlayedLeaderCardForwardMessage;
 import it.polimi.ingsw.Messages.GameMessage;
 import it.polimi.ingsw.Messages.Message;
 
@@ -25,16 +28,23 @@ public class AddResourceToGameMessage extends GameMessage {
     @Override
     public void execute(Game game, PrintWriter out) {
         try {
+            Resource whichResourceToAdd;
+            try {
+                whichResourceToAdd = game.getTurn().getCurrentPlayer().whichResourceToAdd().getWhatIAm();
+            } catch (NoMarbleToAddFromTheMarketException e) {
+                whichResourceToAdd = null;
+            }
             if(leaderWarehouse == LeaderWarehouse.DISCARD){
                 game.getTurn().addResource(LeaderWarehouse.DISCARD);
                 Message.sendMessage(out, new ConfirmedActionMessage());
                 System.out.println(identifier);
-                forward(game, new AdvanceFaithTrackForwardMessage(), out);
+                forward(game, new AdvanceFaithTrackForwardMessage(game), out);
             } else {
                 game.getTurn().addResource(leaderWarehouse, place);
                 Message.sendMessage(out, new ConfirmedActionMessage());
                 System.out.println(identifier);
             }
+            forward(game, new AddedResourceToForwardMessage(game.getTurn().getCurrentPlayer().getNickname(), leaderWarehouse, whichResourceToAdd, place), out);
         } catch (NoResourceToAddException e) {
             Message.sendMessage(out, new NoResourceAErrorMessage());
         } catch (DifferentStorageException e) {

@@ -7,6 +7,8 @@ import it.polimi.ingsw.Exceptions.PositionInvalidException;
 import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Messages.ConfirmedActionMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.*;
+import it.polimi.ingsw.Messages.ForwardMessages.DiscardedLeaderCardForwardMessage;
+import it.polimi.ingsw.Messages.ForwardMessages.UpdateMarketForwardMessage;
 import it.polimi.ingsw.Messages.GameMessage;
 import it.polimi.ingsw.Messages.Message;
 
@@ -27,6 +29,7 @@ public class DiscardLeaderCardGameMessage extends GameMessage {
             game.getTurn().discardLeaderCard(leaderCardToDiscard);
             Message.sendMessage(out, new ConfirmedActionMessage());
             System.out.println(identifier);
+            forward(game, new DiscardedLeaderCardForwardMessage(game.getTurn().getCurrentPlayer().getNickname(), leaderCardToDiscard), out);
         } catch (AlreadyDiscardedThisLeaderCardException e) {
             Message.sendMessage(out, new AlreadyDiscardedPositionErrorMessage());
         } catch (ActionNotAllowedException e) {

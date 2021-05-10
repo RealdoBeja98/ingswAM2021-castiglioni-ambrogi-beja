@@ -1,24 +1,33 @@
 package it.polimi.ingsw.Messages.ForwardMessages;
 
 import it.polimi.ingsw.Game.Game;
+import it.polimi.ingsw.Mains.ClientMain;
 import it.polimi.ingsw.Messages.ForwardMessage;
 
 import java.io.PrintWriter;
 
 public class AdvanceFaithTrackForwardMessage extends ForwardMessage {
 
-    public AdvanceFaithTrackForwardMessage(){
+    String excludedPlayer;
+
+    public AdvanceFaithTrackForwardMessage(Game game){
         identifier = "ADVANCE_FAITH_TRACK";
+        excludedPlayer = game.getTurn().getCurrentPlayer().getNickname();
+    }
+
+    public AdvanceFaithTrackForwardMessage(String excludedPlayer){
+        identifier = "ADVANCE_FAITH_TRACK";
+        this.excludedPlayer = excludedPlayer;
     }
 
     @Override
     public void execute(Game game, PrintWriter out) {
-        //<--FIXME implement method-->
+        ClientMain.getPlayerGame().allOtherPlayersGoOnFaithTrack(excludedPlayer);
     }
 
     @Override
     public String toString(){
-        return "ADVANCE_FAITH_TRACK";
+        return "ADVANCE_FAITH_TRACK" + " " + excludedPlayer;
     }
 
 }

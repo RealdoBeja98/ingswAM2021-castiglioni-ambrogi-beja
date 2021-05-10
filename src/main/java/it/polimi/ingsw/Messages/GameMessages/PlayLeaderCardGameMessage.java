@@ -10,6 +10,8 @@ import it.polimi.ingsw.Messages.ErrorMessages.GameEndedErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.InvalidActionErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.InvalidPositionErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.RequirementsErrorMessage;
+import it.polimi.ingsw.Messages.ForwardMessages.DiscardedLeaderCardForwardMessage;
+import it.polimi.ingsw.Messages.ForwardMessages.PlayedLeaderCardForwardMessage;
 import it.polimi.ingsw.Messages.GameMessage;
 import it.polimi.ingsw.Messages.Message;
 
@@ -30,6 +32,7 @@ public class PlayLeaderCardGameMessage extends GameMessage {
             game.getTurn().playLeaderCard(leaderCardToPlay);
             Message.sendMessage(out, new ConfirmedActionMessage());
             System.out.println(identifier);
+            forward(game, new PlayedLeaderCardForwardMessage(game.getTurn().getCurrentPlayer().getNickname(), leaderCardToPlay), out);
         } catch (NotSatisfiedRequirementsForThisLeaderCardException e) {
             Message.sendMessage(out, new RequirementsErrorMessage());
         } catch (ActionNotAllowedException e) {

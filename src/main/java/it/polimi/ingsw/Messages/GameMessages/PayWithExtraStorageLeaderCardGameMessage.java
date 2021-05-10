@@ -1,9 +1,11 @@
 package it.polimi.ingsw.Messages.GameMessages;
 
+import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Exceptions.*;
 import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Messages.ConfirmedActionMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.*;
+import it.polimi.ingsw.Messages.ForwardMessages.UpdateObtainedMultipleResourceForwardMessage;
 import it.polimi.ingsw.Messages.GameMessage;
 import it.polimi.ingsw.Messages.Message;
 
@@ -21,9 +23,15 @@ public class PayWithExtraStorageLeaderCardGameMessage extends GameMessage {
     @Override
     public void execute(Game game, PrintWriter out) {
         try {
+            int faith = game.getTurn().getCurrentPlayer().obtainingResourcesAfterPaying(Resource.FAITH);
+            int coin = game.getTurn().getCurrentPlayer().obtainingResourcesAfterPaying(Resource.COIN);
+            int servant = game.getTurn().getCurrentPlayer().obtainingResourcesAfterPaying(Resource.SERVANT);
+            int shield = game.getTurn().getCurrentPlayer().obtainingResourcesAfterPaying(Resource.SHIELD);
+            int stone = game.getTurn().getCurrentPlayer().obtainingResourcesAfterPaying(Resource.STONE);
             game.getTurn().payWithExtraStorageLeaderCard(leaderCardPosition);
             Message.sendMessage(out, new ConfirmedActionMessage());
             System.out.println(identifier);
+            forward(game, new UpdateObtainedMultipleResourceForwardMessage(game.getTurn().getCurrentPlayer().getNickname(), faith, coin, servant, shield, stone), out);
         } catch (NotAnExtraStorageLeaderCardException e) {
             Message.sendMessage(out, new NotEsErrorMessage());
         } catch (WrongPaymentException e) {

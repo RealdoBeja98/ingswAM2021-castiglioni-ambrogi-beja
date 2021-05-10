@@ -44,6 +44,11 @@ nickname quited\
 UPDATE_MARKET RowColumn 1\
 ADVANCE_FAITH_TRACK\
 UPDATE_DEVELOPMENT_CARD 1 1\
+DISCARDED_LEADER_CARD nickname 1\
+PLAYED_LEADER_CARD nickname 1\
+ADDED_RESOURCE_TO nickname leaderWarehouse resource 0
+PLACED_DEVELOPMENT_CARD nickname position developmentCard
+UPDATE_MULTIPLE_RESOURCES nickname 0 0 0 0 0
 \
 UPDATE_SOLO_ACTION_TOKEN Type\
 \

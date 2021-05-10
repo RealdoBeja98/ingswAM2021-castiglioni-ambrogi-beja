@@ -5,9 +5,7 @@ import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Enums.RowColumn;
 import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Messages.ErrorMessages.*;
-import it.polimi.ingsw.Messages.ForwardMessages.AdvanceFaithTrackForwardMessage;
-import it.polimi.ingsw.Messages.ForwardMessages.UpdateDevelopmentCardForwardMessage;
-import it.polimi.ingsw.Messages.ForwardMessages.UpdateMarketForwardMessage;
+import it.polimi.ingsw.Messages.ForwardMessages.*;
 import it.polimi.ingsw.Messages.GameMessages.*;
 import it.polimi.ingsw.Messages.ServiceMessages.GameStartServiceMessage;
 import it.polimi.ingsw.Table.Decks.Token.ActionToken;
@@ -162,10 +160,6 @@ public abstract class Message {
             return new ConfirmedActionMessage();
         }
 
-        if(string.equals("ADVANCE_FAITH_TRACK")){
-            return new AdvanceFaithTrackForwardMessage();
-        }
-
         String[] message = string.split(" ");
 
         try {
@@ -185,6 +179,26 @@ public abstract class Message {
             if (message[0].equals("GAME_START")) {
                 checkLength(message, 2);
                 return new GameStartServiceMessage(message[1]);
+            } else
+
+            if (message[0].equals("ADVANCE_FAITH_TRACK")) {
+                checkLength(message, 2);
+                return new AdvanceFaithTrackForwardMessage(message[1]);
+            } else if (message[0].equals("DISCARDED_LEADER_CARD")) {
+                checkLength(message, 3);
+                return new DiscardedLeaderCardForwardMessage(message[1], atoi(message[2]));
+            } else if (message[0].equals("PLAYED_LEADER_CARD")) {
+                checkLength(message, 3);
+                return new PlayedLeaderCardForwardMessage(message[1], atoi(message[2]));
+            } else if (message[0].equals("ADDED_RESOURCE_TO")) {
+                checkLength(message, 5);
+                return new AddedResourceToForwardMessage(message[1], LeaderWarehouse.valueOf(message[2]), Resource.valueOf(message[3]), atoi(message[4]));
+            } else if (message[0].equals("PLACED_DEVELOPMENT_CARD")) {
+                checkLength(message, 4);
+                return new PlacedDevelopmentCardForwardMessage(message[1], atoi(message[2]), message[3]);
+            } else if (message[0].equals("UPDATE_MULTIPLE_RESOURCES")) {
+                checkLength(message, 7);
+                return new UpdateObtainedMultipleResourceForwardMessage(message[1], atoi(message[2]), atoi(message[3]), atoi(message[4]), atoi(message[5]), atoi(message[6]));
             } else
 
             if (message[0].equals("CHOOSE_DISCARD_LEADER_CARD")) {
