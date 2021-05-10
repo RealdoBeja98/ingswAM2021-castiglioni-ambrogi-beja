@@ -18,6 +18,7 @@ public class UpdateObtainedMultipleResourceForwardMessage extends ForwardMessage
 
     public UpdateObtainedMultipleResourceForwardMessage(String nickname, int faith, int coin, int stone, int servant, int shield){
         identifier = "UPDATE_MULTIPLE_RESOURCES";
+        this.nickname = nickname;
         this.faith = faith;
         this.coin = coin;
         this.stone = stone;
@@ -38,7 +39,7 @@ public class UpdateObtainedMultipleResourceForwardMessage extends ForwardMessage
 
     @Override
     public String toString(){
-        return "UPDATE_MULTIPLE_RESOURCES" + " " + nickname + " " + faith + " " + coin + " " + stone + " " + servant + " " + shield;
+        return identifier + " " + nickname + " " + faith + " " + coin + " " + stone + " " + servant + " " + shield;
     }
 
 }

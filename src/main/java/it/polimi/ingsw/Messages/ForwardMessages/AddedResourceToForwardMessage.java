@@ -5,7 +5,6 @@ import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Mains.ClientMain;
 import it.polimi.ingsw.Messages.ForwardMessage;
-import it.polimi.ingsw.View.Cli;
 
 import java.io.PrintWriter;
 
@@ -38,7 +37,7 @@ public class AddedResourceToForwardMessage extends ForwardMessage {
 
     @Override
     public String toString(){
-        return "ADDED_RESOURCE_TO" + " " + nickname + " " + leaderWarehouse + " " + resource + " " + place;
+        return identifier + " " + nickname + " " + leaderWarehouse + " " + resource + " " + place;
     }
 
 }

@@ -32,7 +32,7 @@ public class PlayLeaderCardGameMessage extends GameMessage {
             game.getTurn().playLeaderCard(leaderCardToPlay);
             Message.sendMessage(out, new ConfirmedActionMessage());
             System.out.println(identifier);
-            forward(game, new PlayedLeaderCardForwardMessage(game.getTurn().getCurrentPlayer().getNickname(), leaderCardToPlay), out);
+            forwardAll(game, new PlayedLeaderCardForwardMessage(game.getTurn().getCurrentPlayer().getNickname(), leaderCardToPlay));
         } catch (NotSatisfiedRequirementsForThisLeaderCardException e) {
             Message.sendMessage(out, new RequirementsErrorMessage());
         } catch (ActionNotAllowedException e) {

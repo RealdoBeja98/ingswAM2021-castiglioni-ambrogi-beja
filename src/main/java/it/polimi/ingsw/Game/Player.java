@@ -388,6 +388,14 @@ public class Player {//<--FIXME check javadoc from here-->
     }
 
     /**
+     * Getter method of param selectedWarehouseDepotsSlot
+     * @return the selected warehouse depots slot
+     */
+    public int getSelectedWarehouseDepotsSlot(){
+        return selectedWarehouseDepotsSlot;
+    }
+
+    /**
      * This method let player to move up to two resources in the WarehouseDepots
      * the first position was selected using selectAWarehouseDepotsSlot and saved in var selectedWarehouseDepotsSlot of type int
      * @param pos2: to choose the second position of the slot of the WarehouseDepots

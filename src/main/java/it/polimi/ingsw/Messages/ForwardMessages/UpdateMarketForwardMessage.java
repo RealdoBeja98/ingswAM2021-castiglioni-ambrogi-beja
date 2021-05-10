@@ -25,7 +25,7 @@ public class UpdateMarketForwardMessage extends ForwardMessage {
 
     @Override
     public String toString(){
-        return "UPDATE_MARKET" + " " + rowColumn + " " + place;
+        return identifier + " " + rowColumn + " " + place;
     }
 
 }

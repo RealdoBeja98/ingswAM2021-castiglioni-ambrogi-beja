@@ -24,7 +24,7 @@ public class DiscardedLeaderCardForwardMessage extends ForwardMessage {
 
     @Override
     public String toString(){
-        return "DISCARDED_LEADER_CARD" + " " + nickname + " " + pos;
+        return identifier + " " + nickname + " " + pos;
     }
 
 }

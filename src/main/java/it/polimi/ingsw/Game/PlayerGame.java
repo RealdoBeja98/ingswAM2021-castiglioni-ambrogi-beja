@@ -11,6 +11,7 @@ import it.polimi.ingsw.PersonalBoard.StrongBox.StrongBox;
 import it.polimi.ingsw.PersonalBoard.Warehouse.WarehouseDepots;
 import it.polimi.ingsw.Table.Decks.Development.DevelopmentCard;
 import it.polimi.ingsw.Table.Decks.DevelopmentDeck;
+import it.polimi.ingsw.Table.Decks.Leader.ExtraStorageLeaderCard;
 import it.polimi.ingsw.Table.Decks.Leader.LeaderCard;
 import it.polimi.ingsw.Table.Market.Market;
 
@@ -106,7 +107,19 @@ public class PlayerGame {
     }
 
     public void addResourceExtraStorageLeaderCard(String nickname, int pos){
+        try {
+            ((ExtraStorageLeaderCard)getPlayerPlayerFromNickname(nickname).cardsOnTable[pos-1]).addResource();
+        } catch (OccupiedSlotExtraStorageLeaderCardException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public void removeResourceExtraStorageLeaderCard(String nickname, int pos){
+        try {
+            ((ExtraStorageLeaderCard)getPlayerPlayerFromNickname(nickname).cardsOnTable[pos-1]).removeResource();
+        } catch (EmptySlotExtraStorageLeaderCardException e) {
+            e.printStackTrace();
+        }
     }
 
     public void addResourceWarehouseDepots(String nickname, Resource r, int pos){
@@ -121,6 +134,33 @@ public class PlayerGame {
         try {
             getPlayerPlayerFromNickname(nickname).warehouseDepots.moveResource(startPos, finalPos);
         } catch (NotAdmittedMovementException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void moveResourcesFromWarehouseDepotsToExtraStorageLeaderCard(String nickname, int leaderCardPosition, int warehousePosition){
+        try {
+            getPlayerPlayerFromNickname(nickname).warehouseDepots.removeResource(warehousePosition);
+        } catch (EmptySlotYetException e) {
+            e.printStackTrace();
+        }
+        try {
+            ((ExtraStorageLeaderCard)getPlayerPlayerFromNickname(nickname).cardsOnTable[leaderCardPosition-1]).addResource();
+        } catch (OccupiedSlotExtraStorageLeaderCardException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void moveResourcesToWarehouseDepotsFromExtraStorageLeaderCard(String nickname, int leaderCardPosition, int warehousePosition){
+        try {
+            ((ExtraStorageLeaderCard)getPlayerPlayerFromNickname(nickname).cardsOnTable[leaderCardPosition-1]).removeResource();
+        } catch (EmptySlotExtraStorageLeaderCardException e) {
+            e.printStackTrace();
+        }
+        Resource resource = ((ExtraStorageLeaderCard)getPlayerPlayerFromNickname(nickname).cardsOnTable[leaderCardPosition-1]).getStorageType();
+        try {
+            getPlayerPlayerFromNickname(nickname).warehouseDepots.addResource(resource, warehousePosition);
+        } catch (PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException e) {
             e.printStackTrace();
         }
     }

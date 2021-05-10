@@ -6,20 +6,20 @@ import it.polimi.ingsw.Messages.ForwardMessage;
 
 import java.io.PrintWriter;
 
-public class PlayedLeaderCardForwardMessage extends ForwardMessage {
+public class PayedWithWarehouseDepotsForwardMessage extends ForwardMessage {
 
     private String nickname;
     private int pos;
 
-    public PlayedLeaderCardForwardMessage(String nickname, int pos){
-        identifier = "PLAYED_LEADER_CARD";
+    public PayedWithWarehouseDepotsForwardMessage(String nickname, int pos){
+        identifier = "PAYED_WITH_WAREHOUSE_DEPOTS";
         this.nickname = nickname;
         this.pos = pos;
     }
 
     @Override
     public void execute(Game game, PrintWriter out) {
-        ClientMain.getPlayerGame().playLeaderCard(nickname, pos);
+        ClientMain.getPlayerGame().removeResourceWarehouseDepots(nickname, pos);
     }
 
     @Override

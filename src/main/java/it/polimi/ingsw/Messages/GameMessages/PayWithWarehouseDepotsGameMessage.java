@@ -5,6 +5,7 @@ import it.polimi.ingsw.Exceptions.*;
 import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Messages.ConfirmedActionMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.*;
+import it.polimi.ingsw.Messages.ForwardMessages.PayedWithWarehouseDepotsForwardMessage;
 import it.polimi.ingsw.Messages.ForwardMessages.UpdateObtainedMultipleResourceForwardMessage;
 import it.polimi.ingsw.Messages.GameMessage;
 import it.polimi.ingsw.Messages.Message;
@@ -31,7 +32,8 @@ public class PayWithWarehouseDepotsGameMessage extends GameMessage {
             game.getTurn().payWithWarehouseDepots(position);
             Message.sendMessage(out, new ConfirmedActionMessage());
             System.out.println(identifier);
-            forward(game, new UpdateObtainedMultipleResourceForwardMessage(game.getTurn().getCurrentPlayer().getNickname(), faith, coin, servant, shield, stone), out);
+            forwardAll(game, new UpdateObtainedMultipleResourceForwardMessage(game.getTurn().getCurrentPlayer().getNickname(), faith, coin, servant, shield, stone));
+            forwardAll(game, new PayedWithWarehouseDepotsForwardMessage(game.getTurn().getCurrentPlayer().getNickname(), position));
         } catch (WrongPaymentException e) {
             Message.sendMessage(out, new WrongResourceErrorMessage());
         } catch (EmptySlotYetException e) {

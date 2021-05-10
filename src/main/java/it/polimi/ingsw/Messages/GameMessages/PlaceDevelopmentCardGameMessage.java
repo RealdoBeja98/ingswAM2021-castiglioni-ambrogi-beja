@@ -34,7 +34,7 @@ public class PlaceDevelopmentCardGameMessage extends GameMessage {
             game.getTurn().placeDevelopmentCard(position);
             Message.sendMessage(out, new ConfirmedActionMessage());
             System.out.println(identifier);
-            forward(game, new PlacedDevelopmentCardForwardMessage(game.getTurn().getCurrentPlayer().getNickname(), position, obtainedDevelopmentCard.export()), out);
+            forwardAll(game, new PlacedDevelopmentCardForwardMessage(game.getTurn().getCurrentPlayer().getNickname(), position, obtainedDevelopmentCard.export()));
         } catch (NoDevelopmentCardToObtainException e) {
             Message.sendMessage(out, new NoCardObtainableErrorMessage());
         } catch (PositionInvalidException e) {

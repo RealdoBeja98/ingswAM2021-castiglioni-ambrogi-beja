@@ -38,13 +38,13 @@ public class AddResourceToGameMessage extends GameMessage {
                 game.getTurn().addResource(LeaderWarehouse.DISCARD);
                 Message.sendMessage(out, new ConfirmedActionMessage());
                 System.out.println(identifier);
-                forward(game, new AdvanceFaithTrackForwardMessage(game), out);
+                forwardAll(game, new AdvanceFaithTrackForwardMessage(game.getTurn().getCurrentPlayer().getNickname()));
             } else {
                 game.getTurn().addResource(leaderWarehouse, place);
                 Message.sendMessage(out, new ConfirmedActionMessage());
                 System.out.println(identifier);
+                forwardAll(game, new AddedResourceToForwardMessage(game.getTurn().getCurrentPlayer().getNickname(), leaderWarehouse, whichResourceToAdd, place));
             }
-            forward(game, new AddedResourceToForwardMessage(game.getTurn().getCurrentPlayer().getNickname(), leaderWarehouse, whichResourceToAdd, place), out);
         } catch (NoResourceToAddException e) {
             Message.sendMessage(out, new NoResourceAErrorMessage());
         } catch (DifferentStorageException e) {

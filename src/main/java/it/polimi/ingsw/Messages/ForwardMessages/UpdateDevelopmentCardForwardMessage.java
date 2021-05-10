@@ -24,7 +24,7 @@ public class UpdateDevelopmentCardForwardMessage extends ForwardMessage {
 
     @Override
     public String toString(){
-        return "UPDATE_DEVELOPMENT_CARD" + " "+x+" "+y;
+        return identifier + " "+x+" "+y;
     }
 
 }

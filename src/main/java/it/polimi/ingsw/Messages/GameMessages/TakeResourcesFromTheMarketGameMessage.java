@@ -36,7 +36,7 @@ public class TakeResourcesFromTheMarketGameMessage extends GameMessage {
             for (int i = 0; i < size; i++) {
                 out.println(game.getTurn().getCurrentPlayer().getMarblesFromTheMarket().get(i));
             }
-            forward(game, new UpdateMarketForwardMessage(rowColumn, place), out);
+            forwardAll(game, new UpdateMarketForwardMessage(rowColumn, place));
         } catch (ActionNotAllowedException e) {
             Message.sendMessage(out, new InvalidActionErrorMessage());
         } catch (PositionInvalidException e) {

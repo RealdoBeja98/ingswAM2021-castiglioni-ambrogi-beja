@@ -199,6 +199,27 @@ public abstract class Message {
             } else if (message[0].equals("UPDATE_MULTIPLE_RESOURCES")) {
                 checkLength(message, 7);
                 return new UpdateObtainedMultipleResourceForwardMessage(message[1], atoi(message[2]), atoi(message[3]), atoi(message[4]), atoi(message[5]), atoi(message[6]));
+            } else if (message[0].equals("OBTAINED_GENERIC_RESOURCE")) {
+                checkLength(message, 3);
+                return new ObtainedGenericResourceForwardMessage(message[1], Resource.valueOf(message[2]));
+            } else if (message[0].equals("PAYED_WITH_EXTRA_STORAGE_LEADER_CARD")) {
+                checkLength(message, 3);
+                return new PayedWithExtraStorageLeaderCardForwardMessage(message[1], atoi(message[2]));
+            } else if (message[0].equals("PAYED_WITH_STRONGBOX")) {
+                checkLength(message, 3);
+                return new PayedWithStrongboxForwardMessage(message[1], Resource.valueOf(message[2]));
+            } else if (message[0].equals("PAYED_WITH_WAREHOUSE_DEPOTS")) {
+                checkLength(message, 3);
+                return new PayedWithWarehouseDepotsForwardMessage(message[1], atoi(message[2]));
+            } else if (message[0].equals("MOVED_RESOURCES_IN_WAREHOUSE_DEPOTS")) {
+                checkLength(message, 4);
+                return new MovedResourcesInWarehouseDepotsForwardMessage(message[1], atoi(message[2]), atoi(message[3]));
+            } else if (message[0].equals("MOVED_RESOURCES_WAREHOUSE_TO_ES_LC")) {
+                checkLength(message, 4);
+                return new MovedResourcesWarehouseToESLCForwardMessage(message[1], atoi(message[2]), atoi(message[3]));
+            } else if (message[0].equals("MOVED_RESOURCE_ES_LC_TO_WAREHOUSE")) {
+                checkLength(message, 4);
+                return new MovedResourceESLCToWarehouseForwardMessage(message[1], atoi(message[2]), atoi(message[3]));
             } else
 
             if (message[0].equals("CHOOSE_DISCARD_LEADER_CARD")) {
@@ -286,7 +307,7 @@ public abstract class Message {
                 return new MoveResourcesWarehouseToESLCGameMessage(atoi(message[1]));
             } else if (message[0].equals("MOVE_RESOURCE_ES_LC_TO_WAREHOUSE")) {
                 checkLength(message, 2);
-                return new MoveResourceESLCToEarehouseGameMessage(atoi(message[1]));
+                return new MoveResourceESLCToWEarehouseGameMessage(atoi(message[1]));
             }
         } catch (IllegalArgumentException e){
             return new ToErrorTypoGameMessage();

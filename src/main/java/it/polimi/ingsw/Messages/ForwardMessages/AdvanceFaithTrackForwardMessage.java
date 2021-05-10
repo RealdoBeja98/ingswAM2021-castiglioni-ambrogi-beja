@@ -10,11 +10,6 @@ public class AdvanceFaithTrackForwardMessage extends ForwardMessage {
 
     String excludedPlayer;
 
-    public AdvanceFaithTrackForwardMessage(Game game){
-        identifier = "ADVANCE_FAITH_TRACK";
-        excludedPlayer = game.getTurn().getCurrentPlayer().getNickname();
-    }
-
     public AdvanceFaithTrackForwardMessage(String excludedPlayer){
         identifier = "ADVANCE_FAITH_TRACK";
         this.excludedPlayer = excludedPlayer;
@@ -27,7 +22,7 @@ public class AdvanceFaithTrackForwardMessage extends ForwardMessage {
 
     @Override
     public String toString(){
-        return "ADVANCE_FAITH_TRACK" + " " + excludedPlayer;
+        return identifier + " " + excludedPlayer;
     }
 
 }

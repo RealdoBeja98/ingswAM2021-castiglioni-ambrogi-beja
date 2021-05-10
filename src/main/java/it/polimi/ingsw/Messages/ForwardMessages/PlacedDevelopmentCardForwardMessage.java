@@ -25,7 +25,7 @@ public class PlacedDevelopmentCardForwardMessage extends ForwardMessage {
 
     @Override
     public String toString(){
-        return "PLACED_DEVELOPMENT_CARD" + " " + nickname + " " + position + " " + developmentCard;
+        return identifier + " " + nickname + " " + position + " " + developmentCard;
     }
 
 }
