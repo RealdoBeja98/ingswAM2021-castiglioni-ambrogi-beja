@@ -1,1 +1,217 @@
-<mxfile host="app.diagrams.net" modified="2021-05-10T08:43:30.094Z" agent="5.0 (Macintosh)" etag="bUygPYr4JKaimHBqKpMh" version="14.6.11" type="github"><diagram name="Page-1" id="13e1069c-82ec-6db2-03f1-153e76fe0fe0">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</diagram></mxfile>
+<mxfile host="app.diagrams.net" modified="2021-05-10T15:48:07.397Z" agent="5.0 (Macintosh)" etag="g6idNRbs19OFOr5CEMJ3" version="14.6.11" type="github">
+  <diagram name="Page-1" id="13e1069c-82ec-6db2-03f1-153e76fe0fe0">
+    <mxGraphModel dx="603" dy="304" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#ffffff" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="7baba1c4bc27f4b0-4" value="Server" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="1" vertex="1">
+          <mxGeometry x="750" y="70" width="100" height="5970" as="geometry" />
+        </mxCell>
+        <mxCell id="7baba1c4bc27f4b0-16" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="7baba1c4bc27f4b0-4" vertex="1">
+          <mxGeometry x="45" y="110" width="10" height="5860" as="geometry" />
+        </mxCell>
+        <mxCell id="7baba1c4bc27f4b0-8" value="Client" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;rounded=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="1" vertex="1">
+          <mxGeometry x="100" y="80" width="100" height="5960" as="geometry" />
+        </mxCell>
+        <mxCell id="7baba1c4bc27f4b0-9" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;" parent="7baba1c4bc27f4b0-8" vertex="1">
+          <mxGeometry x="45" y="100" width="10" height="5860" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-7" value="&lt;div style=&quot;box-sizing: border-box ; font-family: &amp;#34;segoe ui&amp;#34; , , &amp;#34;apple color emoji&amp;#34; , &amp;#34;segoe ui emoji&amp;#34; , sans-serif ; font-size: 14px ; font-style: normal ; font-weight: 400 ; letter-spacing: normal ; text-indent: 0px ; text-transform: none ; word-spacing: 0px&quot;&gt;-n (new game) n (number of player) nickname&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="300" y="160" width="300" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-10" value="Check" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="840" y="190" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-15" value="&lt;div style=&quot;box-sizing: border-box ; font-family: &amp;#34;segoe ui&amp;#34; , , &amp;#34;apple color emoji&amp;#34; , &amp;#34;segoe ui emoji&amp;#34; , sans-serif ; font-size: 14px ; font-style: normal ; font-weight: 400 ; letter-spacing: normal ; text-indent: 0px ; text-transform: none ; word-spacing: 0px&quot;&gt;-o (join old game) n (game number) nickname&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="300" y="300" width="300" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-17" value="Check" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="850" y="330" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-22" value="Wake Up" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="420" y="415" width="60" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-24" value="Chose Discard Leader Card " style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="370" y="510" width="160" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-28" value="Check" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="850" y="530" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-29" value="Confirmed Action" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="395" y="600" width="110" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-30" value="Chose Play Leader Card" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="375" y="740" width="150" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-31" value="Check" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="850" y="760" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-32" value="Confirmed Action" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="395" y="840" width="110" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-33" value="Chose No Action Leader Card" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="360" y="950" width="180" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-34" value="Check" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="850" y="970" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-35" value="Confirmed Action" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="395" y="1040" width="110" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-36" value="Discard Leader Card" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="385" y="1150" width="130" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-37" value="Confirmed Action" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="395" y="1240" width="110" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-38" value="Check" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="850" y="1170" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-39" value="Play Leader Card" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="395" y="1340" width="110" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-40" value="Confirmed Action" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="395" y="1430" width="110" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-41" value="Check" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="850" y="1360" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-42" value="Select Normal Action(Take Resource From The Market, Buy Development Card, Activate Production)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="200" y="1540" width="550" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-43" value="Check" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="850" y="1560" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-44" value="Confirmed Action" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="395" y="1600" width="110" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-45" value="Take Resources From The Market(Row or Column)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="305" y="1710" width="290" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-46" value="Check" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="850" y="1730" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-47" value="Confirmed Action" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="395" y="1770" width="110" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-48" value="Add Resource To(LeaderCard, WareHouseDepots, Discard)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="285" y="1860" width="330" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-49" value="Check" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="850" y="1880" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-50" value="Confirmed Action" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="395" y="1920" width="110" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-51" value="Change White Marble With" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="370" y="2010" width="160" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-52" value="Check" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="850" y="2030" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-53" value="Confirmed Action" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="395" y="2070" width="110" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-54" value="Buy Development Card" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="380" y="2160" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-55" value="Check" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="850" y="2180" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-56" value="Confirmed Action" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="395" y="2230" width="110" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-57" value="Pay With Strong Box(Faith, Coin, Stone, Shield, Servant, White)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="270" y="2330" width="360" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-58" value="Confirmed Action" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="395" y="2400" width="110" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-59" value="Check" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="850" y="2350" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-60" value="Pay With Extra Storage LeaderCard(Position)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="320" y="2500" width="260" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-61" value="Confirmed Action" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="395" y="2570" width="110" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-62" value="Check" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="850" y="2520" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-63" value="Pay With Extra Storage LeaderCard(Position)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="320" y="2670" width="260" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-64" value="Confirmed Action" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="395" y="2740" width="110" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-65" value="Check" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="850" y="2690" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-66" value="Place Development Card(Position)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="350" y="2860" width="200" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-67" value="Confirmed Action" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="395" y="2930" width="110" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-68" value="Check" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="850" y="2880" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-69" value="Select Production Development Card (Position)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="315" y="3050" width="270" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-70" value="Confirmed Action" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="395" y="3120" width="110" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-71" value="Check" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="850" y="3070" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-72" value="Select Production Power Leader Card(Position)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="315" y="3230" width="270" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-73" value="Confirmed Action" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="395" y="3300" width="110" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-74" value="Check" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="850" y="3250" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-75" value="Select Default Production Power" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="355" y="3400" width="190" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-76" value="Confirmed Action" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="395" y="3470" width="110" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-77" value="Check" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="850" y="3420" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-78" value="Obtain Generic Resource (Faith, Coin, Stone, Shield, Servant, White)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="260" y="3570" width="380" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-79" value="Confirmed Action" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="395" y="3640" width="110" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-80" value="Check" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="850" y="3590" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-81" value="Start Payment" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="405" y="3750" width="90" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-82" value="Confirmed Action" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="395" y="3820" width="110" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-83" value="Check" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="850" y="3770" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-84" value="Draw Solo Action Token" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="380" y="3940" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-85" value="Confirmed Action" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="395" y="4010" width="110" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ir6YCfh4k-mO9yrdAhlO-86" value="Check" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="850" y="3960" width="60" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
