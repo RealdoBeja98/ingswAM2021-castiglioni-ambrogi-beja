@@ -19,11 +19,40 @@ import java.util.ArrayList;
 
 public class PlayerGame {
 
-    private class PlayerPlayer {
+    public class PlayerPlayer {
 
         private String nickname;
         private LeaderCard[] cardsInHand;
         private LeaderCard[] cardsOnTable;
+
+        public String getNickname() {
+            return nickname;
+        }
+
+        public LeaderCard[] getCardsInHand() {
+            return cardsInHand;
+        }
+
+        public LeaderCard[] getCardsOnTable() {
+            return cardsOnTable;
+        }
+
+        public FaithTrack getFaithTrack() {
+            return faithTrack;
+        }
+
+        public WarehouseDepots getWarehouseDepots() {
+            return warehouseDepots;
+        }
+
+        public StrongBox getStrongBox() {
+            return strongBox;
+        }
+
+        public SlotsDevelopmentCards getSlotsDevelopmentCards() {
+            return slotsDevelopmentCards;
+        }
+
         private FaithTrack faithTrack;
         private WarehouseDepots warehouseDepots;
         private StrongBox strongBox;
@@ -46,8 +75,22 @@ public class PlayerGame {
         return allFaithTrack;
     }
 
+    public ArrayList<PlayerPlayer> getPlayers() {
+        return (ArrayList<PlayerPlayer>) players.clone();
+    }
+
     private ArrayList<PlayerPlayer> players;
+
+    public Market getMarket() {
+        return market;
+    }
+
     private Market market;
+
+    public DevelopmentDeck getDevelopmentDeck() {
+        return developmentDeck;
+    }
+
     private DevelopmentDeck developmentDeck;
     private FaithTrackSP lorenzoTrack;
 
@@ -99,6 +142,7 @@ public class PlayerGame {
 
     public void discardLeaderCard(String nickname, int pos){
         getPlayerPlayerFromNickname(nickname).cardsInHand[pos-1] = null;
+        //<--FIXME il giocatore che scarta deve avanzare di 1 sulla fede-->
     }
 
     public void playLeaderCard(String nickname, int pos){

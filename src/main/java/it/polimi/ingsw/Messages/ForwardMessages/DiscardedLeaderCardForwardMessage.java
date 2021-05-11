@@ -3,6 +3,8 @@ package it.polimi.ingsw.Messages.ForwardMessages;
 import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Mains.ClientMain;
 import it.polimi.ingsw.Messages.ForwardMessage;
+import it.polimi.ingsw.View.Cli;
+import it.polimi.ingsw.View.View;
 
 import java.io.PrintWriter;
 
@@ -20,6 +22,8 @@ public class DiscardedLeaderCardForwardMessage extends ForwardMessage {
     @Override
     public void execute(Game game, PrintWriter out) {
         ClientMain.getPlayerGame().discardLeaderCard(nickname, pos);
+        View w = new Cli();
+        w.showPersonalBoard();
     }
 
     @Override

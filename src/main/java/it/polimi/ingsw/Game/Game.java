@@ -4,6 +4,7 @@ import it.polimi.ingsw.Exceptions.GameEndedException;
 import it.polimi.ingsw.Exceptions.NameAlreadyRegisteredException;
 import it.polimi.ingsw.Table.Table;
 import it.polimi.ingsw.View.Cli;
+import it.polimi.ingsw.View.View;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -91,10 +92,6 @@ public class Game {
      */
     private void startGame(){
         setInkwell();
-        Cli screen = new Cli();
-        screen.showMarket(gameIndex);
-        screen.showDevCard(gameIndex);
-        screen.showPersonalBoard(gameIndex);
         turn = new Turn(gameIndex);
         for(int i = 0; i < (printWriterList.size()-1); i++){
             if(printWriterList.get(i) != null){
@@ -103,6 +100,9 @@ public class Game {
         }
         started = true;
         System.out.println("Game: " + gameIndex + " started!");
+        for(int w = 0; w < printWriterList.size(); w++){
+            View v = new Cli();
+        }
     }
 
     /**

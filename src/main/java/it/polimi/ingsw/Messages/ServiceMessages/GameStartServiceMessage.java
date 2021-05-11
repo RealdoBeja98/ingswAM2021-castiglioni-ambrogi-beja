@@ -5,6 +5,8 @@ import it.polimi.ingsw.Game.Player;
 import it.polimi.ingsw.Game.PlayerGame;
 import it.polimi.ingsw.Mains.ClientMain;
 import it.polimi.ingsw.Messages.ServiceMessage;
+import it.polimi.ingsw.View.Cli;
+import it.polimi.ingsw.View.View;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -44,6 +46,10 @@ public class GameStartServiceMessage extends ServiceMessage {
         PlayerGame playerGame = new PlayerGame(market, developmentDeck, playersAndCardsInHand);
         ClientMain.setPlayerGame(playerGame);
         System.out.println("GAME START!");
+        View w = new Cli();
+        w.showMarket();
+        w.showDevCard();
+        w.showPersonalBoard();
     }
 
     @Override

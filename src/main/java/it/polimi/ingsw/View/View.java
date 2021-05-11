@@ -8,15 +8,15 @@ public abstract class View {
     /**
      *abstract method: see implementation in son classes for the details
      */
-    public abstract void showMarket(int index);
+    public abstract void showMarket();
 
     /**
      *abstract method: see implementation in son classes for the details
      */
-    public abstract void showDevCard(int index);
+    public abstract void showDevCard();
 
     /**
      *abstract method: see implementation in son classes for the details
      */
-    public abstract void showPersonalBoard(int index);
+    public abstract void showPersonalBoard();
 }

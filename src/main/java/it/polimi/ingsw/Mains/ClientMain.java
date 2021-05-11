@@ -5,6 +5,8 @@ import it.polimi.ingsw.Messages.ErrorMessages.NameTakenErrorMessage;
 import it.polimi.ingsw.Messages.ForwardMessage;
 import it.polimi.ingsw.Messages.Message;
 import it.polimi.ingsw.Messages.ServiceMessage;
+import it.polimi.ingsw.View.Cli;
+import it.polimi.ingsw.View.View;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -29,7 +31,6 @@ public class ClientMain {
     }
 
     public static void main(String[] args) throws IOException {
-
 
         String hostName = args[0];
         int portNumber = atoi(args[1]);
@@ -64,6 +65,7 @@ public class ClientMain {
                 System.out.println("You have the inkwell!");
                 line = in.readLine();
             } else{
+                System.out.println(line);
                 System.out.println("Joined the game!");
             }
 
@@ -85,7 +87,6 @@ public class ClientMain {
                                 out.println("GAME_ENDED");
                                 break;
                             }
-
                             else {
                                 Message messageServerMessage = Message.fromString(serverMessage);
                                 if(messageServerMessage instanceof ServiceMessage){

@@ -174,8 +174,8 @@ public class FaithTrack {
     }
 
     /**
-     * This method advances by 1 slot all the player aside the specified one
-     * @param discardingPlayer: is the player who has discarded a resource
+     * This method advances by 1 slot all the player except the specified one
+     * @param discardingPlayer: is the player that has discarded a resource
      */
     public void allOtherPlayersGoOn(Player discardingPlayer){
         if(gameIndex == unusefulGameIndex){

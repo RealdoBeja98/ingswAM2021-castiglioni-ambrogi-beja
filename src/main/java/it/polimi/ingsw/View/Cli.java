@@ -1,8 +1,8 @@
 package it.polimi.ingsw.View;
 import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Enums.Type;
-import it.polimi.ingsw.Game.Game;
-import it.polimi.ingsw.Game.Player;
+import it.polimi.ingsw.Game.PlayerGame;
+import it.polimi.ingsw.Mains.ClientMain;
 import it.polimi.ingsw.Table.Decks.Development.DevelopmentCard;
 import it.polimi.ingsw.Table.Decks.Leader.*;
 import it.polimi.ingsw.Table.Market.Marbles.Marble;
@@ -15,11 +15,10 @@ public class Cli extends View{
 
     /**
      * This method show the player the state of the market
-     * @param index: the number of the current game
      */
     @Override
-    public void showMarket(int index) {
-        Marble[][] visualize = Game.get(index).getTable().getMarket().getMarketTray();
+    public void showMarket() {
+        Marble[][] visualize = ClientMain.getPlayerGame().getMarket().getMarketTray();
         System.out.println("╔═══════╗");
         int j = 0;
         for (int i = 0; i <= 8; i++) {
@@ -55,20 +54,18 @@ public class Cli extends View{
         }
         System.out.println();
         System.out.println("╚═══════╝");
-        Marble extra = Game.get(index).getTable().getMarket().getExtraMarble();
+        Marble extra = ClientMain.getPlayerGame().getMarket().getExtraMarble();
         System.out.println("Extra: " + resourceToColorASCI(extra.getWhatIAm()));
     }
 
     /**
      * This method show the player the state of the card market
-     * @param index: the number of the current game
      */
     @Override
-    public void showDevCard(int index) {
+    public void showDevCard() {
 
         System.out.println("╔════════════════════════════════════════════════════════════════════════════════════════════════════════════╗");
-
-        DevelopmentCard[][] visualize = Game.get(index).getTable().getDevelopmentDeck().visualize();
+        DevelopmentCard[][] visualize = ClientMain.getPlayerGame().getDevelopmentDeck().visualize();
         int j = 0;
         String escapeW = Color.ANSI_WHITE.escape();
         String escapeG = Color.ANSI_GREEN.escape();
@@ -100,12 +97,11 @@ public class Cli extends View{
 
     /**
      * This method show the player the state of all personal boards
-     * @param index: the number of the current game
      */
     @Override
-    public void showPersonalBoard(int index) {
-        ArrayList<Player> players = Game.get(index).getPlayers();
-        for(Player n : players){
+    public void showPersonalBoard() {
+        ArrayList<PlayerGame.PlayerPlayer> players = ClientMain.getPlayerGame().getPlayers();
+        for(PlayerGame.PlayerPlayer n : players){
             System.out.println("╔════════════════════════════════════════════════════════════════════════════════════════════════════════════╗");
             System.out.println("║╔══════════════════════════════════════════════════════════════════════════════════════════════════════════╗║");
             int l = n.getNickname().length();
@@ -120,7 +116,7 @@ public class Cli extends View{
             System.out.println("║║ Faith Track                                                                                              ║║");
             System.out.println("║╚══════════════════════════════════════════════════════════════════════════════════════════════════════════╝║");
             System.out.println("║╔══════════════════════════════════════════════════════════════════════════════════════════════════════════╗║");
-            int f = n.getPersonalBoard().getFaithTrack().getFaithMarker();
+            int f = n.getFaithTrack().getFaithMarker();
             System.out.print("║║");
             int i = 0;
             while(i < (f * 2)){
@@ -161,8 +157,8 @@ public class Cli extends View{
             System.out.println("║║ Warehouse                  ║ Card slot                                                                   ║║");
             System.out.println("║╚════════════════════════════╩═════════════════════════════════════════════════════════════════════════════╝║");
             System.out.println("║╔════════════════════════════╦═════════════════════════╦═════════════════════════╦═════════════════════════╗║");
-            Resource[] resource = n.getPersonalBoard().getWarehouseDepots().getResource();
-            DevelopmentCard[][] visualize = n.getPersonalBoard().getSlotsDevelopmentCards().getSlot();
+            Resource[] resource = n.getWarehouseDepots().getResource();
+            DevelopmentCard[][] visualize = n.getSlotsDevelopmentCards().getSlot();
             System.out.print("║║");
             int w1 = 0;
             while(w1 <= 12){
@@ -281,10 +277,10 @@ public class Cli extends View{
             System.out.println("║╔══════════════════════════════════════════════════════╦═══════════════════════════════════════════════════╗║");
             System.out.println("║║ Strongbox                                            ║ Leader card                                       ║║");
             System.out.println("║╚══════════════════════════════════════════════════════╩═══════════════════════════════════════════════════╝║");
-            int coin = n.getPersonalBoard().getStrongBox().getCoin();
-            int shield = n.getPersonalBoard().getStrongBox().getShield();
-            int servant = n.getPersonalBoard().getStrongBox().getServant();
-            int stone = n.getPersonalBoard().getStrongBox().getStone();
+            int coin = n.getStrongBox().getCoin();
+            int shield = n.getStrongBox().getShield();
+            int servant = n.getStrongBox().getServant();
+            int stone = n.getStrongBox().getStone();
             LeaderCard[] cardsInHand = n.getCardsInHand();
             LeaderCard[] cardsOnTable = n.getCardsOnTable();
             System.out.println("║╔════════════════════════════╦═════════════════════════╦═══════════════════════════════════════════════════╗║");
@@ -387,7 +383,7 @@ public class Cli extends View{
     /**
      * This method generates a line with the color of the resource passed
      * @param r: the resource wanted
-     * @return a line with the resource wanted, of type Strinng
+     * @return a line with the resource wanted, of type String
      */
     private String resourceToColorASCI(Resource r){
         switch (r){

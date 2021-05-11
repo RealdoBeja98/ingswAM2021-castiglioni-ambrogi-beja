@@ -4,19 +4,10 @@ import it.polimi.ingsw.Enums.Type;
 import it.polimi.ingsw.Exceptions.DrawnFromEmptyDeckException;
 import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Table.Decks.Development.DevelopmentCard;
-import it.polimi.ingsw.Table.Decks.Leader.DiscountLeaderCard;
-import it.polimi.ingsw.Table.Decks.Leader.ExtraStorageLeaderCard;
-import it.polimi.ingsw.Table.Decks.Leader.ProductionPowerLeaderCard;
-import it.polimi.ingsw.Table.Decks.Leader.WhiteMarbleLeaderCard;
-import it.polimi.ingsw.Table.Market.Marbles.Coin;
-import it.polimi.ingsw.Table.Market.Marbles.Servant;
-import it.polimi.ingsw.Table.Market.Marbles.Shield;
-import it.polimi.ingsw.Table.Market.Marbles.Stone;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -147,7 +138,6 @@ public class DevelopmentDeck{
         }
         if(decksTrack[row][column] != 0){
             deck[row][column][4 - decksTrack[row][column]] = null;
-            return;
         }
         else{
             Game.get(gameIndex).endGame();
