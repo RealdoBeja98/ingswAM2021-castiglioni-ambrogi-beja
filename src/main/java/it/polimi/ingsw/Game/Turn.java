@@ -15,6 +15,7 @@ public class Turn {
     private boolean actionLeaderDone = false;
     private InWhichStatePlayer currentPlayerState = InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1;
     private boolean developmentCardTaken = false;
+    private boolean resourcesFromTheMarketTaken = false;
     private boolean gameEnded = false;
     private final int gameIndex;
 
@@ -216,7 +217,11 @@ public class Turn {
         if(currentPlayerState != InWhichStatePlayer.TAKE_RESOURCES_FROM_THE_MARKET){
             throw new ActionNotAllowedException();
         }
+        if(resourcesFromTheMarketTaken == true){
+            throw new ActionNotAllowedException();
+        }
         currentPlayer.takeResourcesFromTheMarket(rowColumn, pos);
+        resourcesFromTheMarketTaken = true;
         if(!currentPlayer.resourceToAdd()){
             currentPlayerState = InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT2;
         }
@@ -566,6 +571,7 @@ public class Turn {
         actionLeaderDone = false;
         currentPlayerState = InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1;
         developmentCardTaken = false;
+        resourcesFromTheMarketTaken = false;
         boolean found = false;
         int n = 0;
         for(Player i : Game.get(gameIndex).getPlayers()){

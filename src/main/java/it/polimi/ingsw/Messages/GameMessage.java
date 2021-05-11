@@ -13,4 +13,11 @@ public abstract class GameMessage extends Message{
         }
     }
 
+    protected void forwardAll(Game game, ForwardMessage forwardMessage){
+        String message = forwardMessage.toString();
+        for(PrintWriter i : game.getPrintWriterList()){
+            i.println(message);
+        }
+    }
+
 }

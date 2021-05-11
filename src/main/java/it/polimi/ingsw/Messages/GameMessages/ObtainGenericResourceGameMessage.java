@@ -9,6 +9,7 @@ import it.polimi.ingsw.Messages.ConfirmedActionMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.GameEndedErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.GenericResourceErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.NotStrongboxErrorMessage;
+import it.polimi.ingsw.Messages.ForwardMessages.ObtainedGenericResourceForwardMessage;
 import it.polimi.ingsw.Messages.GameMessage;
 import it.polimi.ingsw.Messages.Message;
 
@@ -29,6 +30,7 @@ public class ObtainGenericResourceGameMessage extends GameMessage {
             game.getTurn().obtainGenericResource(resource);
             Message.sendMessage(out, new ConfirmedActionMessage());
             System.out.println(identifier);
+            forwardAll(game, new ObtainedGenericResourceForwardMessage(game.getTurn().getCurrentPlayer().getNickname(), resource));
         } catch (NoGenericResourceToObtainException e) {
             Message.sendMessage(out, new GenericResourceErrorMessage());
         } catch (NotAResourceForStrongBoxException e) {

@@ -5,11 +5,13 @@ import it.polimi.ingsw.Enums.RowColumn;
 import it.polimi.ingsw.Enums.Type;
 import it.polimi.ingsw.Exceptions.*;
 import it.polimi.ingsw.PersonalBoard.Faith.FaithTrack;
+import it.polimi.ingsw.PersonalBoard.Faith.FaithTrackSP;
 import it.polimi.ingsw.PersonalBoard.SlotsDevelopmentCards.SlotsDevelopmentCards;
 import it.polimi.ingsw.PersonalBoard.StrongBox.StrongBox;
 import it.polimi.ingsw.PersonalBoard.Warehouse.WarehouseDepots;
 import it.polimi.ingsw.Table.Decks.Development.DevelopmentCard;
 import it.polimi.ingsw.Table.Decks.DevelopmentDeck;
+import it.polimi.ingsw.Table.Decks.Leader.ExtraStorageLeaderCard;
 import it.polimi.ingsw.Table.Decks.Leader.LeaderCard;
 import it.polimi.ingsw.Table.Market.Market;
 
@@ -47,6 +49,7 @@ public class PlayerGame {
     private ArrayList<PlayerPlayer> players;
     private Market market;
     private DevelopmentDeck developmentDeck;
+    private FaithTrackSP lorenzoTrack;
 
     public PlayerGame(String market, String developmentDeck, ArrayList<String> playersAndCardsInHand){
         this.market = new Market(market);
@@ -66,6 +69,10 @@ public class PlayerGame {
             playerPlayer.strongBox = new StrongBox();
             playerPlayer.slotsDevelopmentCards = new SlotsDevelopmentCards();
             players.add(playerPlayer);
+        }
+        if(playersAndCardsInHand.size() == 1){
+            lorenzoTrack = new FaithTrackSP();
+            allFaithTrack.add(lorenzoTrack);
         }
     }
 
@@ -100,7 +107,19 @@ public class PlayerGame {
     }
 
     public void addResourceExtraStorageLeaderCard(String nickname, int pos){
+        try {
+            ((ExtraStorageLeaderCard)getPlayerPlayerFromNickname(nickname).cardsOnTable[pos-1]).addResource();
+        } catch (OccupiedSlotExtraStorageLeaderCardException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public void removeResourceExtraStorageLeaderCard(String nickname, int pos){
+        try {
+            ((ExtraStorageLeaderCard)getPlayerPlayerFromNickname(nickname).cardsOnTable[pos-1]).removeResource();
+        } catch (EmptySlotExtraStorageLeaderCardException e) {
+            e.printStackTrace();
+        }
     }
 
     public void addResourceWarehouseDepots(String nickname, Resource r, int pos){
@@ -115,6 +134,33 @@ public class PlayerGame {
         try {
             getPlayerPlayerFromNickname(nickname).warehouseDepots.moveResource(startPos, finalPos);
         } catch (NotAdmittedMovementException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void moveResourcesFromWarehouseDepotsToExtraStorageLeaderCard(String nickname, int leaderCardPosition, int warehousePosition){
+        try {
+            getPlayerPlayerFromNickname(nickname).warehouseDepots.removeResource(warehousePosition);
+        } catch (EmptySlotYetException e) {
+            e.printStackTrace();
+        }
+        try {
+            ((ExtraStorageLeaderCard)getPlayerPlayerFromNickname(nickname).cardsOnTable[leaderCardPosition-1]).addResource();
+        } catch (OccupiedSlotExtraStorageLeaderCardException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void moveResourcesToWarehouseDepotsFromExtraStorageLeaderCard(String nickname, int leaderCardPosition, int warehousePosition){
+        try {
+            ((ExtraStorageLeaderCard)getPlayerPlayerFromNickname(nickname).cardsOnTable[leaderCardPosition-1]).removeResource();
+        } catch (EmptySlotExtraStorageLeaderCardException e) {
+            e.printStackTrace();
+        }
+        Resource resource = ((ExtraStorageLeaderCard)getPlayerPlayerFromNickname(nickname).cardsOnTable[leaderCardPosition-1]).getStorageType();
+        try {
+            getPlayerPlayerFromNickname(nickname).warehouseDepots.addResource(resource, warehousePosition);
+        } catch (PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException e) {
             e.printStackTrace();
         }
     }
@@ -161,6 +207,13 @@ public class PlayerGame {
                 i.faithTrack.goOn(1);
             }
         }
+        if(lorenzoTrack != null){
+            lorenzoTrack.goOn(1);
+        }
+    }
+
+    public void loernzoGoOn(){
+        lorenzoTrack.goOn(1);
     }
 
 }

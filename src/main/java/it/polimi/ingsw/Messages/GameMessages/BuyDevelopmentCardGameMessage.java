@@ -27,7 +27,7 @@ public class BuyDevelopmentCardGameMessage extends GameMessage {
             game.getTurn().buyADevelopmentCard(x, y);
             Message.sendMessage(out, new ConfirmedActionMessage());
             System.out.println(identifier);
-            forward(game, new UpdateDevelopmentCardForwardMessage(x, y), out);
+            forwardAll(game, new UpdateDevelopmentCardForwardMessage(x, y));
         } catch (ActionNotAllowedException e) {
             Message.sendMessage(out, new InvalidPositionErrorMessage());
         } catch (SelectedADevelopmentCardYetException e) {

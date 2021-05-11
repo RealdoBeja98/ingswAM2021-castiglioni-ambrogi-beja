@@ -2,6 +2,7 @@ package it.polimi.ingsw.Mains;
 import it.polimi.ingsw.Game.PlayerGame;
 import it.polimi.ingsw.Messages.ErrorMessages.GameStartedErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.NameTakenErrorMessage;
+import it.polimi.ingsw.Messages.ForwardMessage;
 import it.polimi.ingsw.Messages.Message;
 import it.polimi.ingsw.Messages.ServiceMessage;
 
@@ -88,6 +89,8 @@ public class ClientMain {
                             else {
                                 Message messageServerMessage = Message.fromString(serverMessage);
                                 if(messageServerMessage instanceof ServiceMessage){
+                                    messageServerMessage.execute(null, null);
+                                } else if(messageServerMessage instanceof ForwardMessage){
                                     messageServerMessage.execute(null, null);
                                 } else {
                                     System.out.println(messageServerMessage);

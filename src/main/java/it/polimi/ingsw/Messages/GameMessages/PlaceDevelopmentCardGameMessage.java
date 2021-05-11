@@ -10,8 +10,11 @@ import it.polimi.ingsw.Messages.ErrorMessages.GameEndedErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.InvalidActionErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.InvalidPositionErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.NoCardObtainableErrorMessage;
+import it.polimi.ingsw.Messages.ForwardMessages.AddedResourceToForwardMessage;
+import it.polimi.ingsw.Messages.ForwardMessages.PlacedDevelopmentCardForwardMessage;
 import it.polimi.ingsw.Messages.GameMessage;
 import it.polimi.ingsw.Messages.Message;
+import it.polimi.ingsw.Table.Decks.Development.DevelopmentCard;
 
 import java.io.PrintWriter;
 
@@ -27,9 +30,11 @@ public class PlaceDevelopmentCardGameMessage extends GameMessage {
     @Override
     public void execute(Game game, PrintWriter out) {
         try {
+            DevelopmentCard obtainedDevelopmentCard = game.getTurn().getCurrentPlayer().getObtainedDevelopmentCard();
             game.getTurn().placeDevelopmentCard(position);
             Message.sendMessage(out, new ConfirmedActionMessage());
             System.out.println(identifier);
+            forwardAll(game, new PlacedDevelopmentCardForwardMessage(game.getTurn().getCurrentPlayer().getNickname(), position, obtainedDevelopmentCard.export()));
         } catch (NoDevelopmentCardToObtainException e) {
             Message.sendMessage(out, new NoCardObtainableErrorMessage());
         } catch (PositionInvalidException e) {

@@ -388,6 +388,14 @@ public class Player {//<--FIXME check javadoc from here-->
     }
 
     /**
+     * Getter method of param selectedWarehouseDepotsSlot
+     * @return the selected warehouse depots slot
+     */
+    public int getSelectedWarehouseDepotsSlot(){
+        return selectedWarehouseDepotsSlot;
+    }
+
+    /**
      * This method let player to move up to two resources in the WarehouseDepots
      * the first position was selected using selectAWarehouseDepotsSlot and saved in var selectedWarehouseDepotsSlot of type int
      * @param pos2: to choose the second position of the slot of the WarehouseDepots
@@ -888,6 +896,49 @@ public class Player {//<--FIXME check javadoc from here-->
     }
 
     /**
+     * This method let you know how many resources you are going to obtain after the payment
+     * If you are going to pay the last resource to pay, this method will show you how many resource will be added in
+     * your strongbox suddenly after the payment; else this method will return 0
+     * @param resource the kind of resource of witch you want to know the number
+     * @return how many resources of the specified type you are going to obtain after the payment
+     */
+    public int obtainingResourcesAfterPaying(Resource resource){
+        if(payingResources.size() == 1){
+            int faith = 0;
+            int coin = 0;
+            int servant = 0;
+            int shield = 0;
+            int stone = 0;
+            ResourceProduction production = new ResourceProduction(0, 0, 0, 0,
+                    0, 0, 0, 0,
+                    0, 0, 0);
+            for (Production i : selectedProduction) {
+                production = production.sum(i.resourceProduction());
+            }
+            if (selectedDefaultProductionPower) {
+                production = production.sum(new ResourceProduction(0, 0, 0,
+                        0, 2, 0, 0, 0,
+                        0, 1, 0));
+            }
+            faith += production.getProductionFaith();
+            coin += production.getProductionCoin();
+            servant += production.getProductionServant();
+            shield += production.getProductionShield();
+            stone += production.getProductionStone();
+            switch (resource){
+                case FAITH: return faith;
+                case COIN: return coin;
+                case SERVANT: return servant;
+                case SHIELD: return shield;
+                case STONE: return stone;
+                default: return 0;
+            }
+        } else {
+            return 0;
+        }
+    }
+
+    /**
      * This method gives you the generic resources with generic possibilities for each resource
      * @return if you have to obtain a generic resource or not
      */
@@ -1103,6 +1154,14 @@ public class Player {//<--FIXME check javadoc from here-->
             return false;
         }
         return true;
+    }
+
+    /**
+     * this method return the obtained DevelopmentCard
+     * @return the obtained DevelopmentCard
+     */
+    public DevelopmentCard getObtainedDevelopmentCard(){
+        return obtainedDevelopmentCard;
     }
 
     /**

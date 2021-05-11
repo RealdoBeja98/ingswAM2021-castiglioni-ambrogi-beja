@@ -12,4 +12,11 @@ public class FaithTrackSP extends FaithTrack{
         super(gameIndex);
     }
 
+    /**
+     * Constructor method of this class without gameIndex
+     */
+    public FaithTrackSP() {
+        super();
+    }
+
 }
