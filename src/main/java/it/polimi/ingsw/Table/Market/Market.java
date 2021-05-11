@@ -134,8 +134,8 @@ public class Market {
     }
 
     /**
-     * This method is to export the Market to a String
-     * @return the String exported
+     * This method exports the Market to a String
+     * @return a string with all the market data, of type String
      */
     public String export(){
         String result = "";
@@ -180,6 +180,7 @@ public class Market {
 
     /**
      * Constructor method of this class from the exported string
+     * @param importedString: the string to import
      */
     public Market(String importedString){
         marketTray = new Marble[3][4];

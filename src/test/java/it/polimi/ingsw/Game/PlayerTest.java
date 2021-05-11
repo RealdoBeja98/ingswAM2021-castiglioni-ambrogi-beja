@@ -34,7 +34,7 @@ class PlayerTest {
     }
 
     /**
-     * This method tests the nickname of a player
+     * This method tests the getter of the parameter nickname
      */
     @Test
     void getNickname() {
@@ -45,11 +45,11 @@ class PlayerTest {
             e.printStackTrace();
         }
         Player player = game.getPlayers().get(0);
-        assertTrue(player.getNickname().equals("Carlo"));
+        assertEquals("Carlo", player.getNickname());
     }
 
     /**
-     * This method tests getting active discount
+     * This method tests getting what discount is active
      */
     @Test
     void getActiveDiscount() {
@@ -173,7 +173,7 @@ class PlayerTest {
     }
 
     /**
-     * This method tests moving resources in ware hose depots
+     * This method tests moving resources in the warehouse depots
      */
     @Test
     void testMoveResourcesInWarehouseDepots() {
@@ -277,7 +277,7 @@ class PlayerTest {
     }
 
     /**
-     * This method tests obtaining if we are in the case to add a resource or not
+     * This method tests taking resource from the market
      */
     @Test
     void resourceToAdd() {
@@ -298,7 +298,7 @@ class PlayerTest {
     }
 
     /**
-     * This method tests obtaining witch resource to add from the market
+     * This method tests taking resource from the market
      */
     @Test
     void whichResourceToAdd() {
@@ -388,8 +388,9 @@ class PlayerTest {
         for(Marble[] i : market){
             boolean foundWhiteMarble = false;
             for(Marble j : i){
-                if(j instanceof White){
+                if (j instanceof White) {
                     foundWhiteMarble = true;
+                    break;
                 }
             }
             if(foundWhiteMarble){
@@ -471,7 +472,7 @@ class PlayerTest {
     }
 
     /**
-     * This method tests an example of production
+     * This method tests the production
      */
     @Test
     void testExamplePowerProduction() {
@@ -555,7 +556,7 @@ class PlayerTest {
         } catch (PositionInvalidException | NoDevelopmentCardInThisPositionException e) {
             e.printStackTrace();
         }
-        assertThrows(NotEnoughResourcesException.class, () -> player.startPayment());
+        assertThrows(NotEnoughResourcesException.class, player::startPayment);
         try {
             player.getPersonalBoard().getStrongBox().add(Resource.COIN, 100);
             player.getPersonalBoard().getStrongBox().add(Resource.SHIELD, 100);
@@ -566,9 +567,7 @@ class PlayerTest {
         }
         try {
             player.startPayment();
-        } catch (NotEnoughResourcesException e) {
-            e.printStackTrace();
-        } catch (YouHaveNotSelectedAnyProductionException e) {
+        } catch (NotEnoughResourcesException | YouHaveNotSelectedAnyProductionException e) {
             e.printStackTrace();
         }
     }
@@ -654,7 +653,7 @@ class PlayerTest {
     }
 
     /**
-     * This method tests obtaining if you are going to obtain generic resources
+     * This method tests getting generic resources
      */
     @Test
     void genericResourcesToObtain() {
@@ -689,7 +688,7 @@ class PlayerTest {
     }
 
     /**
-     * This method tests obtaining generic resources
+     * This method tests getting generic resources
      */
     @Test
     void obtainGenericResource() {
@@ -730,9 +729,7 @@ class PlayerTest {
         while(player.genericResourcesToObtain()){
             try {
                 player.obtainGenericResource(Resource.COIN);
-            } catch (NoGenericResourceToObtainException e) {
-                e.printStackTrace();
-            } catch (NotAResourceForStrongBoxException e) {
+            } catch (NoGenericResourceToObtainException | NotAResourceForStrongBoxException e) {
                 e.printStackTrace();
             }
         }
@@ -762,7 +759,7 @@ class PlayerTest {
     }
 
     /**
-     * This method tests obtaining if you are gonig to obtain a DevelopmentCard
+     * This method tests buying a DevelopmentCard
      */
     @Test
     void developmentCardToObtain() {
@@ -832,7 +829,7 @@ class PlayerTest {
     }
 
     /**
-     * This method tests setting the player as a single player
+     * This method tests setting the player in the single player mode
      */
     @Test
     void isSinglePlayer() {

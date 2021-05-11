@@ -1,17 +1,22 @@
 package it.polimi.ingsw.View;
 import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Enums.Type;
-import it.polimi.ingsw.Enums.LeaderCardType;
 import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Game.Player;
 import it.polimi.ingsw.Table.Decks.Development.DevelopmentCard;
 import it.polimi.ingsw.Table.Decks.Leader.*;
 import it.polimi.ingsw.Table.Market.Marbles.Marble;
-
 import java.util.ArrayList;
 
+/**
+ * This Class is the representation of the command line interface
+ */
 public class Cli extends View{
 
+    /**
+     * This method show the player the state of the market
+     * @param index: the number of the current game
+     */
     @Override
     public void showMarket(int index) {
         Marble[][] visualize = Game.get(index).getTable().getMarket().getMarketTray();
@@ -54,6 +59,10 @@ public class Cli extends View{
         System.out.println("Extra: " + resourceToColorASCI(extra.getWhatIAm()));
     }
 
+    /**
+     * This method show the player the state of the card market
+     * @param index: the number of the current game
+     */
     @Override
     public void showDevCard(int index) {
 
@@ -89,6 +98,10 @@ public class Cli extends View{
         System.out.println("╚════════════════════════════════════════════════════════════════════════════════════════════════════════════╝");
     }
 
+    /**
+     * This method show the player the state of all personal boards
+     * @param index: the number of the current game
+     */
     @Override
     public void showPersonalBoard(int index) {
         ArrayList<Player> players = Game.get(index).getPlayers();
@@ -104,7 +117,7 @@ public class Cli extends View{
             System.out.println("║║");
             System.out.println("║╚══════════════════════════════════════════════════════════════════════════════════════════════════════════╝║");
             System.out.println("║╔══════════════════════════════════════════════════════════════════════════════════════════════════════════╗║");
-            System.out.println("║║ Faithtrack                                                                                               ║║");
+            System.out.println("║║ Faith Track                                                                                              ║║");
             System.out.println("║╚══════════════════════════════════════════════════════════════════════════════════════════════════════════╝║");
             System.out.println("║╔══════════════════════════════════════════════════════════════════════════════════════════════════════════╗║");
             int f = n.getPersonalBoard().getFaithTrack().getFaithMarker();
@@ -278,10 +291,10 @@ public class Cli extends View{
             System.out.println("║║ Coin                       ║ Shield                  ║ In hand                                           ║║");
             System.out.println("║╠════════════════════════════╬═════════════════════════╬═════════════════════════╦═════════════════════════╣║");
             System.out.print("║║ " + coin);
-            int x = 0;
+            int x;
             if(coin < 10){
                 x = 2;
-            }else if(coin >= 10 && coin < 100){
+            }else if(coin < 100){
                 x = 3;
             }else{
                 x = 4;
@@ -293,10 +306,10 @@ public class Cli extends View{
             System.out.print("║ ");
 
             System.out.print(shield);
-            int xx = 0;
+            int xx;
             if(shield < 10){
                 xx = 2;
-            }else if(shield >= 10 && shield < 100){
+            }else if(shield < 100){
                 xx = 3;
             }else{
                 xx = 4;
@@ -324,10 +337,10 @@ public class Cli extends View{
             System.out.println("║║ Servant                    ║ Stone                   ║ On Table                                          ║║");
             System.out.println("║╠════════════════════════════╬═════════════════════════╬═════════════════════════╦═════════════════════════╣║");
             System.out.print("║║ " + servant);
-            int xxx = 0;
+            int xxx;
             if(servant < 10){
                 xxx = 2;
-            }else if(servant >= 10 && servant < 100){
+            }else if(servant < 100){
                 xxx = 3;
             }else{
                 xxx = 4;
@@ -339,10 +352,10 @@ public class Cli extends View{
             System.out.print("║ ");
 
             System.out.print(stone);
-            int xxxx = 0;
+            int xxxx;
             if(stone < 10){
                 xxxx = 2;
-            }else if(stone >= 10 && stone < 100){
+            }else if(stone < 100){
                 xxxx = 3;
             }else{
                 xxxx = 4;
@@ -371,6 +384,11 @@ public class Cli extends View{
         }
     }
 
+    /**
+     * This method generates a line with the color of the resource passed
+     * @param r: the resource wanted
+     * @return a line with the resource wanted, of type Strinng
+     */
     private String resourceToColorASCI(Resource r){
         switch (r){
             case COIN:
@@ -389,6 +407,11 @@ public class Cli extends View{
         }
     }
 
+    /**
+     * This method generates a color based on the type passed
+     * @param t: the type wanted
+     * @return a line with the corresponding color, of type String
+     */
     private String typeToColorASCI(Type t){
         switch (t){
             case GREEN:
@@ -403,11 +426,14 @@ public class Cli extends View{
         }
     }
 
-
+    /**
+     * This method prints a development card
+     * @param visualize: the card wanted
+     */
     private void printDevCard(DevelopmentCard visualize) {
         String escapeW = Color.ANSI_WHITE.escape();
 
-        int tot = 0;
+        int tot;
 
         Type type = visualize.getType();
         String escapeT = typeToColorASCI(type);
@@ -443,6 +469,11 @@ public class Cli extends View{
         }
         System.out.print(escapeT + "║" + escapeW);
     }
+
+    /**
+     * This method prints a leader card
+     * @param visualize: the card wanted
+     */
     private void printLeadCard(LeaderCard visualize){
         String escapeW = Color.ANSI_WHITE.escape();
         switch (visualize.getWhatIAm()) {

@@ -270,8 +270,8 @@ public class DevelopmentDeck{
     }
 
     /**
-     * This method is to export the DevelopmentDeck to a String
-     * @return the String exported
+     * This method exports the DevelopmentDeck to a String
+     * @return a string with all the deck data, of type String
      */
     public String export(){
         String result = "";
@@ -288,6 +288,7 @@ public class DevelopmentDeck{
 
     /**
      * Constructor method of this class from the exported string
+     * @param importedString: the string to import
      */
     public DevelopmentDeck(String importedString){
         String[] strings = importedString.split("/");

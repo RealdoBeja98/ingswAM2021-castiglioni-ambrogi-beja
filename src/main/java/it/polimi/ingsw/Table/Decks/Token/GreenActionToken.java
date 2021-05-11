@@ -1,5 +1,4 @@
 package it.polimi.ingsw.Table.Decks.Token;
-
 import it.polimi.ingsw.Enums.Type;
 
 /**

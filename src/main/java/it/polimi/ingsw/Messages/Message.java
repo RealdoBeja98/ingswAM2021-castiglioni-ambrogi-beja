@@ -179,7 +179,7 @@ public abstract class Message {
 
             if (message[0].equals("UPDATE_SOLO_ACTION_TOKEN")) {
                 checkLength(message, 2);
-                return new UpdateSoloActionTokenMessage(ActionToken.valueof(message[1]));
+                return new UpdateSoloActionTokenMessage(ActionToken.valueOf(message[1]));
             } else
 
             if (message[0].equals("GAME_START")) {

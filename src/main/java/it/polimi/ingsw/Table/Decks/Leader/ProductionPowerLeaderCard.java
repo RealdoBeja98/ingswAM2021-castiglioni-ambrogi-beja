@@ -33,7 +33,6 @@ public class ProductionPowerLeaderCard extends LeaderCard implements Production 
 
     /**
      * Getter of the parameter costOfLeaderCard
-     *
      * @return the cost of the card, of type Type
      */
     public Type getCostOfLeaderCard() {
@@ -42,7 +41,6 @@ public class ProductionPowerLeaderCard extends LeaderCard implements Production 
 
     /**
      * This method creates a new instance of the class resource production, given the requirement specified in this card and the static output
-     *
      * @return a class that represent the production power of this card, of type ResourceProduction
      */
     public ResourceProduction resourceProduction() {
@@ -77,9 +75,8 @@ public class ProductionPowerLeaderCard extends LeaderCard implements Production 
     }
 
     /**
-     * This method is to export the LeaderCard to a String
-     *
-     * @return the String exported
+     * This method exports the ProductionPowerLeaderCard to a String
+     * @return a string with all the card data, of type String
      */
     @Override
     public String export() {
@@ -129,6 +126,7 @@ public class ProductionPowerLeaderCard extends LeaderCard implements Production 
 
     /**
      * Constructor method of this class from the exported string
+     * @param importedString: the string to import
      */
     public ProductionPowerLeaderCard(String importedString) {
         this.whatIAm = LeaderCardType.PRODUCTIONPOWER;

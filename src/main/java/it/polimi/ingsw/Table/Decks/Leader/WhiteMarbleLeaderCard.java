@@ -1,9 +1,7 @@
 package it.polimi.ingsw.Table.Decks.Leader;
 import it.polimi.ingsw.Enums.LeaderCardType;
-import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Enums.Type;
 import it.polimi.ingsw.Table.Market.Marbles.*;
-
 import java.util.ArrayList;
 
 /**
@@ -41,8 +39,8 @@ public class WhiteMarbleLeaderCard extends LeaderCard {
     }
 
     /**
-     * This method is to export the LeaderCard to a String
-     * @return the String exported
+     * This method exports the WhiteMarbleLeaderCard to a String
+     * @return a string with all the card data, of type String
      */
     @Override
     public String export() {
@@ -85,6 +83,7 @@ public class WhiteMarbleLeaderCard extends LeaderCard {
 
     /**
      * Constructor method of this class from the exported string
+     * @param importedString: the string to import
      */
     public WhiteMarbleLeaderCard(String importedString) {
         this.whatIAm = LeaderCardType.WHITE;

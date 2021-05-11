@@ -10,7 +10,8 @@ public abstract class ActionToken extends Card {
     protected Type whatIAm;
 
     /**
-     *abstract method: see implementation in son classes for the details
+     * Getter of the parameter whatIAm
+     * @return the type of the token, of type Type
      */
     public Type getWhatIAm(){ return whatIAm; }
 
@@ -24,15 +25,12 @@ public abstract class ActionToken extends Card {
     }
 
     /**
-     * This method let obtaining an instance of an ActionToken from a String
-     * @param string the String representing the ActionToken
-     * @return the ActionToken
+     * This method creates an instance of a specific ActionToken from a String
+     * @param string: the String representing the action token
+     * @return the new action token, of type ActionToken
      */
-    public static ActionToken valueof(String string){
+    public static ActionToken valueOf(String string){
         Type type = Type.valueOf(string);
-        if(type == null){
-            throw new IllegalArgumentException();
-        }
         switch (type){
             case GREEN: return new GreenActionToken();
             case BLUE: return new BlueActionToken();

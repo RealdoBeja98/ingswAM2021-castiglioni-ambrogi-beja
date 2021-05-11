@@ -82,7 +82,7 @@ class DevelopmentDeckTest {
     @Test
     void testExportDevelopmentDeck(){
         DevelopmentDeck deck = new DevelopmentDeck(999);
-        assertTrue(deck.export().equals((new DevelopmentDeck(deck.export())).export()));
+        assertEquals(deck.export(), (new DevelopmentDeck(deck.export())).export());
     }
 
 }

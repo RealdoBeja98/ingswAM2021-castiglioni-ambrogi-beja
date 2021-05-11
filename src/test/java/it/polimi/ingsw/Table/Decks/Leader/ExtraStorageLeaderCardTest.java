@@ -1,6 +1,5 @@
 package it.polimi.ingsw.Table.Decks.Leader;
 import it.polimi.ingsw.Enums.Resource;
-import it.polimi.ingsw.Enums.Type;
 import it.polimi.ingsw.Exceptions.EmptySlotExtraStorageLeaderCardException;
 import it.polimi.ingsw.Exceptions.OccupiedSlotExtraStorageLeaderCardException;
 import org.junit.jupiter.api.Test;

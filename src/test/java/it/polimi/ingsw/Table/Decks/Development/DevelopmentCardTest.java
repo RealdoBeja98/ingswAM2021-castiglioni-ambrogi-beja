@@ -1,7 +1,6 @@
 package it.polimi.ingsw.Table.Decks.Development;
 import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Enums.Type;
-import it.polimi.ingsw.Table.Decks.DevelopmentDeck;
 import it.polimi.ingsw.Table.Decks.ResourceProduction;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertSame;

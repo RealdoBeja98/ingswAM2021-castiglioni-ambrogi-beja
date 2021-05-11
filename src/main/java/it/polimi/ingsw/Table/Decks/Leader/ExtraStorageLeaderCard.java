@@ -89,8 +89,8 @@ public class ExtraStorageLeaderCard extends LeaderCard {
     }
 
     /**
-     * This method is to export the LeaderCard to a String
-     * @return the String exported
+     * This method exports the ExtraStorageLeaderCard to a String
+     * @return a string with all the card data, of type String
      */
     @Override
     public String export() {
@@ -132,6 +132,7 @@ public class ExtraStorageLeaderCard extends LeaderCard {
 
     /**
      * Constructor method of this class from the exported string
+     * @param importedString: the string to import
      */
     public ExtraStorageLeaderCard(String importedString) {
         this.whatIAm = LeaderCardType.STORAGE;

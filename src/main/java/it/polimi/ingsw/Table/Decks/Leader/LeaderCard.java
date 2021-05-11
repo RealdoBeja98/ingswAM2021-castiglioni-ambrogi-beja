@@ -25,15 +25,15 @@ public abstract class LeaderCard extends Card {
     }
 
     /**
-     * This method is to export the LeaderCard to a String
-     * @return the String exported
+     * This method exports the LeaderCard to a String
+     * @return a string with all the card data, of type String
      */
     public abstract String export();
 
     /**
      * This method is to import and create a new LeaderCard from a String
-     * @param importedString the string to import
-     * @return the LeaderCard imported
+     * @param importedString: the string to import
+     * @return the imported card, of type LeaderCard
      */
     public static LeaderCard importLeaderCard(String importedString){
         String leaderCardType = importedString.substring(0, 1);

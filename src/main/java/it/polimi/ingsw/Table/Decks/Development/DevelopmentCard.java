@@ -165,8 +165,8 @@ public class DevelopmentCard extends Card implements Production {
     }
 
     /**
-     * This method is to export the DevelopmentCard to a String
-     * @return the String exported
+     * This method exports the DevelopmentCard to a String
+     * @return a string with all the card data, of type String
      */
     public String export(){
         String result = "";
@@ -262,6 +262,7 @@ public class DevelopmentCard extends Card implements Production {
 
     /**
      * Constructor method of this class from the exported string
+     * @param importedString: the string to import
      */
     public DevelopmentCard(String importedString){
         String[] strings = importedString.split(":");
