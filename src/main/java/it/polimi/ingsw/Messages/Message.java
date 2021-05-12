@@ -167,8 +167,8 @@ public abstract class Message {
 
         try {
             if (message[0].equals("UPDATE_MARKET")) {
-                checkLength(message, 3);
-                return new UpdateMarketForwardMessage(RowColumn.valueOf(message[1]), atoi(message[2]));
+                checkLength(message, 4);
+                return new UpdateMarketForwardMessage(message[1], RowColumn.valueOf(message[2]), atoi(message[3]));
             } else if (message[0].equals("UPDATE_DEVELOPMENT_CARD")) {
                 checkLength(message, 3);
                 return new UpdateDevelopmentCardForwardMessage(atoi(message[1]), atoi(message[2]));

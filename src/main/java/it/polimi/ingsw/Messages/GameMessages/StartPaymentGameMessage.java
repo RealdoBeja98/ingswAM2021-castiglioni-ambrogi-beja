@@ -26,6 +26,7 @@ public class StartPaymentGameMessage extends GameMessage {
         try {
             game.getTurn().startPayment();
             Message.sendMessage(out, new ConfirmedActionMessage());
+            //<--FIXME--> Nel momento in cui il giocatore fa lo start payment, potrebbe magari ottenere immediatamente delle risorse o dei punti fede: tutti quanti (tramite forwardAll) dovrebbero essere notificati di questa cosa!
             System.out.println(identifier);
         } catch (NotEnoughResourcesException e) {
             Message.sendMessage(out, new NotEnoughRErrorMessage());

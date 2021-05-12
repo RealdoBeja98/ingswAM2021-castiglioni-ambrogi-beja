@@ -29,6 +29,7 @@ public class TakeResourcesFromTheMarketGameMessage extends GameMessage {
     @Override
     public void execute(Game game, PrintWriter out) {
         try {
+            String currentPlayer = game.getTurn().getCurrentPlayer().getNickname();
             game.getTurn().takeResourcesFromTheMarket(rowColumn, place);
             Message.sendMessage(out, new ConfirmedActionMessage());
             System.out.println(this);
@@ -36,7 +37,7 @@ public class TakeResourcesFromTheMarketGameMessage extends GameMessage {
             for (int i = 0; i < size; i++) {
                 out.println(game.getTurn().getCurrentPlayer().getMarblesFromTheMarket().get(i));
             }
-            forwardAll(game, new UpdateMarketForwardMessage(rowColumn, place));
+            forwardAll(game, new UpdateMarketForwardMessage(currentPlayer, rowColumn, place));
         } catch (ActionNotAllowedException e) {
             Message.sendMessage(out, new InvalidActionErrorMessage());
         } catch (PositionInvalidException e) {

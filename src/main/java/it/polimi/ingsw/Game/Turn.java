@@ -18,6 +18,7 @@ public class Turn {
     private boolean developmentCardTaken = false;
     private boolean resourcesFromTheMarketTaken = false;
     private boolean gameEnded = false;
+    private boolean startedPayment = false;
     private final int gameIndex;
 
     /**
@@ -386,7 +387,8 @@ public class Turn {
     public void payWithWarehouseDepots(int pos) throws WrongPaymentException, EmptySlotYetException, NoResourceToPayException, ActionNotAllowedException, GameEndedException {
         if(currentPlayerState != InWhichStatePlayer.PLAY_LEADER_CARD1 &&
                 currentPlayerState != InWhichStatePlayer.PLAY_LEADER_CARD2 &&
-                currentPlayerState != InWhichStatePlayer.BUY_DEVELOPMENT_CARD){
+                currentPlayerState != InWhichStatePlayer.BUY_DEVELOPMENT_CARD &&
+                currentPlayerState != InWhichStatePlayer.ACTIVATE_PRODUCTION){
             throw new ActionNotAllowedException();
         }
         currentPlayer.payWithWarehouseDepots(pos);
@@ -413,7 +415,8 @@ public class Turn {
     public void payWithExtraStorageLeaderCard(int pos) throws NotAnExtraStorageLeaderCardException, WrongPaymentException, EmptySlotExtraStorageLeaderCardException, NoResourceToPayException, ActionNotAllowedException, GameEndedException, PositionInvalidException {
         if(currentPlayerState != InWhichStatePlayer.PLAY_LEADER_CARD1 &&
                 currentPlayerState != InWhichStatePlayer.PLAY_LEADER_CARD2 &&
-                currentPlayerState != InWhichStatePlayer.BUY_DEVELOPMENT_CARD){
+                currentPlayerState != InWhichStatePlayer.BUY_DEVELOPMENT_CARD &&
+                currentPlayerState != InWhichStatePlayer.ACTIVATE_PRODUCTION){
             throw new ActionNotAllowedException();
         }
         currentPlayer.payWithExtraStorageLeaderCard(pos);
@@ -490,7 +493,11 @@ public class Turn {
         if(currentPlayerState != InWhichStatePlayer.ACTIVATE_PRODUCTION){
             throw new ActionNotAllowedException();
         }
-        //<--FIXME--> INSERT CALL TO METHOD startPayment OF CLASS Player
+        if(startedPayment == true){
+            throw new ActionNotAllowedException();
+        }
+        currentPlayer.startPayment();
+        startedPayment = true;
         if(!currentPlayer.somethingToPay()){
             endPayment();
         }
@@ -574,6 +581,7 @@ public class Turn {
         currentPlayerState = InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1;
         developmentCardTaken = false;
         resourcesFromTheMarketTaken = false;
+        startedPayment = false;
         boolean found = false;
         int n = 0;
         for(Player i : Game.get(gameIndex).getPlayers()){

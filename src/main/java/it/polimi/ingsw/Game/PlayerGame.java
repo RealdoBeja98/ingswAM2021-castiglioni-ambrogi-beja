@@ -13,6 +13,8 @@ import it.polimi.ingsw.Table.Decks.Development.DevelopmentCard;
 import it.polimi.ingsw.Table.Decks.DevelopmentDeck;
 import it.polimi.ingsw.Table.Decks.Leader.ExtraStorageLeaderCard;
 import it.polimi.ingsw.Table.Decks.Leader.LeaderCard;
+import it.polimi.ingsw.Table.Market.Marbles.Faith;
+import it.polimi.ingsw.Table.Market.Marbles.Marble;
 import it.polimi.ingsw.Table.Market.Market;
 
 import java.util.ArrayList;
@@ -119,12 +121,22 @@ public class PlayerGame {
         }
     }
 
-    public void updateMarket(RowColumn rowColumn, int n){
+    public void updateMarket(String nickname, RowColumn rowColumn, int n){
+        Marble[] obtained = new Marble[0];
         if(rowColumn == RowColumn.ROW){
-            market.chooseRow(n-1);
+            obtained = market.chooseRow(n-1);
         }
         if(rowColumn == RowColumn.COLUMN){
-            market.chooseColumn(n-1);
+            obtained = market.chooseColumn(n-1);
+        }
+        int numberOfFaithMarbles = 0;
+        for(Marble i : obtained){
+            if(i.getWhatIAm() == Resource.FAITH){
+                numberOfFaithMarbles++;
+            }
+        }
+        if(numberOfFaithMarbles > 0){
+            getPlayerPlayerFromNickname(nickname).faithTrack.goOn(numberOfFaithMarbles);
         }
     }
 
@@ -142,7 +154,7 @@ public class PlayerGame {
 
     public void discardLeaderCard(String nickname, int pos){
         getPlayerPlayerFromNickname(nickname).cardsInHand[pos-1] = null;
-        //<--FIXME il giocatore che scarta deve avanzare di 1 sulla fede-->
+        getPlayerPlayerFromNickname(nickname).faithTrack.goOn(1);
     }
 
     public void playLeaderCard(String nickname, int pos){
@@ -250,7 +262,7 @@ public class PlayerGame {
 
     public void allOtherPlayersGoOnFaithTrack(String nicknameOfExcludedPlayer){
         for(PlayerPlayer i : players){
-            if(i.nickname != nicknameOfExcludedPlayer){
+            if(!(i.nickname.equals(nicknameOfExcludedPlayer))){
                 i.faithTrack.goOn(1);
             }
         }
