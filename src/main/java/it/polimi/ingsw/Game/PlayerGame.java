@@ -238,6 +238,9 @@ public class PlayerGame {
             getPlayerPlayerFromNickname(nickname).slotsDevelopmentCards.addDevelopmentCard(pos, new DevelopmentCard(developmentCard));
         } catch (PositionInvalidException e) {
             e.printStackTrace();
+        } catch (IndexOutOfBoundsException e){
+            System.out.println("Questo è un problema!!!");
+            e.printStackTrace();
         }
     }
 

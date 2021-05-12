@@ -30,6 +30,7 @@ public class AddResourceToGameMessage extends GameMessage {
     @Override
     public void execute(Game game, PrintWriter out) {
         try {
+            String currentPlayer = game.getTurn().getCurrentPlayer().getNickname();
             Resource whichResourceToAdd;
             try {
                 whichResourceToAdd = game.getTurn().getCurrentPlayer().whichResourceToAdd().getWhatIAm();
@@ -40,12 +41,12 @@ public class AddResourceToGameMessage extends GameMessage {
                 game.getTurn().addResource(LeaderWarehouse.DISCARD);
                 Message.sendMessage(out, new ConfirmedActionMessage());
                 System.out.println(identifier);
-                forwardAll(game, new AdvanceFaithTrackForwardMessage(game.getTurn().getCurrentPlayer().getNickname()));
+                forwardAll(game, new AdvanceFaithTrackForwardMessage(currentPlayer));
             } else {
                 game.getTurn().addResource(leaderWarehouse, place);
                 Message.sendMessage(out, new ConfirmedActionMessage());
                 System.out.println(identifier);
-                forwardAll(game, new AddedResourceToForwardMessage(game.getTurn().getCurrentPlayer().getNickname(), leaderWarehouse, whichResourceToAdd, place));
+                forwardAll(game, new AddedResourceToForwardMessage(currentPlayer, leaderWarehouse, whichResourceToAdd, place));
             }
         } catch (NoResourceToAddException e) {
             Message.sendMessage(out, new NoResourceAErrorMessage());

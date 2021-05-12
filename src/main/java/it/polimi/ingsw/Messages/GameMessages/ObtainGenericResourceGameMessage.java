@@ -27,10 +27,11 @@ public class ObtainGenericResourceGameMessage extends GameMessage {
     @Override
     public void execute(Game game, PrintWriter out) {
         try {
+            String currentPlayer = game.getTurn().getCurrentPlayer().getNickname();
             game.getTurn().obtainGenericResource(resource);
             Message.sendMessage(out, new ConfirmedActionMessage());
             System.out.println(identifier);
-            forwardAll(game, new ObtainedGenericResourceForwardMessage(game.getTurn().getCurrentPlayer().getNickname(), resource));
+            forwardAll(game, new ObtainedGenericResourceForwardMessage(currentPlayer, resource));
         } catch (NoGenericResourceToObtainException e) {
             Message.sendMessage(out, new GenericResourceErrorMessage());
         } catch (NotAResourceForStrongBoxException e) {

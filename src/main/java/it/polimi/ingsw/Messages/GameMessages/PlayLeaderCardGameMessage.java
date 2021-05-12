@@ -29,10 +29,11 @@ public class PlayLeaderCardGameMessage extends GameMessage {
     @Override
     public void execute(Game game, PrintWriter out) {
         try {
+            String currentPlayer = game.getTurn().getCurrentPlayer().getNickname();
             game.getTurn().playLeaderCard(leaderCardToPlay);
             Message.sendMessage(out, new ConfirmedActionMessage());
             System.out.println(identifier);
-            forwardAll(game, new PlayedLeaderCardForwardMessage(game.getTurn().getCurrentPlayer().getNickname(), leaderCardToPlay));
+            forwardAll(game, new PlayedLeaderCardForwardMessage(currentPlayer, leaderCardToPlay));
         } catch (NotSatisfiedRequirementsForThisLeaderCardException e) {
             Message.sendMessage(out, new RequirementsErrorMessage());
         } catch (ActionNotAllowedException e) {

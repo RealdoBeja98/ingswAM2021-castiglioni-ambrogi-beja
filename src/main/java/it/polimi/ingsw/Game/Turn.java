@@ -490,6 +490,7 @@ public class Turn {
         if(currentPlayerState != InWhichStatePlayer.ACTIVATE_PRODUCTION){
             throw new ActionNotAllowedException();
         }
+        //<--FIXME--> INSERT CALL TO METHOD startPayment OF CLASS Player
         if(!currentPlayer.somethingToPay()){
             endPayment();
         }
