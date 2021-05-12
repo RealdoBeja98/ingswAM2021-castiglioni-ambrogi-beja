@@ -8,6 +8,7 @@ import it.polimi.ingsw.Messages.ErrorMessages.*;
 import it.polimi.ingsw.Messages.ForwardMessages.*;
 import it.polimi.ingsw.Messages.GameMessages.*;
 import it.polimi.ingsw.Messages.ServiceMessages.GameStartServiceMessage;
+import it.polimi.ingsw.Messages.ServiceMessages.ShowMarketMessage;
 import it.polimi.ingsw.Table.Decks.Token.ActionToken;
 import java.io.PrintWriter;
 
@@ -155,7 +156,9 @@ public abstract class Message {
         if(string.equals("ERROR_GAME_STARTED")){
             return new GameStartedErrorMessage();
         }
-
+        if(string.equals("SHOW_MARKET")){
+            return new ShowMarketMessage();
+        }
         if(string.equals("CONFIRMED_ACTION")){
             return new ConfirmedActionMessage();
         }

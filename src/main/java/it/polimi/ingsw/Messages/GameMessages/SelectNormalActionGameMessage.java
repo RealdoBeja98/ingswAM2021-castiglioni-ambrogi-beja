@@ -7,6 +7,9 @@ import it.polimi.ingsw.Messages.ConfirmedActionMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.InvalidActionErrorMessage;
 import it.polimi.ingsw.Messages.GameMessage;
 import it.polimi.ingsw.Messages.Message;
+import it.polimi.ingsw.Messages.ServiceMessages.ShowMarketMessage;
+import it.polimi.ingsw.View.Cli;
+import it.polimi.ingsw.View.View;
 
 import java.io.PrintWriter;
 
@@ -23,6 +26,10 @@ public class SelectNormalActionGameMessage extends GameMessage {
     public void execute(Game game, PrintWriter out) {
         try {
             game.getTurn().selectNormalAction(normalAction);
+
+            if(normalAction.toString().equals("TAKE_RESOURCES_FROM_THE_MARKET")){
+                Message.sendMessage(out, new ShowMarketMessage());
+            }
             Message.sendMessage(out, new ConfirmedActionMessage());
             System.out.println(identifier);
         } catch (ActionNotAllowedException e) {

@@ -380,6 +380,12 @@ public class Cli extends View{
         }
     }
 
+    @Override
+    public void showPBCurrent() {
+
+        //<--FIXME aggiungere la conoscenza del current player per evitare di printare tutte le board-->
+    }
+
     /**
      * This method generates a line with the color of the resource passed
      * @param r: the resource wanted

@@ -19,4 +19,6 @@ public abstract class View {
      *abstract method: see implementation in son classes for the details
      */
     public abstract void showPersonalBoard();
+
+    public abstract void showPBCurrent();
 }
