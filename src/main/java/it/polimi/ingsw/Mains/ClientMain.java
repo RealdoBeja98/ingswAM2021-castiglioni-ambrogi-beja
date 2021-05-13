@@ -7,7 +7,6 @@ import it.polimi.ingsw.Messages.Message;
 import it.polimi.ingsw.Messages.ServiceMessage;
 import it.polimi.ingsw.View.Cli;
 import it.polimi.ingsw.View.View;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -21,8 +20,8 @@ import java.net.UnknownHostException;
 public class ClientMain {
 
     private static PlayerGame playerGame;
-
     private static String currentP;
+    private static String clientNick;
 
     public static PlayerGame getPlayerGame(){
         return playerGame;
@@ -40,10 +39,20 @@ public class ClientMain {
         return currentP;
     }
 
+    public static String getClientNick() {
+        return clientNick;
+    }
+
+
     public static void main(String[] args) throws IOException {
+        if(args.length !=5){
+            System.out.println("Invalid number of parameter");
+            return;
+        }
 
         String hostName = args[0];
         int portNumber = atoi(args[1]);
+        clientNick = args[4];
 
         try (
                 Socket echoSocket = new Socket(hostName, portNumber); //creo socket e mi connetto alla .accept
@@ -75,7 +84,6 @@ public class ClientMain {
                 System.out.println("You have the inkwell!");
                 line = in.readLine();
             } else{
-                System.out.println(line);
                 System.out.println("Joined the game!");
             }
 
@@ -121,6 +129,11 @@ public class ClientMain {
                 while ((clientMessage = stdIn.readLine()) != null) {
                     if (clientMessage.equals("wakeup")){
 
+                    }else if(clientMessage.equals("GAME_UPDATE")){
+                        View w = new Cli();
+                        w.showMarket();
+                        w.showDevCard();
+                        w.showPersonalBoard();
                     }
                     else{
                         out.println(clientMessage);

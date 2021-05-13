@@ -102,288 +102,303 @@ public class Cli extends View{
     public void showPersonalBoard() {
         ArrayList<PlayerGame.PlayerPlayer> players = ClientMain.getPlayerGame().getPlayers();
         for(PlayerGame.PlayerPlayer n : players){
-            System.out.println("╔════════════════════════════════════════════════════════════════════════════════════════════════════════════╗");
-            System.out.println("║╔══════════════════════════════════════════════════════════════════════════════════════════════════════════╗║");
-            int l = n.getNickname().length();
-            System.out.print("║║"+ n.getNickname());
-            while(l < 106){
-                System.out.print(" ");
-                l++;
-            }
-            System.out.println("║║");
-            System.out.println("║╚══════════════════════════════════════════════════════════════════════════════════════════════════════════╝║");
-            System.out.println("║╔══════════════════════════════════════════════════════════════════════════════════════════════════════════╗║");
-            System.out.println("║║ Faith Track                                                                                              ║║");
-            System.out.println("║╚══════════════════════════════════════════════════════════════════════════════════════════════════════════╝║");
-            System.out.println("║╔══════════════════════════════════════════════════════════════════════════════════════════════════════════╗║");
-            int f = n.getFaithTrack().getFaithMarker();
-            System.out.print("║║");
-            int i = 0;
-            while(i < (f * 2)){
-                System.out.print(" ");
-                i++;
-            }
-            System.out.print(Color.ANSI_RED.escape() + "x" + Color.ANSI_WHITE.escape());
-            while(i < 105){
-                System.out.print(" ");
-                i++;
-            }
-            System.out.println("║║");
-            System.out.print("║║");
-            int j = 0;
-            int p = 0;
-            while (j < 50){
-                if(j % 2 == 0){
-                    if(p == 3 || p == 6 || p == 9 || p == 12 || p == 15 || p == 18 || p == 21){
-                        System.out.print(Color.ANSI_YELLOW.escape() + "_" + Color.ANSI_WHITE.escape());
-                    }else if(p == 8 || p == 16 || p == 24){
-                        System.out.print(Color.ANSI_RED.escape() + "_" + Color.ANSI_WHITE.escape());
-                    }else{
-                        System.out.print("_");
-                    }
-                    p++;
-                }else{
-                    System.out.print(" ");
-                }
-                j++;
-            }
-            while(j < 106){
-                System.out.print(" ");
-                j++;
-            }
-            System.out.println("║║");
-            System.out.println("║╚══════════════════════════════════════════════════════════════════════════════════════════════════════════╝║");
-            System.out.println("║╔════════════════════════════╦═════════════════════════════════════════════════════════════════════════════╗║");
-            System.out.println("║║ Warehouse                  ║ Card slot                                                                   ║║");
-            System.out.println("║╚════════════════════════════╩═════════════════════════════════════════════════════════════════════════════╝║");
-            System.out.println("║╔════════════════════════════╦═════════════════════════╦═════════════════════════╦═════════════════════════╗║");
-            Resource[] resource = n.getWarehouseDepots().getResource();
-            DevelopmentCard[][] visualize = n.getSlotsDevelopmentCards().getSlot();
-            System.out.print("║║");
-            int w1 = 0;
-            while(w1 <= 12){
-                System.out.print(" ");
-                w1++;
-            }
-            if(resource[0] != null){
-                System.out.print(resourceToColorASCI(resource[0]));
-            }
-            else {
-                System.out.print(" ");
-            }
-            while(w1 <= 26){
-                System.out.print(" ");
-                w1++;
-            }
-            System.out.print("║");
-            for(int col = 0; col < 3; col++){
-                if(visualize[0][col] != null){
-                    printDevCard(visualize[0][col]);
-                }else{
-                    int c00 = 0;
-                    while(c00 <= 24){
-                        System.out.print(" ");
-                        c00++;
-                    }
-                }
-                System.out.print("║");
-            }
-            System.out.println("║");
-            System.out.println("║╠════════════════════════════╬═════════════════════════╬═════════════════════════╬═════════════════════════╣║");
-            System.out.print("║║");
-            int w2 = 0;
-            while(w2 <= 11){
-                System.out.print(" ");
-                w2++;
-            }
-            if(resource[1] != null){
-                System.out.print(resourceToColorASCI(resource[1]) + " ");
-
-            }
-            else {
-                System.out.print("  ");
-            }
-            if(resource[2] != null){
-                System.out.print(resourceToColorASCI(resource[2]));
-
-            }
-            else {
-                System.out.print(" ");
-            }
-            w2 += 2;
-            while(w2 <= 26){
-                System.out.print(" ");
-                w2++;
-            }
-            System.out.print("║");
-            for(int col = 0; col < 3; col++){
-                if(visualize[1][col] != null){
-                    printDevCard(visualize[1][col]);
-                }else{
-                    int c00 = 0;
-                    while(c00 <= 24){
-                        System.out.print(" ");
-                        c00++;
-                    }
-                }
-                System.out.print("║");
-            }
-            System.out.println("║");
-            System.out.println("║╠════════════════════════════╬═════════════════════════╬═════════════════════════╬═════════════════════════╣║");
-            System.out.print("║║");
-            int w3 = 0;
-            while(w3 <= 10){
-                System.out.print(" ");
-                w3++;
-            }
-            if(resource[3] != null){
-                System.out.print(resourceToColorASCI(resource[3]) + " ");
-            }
-            else {
-                System.out.print("  ");
-            }
-            if(resource[4] != null){
-                System.out.print(resourceToColorASCI(resource[4]) + " ");
-            }
-            else {
-                System.out.print("  ");
-            }
-            if(resource[5] != null){
-                System.out.print(resourceToColorASCI(resource[5]));
-            }
-            else {
-                System.out.print(" ");
-            }
-            w3 += 4;
-            while(w3 <= 26){
-                System.out.print(" ");
-                w3++;
-            }
-            System.out.print("║");
-            for(int col = 0; col < 3; col++){
-                if(visualize[1][col] != null){
-                    printDevCard(visualize[1][col]);
-                }else{
-                    int c00 = 0;
-                    while(c00 <= 24){
-                        System.out.print(" ");
-                        c00++;
-                    }
-                }
-                System.out.print("║");
-            }
-            System.out.println("║");
-            System.out.println("║╚════════════════════════════╩═════════════════════════╩═════════════════════════╩═════════════════════════╝║");
-            System.out.println("║╔══════════════════════════════════════════════════════╦═══════════════════════════════════════════════════╗║");
-            System.out.println("║║ Strongbox                                            ║ Leader card                                       ║║");
-            System.out.println("║╚══════════════════════════════════════════════════════╩═══════════════════════════════════════════════════╝║");
-            int coin = n.getStrongBox().getCoin();
-            int shield = n.getStrongBox().getShield();
-            int servant = n.getStrongBox().getServant();
-            int stone = n.getStrongBox().getStone();
-            LeaderCard[] cardsInHand = n.getCardsInHand();
-            LeaderCard[] cardsOnTable = n.getCardsOnTable();
-            System.out.println("║╔════════════════════════════╦═════════════════════════╦═══════════════════════════════════════════════════╗║");
-            System.out.println("║║ Coin                       ║ Shield                  ║ In hand                                           ║║");
-            System.out.println("║╠════════════════════════════╬═════════════════════════╬═════════════════════════╦═════════════════════════╣║");
-            System.out.print("║║ " + coin);
-            int x;
-            if(coin < 10){
-                x = 2;
-            }else if(coin < 100){
-                x = 3;
-            }else{
-                x = 4;
-            }
-            while(x <28){
-                System.out.print(" ");
-                x++;
-            }
-            System.out.print("║ ");
-
-            System.out.print(shield);
-            int xx;
-            if(shield < 10){
-                xx = 2;
-            }else if(shield < 100){
-                xx = 3;
-            }else{
-                xx = 4;
-            }
-            while(xx <25){
-                System.out.print(" ");
-                xx++;
-            }
-            System.out.print("║ ");
-            if(cardsInHand[0] != null){
-                printLeadCard(cardsInHand[0]);
-            } else {
-                System.out.print("                        ");
-            }
-
-            System.out.print("║ ");
-
-            if(cardsInHand[1] != null){
-                printLeadCard(cardsInHand[1]);
-            } else {
-                System.out.print("                        ");
-            }
-            System.out.println("║║");
-            System.out.println("║╠════════════════════════════╬═════════════════════════╬═════════════════════════╩═════════════════════════╣║");
-            System.out.println("║║ Servant                    ║ Stone                   ║ On Table                                          ║║");
-            System.out.println("║╠════════════════════════════╬═════════════════════════╬═════════════════════════╦═════════════════════════╣║");
-            System.out.print("║║ " + servant);
-            int xxx;
-            if(servant < 10){
-                xxx = 2;
-            }else if(servant < 100){
-                xxx = 3;
-            }else{
-                xxx = 4;
-            }
-            while(xxx <28){
-                System.out.print(" ");
-                xxx++;
-            }
-            System.out.print("║ ");
-
-            System.out.print(stone);
-            int xxxx;
-            if(stone < 10){
-                xxxx = 2;
-            }else if(stone < 100){
-                xxxx = 3;
-            }else{
-                xxxx = 4;
-            }
-            while(xxxx <25){
-                System.out.print(" ");
-                xxxx++;
-            }
-            System.out.print("║ ");
-            if(cardsOnTable[0] != null){
-                printLeadCard(cardsOnTable[0]);
-            } else {
-                System.out.print("                        ");
-            }
-
-            System.out.print("║ ");
-
-            if(cardsOnTable[1] != null){
-                printLeadCard(cardsOnTable[1]);
-            } else {
-                System.out.print("                        ");
-            }
-            System.out.println("║║");
-            System.out.println("║╚════════════════════════════╩═════════════════════════╩═════════════════════════╩═════════════════════════╝║");
-            System.out.println("╚════════════════════════════════════════════════════════════════════════════════════════════════════════════╝");
+            printBoard(n);
         }
     }
 
     @Override
     public void showPBCurrent() {
+        ArrayList<PlayerGame.PlayerPlayer> players = ClientMain.getPlayerGame().getPlayers();
+        for(PlayerGame.PlayerPlayer n : players){
+            if(n.getNickname().equals(ClientMain.getCurrentP())){
+                printBoard(n);
+            }
 
-        //<--FIXME aggiungere la conoscenza del current player per evitare di printare tutte le board-->
+        }
+    }
+
+    private void printBoard(PlayerGame.PlayerPlayer n) {
+        System.out.println("╔════════════════════════════════════════════════════════════════════════════════════════════════════════════╗");
+        System.out.println("║╔══════════════════════════════════════════════════════════════════════════════════════════════════════════╗║");
+        int l = n.getNickname().length();
+        System.out.print("║║"+ n.getNickname());
+        while(l < 106){
+            System.out.print(" ");
+            l++;
+        }
+        System.out.println("║║");
+        System.out.println("║╚══════════════════════════════════════════════════════════════════════════════════════════════════════════╝║");
+        System.out.println("║╔══════════════════════════════════════════════════════════════════════════════════════════════════════════╗║");
+        System.out.println("║║ Faith Track                                                                                              ║║");
+        System.out.println("║╚══════════════════════════════════════════════════════════════════════════════════════════════════════════╝║");
+        System.out.println("║╔══════════════════════════════════════════════════════════════════════════════════════════════════════════╗║");
+        int f = n.getFaithTrack().getFaithMarker();
+        System.out.print("║║");
+        int i = 0;
+        while(i < (f * 2)){
+            System.out.print(" ");
+            i++;
+        }
+        System.out.print(Color.ANSI_RED.escape() + "x" + Color.ANSI_WHITE.escape());
+        while(i < 105){
+            System.out.print(" ");
+            i++;
+        }
+        System.out.println("║║");
+        System.out.print("║║");
+        int j = 0;
+        int p = 0;
+        while (j < 50){
+            if(j % 2 == 0){
+                if(p == 3 || p == 6 || p == 9 || p == 12 || p == 15 || p == 18 || p == 21){
+                    System.out.print(Color.ANSI_YELLOW.escape() + "_" + Color.ANSI_WHITE.escape());
+                }else if(p == 8 || p == 16 || p == 24){
+                    System.out.print(Color.ANSI_RED.escape() + "_" + Color.ANSI_WHITE.escape());
+                }else{
+                    System.out.print("_");
+                }
+                p++;
+            }else{
+                System.out.print(" ");
+            }
+            j++;
+        }
+        while(j < 106){
+            System.out.print(" ");
+            j++;
+        }
+        System.out.println("║║");
+        System.out.println("║╚══════════════════════════════════════════════════════════════════════════════════════════════════════════╝║");
+        System.out.println("║╔════════════════════════════╦═════════════════════════════════════════════════════════════════════════════╗║");
+        System.out.println("║║ Warehouse                  ║ Card slot                                                                   ║║");
+        System.out.println("║╚════════════════════════════╩═════════════════════════════════════════════════════════════════════════════╝║");
+        System.out.println("║╔════════════════════════════╦═════════════════════════╦═════════════════════════╦═════════════════════════╗║");
+        Resource[] resource = n.getWarehouseDepots().getResource();
+        DevelopmentCard[][] visualize = n.getSlotsDevelopmentCards().getSlot();
+        System.out.print("║║");
+        int w1 = 0;
+        while(w1 <= 12){
+            System.out.print(" ");
+            w1++;
+        }
+        if(resource[0] != null){
+            System.out.print(resourceToColorASCI(resource[0]));
+        }
+        else {
+            System.out.print(" ");
+        }
+        while(w1 <= 26){
+            System.out.print(" ");
+            w1++;
+        }
+        System.out.print("║");
+        for(int col = 0; col < 3; col++){
+            if(visualize[0][col] != null){
+                printDevCard(visualize[0][col]);
+            }else{
+                int c00 = 0;
+                while(c00 <= 24){
+                    System.out.print(" ");
+                    c00++;
+                }
+            }
+            System.out.print("║");
+        }
+        System.out.println("║");
+        System.out.println("║╠════════════════════════════╬═════════════════════════╬═════════════════════════╬═════════════════════════╣║");
+        System.out.print("║║");
+        int w2 = 0;
+        while(w2 <= 11){
+            System.out.print(" ");
+            w2++;
+        }
+        if(resource[1] != null){
+            System.out.print(resourceToColorASCI(resource[1]) + " ");
+
+        }
+        else {
+            System.out.print("  ");
+        }
+        if(resource[2] != null){
+            System.out.print(resourceToColorASCI(resource[2]));
+
+        }
+        else {
+            System.out.print(" ");
+        }
+        w2 += 2;
+        while(w2 <= 26){
+            System.out.print(" ");
+            w2++;
+        }
+        System.out.print("║");
+        for(int col = 0; col < 3; col++){
+            if(visualize[1][col] != null){
+                printDevCard(visualize[1][col]);
+            }else{
+                int c00 = 0;
+                while(c00 <= 24){
+                    System.out.print(" ");
+                    c00++;
+                }
+            }
+            System.out.print("║");
+        }
+        System.out.println("║");
+        System.out.println("║╠════════════════════════════╬═════════════════════════╬═════════════════════════╬═════════════════════════╣║");
+        System.out.print("║║");
+        int w3 = 0;
+        while(w3 <= 10){
+            System.out.print(" ");
+            w3++;
+        }
+        if(resource[3] != null){
+            System.out.print(resourceToColorASCI(resource[3]) + " ");
+        }
+        else {
+            System.out.print("  ");
+        }
+        if(resource[4] != null){
+            System.out.print(resourceToColorASCI(resource[4]) + " ");
+        }
+        else {
+            System.out.print("  ");
+        }
+        if(resource[5] != null){
+            System.out.print(resourceToColorASCI(resource[5]));
+        }
+        else {
+            System.out.print(" ");
+        }
+        w3 += 4;
+        while(w3 <= 26){
+            System.out.print(" ");
+            w3++;
+        }
+        System.out.print("║");
+        for(int col = 0; col < 3; col++){
+            if(visualize[1][col] != null){
+                printDevCard(visualize[1][col]);
+            }else{
+                int c00 = 0;
+                while(c00 <= 24){
+                    System.out.print(" ");
+                    c00++;
+                }
+            }
+            System.out.print("║");
+        }
+        System.out.println("║");
+        System.out.println("║╚════════════════════════════╩═════════════════════════╩═════════════════════════╩═════════════════════════╝║");
+        System.out.println("║╔══════════════════════════════════════════════════════╦═══════════════════════════════════════════════════╗║");
+        System.out.println("║║ Strongbox                                            ║ Leader card                                       ║║");
+        System.out.println("║╚══════════════════════════════════════════════════════╩═══════════════════════════════════════════════════╝║");
+        int coin = n.getStrongBox().getCoin();
+        int shield = n.getStrongBox().getShield();
+        int servant = n.getStrongBox().getServant();
+        int stone = n.getStrongBox().getStone();
+        LeaderCard[] cardsInHand = n.getCardsInHand();
+        LeaderCard[] cardsOnTable = n.getCardsOnTable();
+        System.out.println("║╔════════════════════════════╦═════════════════════════╦═══════════════════════════════════════════════════╗║");
+        System.out.println("║║ Coin                       ║ Shield                  ║ In hand                                           ║║");
+        System.out.println("║╠════════════════════════════╬═════════════════════════╬═════════════════════════╦═════════════════════════╣║");
+        System.out.print("║║ " + coin);
+        int x;
+        if(coin < 10){
+            x = 2;
+        }else if(coin < 100){
+            x = 3;
+        }else{
+            x = 4;
+        }
+        while(x <28){
+            System.out.print(" ");
+            x++;
+        }
+        System.out.print("║ ");
+
+        System.out.print(shield);
+        int xx;
+        if(shield < 10){
+            xx = 2;
+        }else if(shield < 100){
+            xx = 3;
+        }else{
+            xx = 4;
+        }
+        while(xx <25){
+            System.out.print(" ");
+            xx++;
+        }
+        System.out.print("║ ");
+        if(cardsInHand[0] != null && n.getNickname().equals(ClientMain.getClientNick())){
+            printLeadCard(cardsInHand[0]);
+        } else if (cardsInHand[0] == null){
+            System.out.print("                        ");
+        }
+        else{
+            System.out.print("       ?  ?  ?  ?       ");
+        }
+
+        System.out.print("║ ");
+
+        if(cardsInHand[1] != null && n.getNickname().equals(ClientMain.getClientNick())){
+            printLeadCard(cardsInHand[1]);
+        } else if (cardsInHand[0] == null){
+            System.out.print("                        ");
+        }
+        else{
+            System.out.print("       ?  ?  ?  ?       ");
+        }
+        System.out.println("║║");
+        System.out.println("║╠════════════════════════════╬═════════════════════════╬═════════════════════════╩═════════════════════════╣║");
+        System.out.println("║║ Servant                    ║ Stone                   ║ On Table                                          ║║");
+        System.out.println("║╠════════════════════════════╬═════════════════════════╬═════════════════════════╦═════════════════════════╣║");
+        System.out.print("║║ " + servant);
+        int xxx;
+        if(servant < 10){
+            xxx = 2;
+        }else if(servant < 100){
+            xxx = 3;
+        }else{
+            xxx = 4;
+        }
+        while(xxx <28){
+            System.out.print(" ");
+            xxx++;
+        }
+        System.out.print("║ ");
+
+        System.out.print(stone);
+        int xxxx;
+        if(stone < 10){
+            xxxx = 2;
+        }else if(stone < 100){
+            xxxx = 3;
+        }else{
+            xxxx = 4;
+        }
+        while(xxxx <25){
+            System.out.print(" ");
+            xxxx++;
+        }
+        System.out.print("║ ");
+        if(cardsOnTable[0] != null){
+            printLeadCard(cardsOnTable[0]);
+        } else {
+            System.out.print("                        ");
+        }
+
+        System.out.print("║ ");
+
+        if(cardsOnTable[1] != null){
+            printLeadCard(cardsOnTable[1]);
+        } else {
+            System.out.print("                        ");
+        }
+        System.out.println("║║");
+        System.out.println("║╚════════════════════════════╩═════════════════════════╩═════════════════════════╩═════════════════════════╝║");
+        System.out.println("╚════════════════════════════════════════════════════════════════════════════════════════════════════════════╝");
     }
 
     /**

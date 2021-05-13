@@ -36,7 +36,7 @@ public class AddedResourceToForwardMessage extends ForwardMessage {
                 break;
         }
         View w = new Cli();
-        w.showPersonalBoard();
+        w.showPBCurrent();
     }
 
     @Override

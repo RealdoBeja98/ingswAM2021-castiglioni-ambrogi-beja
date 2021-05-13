@@ -25,7 +25,7 @@ public class MovedResourcesInWarehouseDepotsForwardMessage extends ForwardMessag
     public void execute(Game game, PrintWriter out) {
         ClientMain.getPlayerGame().moveResourceWarehouseDepots(nickname, position, otherPosition);
         View w = new Cli();
-        w.showPersonalBoard();
+        w.showPBCurrent();
     }
 
     @Override

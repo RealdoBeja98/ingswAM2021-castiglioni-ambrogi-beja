@@ -1,6 +1,7 @@
 package it.polimi.ingsw.Game;
 import it.polimi.ingsw.Enums.*;
 import it.polimi.ingsw.Exceptions.*;
+import it.polimi.ingsw.Messages.ServiceMessages.CurrentPlayerMessage;
 import it.polimi.ingsw.Table.Decks.Token.ActionToken;
 import it.polimi.ingsw.View.Color;
 
@@ -588,6 +589,9 @@ public class Turn {
         for(Player i : Game.get(gameIndex).getPlayers()){
             if(found){
                 currentPlayer = i;
+                for(PrintWriter pw : Game.get(gameIndex).getPrintWriterList()){
+                    pw.println(new CurrentPlayerMessage(currentPlayer.getNickname()));
+                }
                 Game.get(gameIndex).getPrintWriterList().get(n).println("It's your turn!");
                 return;
             }
@@ -597,6 +601,9 @@ public class Turn {
             n++;
         }
         currentPlayer = Game.get(gameIndex).getPlayers().get(0);
+        for(PrintWriter pw : Game.get(gameIndex).getPrintWriterList()){
+            pw.println(new CurrentPlayerMessage(currentPlayer.getNickname()));
+        }
         Game.get(gameIndex).getPrintWriterList().get(0).println("It's your turn!");
         if(currentPlayer.isInkwell() && gameEnded){
             Game.get(gameIndex).notifyScore();

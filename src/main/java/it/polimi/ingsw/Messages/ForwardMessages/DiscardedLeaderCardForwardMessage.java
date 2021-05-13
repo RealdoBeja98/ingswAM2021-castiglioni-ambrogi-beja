@@ -23,7 +23,7 @@ public class DiscardedLeaderCardForwardMessage extends ForwardMessage {
     public void execute(Game game, PrintWriter out) {
         ClientMain.getPlayerGame().discardLeaderCard(nickname, pos);
         View w = new Cli();
-        w.showPersonalBoard();
+        w.showPBCurrent();
     }
 
     @Override

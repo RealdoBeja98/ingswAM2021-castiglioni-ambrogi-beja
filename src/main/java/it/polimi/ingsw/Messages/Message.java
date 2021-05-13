@@ -7,9 +7,7 @@ import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Messages.ErrorMessages.*;
 import it.polimi.ingsw.Messages.ForwardMessages.*;
 import it.polimi.ingsw.Messages.GameMessages.*;
-import it.polimi.ingsw.Messages.ServiceMessages.CurrentPlayerMessage;
-import it.polimi.ingsw.Messages.ServiceMessages.GameStartServiceMessage;
-import it.polimi.ingsw.Messages.ServiceMessages.ShowMarketMessage;
+import it.polimi.ingsw.Messages.ServiceMessages.*;
 import it.polimi.ingsw.Table.Decks.Token.ActionToken;
 import java.io.PrintWriter;
 
@@ -159,6 +157,12 @@ public abstract class Message {
         }
         if(string.equals("SHOW_MARKET")){
             return new ShowMarketMessage();
+        }
+        if(string.equals("SHOW_CARD_MARKET")){
+            return new ShowCardMarketMessage();
+        }
+        if(string.equals("SHOW_CURRENT_BOARD")){
+            return new ShowCurrentBoardMessage();
         }
         if(string.equals("CONFIRMED_ACTION")){
             return new ConfirmedActionMessage();

@@ -1,6 +1,8 @@
 package it.polimi.ingsw.Game;
 import it.polimi.ingsw.Enums.*;
 import it.polimi.ingsw.Exceptions.*;
+import it.polimi.ingsw.Messages.ServiceMessages.CurrentPlayerMessage;
+import it.polimi.ingsw.Messages.ServiceMessages.ShowCurrentBoardMessage;
 import it.polimi.ingsw.Table.Decks.*;
 import it.polimi.ingsw.PersonalBoard.PersonalBoard;
 import it.polimi.ingsw.Table.Decks.Development.DevelopmentCard;
@@ -9,6 +11,8 @@ import it.polimi.ingsw.Table.Decks.Token.ActionToken;
 import it.polimi.ingsw.Table.Market.Marbles.Faith;
 import it.polimi.ingsw.Table.Market.Marbles.Marble;
 import it.polimi.ingsw.Table.Market.Marbles.White;
+
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -354,6 +358,9 @@ public class Player {//<--FIXME check javadoc from here-->
         for(Marble i : obtainedMarbles){
             if(i instanceof Faith){
                 i.putResource(personalBoard.getFaithTrack());
+                for(PrintWriter pw : Game.get(gameIndex).getPrintWriterList()){
+                    pw.println(new ShowCurrentBoardMessage());
+                }
             }
             else if(i instanceof White){
                 if(numberOfWhiteMarbleLeaderCard() == 1){
