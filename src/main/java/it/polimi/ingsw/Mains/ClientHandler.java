@@ -5,6 +5,7 @@ import it.polimi.ingsw.Messages.ErrorMessages.GameStartedErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.NameTakenErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.NotYourTurnErrorMessage;
 import it.polimi.ingsw.Messages.Message;
+import it.polimi.ingsw.Messages.ServiceMessages.CurrentPlayerMessage;
 import it.polimi.ingsw.Messages.ServiceMessages.GameStartServiceMessage;
 import java.io.*;
 import java.net.Socket;
@@ -82,6 +83,7 @@ public class ClientHandler implements Runnable {
             }
         }
         out.println(new GameStartServiceMessage(game));
+        out.println(new CurrentPlayerMessage(game.getTurn().getCurrentPlayer().getNickname()));
 
         while (true) {
             try {

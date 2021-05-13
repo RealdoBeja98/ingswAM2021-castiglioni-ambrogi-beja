@@ -22,12 +22,22 @@ public class ClientMain {
 
     private static PlayerGame playerGame;
 
+    private static String currentP;
+
     public static PlayerGame getPlayerGame(){
         return playerGame;
     }
 
     public static void setPlayerGame(PlayerGame playerGame){
         ClientMain.playerGame = playerGame;
+    }
+
+    public static void setCurrentP(String currentP) {
+        ClientMain.currentP = currentP;
+    }
+
+    public static String getCurrentP() {
+        return currentP;
     }
 
     public static void main(String[] args) throws IOException {

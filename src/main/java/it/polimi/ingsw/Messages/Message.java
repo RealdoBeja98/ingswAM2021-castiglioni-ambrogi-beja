@@ -7,6 +7,7 @@ import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Messages.ErrorMessages.*;
 import it.polimi.ingsw.Messages.ForwardMessages.*;
 import it.polimi.ingsw.Messages.GameMessages.*;
+import it.polimi.ingsw.Messages.ServiceMessages.CurrentPlayerMessage;
 import it.polimi.ingsw.Messages.ServiceMessages.GameStartServiceMessage;
 import it.polimi.ingsw.Messages.ServiceMessages.ShowMarketMessage;
 import it.polimi.ingsw.Table.Decks.Token.ActionToken;
@@ -182,6 +183,11 @@ public abstract class Message {
             if (message[0].equals("GAME_START")) {
                 checkLength(message, 2);
                 return new GameStartServiceMessage(message[1]);
+            } else
+
+            if (message[0].equals("SET_CURRENT_PLAYER")) {
+                checkLength(message, 2);
+                return new CurrentPlayerMessage(message[1]);
             } else
 
             if (message[0].equals("ADVANCE_FAITH_TRACK")) {
