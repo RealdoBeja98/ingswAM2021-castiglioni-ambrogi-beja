@@ -1,13 +1,14 @@
-package it.polimi.ingsw.Messages.ServiceMessages;
+package it.polimi.ingsw.Messages.ForwardMessages;
 
 import it.polimi.ingsw.Game.Game;
+import it.polimi.ingsw.Messages.ForwardMessage;
 import it.polimi.ingsw.Messages.ServiceMessage;
 import it.polimi.ingsw.View.Cli;
 import it.polimi.ingsw.View.View;
 
 import java.io.PrintWriter;
 
-public class ShowCurrentBoardMessage extends ServiceMessage {
+public class ShowCurrentBoardMessage extends ForwardMessage {
     public ShowCurrentBoardMessage(){
         identifier = "SHOW_CURRENT_BOARD";
     }

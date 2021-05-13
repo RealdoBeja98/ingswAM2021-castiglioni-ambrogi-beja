@@ -17,11 +17,13 @@ import it.polimi.ingsw.Table.Market.Marbles.Faith;
 import it.polimi.ingsw.Table.Market.Marbles.Marble;
 import it.polimi.ingsw.Table.Market.Market;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class PlayerGame {
 
     public class PlayerPlayer {
+
 
         private String nickname;
         private LeaderCard[] cardsInHand;
@@ -96,6 +98,12 @@ public class PlayerGame {
     private DevelopmentDeck developmentDeck;
     private FaithTrackSP lorenzoTrack;
 
+    public void setOut(PrintWriter out) {
+        this.out = out;
+    }
+
+    private PrintWriter out;
+
     public PlayerGame(String market, String developmentDeck, ArrayList<String> playersAndCardsInHand){
         this.market = new Market(market);
         this.developmentDeck = new DevelopmentDeck(developmentDeck);
@@ -137,7 +145,7 @@ public class PlayerGame {
         }
         if(numberOfFaithMarbles > 0){
             getPlayerPlayerFromNickname(nickname).faithTrack.goOn(numberOfFaithMarbles);
-
+            out.println("NOTIFY_PB_ALL");
         }
     }
 

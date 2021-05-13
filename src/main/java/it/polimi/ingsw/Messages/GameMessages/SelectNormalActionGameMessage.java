@@ -7,10 +7,8 @@ import it.polimi.ingsw.Messages.ConfirmedActionMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.InvalidActionErrorMessage;
 import it.polimi.ingsw.Messages.GameMessage;
 import it.polimi.ingsw.Messages.Message;
-import it.polimi.ingsw.Messages.ServiceMessages.ShowCardMarketMessage;
-import it.polimi.ingsw.Messages.ServiceMessages.ShowMarketMessage;
-import it.polimi.ingsw.View.Cli;
-import it.polimi.ingsw.View.View;
+import it.polimi.ingsw.Messages.ForwardMessages.ShowCardMarketMessage;
+import it.polimi.ingsw.Messages.ForwardMessages.ShowMarketMessage;
 
 import java.io.PrintWriter;
 

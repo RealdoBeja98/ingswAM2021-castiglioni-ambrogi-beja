@@ -4,8 +4,9 @@ import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Messages.ErrorMessages.GameStartedErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.NameTakenErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.NotYourTurnErrorMessage;
+import it.polimi.ingsw.Messages.ForwardMessages.ShowCurrentBoardMessage;
 import it.polimi.ingsw.Messages.Message;
-import it.polimi.ingsw.Messages.ServiceMessages.CurrentPlayerMessage;
+import it.polimi.ingsw.Messages.ForwardMessages.CurrentPlayerMessage;
 import it.polimi.ingsw.Messages.ServiceMessages.GameStartServiceMessage;
 import java.io.*;
 import java.net.Socket;
@@ -102,6 +103,8 @@ public class ClientHandler implements Runnable {
                 else if (line.equals("GAME_ENDED")){
                     closeCommunicationChannel(in, out);
                     return;
+                }else if(line.equals("NOTIFY_PB_ALL")){
+                    Message.sendMessage(out, new ShowCurrentBoardMessage());
                 }
                 else if (!game.getTurn().getCurrentPlayer().getNickname().equals(nickname)) {
                     Message.sendMessage(out, new NotYourTurnErrorMessage());

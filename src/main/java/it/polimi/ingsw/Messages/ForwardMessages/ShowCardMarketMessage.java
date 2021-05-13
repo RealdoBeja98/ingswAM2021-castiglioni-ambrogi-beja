@@ -1,20 +1,23 @@
-package it.polimi.ingsw.Messages.ServiceMessages;
+package it.polimi.ingsw.Messages.ForwardMessages;
+
 import it.polimi.ingsw.Game.Game;
+import it.polimi.ingsw.Messages.ForwardMessage;
 import it.polimi.ingsw.Messages.ServiceMessage;
 import it.polimi.ingsw.View.Cli;
 import it.polimi.ingsw.View.View;
+
 import java.io.PrintWriter;
 
-public class ShowMarketMessage extends ServiceMessage {
+public class ShowCardMarketMessage extends ForwardMessage {
 
-    public ShowMarketMessage(){
-        identifier = "SHOW_MARKET";
+    public ShowCardMarketMessage(){
+        identifier = "SHOW_CARD_MARKET";
     }
 
     @Override
     public void execute(Game game, PrintWriter out) {
         View w = new Cli();
-        w.showMarket();
+        w.showDevCard();
     }
 
     @Override

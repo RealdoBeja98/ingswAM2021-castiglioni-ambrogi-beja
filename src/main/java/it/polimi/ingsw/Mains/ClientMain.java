@@ -23,6 +23,7 @@ public class ClientMain {
     private static String currentP;
     private static String clientNick;
 
+
     public static PlayerGame getPlayerGame(){
         return playerGame;
     }
@@ -108,7 +109,7 @@ public class ClientMain {
                             else {
                                 Message messageServerMessage = Message.fromString(serverMessage);
                                 if(messageServerMessage instanceof ServiceMessage){
-                                    messageServerMessage.execute(null, null);
+                                    messageServerMessage.execute(null, out);
                                 } else if(messageServerMessage instanceof ForwardMessage){
                                     messageServerMessage.execute(null, null);
                                 } else {

@@ -1,8 +1,7 @@
 package it.polimi.ingsw.Game;
 import it.polimi.ingsw.Enums.*;
 import it.polimi.ingsw.Exceptions.*;
-import it.polimi.ingsw.Messages.ServiceMessages.CurrentPlayerMessage;
-import it.polimi.ingsw.Messages.ServiceMessages.ShowCurrentBoardMessage;
+import it.polimi.ingsw.Messages.ForwardMessages.ShowCurrentBoardMessage;
 import it.polimi.ingsw.Table.Decks.*;
 import it.polimi.ingsw.PersonalBoard.PersonalBoard;
 import it.polimi.ingsw.Table.Decks.Development.DevelopmentCard;
@@ -358,9 +357,6 @@ public class Player {//<--FIXME check javadoc from here-->
         for(Marble i : obtainedMarbles){
             if(i instanceof Faith){
                 i.putResource(personalBoard.getFaithTrack());
-                for(PrintWriter pw : Game.get(gameIndex).getPrintWriterList()){ //<--FIXME da spostare in player game riga 140 dopo aver messo i printwriter li-->
-                    pw.println(new ShowCurrentBoardMessage());
-                }
             }
             else if(i instanceof White){
                 if(numberOfWhiteMarbleLeaderCard() == 1){

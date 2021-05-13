@@ -45,6 +45,7 @@ public class GameStartServiceMessage extends ServiceMessage {
         }
         PlayerGame playerGame = new PlayerGame(market, developmentDeck, playersAndCardsInHand);
         ClientMain.setPlayerGame(playerGame);
+        playerGame.setOut(out);
         System.out.println("GAME START!");
         View w = new Cli();
         w.showMarket();

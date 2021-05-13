@@ -1,9 +1,8 @@
 package it.polimi.ingsw.Game;
 import it.polimi.ingsw.Enums.*;
 import it.polimi.ingsw.Exceptions.*;
-import it.polimi.ingsw.Messages.ServiceMessages.CurrentPlayerMessage;
+import it.polimi.ingsw.Messages.ForwardMessages.CurrentPlayerMessage;
 import it.polimi.ingsw.Table.Decks.Token.ActionToken;
-import it.polimi.ingsw.View.Color;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
