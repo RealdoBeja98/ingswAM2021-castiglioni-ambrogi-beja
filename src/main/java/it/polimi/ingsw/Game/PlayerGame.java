@@ -137,6 +137,7 @@ public class PlayerGame {
         }
         if(numberOfFaithMarbles > 0){
             getPlayerPlayerFromNickname(nickname).faithTrack.goOn(numberOfFaithMarbles);
+
         }
     }
 

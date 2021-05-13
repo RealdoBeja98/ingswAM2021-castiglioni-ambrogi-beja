@@ -358,7 +358,7 @@ public class Player {//<--FIXME check javadoc from here-->
         for(Marble i : obtainedMarbles){
             if(i instanceof Faith){
                 i.putResource(personalBoard.getFaithTrack());
-                for(PrintWriter pw : Game.get(gameIndex).getPrintWriterList()){
+                for(PrintWriter pw : Game.get(gameIndex).getPrintWriterList()){ //<--FIXME da spostare in player game riga 140 dopo aver messo i printwriter li-->
                     pw.println(new ShowCurrentBoardMessage());
                 }
             }
