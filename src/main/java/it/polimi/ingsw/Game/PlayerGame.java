@@ -13,7 +13,6 @@ import it.polimi.ingsw.Table.Decks.Development.DevelopmentCard;
 import it.polimi.ingsw.Table.Decks.DevelopmentDeck;
 import it.polimi.ingsw.Table.Decks.Leader.ExtraStorageLeaderCard;
 import it.polimi.ingsw.Table.Decks.Leader.LeaderCard;
-import it.polimi.ingsw.Table.Market.Marbles.Faith;
 import it.polimi.ingsw.Table.Market.Marbles.Marble;
 import it.polimi.ingsw.Table.Market.Market;
 
@@ -261,6 +260,9 @@ public class PlayerGame {
             e.printStackTrace();
         } catch (IndexOutOfBoundsException e){
             System.out.println("Questo è un problema!!!");
+            e.printStackTrace();
+        } catch (Exception e){
+            System.out.println("Questo è davveroooo un problema!!!");
             e.printStackTrace();
         }
     }

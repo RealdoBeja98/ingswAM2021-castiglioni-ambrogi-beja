@@ -103,4 +103,8 @@ TO_ERROR_TYPO
 Waiting all the player\
 GAME START!\
 nickname quit\
-GAME_START
+GAME_START\
+\
+\
+problem!!!: BUY_DEVELOPMENT_CARD 4 3
+

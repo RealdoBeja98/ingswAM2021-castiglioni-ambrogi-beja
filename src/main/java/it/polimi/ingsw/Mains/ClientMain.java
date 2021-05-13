@@ -46,116 +46,125 @@ public class ClientMain {
 
 
     public static void main(String[] args) throws IOException {
-        if(args.length !=5){
-            System.out.println("Invalid number of parameter");
-            return;
-        }
 
-        String hostName = args[0];
-        int portNumber = atoi(args[1]);
-        clientNick = args[4];
+        ///////
+        try {
+            ///////
 
-        try (
-                Socket echoSocket = new Socket(hostName, portNumber); //creo socket e mi connetto alla .accept
-                PrintWriter out = new PrintWriter(echoSocket.getOutputStream(), true);//scrive sul canale main
-                BufferedReader in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream())); // legge dal canale sopra
-                BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in)) //scanf
-
-        ) {
-
-            int i = 2;
-            String init;
-            while (i <= 4) {
-                init = args[i];
-                out.println(init);
-                i++;
+            if (args.length != 5) {
+                System.out.println("Invalid number of parameter");
+                return;
             }
-            String line = in.readLine();
-            System.out.println("Joining game number: " + line);
-            line = in.readLine();
-            Message lineMessage = Message.fromString(line);
-            if (lineMessage.isEqual(new NameTakenErrorMessage())) {
-                (new NameTakenErrorMessage()).execute();
-                return;
-            } else if (lineMessage.isEqual(new GameStartedErrorMessage())) {
-                (new GameStartedErrorMessage()).execute();
-                return;
-            } else if (line.equals("You have the inkwell!")){
-                System.out.println("Joined the game!");
-                System.out.println("You have the inkwell!");
+
+            String hostName = args[0];
+            int portNumber = atoi(args[1]);
+            clientNick = args[4];
+
+            try (
+                    Socket echoSocket = new Socket(hostName, portNumber); //creo socket e mi connetto alla .accept
+                    PrintWriter out = new PrintWriter(echoSocket.getOutputStream(), true);//scrive sul canale main
+                    BufferedReader in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream())); // legge dal canale sopra
+                    BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in)) //scanf
+
+            ) {
+
+                int i = 2;
+                String init;
+                while (i <= 4) {
+                    init = args[i];
+                    out.println(init);
+                    i++;
+                }
+                String line = in.readLine();
+                System.out.println("Joining game number: " + line);
                 line = in.readLine();
-            } else{
-                System.out.println("Joined the game!");
-            }
+                Message lineMessage = Message.fromString(line);
+                if (lineMessage.isEqual(new NameTakenErrorMessage())) {
+                    (new NameTakenErrorMessage()).execute();
+                    return;
+                } else if (lineMessage.isEqual(new GameStartedErrorMessage())) {
+                    (new GameStartedErrorMessage()).execute();
+                    return;
+                } else if (line.equals("You have the inkwell!")) {
+                    System.out.println("Joined the game!");
+                    System.out.println("You have the inkwell!");
+                    line = in.readLine();
+                } else {
+                    System.out.println("Joined the game!");
+                }
 
-            (new Thread(){
+                (new Thread() {
 
-                @Override
-                public void run() {
-                    String serverMessage;
+                    @Override
+                    public void run() {
+                        String serverMessage;
 
-                    try {
-                        while ((serverMessage = in.readLine()) != null) {
-                            if (serverMessage.equals("quit")) {
-                                break;
-                            }
-                            else if (serverMessage.equals("wakeup")) {
-                                out.println("wakeup");
-                            }
-                            else if(serverMessage.equals("GAME_ENDED")){
-                                out.println("GAME_ENDED");
-                                break;
-                            }
-                            else {
-                                Message messageServerMessage = Message.fromString(serverMessage);
-                                if(messageServerMessage instanceof ServiceMessage){
-                                    messageServerMessage.execute(null, out);
-                                } else if(messageServerMessage instanceof ForwardMessage){
-                                    messageServerMessage.execute(null, null);
+                        try {
+                            while ((serverMessage = in.readLine()) != null) {
+                                if (serverMessage.equals("quit")) {
+                                    break;
+                                } else if (serverMessage.equals("wakeup")) {
+                                    out.println("wakeup");
+                                } else if (serverMessage.equals("GAME_ENDED")) {
+                                    out.println("GAME_ENDED");
+                                    break;
                                 } else {
-                                    System.out.println(messageServerMessage);
+                                    Message messageServerMessage = Message.fromString(serverMessage);
+                                    if (messageServerMessage instanceof ServiceMessage) {
+                                        messageServerMessage.execute(null, out);
+                                    } else if (messageServerMessage instanceof ForwardMessage) {
+                                        messageServerMessage.execute(null, null);
+                                    } else {
+                                        System.out.println(messageServerMessage);
+                                    }
                                 }
+
                             }
-
-                        }
-                    } catch (IOException e) {
-                        System.err.println("Couldn't get I/O for the connection to the server");
-                        System.exit(1);
-                    }
-                }
-            }).start();
-
-            String clientMessage;
-            try {
-                while ((clientMessage = stdIn.readLine()) != null) {
-                    if (clientMessage.equals("wakeup")){
-
-                    }else if(clientMessage.equals("GAME_UPDATE")){
-                        View w = new Cli();
-                        w.showMarket();
-                        w.showDevCard();
-                        w.showPersonalBoard();
-                    }
-                    else{
-                        out.println(clientMessage);
-                        if (clientMessage.equals("quit")) {
-                            break;
+                        } catch (IOException e) {
+                            System.err.println("Couldn't get I/O for the connection to the server");
+                            System.exit(1);
                         }
                     }
+                }).start();
+
+                String clientMessage;
+                try {
+                    while ((clientMessage = stdIn.readLine()) != null) {
+                        if (clientMessage.equals("wakeup")) {
+
+                        } else if (clientMessage.equals("GAME_UPDATE")) {
+                            View w = new Cli();
+                            w.showMarket();
+                            w.showDevCard();
+                            w.showPersonalBoard();
+                        } else {
+                            out.println(clientMessage);
+                            if (clientMessage.equals("quit")) {
+                                break;
+                            }
+                        }
+                    }
+                } catch (IOException e) {
+                    System.err.println("Couldn't get I/O for the connection to the keyboard");
+                    System.exit(1);
                 }
+
+            } catch (UnknownHostException e) {
+                System.err.println("Don't know about host " + hostName);
+                System.exit(1);
             } catch (IOException e) {
-                System.err.println("Couldn't get I/O for the connection to the keyboard");
+                System.err.println("Couldn't get I/O for the connection to " +
+                        hostName);
                 System.exit(1);
             }
 
-        } catch (UnknownHostException e) {
-            System.err.println("Don't know about host " + hostName);
-            System.exit(1);
-        } catch (IOException e) {
-            System.err.println("Couldn't get I/O for the connection to " +
-                    hostName);
-            System.exit(1);
+            ///////
+        } catch (Exception e){
+            System.out.println("questo è un gravissimo problema!!!");
+            e.printStackTrace();
         }
+        ///////
+
     }
 
     private static int atoi(String str)
