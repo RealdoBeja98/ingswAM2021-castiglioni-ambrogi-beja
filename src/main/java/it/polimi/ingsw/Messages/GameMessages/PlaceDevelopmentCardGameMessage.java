@@ -30,11 +30,12 @@ public class PlaceDevelopmentCardGameMessage extends GameMessage {
     @Override
     public void execute(Game game, PrintWriter out) {
         try {
+            String currentPlayer = game.getTurn().getCurrentPlayer().getNickname();
             DevelopmentCard obtainedDevelopmentCard = game.getTurn().getCurrentPlayer().getObtainedDevelopmentCard();
             game.getTurn().placeDevelopmentCard(position);
             Message.sendMessage(out, new ConfirmedActionMessage());
             System.out.println(identifier);
-            forwardAll(game, new PlacedDevelopmentCardForwardMessage(game.getTurn().getCurrentPlayer().getNickname(), position, obtainedDevelopmentCard.export()));
+            forwardAll(game, new PlacedDevelopmentCardForwardMessage(currentPlayer, position, obtainedDevelopmentCard.export()));
         } catch (NoDevelopmentCardToObtainException e) {
             Message.sendMessage(out, new NoCardObtainableErrorMessage());
         } catch (PositionInvalidException e) {

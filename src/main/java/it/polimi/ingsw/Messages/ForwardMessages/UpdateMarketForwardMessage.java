@@ -11,25 +11,27 @@ import java.io.PrintWriter;
 
 public class UpdateMarketForwardMessage extends ForwardMessage {
 
+    private String nickname;
     private RowColumn rowColumn;
     private int place;
 
-    public UpdateMarketForwardMessage(RowColumn rowColumn, int place){
+    public UpdateMarketForwardMessage(String nickname, RowColumn rowColumn, int place){
         identifier = "UPDATE_MARKET";
         this.rowColumn = rowColumn;
         this.place = place;
+        this.nickname = nickname;
     }
 
     @Override
     public void execute(Game game, PrintWriter out) {
-        ClientMain.getPlayerGame().updateMarket(rowColumn, place);
+        ClientMain.getPlayerGame().updateMarket(nickname, rowColumn, place);
         View w = new Cli();
         w.showMarket();
     }
 
     @Override
     public String toString(){
-        return identifier + " " + rowColumn + " " + place;
+        return identifier + " " + nickname + " " + rowColumn + " " + place;
     }
 
 }

@@ -16,6 +16,7 @@ public class PlacedDevelopmentCardForwardMessage extends ForwardMessage {
         identifier = "PLACED_DEVELOPMENT_CARD";
         this.position = position;
         this.developmentCard = developmentCard;
+        this.nickname = nickname;
     }
 
     @Override

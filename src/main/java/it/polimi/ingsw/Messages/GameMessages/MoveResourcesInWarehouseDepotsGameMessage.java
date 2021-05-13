@@ -22,11 +22,12 @@ public class MoveResourcesInWarehouseDepotsGameMessage extends GameMessage {
     @Override
     public void execute(Game game, PrintWriter out) {
         try {
+            String currentPlayer = game.getTurn().getCurrentPlayer().getNickname();
             int otherPosition = game.getTurn().getCurrentPlayer().getSelectedWarehouseDepotsSlot();
             game.getTurn().moveResourcesInWarehouseDepots(position);
             Message.sendMessage(out, new ConfirmedActionMessage());
             System.out.println(identifier);
-            forwardAll(game, new MovedResourcesInWarehouseDepotsForwardMessage(game.getTurn().getCurrentPlayer().getNickname(), position, otherPosition));
+            forwardAll(game, new MovedResourcesInWarehouseDepotsForwardMessage(currentPlayer, position, otherPosition));
         } catch (NotAdmittedMovementException e) {
             Message.sendMessage(out, new InvalidMovementErrorMessage());
         }

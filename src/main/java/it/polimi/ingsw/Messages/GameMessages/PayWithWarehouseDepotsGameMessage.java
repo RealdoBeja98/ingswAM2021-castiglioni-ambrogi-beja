@@ -24,6 +24,7 @@ public class PayWithWarehouseDepotsGameMessage extends GameMessage {
     @Override
     public void execute(Game game, PrintWriter out) {
         try {
+            String currentPlayer = game.getTurn().getCurrentPlayer().getNickname();
             int faith = game.getTurn().getCurrentPlayer().obtainingResourcesAfterPaying(Resource.FAITH);
             int coin = game.getTurn().getCurrentPlayer().obtainingResourcesAfterPaying(Resource.COIN);
             int servant = game.getTurn().getCurrentPlayer().obtainingResourcesAfterPaying(Resource.SERVANT);
@@ -32,8 +33,8 @@ public class PayWithWarehouseDepotsGameMessage extends GameMessage {
             game.getTurn().payWithWarehouseDepots(position);
             Message.sendMessage(out, new ConfirmedActionMessage());
             System.out.println(identifier);
-            forwardAll(game, new UpdateObtainedMultipleResourceForwardMessage(game.getTurn().getCurrentPlayer().getNickname(), faith, coin, servant, shield, stone));
-            forwardAll(game, new PayedWithWarehouseDepotsForwardMessage(game.getTurn().getCurrentPlayer().getNickname(), position));
+            forwardAll(game, new UpdateObtainedMultipleResourceForwardMessage(currentPlayer, faith, coin, servant, shield, stone));
+            forwardAll(game, new PayedWithWarehouseDepotsForwardMessage(currentPlayer, position));
         } catch (WrongPaymentException e) {
             Message.sendMessage(out, new WrongResourceErrorMessage());
         } catch (EmptySlotYetException e) {

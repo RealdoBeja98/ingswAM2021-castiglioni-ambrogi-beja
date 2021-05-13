@@ -27,10 +27,11 @@ public class DiscardLeaderCardGameMessage extends GameMessage {
     @Override
     public void execute(Game game, PrintWriter out) {
         try {
+            String currentPlayer = game.getTurn().getCurrentPlayer().getNickname();
             game.getTurn().discardLeaderCard(leaderCardToDiscard);
             Message.sendMessage(out, new ConfirmedActionMessage());
             System.out.println(identifier);
-            forwardAll(game, new DiscardedLeaderCardForwardMessage(game.getTurn().getCurrentPlayer().getNickname(), leaderCardToDiscard));
+            forwardAll(game, new DiscardedLeaderCardForwardMessage(currentPlayer, leaderCardToDiscard));
         } catch (AlreadyDiscardedThisLeaderCardException e) {
             Message.sendMessage(out, new AlreadyDiscardedPositionErrorMessage());
         } catch (ActionNotAllowedException e) {
