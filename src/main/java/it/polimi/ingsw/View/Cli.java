@@ -175,6 +175,19 @@ public class Cli extends View{
         System.out.println("║╔════════════════════════════╦═════════════════════════╦═════════════════════════╦═════════════════════════╗║");
         Resource[] resource = n.getWarehouseDepots().getResource();
         DevelopmentCard[][] visualize = n.getSlotsDevelopmentCards().getSlot();
+        /*
+        ///////////
+        for(DevelopmentCard[] ii : visualize){
+            for(DevelopmentCard jj : ii){
+                if(jj == null){
+                    System.out.println("WWWWWWWWWWWWWW");
+                } else {
+                    System.out.println(jj.export());
+                }
+            }
+        }
+        ///////////
+        */
         System.out.print("║║");
         int w1 = 0;
         while(w1 <= 12){
@@ -448,6 +461,7 @@ public class Cli extends View{
      * @param visualize: the card wanted
      */
     private void printDevCard(DevelopmentCard visualize) {
+        //System.out.println(visualize.export());/////////////////////////////////////////////////////
         String escapeW = Color.ANSI_WHITE.escape();
 
         int tot;

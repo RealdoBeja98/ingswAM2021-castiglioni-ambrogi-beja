@@ -255,14 +255,9 @@ public class PlayerGame {
 
     public void addDevelopmentCard(String nickname, int pos, String developmentCard){
         try {
+            //System.out.println("Questa è la developmentCard: " + developmentCard);///////////////////////
             getPlayerPlayerFromNickname(nickname).slotsDevelopmentCards.addDevelopmentCard(pos, new DevelopmentCard(developmentCard));
         } catch (PositionInvalidException e) {
-            e.printStackTrace();
-        } catch (IndexOutOfBoundsException e){
-            System.out.println("Questo è un problema!!!");
-            e.printStackTrace();
-        } catch (Exception e){
-            System.out.println("Questo è davveroooo un problema!!!");
             e.printStackTrace();
         }
     }
@@ -284,6 +279,16 @@ public class PlayerGame {
 
     public void loernzoGoOn(){
         lorenzoTrack.goOn(1);
+    }
+
+    public void quitAPlayer(String nickname){
+        //System.out.println("The excluded player is: " + nickname);///////////////////
+        for(int i = 0; i < players.size(); i++){
+            if(players.get(i).nickname.equals(nickname)){
+                players.remove(i);
+                return;
+            }
+        }
     }
 
 }

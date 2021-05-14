@@ -610,7 +610,7 @@ public class Turn {
                 i.println("GAME_ENDED");
             }
             System.out.println("Game " + gameIndex + " ended!");
-            //throw new GameEndedException(); //<--FIXME secondo me può essere tolta-->
+            //throw new GameEndedException(); //commentato
         }
     }
 

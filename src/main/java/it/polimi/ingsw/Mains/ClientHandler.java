@@ -22,108 +22,123 @@ public class ClientHandler implements Runnable {
     }
 
     public void run() {
-        BufferedReader in = null;
-        try {
-            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        PrintWriter out = null;
-        try {
-            out = new PrintWriter(socket.getOutputStream(), true);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        String line = null;
-        try {
-            line = in.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        if (line.equals("-n")) {
-            boolean create = false;
-            try {
-                create = creatingGame(line, in, out);
 
+        //////////
+        try {
+            //////////
+
+            BufferedReader in = null;
+            try {
+                in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            if (!create) {
-                return;
-            }
-        }
-        if (line.equals("-o")) {
-            boolean old = false;
+            PrintWriter out = null;
             try {
-                old = joiningGame(line, in, out);
+                out = new PrintWriter(socket.getOutputStream(), true);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            if (!old) {
-                return;
-            }
-        }
-        if (!game.getStarted()) {
-            WakeUpThread wut = new WakeUpThread(in, out);
-            Thread t = new Thread(wut);
-            t.start();
-
-            try {
-                t.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            if(wut.getReturnValue() == 1){
-                closeCommunicationChannel(in, out);
-                try {
-                    game.removePlayer(nickname);
-                } catch (GameEndedException e) {
-                    e.printStackTrace();
-                }
-                return;
-            }
-        }
-        out.println(new GameStartServiceMessage(game));
-        out.println(new CurrentPlayerMessage(game.getTurn().getCurrentPlayer().getNickname()));
-
-        while (true) {
+            String line = null;
             try {
                 line = in.readLine();
-                if (line.equals("quit")) {
-                    out.println("quit");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (line.equals("-n")) {
+                boolean create = false;
+                try {
+                    create = creatingGame(line, in, out);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if (!create) {
+                    return;
+                }
+            }
+            if (line.equals("-o")) {
+                boolean old = false;
+                try {
+                    old = joiningGame(line, in, out);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if (!old) {
+                    return;
+                }
+            }
+            if (!game.getStarted()) {
+                WakeUpThread wut = new WakeUpThread(in, out);
+                Thread t = new Thread(wut);
+                t.start();
+
+                try {
+                    t.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                if (wut.getReturnValue() == 1) {
+                    closeCommunicationChannel(in, out);
                     try {
                         game.removePlayer(nickname);
                     } catch (GameEndedException e) {
                         e.printStackTrace();
                     }
-                    forward(nickname + " quit", out);
-                    closeCommunicationChannel(in, out);
                     return;
                 }
-                else if (line.equals("GAME_ENDED")){
-                    closeCommunicationChannel(in, out);
-                    return;
-                }else if(line.equals("NOTIFY_PB_ALL")){
-                    Message.sendMessage(out, new ShowCurrentBoardMessage());
-                }
-                else if (!game.getTurn().getCurrentPlayer().getNickname().equals(nickname)) {
-                    Message.sendMessage(out, new NotYourTurnErrorMessage());
-                }
-                else {
-                    Message message = Message.fromString(line);
-                    message.execute(game, out);
-                    }
-            } catch (IOException e) {
-                forward(nickname + " crashed", out);
-                try {
-                    game.removePlayer(nickname);
-                } catch (GameEndedException gameEndedException) {
-                    gameEndedException.printStackTrace();
-                }
-                break;
             }
+            out.println(new GameStartServiceMessage(game));
+            out.println(new CurrentPlayerMessage(game.getTurn().getCurrentPlayer().getNickname()));
+
+            while (true) {
+                try {
+                    line = in.readLine();
+                    if(line == null){
+                        String whoQuited = nickname;
+                        forward(whoQuited + " quit", out);
+                        return;
+                    }
+                    if (line.equals("quit")) {
+                        out.println("quit");
+                        try {
+                            game.removePlayer(nickname);
+                        } catch (GameEndedException e) {
+                            e.printStackTrace();
+                        }
+                        forward(nickname + " quit", out);
+                        closeCommunicationChannel(in, out);
+                        return;
+                    } else if (line.equals("GAME_ENDED")) {
+                        closeCommunicationChannel(in, out);
+                        return;
+                    } else if (line.equals("NOTIFY_PB_ALL")) {
+                        Message.sendMessage(out, new ShowCurrentBoardMessage());
+                    } else if (!game.getTurn().getCurrentPlayer().getNickname().equals(nickname)) {
+                        Message.sendMessage(out, new NotYourTurnErrorMessage());
+                    } else {
+                        Message message = Message.fromString(line);
+                        message.execute(game, out);
+                    }
+                } catch (IOException e) {
+                    forward(nickname + " crashed", out);
+                    try {
+                        game.removePlayer(nickname);
+                    } catch (GameEndedException gameEndedException) {
+                        gameEndedException.printStackTrace();
+                    }
+                    break;
+                }
+            }
+            closeCommunicationChannel(in, out);
+
+            //////////
+        } catch (Exception e){
+            System.out.println("questo è un gravissimo problema!!! !!! !!! !!!!!!");
+            e.printStackTrace();
         }
-        closeCommunicationChannel(in, out);
+        //////////
+
     }
 
     private void closeCommunicationChannel(BufferedReader in, PrintWriter out) {

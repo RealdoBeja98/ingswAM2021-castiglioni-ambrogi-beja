@@ -115,7 +115,17 @@ public class ClientMain {
                                     } else if (messageServerMessage instanceof ForwardMessage) {
                                         messageServerMessage.execute(null, null);
                                     } else {
-                                        System.out.println(messageServerMessage);
+                                        String constQuit = "quit";
+                                        //System.out.println("the message is: " + messageServerMessage.toString());///////////////////
+                                        String last = messageServerMessage.toString().substring(messageServerMessage.toString().length()-4);
+                                        //System.out.println("last is: " + last);////////////////////
+                                        if(last.equals(constQuit)){
+                                            String whoQuited = messageServerMessage.toString().substring(0, messageServerMessage.toString().length() - 5);
+                                            playerGame.quitAPlayer(whoQuited);
+                                            System.out.println(messageServerMessage);
+                                        } else {
+                                            System.out.println(messageServerMessage);
+                                        }
                                     }
                                 }
 

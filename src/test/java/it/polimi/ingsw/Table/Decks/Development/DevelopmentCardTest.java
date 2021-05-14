@@ -4,6 +4,7 @@ import it.polimi.ingsw.Enums.Type;
 import it.polimi.ingsw.Table.Decks.ResourceProduction;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Test class for the class: DevelopmentCard
@@ -76,6 +77,15 @@ public class DevelopmentCardTest {
             assertSame(oldDevelopmentCard.getCostProducts()[i], newDevelopmentCard.getCostProducts()[i]);
         }
         assertSame(oldDevelopmentCard.getVictoryPoints(), newDevelopmentCard.getVictoryPoints());
+    }
+
+    /**
+     * This method tests creating a DevelopmentCard from a string
+     */
+    @Test
+    void testExportDevelopmentCard2(){
+        String d = "3:2:p:1:2:1:0:1:1";
+        assertTrue(d.equals((new DevelopmentCard(d)).export()));
     }
 
 }

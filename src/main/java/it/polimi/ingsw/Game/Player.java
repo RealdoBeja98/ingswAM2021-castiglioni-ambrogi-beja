@@ -821,6 +821,9 @@ public class Player {//<--FIXME check javadoc from here-->
         if(payingResources.isEmpty()){
             throw new NoResourceToPayException();
         }
+        if(pos < 0 || pos >= 6){
+            throw new WrongPaymentException();
+        }
         Resource paying = payingResources.get(0);
         Resource pay = personalBoard.getWarehouseDepots().getResource()[pos];
         if(paying != Resource.WHITE && paying != pay){
@@ -1063,7 +1066,7 @@ public class Player {//<--FIXME check javadoc from here-->
         }
         int x = xx - 1;
         int y = yy - 1;
-        if(x < 0 || x >= 4 || y < 0 || y >= 3){
+        if(x < 0 || x >= 3 || y < 0 || y >= 4){
             throw new PositionInvalidException();
         }
         DevelopmentCard selectedDevelopmentCard = Game.get(gameIndex).getTable().getDevelopmentDeck().visualize()[x][y];
