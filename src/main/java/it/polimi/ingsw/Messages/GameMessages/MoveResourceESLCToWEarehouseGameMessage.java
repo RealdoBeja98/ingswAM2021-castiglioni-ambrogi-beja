@@ -40,6 +40,8 @@ public class MoveResourceESLCToWEarehouseGameMessage extends GameMessage {
             Message.sendMessage(out, new DifferentResourceAlreadyPresentErrorMessage());
         } catch (EmptySlotExtraStorageLeaderCardException e) {
             Message.sendMessage(out, new EmptySlotEsErrorMessage());
+        } catch (IndexOutOfWarehouseDepotsException e){
+            Message.sendMessage(out, new InvalidMovementErrorMessage());
         }
     }
 

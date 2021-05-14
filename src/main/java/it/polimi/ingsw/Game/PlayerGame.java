@@ -190,7 +190,7 @@ public class PlayerGame {
     public void addResourceWarehouseDepots(String nickname, Resource r, int pos){
         try {
             getPlayerPlayerFromNickname(nickname).warehouseDepots.addResource(r, pos);
-        } catch (PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException e) {
+        } catch (PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException | IndexOutOfWarehouseDepotsException e) {
             e.printStackTrace();
         }
     }
@@ -198,7 +198,7 @@ public class PlayerGame {
     public void moveResourceWarehouseDepots(String nickname, int startPos, int finalPos){
         try {
             getPlayerPlayerFromNickname(nickname).warehouseDepots.moveResource(startPos, finalPos);
-        } catch (NotAdmittedMovementException e) {
+        } catch (NotAdmittedMovementException | IndexOutOfWarehouseDepotsException e) {
             e.printStackTrace();
         }
     }
@@ -225,7 +225,7 @@ public class PlayerGame {
         Resource resource = ((ExtraStorageLeaderCard)getPlayerPlayerFromNickname(nickname).cardsOnTable[leaderCardPosition-1]).getStorageType();
         try {
             getPlayerPlayerFromNickname(nickname).warehouseDepots.addResource(resource, warehousePosition);
-        } catch (PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException e) {
+        } catch (PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException | IndexOutOfWarehouseDepotsException e) {
             e.printStackTrace();
         }
     }

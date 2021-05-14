@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class Turn {
 
     private Player currentPlayer;
-    private boolean actionLeaderDone = false;
+    private boolean actionLeaderDone1 = false;
     private InWhichStatePlayer currentPlayerState = InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1;
     private boolean developmentCardTaken = false;
     private boolean resourcesFromTheMarketTaken = false;
@@ -70,7 +70,7 @@ public class Turn {
             if(Game.get(gameIndex).getNumberOfPlayer() == 1){
                 currentPlayerState = InWhichStatePlayer.DRAW_SOLO_ACTION_TOKEN;
             } else {
-                endTurn();
+                currentPlayerState = InWhichStatePlayer.FINISHING_TURN;
             }
         }
     }
@@ -86,13 +86,15 @@ public class Turn {
             throw new ActionNotAllowedException();
         }
         if(currentPlayerState == InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT2 &&
-                actionLeaderDone){
+                actionLeaderDone1){
             throw new ActionNotAllowedException();
         }
         if(currentPlayer.countLeaderCardInHand() == 0){
             throw new NoLeaderCardToDiscardException();
         }
-        actionLeaderDone = true;
+        if(currentPlayerState == InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1){
+            actionLeaderDone1 = true;
+        }
         if(currentPlayerState == InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1) {
             currentPlayerState = InWhichStatePlayer.DISCARD_LEADER_CARD1;
         } else if(currentPlayerState == InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT2) {
@@ -111,13 +113,15 @@ public class Turn {
             throw new ActionNotAllowedException();
         }
         if(currentPlayerState == InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT2 &&
-                actionLeaderDone){
+                actionLeaderDone1){
             throw new ActionNotAllowedException();
         }
         if(!currentPlayer.canYouPlayAtLeastALeaderCard()){
             throw new NoLeaderCardToPlayException();
         }
-        actionLeaderDone = true;
+        if(currentPlayerState == InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1){
+            actionLeaderDone1 = true;
+        }
         if(currentPlayerState == InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1) {
             currentPlayerState = InWhichStatePlayer.PLAY_LEADER_CARD1;
         } else if(currentPlayerState == InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT2) {
@@ -140,13 +144,9 @@ public class Turn {
         }
         currentPlayer.discardLeaderCard(pos);
         if(currentPlayerState == InWhichStatePlayer.DISCARD_LEADER_CARD1){
-            currentPlayerState = InWhichStatePlayer.SELECT_NORMAL_ACTION;
+            currentPlayerState = InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1;
         } else if(currentPlayerState == InWhichStatePlayer.DISCARD_LEADER_CARD2){
-            if(Game.get(gameIndex).getNumberOfPlayer() == 1){
-                currentPlayerState = InWhichStatePlayer.DRAW_SOLO_ACTION_TOKEN;
-            } else {
-                endTurn();
-            }
+            currentPlayerState = InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT2;
         }
     }
 
@@ -164,17 +164,13 @@ public class Turn {
             throw new ActionNotAllowedException();
         }
         currentPlayer.playLeaderCard(pos);
-        if(!currentPlayer.somethingToPay()){
-            if(currentPlayerState == InWhichStatePlayer.DISCARD_LEADER_CARD1){
-                currentPlayerState = InWhichStatePlayer.SELECT_NORMAL_ACTION;
-            } else if(currentPlayerState == InWhichStatePlayer.DISCARD_LEADER_CARD2){
-                if(Game.get(gameIndex).getNumberOfPlayer() == 1){
-                    currentPlayerState = InWhichStatePlayer.DRAW_SOLO_ACTION_TOKEN;
-                } else {
-                    endTurn();
-                }
-            }
+        //if(!currentPlayer.somethingToPay()){//this doesn't happen any more: no payment is required!
+        if(currentPlayerState == InWhichStatePlayer.DISCARD_LEADER_CARD1){
+            currentPlayerState = InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1;
+        } else if(currentPlayerState == InWhichStatePlayer.DISCARD_LEADER_CARD2){
+            currentPlayerState = InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT2;
         }
+        //}//this doesn't happen any more: no payment is required!
     }
 
     /**
@@ -243,8 +239,9 @@ public class Turn {
      * @throws DifferentResourceInThisShelfException if you place in the WarehouseDepots a different resource from the one already present in the shelf
      * @throws UnexpectedWhiteMarbleException if there is an unexpected white marble
      * @throws UnexpectedFaithMarbleException if there is an unexpected faith marble
+     * @throws IndexOutOfWarehouseDepotsException: if you are out of bounds of the WarehouseDepots
      */
-    public void addResource(LeaderWarehouse where, int pos) throws NoResourceToAddException, DifferentStorageException, OccupiedSlotExtraStorageLeaderCardException, PositionAlreadyOccupiedException, ResourceAlreadyPlacedException, DifferentResourceInThisShelfException, UnexpectedWhiteMarbleException, UnexpectedFaithMarbleException, ActionNotAllowedException {
+    public void addResource(LeaderWarehouse where, int pos) throws NoResourceToAddException, DifferentStorageException, OccupiedSlotExtraStorageLeaderCardException, PositionAlreadyOccupiedException, ResourceAlreadyPlacedException, DifferentResourceInThisShelfException, UnexpectedWhiteMarbleException, UnexpectedFaithMarbleException, ActionNotAllowedException, IndexOutOfWarehouseDepotsException {
         if(currentPlayerState != InWhichStatePlayer.TAKE_RESOURCES_FROM_THE_MARKET){
             throw new ActionNotAllowedException();
         }
@@ -344,7 +341,7 @@ public class Turn {
             if(Game.get(gameIndex).getNumberOfPlayer() == 1){
                 currentPlayerState = InWhichStatePlayer.DRAW_SOLO_ACTION_TOKEN;
             } else {
-                endTurn();
+                currentPlayerState = InWhichStatePlayer.FINISHING_TURN;
             }
         }
     }
@@ -512,6 +509,7 @@ public class Turn {
         if(currentPlayerState != InWhichStatePlayer.DRAW_SOLO_ACTION_TOKEN){
             throw new ActionNotAllowedException();
         }
+        currentPlayerState = InWhichStatePlayer.FINISHING_TURN;
         return currentPlayer.drawSoloActionToken();
     }
 
@@ -531,8 +529,9 @@ public class Turn {
      * the first position was selected using selectAWarehouseDepotsSlot and saved in var selectedWarehouseDepotsSlot of type int
      * @param pos2: to choose the second position of the slot of the WarehouseDepots
      * @throws NotAdmittedMovementException if the movement is invalid
+     * @throws IndexOutOfWarehouseDepotsException: if you are out of bounds of the WarehouseDepots
      */
-    public void moveResourcesInWarehouseDepots(int pos2) throws NotAdmittedMovementException{
+    public void moveResourcesInWarehouseDepots(int pos2) throws NotAdmittedMovementException, IndexOutOfWarehouseDepotsException {
         currentPlayer.moveResourcesInWarehouseDepots(pos2);
     }
 
@@ -560,8 +559,9 @@ public class Turn {
      * @throws ResourceAlreadyPlacedException if the resource passed to the warehouseDepots is yet present on a different shelf
      * @throws DifferentResourceInThisShelfException if there are different resources types already placed in the chosen shelf
      * @throws EmptySlotExtraStorageLeaderCardException if the selected ExtraStorageLeaderCard is yet empty
+     * @throws IndexOutOfWarehouseDepotsException: if you are out of bounds of the WarehouseDepots
      */
-    public void moveResourcesToWarehouseDepotsFromExtraStorageLeaderCard(int pos) throws PositionInvalidException, NotAnExtraStorageLeaderCardException, PositionAlreadyOccupiedException, ResourceAlreadyPlacedException, DifferentResourceInThisShelfException, EmptySlotExtraStorageLeaderCardException{
+    public void moveResourcesToWarehouseDepotsFromExtraStorageLeaderCard(int pos) throws PositionInvalidException, NotAnExtraStorageLeaderCardException, PositionAlreadyOccupiedException, ResourceAlreadyPlacedException, DifferentResourceInThisShelfException, EmptySlotExtraStorageLeaderCardException, IndexOutOfWarehouseDepotsException {
         currentPlayer.moveResourcesToWarehouseDepotsFromExtraStorageLeaderCard(pos);
     }
 
@@ -572,13 +572,20 @@ public class Turn {
         gameEnded = true;
     }
 
+    public void endTurnCommand() throws ActionNotAllowedException, GameEndedException {
+        if(currentPlayerState != InWhichStatePlayer.FINISHING_TURN){
+            throw new ActionNotAllowedException();
+        }
+        endTurn();
+    }
+
     /**
      * This method signalize end of a player turn, by ending an action leader and restarting to
      * a new chose action leader. At the end of the methods it cheks por the next player
      * @throws GameEndedException if the game is finished and it's time to show final points
      */
     public void endTurn() throws GameEndedException {
-        actionLeaderDone = false;
+        actionLeaderDone1 = false;
         currentPlayerState = InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1;
         developmentCardTaken = false;
         resourcesFromTheMarketTaken = false;

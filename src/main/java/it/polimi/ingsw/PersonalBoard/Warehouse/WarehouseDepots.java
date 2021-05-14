@@ -35,10 +35,11 @@ public class WarehouseDepots {
      * @throws ResourceAlreadyPlacedException: if the resource passed is present on a different shelf
      * @throws DifferentResourceInThisShelfException: if there are different resources types already
      *                                                placed in the chosen shelf
+     * @throws IndexOutOfWarehouseDepotsException: if you are out of bounds of the WarehouseDepots
      */
-    public void addResource(Resource r, int pos) throws PositionAlreadyOccupiedException, ResourceAlreadyPlacedException, DifferentResourceInThisShelfException {
+    public void addResource(Resource r, int pos) throws PositionAlreadyOccupiedException, ResourceAlreadyPlacedException, DifferentResourceInThisShelfException, IndexOutOfWarehouseDepotsException {
         if(pos >= 7 || pos < 0){
-            throw new IndexOutOfBoundsException();
+            throw new IndexOutOfWarehouseDepotsException();
         }
         if(resource[pos] != null){
             throw new PositionAlreadyOccupiedException();
@@ -59,13 +60,13 @@ public class WarehouseDepots {
                 if(pos == 2 && resource[1] != r && resource[1] != null){
                     throw new DifferentResourceInThisShelfException();
                 }
-                if(pos == 3 && resource[4] != r && resource[4] != null && resource[5] != r && resource[5] != null){
+                if(pos == 3 && (resource[4] != r && resource[4] != null || resource[5] != r && resource[5] != null)){
                     throw new DifferentResourceInThisShelfException();
                 }
-                if(pos == 4 && resource[3] != r && resource[3] != null && resource[5] != r && resource[5] != null){
+                if(pos == 4 && (resource[3] != r && resource[3] != null || resource[5] != r && resource[5] != null)){
                     throw new DifferentResourceInThisShelfException();
                 }
-                if(pos == 5 && resource[3] != r && resource[3] != null && resource[4] != r && resource[4] != null){
+                if(pos == 5 && (resource[3] != r && resource[3] != null || resource[4] != r && resource[4] != null)){
                     throw new DifferentResourceInThisShelfException();
                 }
                 resource[pos] = r;
@@ -79,10 +80,11 @@ public class WarehouseDepots {
      * @param startPos: represents the first position
      * @param finalPos: represents the second position
      * @throws NotAdmittedMovementException: if the result is not respecting the warehouse rules
+     * @throws IndexOutOfWarehouseDepotsException: if you are out of bounds of the WarehouseDepots
      */
-    public void moveResource(int startPos, int finalPos) throws NotAdmittedMovementException {
+    public void moveResource(int startPos, int finalPos) throws NotAdmittedMovementException, IndexOutOfWarehouseDepotsException {
         if(finalPos >= 7 || finalPos < 0 || startPos >= 7 || startPos < 0){
-            throw new IndexOutOfBoundsException();
+            throw new IndexOutOfWarehouseDepotsException();
         }
         WarehouseDepots copy = copy();
         Resource temp = copy.resource[finalPos];

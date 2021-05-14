@@ -1,5 +1,6 @@
 package it.polimi.ingsw.Messages.GameMessages;
 
+import it.polimi.ingsw.Exceptions.IndexOutOfWarehouseDepotsException;
 import it.polimi.ingsw.Exceptions.NotAdmittedMovementException;
 import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Messages.ConfirmedActionMessage;
@@ -29,6 +30,8 @@ public class MoveResourcesInWarehouseDepotsGameMessage extends GameMessage {
             System.out.println(identifier);
             forwardAll(game, new MovedResourcesInWarehouseDepotsForwardMessage(currentPlayer, position, otherPosition));
         } catch (NotAdmittedMovementException e) {
+            Message.sendMessage(out, new InvalidMovementErrorMessage());
+        } catch (IndexOutOfWarehouseDepotsException e){
             Message.sendMessage(out, new InvalidMovementErrorMessage());
         }
     }

@@ -279,7 +279,7 @@ public class Player {//<--FIXME check javadoc from here-->
 
     /**
      * This method let the player to put on the table a leader card that was in his hand
-     * in case the player select a StorageLeaderCard, the list payingResources is updated with the resources the player has to pay
+     * in case the player select a StorageLeaderCard, the list payingResources --is not any more-- updated with the resources the player has to pay (there isn't any payment)
      * @param pos: number 1 or 2 to determinate the position of the leader card in hand to play
      * @throws PositionInvalidException if the position isn't 1 or 2
      * @throws NotSatisfiedRequirementsForThisLeaderCardException if the player isn't able to play the card
@@ -300,7 +300,7 @@ public class Player {//<--FIXME check javadoc from here-->
                         throw new NotSatisfiedRequirementsForThisLeaderCardException();
                     }
                     for(int i = 0; i < 5; i++){
-                        payingResources.add(((ExtraStorageLeaderCard)cardsInHand[pos-1]).getCostOfLeaderCard());
+                        //payingResources.add(((ExtraStorageLeaderCard)cardsInHand[pos-1]).getCostOfLeaderCard());//this doesn't happen any more: no payment is required!
                     }
                     break;
                 case PRODUCTIONPOWER:
@@ -403,8 +403,9 @@ public class Player {//<--FIXME check javadoc from here-->
      * the first position was selected using selectAWarehouseDepotsSlot and saved in var selectedWarehouseDepotsSlot of type int
      * @param pos2: to choose the second position of the slot of the WarehouseDepots
      * @throws NotAdmittedMovementException if the movement is invalid
+     * @throws IndexOutOfWarehouseDepotsException: if you are out of bounds of the WarehouseDepots
      */
-    public void moveResourcesInWarehouseDepots(int pos2) throws NotAdmittedMovementException {
+    public void moveResourcesInWarehouseDepots(int pos2) throws NotAdmittedMovementException, IndexOutOfWarehouseDepotsException {
         int pos1 = selectedWarehouseDepotsSlot;
         personalBoard.getWarehouseDepots().moveResource(pos1, pos2);
     }
@@ -445,8 +446,9 @@ public class Player {//<--FIXME check javadoc from here-->
      * @throws ResourceAlreadyPlacedException if the resource passed to the warehouseDepots is yet present on a different shelf
      * @throws DifferentResourceInThisShelfException if there are different resources types already placed in the chosen shelf
      * @throws EmptySlotExtraStorageLeaderCardException if the selected ExtraStorageLeaderCard is yet empty
+     * @throws IndexOutOfWarehouseDepotsException: if you are out of bounds of the WarehouseDepots
      */
-    public void moveResourcesToWarehouseDepotsFromExtraStorageLeaderCard(int pos) throws PositionInvalidException, NotAnExtraStorageLeaderCardException, PositionAlreadyOccupiedException, ResourceAlreadyPlacedException, DifferentResourceInThisShelfException, EmptySlotExtraStorageLeaderCardException {
+    public void moveResourcesToWarehouseDepotsFromExtraStorageLeaderCard(int pos) throws PositionInvalidException, NotAnExtraStorageLeaderCardException, PositionAlreadyOccupiedException, ResourceAlreadyPlacedException, DifferentResourceInThisShelfException, EmptySlotExtraStorageLeaderCardException, IndexOutOfWarehouseDepotsException {
         if(pos < 1 || pos > 2){
             throw new PositionInvalidException();
         }
@@ -496,8 +498,9 @@ public class Player {//<--FIXME check javadoc from here-->
      * @throws DifferentResourceInThisShelfException if you place in WarehouseDepots the resource in a shelf where there is yet another resource of another type
      * @throws UnexpectedWhiteMarbleException if it's unexpectly found you are going to place a white marble
      * @throws UnexpectedFaithMarbleException if it's unexpectly found you are going to place a faith marble
+     * @throws IndexOutOfWarehouseDepotsException: if you are out of bounds of the WarehouseDepots
      */
-    public void addResource(LeaderWarehouse where, int pos) throws NoResourceToAddException, DifferentStorageException, OccupiedSlotExtraStorageLeaderCardException, PositionAlreadyOccupiedException, ResourceAlreadyPlacedException, DifferentResourceInThisShelfException, UnexpectedWhiteMarbleException, UnexpectedFaithMarbleException {
+    public void addResource(LeaderWarehouse where, int pos) throws NoResourceToAddException, DifferentStorageException, OccupiedSlotExtraStorageLeaderCardException, PositionAlreadyOccupiedException, ResourceAlreadyPlacedException, DifferentResourceInThisShelfException, UnexpectedWhiteMarbleException, UnexpectedFaithMarbleException, IndexOutOfWarehouseDepotsException {
         if(marblesFromTheMarket.size() == 0) {
             throw new NoResourceToAddException();
         }

@@ -187,7 +187,7 @@ class PlayerTest {
         try {
             player.getPersonalBoard().getWarehouseDepots().addResource(Resource.COIN, 0);
             player.getPersonalBoard().getWarehouseDepots().addResource(Resource.SERVANT, 1);
-        } catch (PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException e) {
+        } catch (PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException | IndexOutOfWarehouseDepotsException e) {
             e.printStackTrace();
         }
         try {
@@ -197,14 +197,14 @@ class PlayerTest {
         }
         try {
             player.moveResourcesInWarehouseDepots(1);
-        } catch (NotAdmittedMovementException e) {
+        } catch (NotAdmittedMovementException | IndexOutOfWarehouseDepotsException e) {
             e.printStackTrace();
         }
         assertSame(player.getPersonalBoard().getWarehouseDepots().getResource()[0], Resource.SERVANT);
         assertSame(player.getPersonalBoard().getWarehouseDepots().getResource()[1], Resource.COIN);
         try {
             player.moveResourcesInWarehouseDepots(5);
-        } catch (NotAdmittedMovementException e) {
+        } catch (NotAdmittedMovementException | IndexOutOfWarehouseDepotsException e) {
             e.printStackTrace();
         }
         assertSame(player.getPersonalBoard().getWarehouseDepots().getResource()[5], Resource.SERVANT);
@@ -225,7 +225,7 @@ class PlayerTest {
         Player player = game.getPlayers().get(0);
         try {
             player.getPersonalBoard().getWarehouseDepots().addResource(Resource.COIN, 0);
-        } catch (PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException e) {
+        } catch (PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException | IndexOutOfWarehouseDepotsException e) {
             e.printStackTrace();
         }
         try {
@@ -269,7 +269,7 @@ class PlayerTest {
         player.getCardsOnTable()[0] = extraStorageLeaderCard;
         try {
             player.moveResourcesToWarehouseDepotsFromExtraStorageLeaderCard(1);
-        } catch (PositionInvalidException | NotAnExtraStorageLeaderCardException | PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException | EmptySlotExtraStorageLeaderCardException e) {
+        } catch (PositionInvalidException | NotAnExtraStorageLeaderCardException | PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException | EmptySlotExtraStorageLeaderCardException | IndexOutOfWarehouseDepotsException e) {
             e.printStackTrace();
         }
         assertSame(0, ((ExtraStorageLeaderCard)(player.getCardsOnTable()[0])).occupiedResources());
@@ -364,7 +364,7 @@ class PlayerTest {
         }
         try {
             player.addResource(LeaderWarehouse.WAREHOUSEDEPOTS, 0);
-        } catch (NoResourceToAddException | DifferentStorageException | OccupiedSlotExtraStorageLeaderCardException | PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException | UnexpectedWhiteMarbleException | UnexpectedFaithMarbleException e) {
+        } catch (NoResourceToAddException | DifferentStorageException | OccupiedSlotExtraStorageLeaderCardException | PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException | UnexpectedWhiteMarbleException | UnexpectedFaithMarbleException | IndexOutOfWarehouseDepotsException e) {
             e.printStackTrace();
         }
         assertNotNull(player.getPersonalBoard().getWarehouseDepots().getResource()[0]);
@@ -429,7 +429,7 @@ class PlayerTest {
             player.getCardsOnTable()[0] = new ExtraStorageLeaderCard(3, Resource.COIN, correspondent);
             try {
                 player.addResource(LeaderWarehouse.LEADERCARD,1);
-            } catch (NoResourceToAddException | DifferentStorageException | OccupiedSlotExtraStorageLeaderCardException | PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException | UnexpectedWhiteMarbleException | UnexpectedFaithMarbleException e) {
+            } catch (NoResourceToAddException | DifferentStorageException | OccupiedSlotExtraStorageLeaderCardException | PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException | UnexpectedWhiteMarbleException | UnexpectedFaithMarbleException | IndexOutOfWarehouseDepotsException e) {
                 e.printStackTrace();
             }
         }
@@ -485,7 +485,7 @@ class PlayerTest {
         Player player = game.getPlayers().get(0);
         try {
             player.getPersonalBoard().getWarehouseDepots().addResource(Resource.COIN, 0);
-        } catch (PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException e) {
+        } catch (PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException | IndexOutOfWarehouseDepotsException e) {
             e.printStackTrace();
         }
         try {

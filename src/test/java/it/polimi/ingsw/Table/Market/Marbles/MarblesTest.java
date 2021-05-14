@@ -22,17 +22,17 @@ public class MarblesTest {
         Coin coin = new Coin();
         try {
             coin.putResource(warehouseDepots, 0);
-        } catch (PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException e) {
+        } catch (PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException | IndexOutOfWarehouseDepotsException e) {
             e.printStackTrace();
         }
         assertSame(warehouseDepots.getResource()[0], Resource.COIN);
         assertThrows(PositionAlreadyOccupiedException.class, () -> coin.putResource(warehouseDepots,0));
-        assertThrows(IndexOutOfBoundsException.class, () -> coin.putResource(warehouseDepots,10));
+        assertThrows(IndexOutOfWarehouseDepotsException.class, () -> coin.putResource(warehouseDepots,10));
         Servant servant = new Servant();
         Shield shield = new Shield();
         try {
             servant.putResource(warehouseDepots, 1);
-        } catch (PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException e) {
+        } catch (PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException | IndexOutOfWarehouseDepotsException e) {
             e.printStackTrace();
         }
         assertThrows(DifferentResourceInThisShelfException.class, () -> shield.putResource(warehouseDepots,2));

@@ -250,6 +250,9 @@ public abstract class Message {
             } else if (message[0].equals("CHOOSE_NO_ACTION_LEADER_CARD")) {
                 checkLength(message, 1);
                 return new ChooseNoActionLeaderCardGameMessage();
+            } else if (message[0].equals("END_TURN")) {
+                checkLength(message, 1);
+                return new EndTurnGameMessage();
             } else if (message[0].equals("SELECT_NORMAL_ACTION")) {
                 checkLength(message, 2);
                 return new SelectNormalActionGameMessage(NormalAction.valueOf(message[1]));

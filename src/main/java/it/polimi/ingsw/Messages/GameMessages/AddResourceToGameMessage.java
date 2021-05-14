@@ -66,6 +66,8 @@ public class AddResourceToGameMessage extends GameMessage {
             Message.sendMessage(out, new FaithMarbleErrorMessage());
         } catch (ActionNotAllowedException e) {
             Message.sendMessage(out, new InvalidActionErrorMessage());
+        } catch (IndexOutOfWarehouseDepotsException e){
+            Message.sendMessage(out, new InvalidActionErrorMessage());
         }
     }
 

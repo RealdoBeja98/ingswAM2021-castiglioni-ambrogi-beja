@@ -15,6 +15,7 @@ PONG
 CHOOSE_DISCARD_LEADER_CARD\
 CHOOSE_PLAY_LEADER_CARD\
 CHOOSE_NO_ACTION_LEADER_CARD\
+END_TURN\
 DISCARD_LEADER_CARD 1\
 PLAY_LEADER_CARD 1\
 ////////////////////////////////////////////{"message" = "LeaderCardPlayed", "leaderCard" = ["victoryPoints" = 3, "leaderCardType" = "whatIAm"], "discountLeaderCard" = ["discount" = "resource", "costOfLeaderCard" = ["cost" = "type"]], "extraStorageLeaderCard" = ["costOfLeaderCard" = "resource", "storageType" = "resource"], "productionPowerLeaderCard" = ["costOfLeaderCard" = "type", "requirement" = "resource"], "whiteMarbleLeaderCard" = ["costOfLeaderCard" = ["cost" = "type"], "whiteMarble" = "marble"]}\
@@ -103,4 +104,7 @@ TO_ERROR_TYPO
 Waiting all the player\
 GAME START!\
 nickname quit\
-GAME_START
+GAME_START\
+--ALTRI MESSAGGI--\
+quit\
+GAME_UPDATE

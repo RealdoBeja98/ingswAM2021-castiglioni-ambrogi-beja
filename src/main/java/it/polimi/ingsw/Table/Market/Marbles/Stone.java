@@ -1,13 +1,9 @@
 package it.polimi.ingsw.Table.Market.Marbles;
-import it.polimi.ingsw.Exceptions.DifferentStorageException;
+import it.polimi.ingsw.Exceptions.*;
 import it.polimi.ingsw.Table.Decks.Leader.ExtraStorageLeaderCard;
 import it.polimi.ingsw.PersonalBoard.Faith.FaithTrack;
-import it.polimi.ingsw.Exceptions.DifferentResourceInThisShelfException;
-import it.polimi.ingsw.Exceptions.PositionAlreadyOccupiedException;
-import it.polimi.ingsw.Exceptions.ResourceAlreadyPlacedException;
 import it.polimi.ingsw.PersonalBoard.Warehouse.WarehouseDepots;
 import it.polimi.ingsw.Enums.Resource;
-import it.polimi.ingsw.Exceptions.OccupiedSlotExtraStorageLeaderCardException;
 
 /**
  * This Class represents the marble of type stone
@@ -30,9 +26,10 @@ public class Stone extends Marble {
      * @throws ResourceAlreadyPlacedException: propagates this exception, generated if the resource passed is present on a different shelf
      * @throws DifferentResourceInThisShelfException: propagates this exception, generated if there are different resources types already
      *                                                placed in the chosen shelf
+     * @throws IndexOutOfWarehouseDepotsException : if you are out of bounds of the WarehouseDepots
      */
     @Override
-    public void putResource(WarehouseDepots warehouseDepots, int pos) throws PositionAlreadyOccupiedException, ResourceAlreadyPlacedException, DifferentResourceInThisShelfException {
+    public void putResource(WarehouseDepots warehouseDepots, int pos) throws PositionAlreadyOccupiedException, ResourceAlreadyPlacedException, DifferentResourceInThisShelfException, IndexOutOfWarehouseDepotsException {
         warehouseDepots.addResource(whatIAm, pos);
     }
 
