@@ -19,7 +19,7 @@ public class Cli extends View{
     @Override
     public void showMarket() {
         Marble[][] visualize = ClientMain.getPlayerGame().getMarket().getMarketTray();
-        System.out.println("╔═══════╗");
+        System.out.println("╔═╦═╦═╦═╗");
         int j = 0;
         for (int i = 0; i <= 8; i++) {
             if (i % 2 == 0) {
@@ -30,7 +30,7 @@ public class Cli extends View{
             }
         }
         System.out.println();
-        System.out.println("╠═══════╣");
+        System.out.println("╠═╬═╬═╬═╣");
         j = 0;
         for (int i = 0; i <= 8; i++) {
             if (i % 2 == 0) {
@@ -41,7 +41,7 @@ public class Cli extends View{
             }
         }
         System.out.println();
-        System.out.println("╠═══════╣");
+        System.out.println("╠═╬═╬═╬═╣");
 
         j = 0;
         for (int i = 0; i <= 8; i++) {
@@ -53,7 +53,7 @@ public class Cli extends View{
             }
         }
         System.out.println();
-        System.out.println("╚═══════╝");
+        System.out.println("╚═╩═╩═╩═╝");
         Marble extra = ClientMain.getPlayerGame().getMarket().getExtraMarble();
         System.out.println("Extra: " + resourceToColorASCI(extra.getWhatIAm()));
     }
