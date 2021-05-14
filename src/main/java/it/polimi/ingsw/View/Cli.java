@@ -64,7 +64,7 @@ public class Cli extends View{
     @Override
     public void showDevCard() {
 
-        System.out.println("╔════════════════════════════════════════════════════════════════════════════════════════════════════════════╗");
+        System.out.println("╔════════════════════════════════════════════════════════════════════════════════════════════════════╗");
         DevelopmentCard[][] visualize = ClientMain.getPlayerGame().getDevelopmentDeck().visualize();
         int j = 0;
         String escapeW = Color.ANSI_WHITE.escape();
@@ -72,13 +72,13 @@ public class Cli extends View{
         String escapeB = Color.ANSI_BLUE.escape();
         String escapeY = Color.ANSI_YELLOW.escape();
         String escapeP = Color.ANSI_PURPLE.escape();
-        System.out.println("║" + escapeG + "╔═════════════════════════╦"+ escapeB + "╦═════════════════════════╦" +
-                            escapeY + "╦═════════════════════════╦" + escapeP + "╦═════════════════════════╗" + escapeW + "║");
+        System.out.println("║" + escapeG + "╔═══════════════════════╦"+ escapeB + "╦═══════════════════════╦" +
+                            escapeY + "╦═══════════════════════╦" + escapeP + "╦═══════════════════════╗" + escapeW + "║");
 
         for(int z = 0; z < 7; z++){
             if(z % 2 == 0){
-                System.out.println("║" + escapeG + "╠═════════════════════════╬"+ escapeB + "╬═════════════════════════╬" +
-                                    escapeY + "╬═════════════════════════╬" + escapeP + "╬═════════════════════════╣" + escapeW + "║");
+                System.out.println("║" + escapeG + "╠═══════════════════════╬"+ escapeB + "╬═══════════════════════╬" +
+                                    escapeY + "╬═══════════════════════╬" + escapeP + "╬═══════════════════════╣" + escapeW + "║");
             }
             else{
                 System.out.print("║");
@@ -90,9 +90,9 @@ public class Cli extends View{
             }
 
         }
-        System.out.println("║" + escapeG + "╚═════════════════════════╩"+ escapeB + "╩═════════════════════════╩" +
-                escapeY + "╩═════════════════════════╩" + escapeP + "╩═════════════════════════╝" + escapeW + "║");
-        System.out.println("╚════════════════════════════════════════════════════════════════════════════════════════════════════════════╝");
+        System.out.println("║" + escapeG + "╚═══════════════════════╩"+ escapeB + "╩═══════════════════════╩" +
+                escapeY + "╩═══════════════════════╩" + escapeP + "╩═══════════════════════╝" + escapeW + "║");
+        System.out.println("╚════════════════════════════════════════════════════════════════════════════════════════════════════╝");
     }
 
     /**
@@ -173,21 +173,10 @@ public class Cli extends View{
         System.out.println("║║ Warehouse                  ║ Card slot                                                                   ║║");
         System.out.println("║╚════════════════════════════╩═════════════════════════════════════════════════════════════════════════════╝║");
         System.out.println("║╔════════════════════════════╦═════════════════════════╦═════════════════════════╦═════════════════════════╗║");
+
         Resource[] resource = n.getWarehouseDepots().getResource();
         DevelopmentCard[][] visualize = n.getSlotsDevelopmentCards().getSlot();
-        /*
-        ///////////
-        for(DevelopmentCard[] ii : visualize){
-            for(DevelopmentCard jj : ii){
-                if(jj == null){
-                    System.out.println("WWWWWWWWWWWWWW");
-                } else {
-                    System.out.println(jj.export());
-                }
-            }
-        }
-        ///////////
-        */
+
         System.out.print("║║");
         int w1 = 0;
         while(w1 <= 12){
@@ -290,8 +279,8 @@ public class Cli extends View{
         }
         System.out.print("║");
         for(int col = 0; col < 3; col++){
-            if(visualize[1][col] != null){
-                printDevCard(visualize[1][col]);
+            if(visualize[2][col] != null){
+                printDevCard(visualize[2][col]);
             }else{
                 int c00 = 0;
                 while(c00 <= 24){
@@ -461,7 +450,6 @@ public class Cli extends View{
      * @param visualize: the card wanted
      */
     private void printDevCard(DevelopmentCard visualize) {
-        //System.out.println(visualize.export());/////////////////////////////////////////////////////
         String escapeW = Color.ANSI_WHITE.escape();
 
         int tot;
@@ -494,7 +482,7 @@ public class Cli extends View{
         } else {
             tot = ((cost.length + requirements.length + products.length) * 2) + 6;
         }
-        while (tot < 25) {
+        while (tot < 23) {
             System.out.print(" ");
             tot++;
         }

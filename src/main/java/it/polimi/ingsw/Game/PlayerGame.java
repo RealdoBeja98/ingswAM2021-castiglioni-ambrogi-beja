@@ -122,6 +122,7 @@ public class PlayerGame {
             playerPlayer.slotsDevelopmentCards = new SlotsDevelopmentCards();
             players.add(playerPlayer);
         }
+
         if(playersAndCardsInHand.size() == 1){
             lorenzoTrack = new FaithTrackSP();
             allFaithTrack.add(lorenzoTrack);
@@ -256,6 +257,7 @@ public class PlayerGame {
     public void addDevelopmentCard(String nickname, int pos, String developmentCard){
         try {
             //System.out.println("Questa è la developmentCard: " + developmentCard);///////////////////////
+
             getPlayerPlayerFromNickname(nickname).slotsDevelopmentCards.addDevelopmentCard(pos, new DevelopmentCard(developmentCard));
         } catch (PositionInvalidException e) {
             e.printStackTrace();
