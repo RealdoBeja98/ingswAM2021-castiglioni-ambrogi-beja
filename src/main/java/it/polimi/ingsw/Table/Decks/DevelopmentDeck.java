@@ -2,6 +2,7 @@ package it.polimi.ingsw.Table.Decks;
 import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Enums.Type;
 import it.polimi.ingsw.Exceptions.DrawnFromEmptyDeckException;
+import it.polimi.ingsw.Exceptions.IndexOutOfDevelopmentDeckException;
 import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Table.Decks.Development.DevelopmentCard;
 import org.json.simple.JSONArray;
@@ -78,10 +79,11 @@ public class DevelopmentDeck{
      * @param y: the chosen column
      * @return the selected card, of type DevelopmentCard
      * @throws DrawnFromEmptyDeckException if the deck selected is empty
+     * @throws IndexOutOfDevelopmentDeckException if you are out of bound of DevelopmentDeck
      */
-    public DevelopmentCard draw(int x, int y) throws DrawnFromEmptyDeckException {
+    public DevelopmentCard draw(int x, int y) throws DrawnFromEmptyDeckException, IndexOutOfDevelopmentDeckException {
         if(x < 1 || x > 3 || y < 1 || y > 4){
-            throw new IndexOutOfBoundsException();
+            throw new IndexOutOfDevelopmentDeckException();
         }
         int z = numbersOfCardsLeft()[x-1][y-1];
         if(z == 0){

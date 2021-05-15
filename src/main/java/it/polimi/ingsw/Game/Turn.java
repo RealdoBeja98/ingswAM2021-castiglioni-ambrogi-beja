@@ -12,6 +12,7 @@ import java.util.ArrayList;
  */
 public class Turn {
 
+    private boolean transitionFromFirstTurnToNormalTurnsDone = false;
     private Player currentPlayer;
     private boolean actionLeaderDone1 = false;
     private InWhichStatePlayer currentPlayerState = InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1;
@@ -41,6 +42,19 @@ public class Turn {
     }
 
     /**
+     * This method let, at the beginning to choose two of the four leader card that you draw at the beginning
+     * @param card1 the first card you choose
+     * @param card2 the second card you choose
+     * @throws ActionNotAllowedException if this action isn't allowed in this moment
+     * @throws PositionInvalidException if you choose an invalid position
+     * @throws GameEndedException if the game is finished and it's time to show final points
+     */
+    public void selectThoCardsToKeep(int card1, int card2) throws ActionNotAllowedException, PositionInvalidException, GameEndedException {
+        currentPlayer.selectThoCardsToKeep(card1, card2);
+        endTurn();
+    }
+
+    /**
      * This method return if an ArrayList of PrintWriter is a list without null pointers or not
      * @param list an ArrayList of PrintWriter
      * @return if it's a list without null pointers or not
@@ -60,6 +74,9 @@ public class Turn {
      * @throws GameEndedException if the game is finished
      */
     public void chooseNoActionLeaderCard() throws ActionNotAllowedException, GameEndedException {
+        if(currentPlayer.isHimFirstTurn()){
+            throw new ActionNotAllowedException();
+        }
         if(currentPlayerState != InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1 &&
                 currentPlayerState != InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT2){
             throw new ActionNotAllowedException();
@@ -81,6 +98,9 @@ public class Turn {
      * @throws NoLeaderCardToDiscardException if there isn't any LeaderCard in the hand
      */
     public void chooseDiscardLeaderCard() throws NoLeaderCardToDiscardException, ActionNotAllowedException {
+        if(currentPlayer.isHimFirstTurn()){
+            throw new ActionNotAllowedException();
+        }
         if(currentPlayerState != InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1 &&
                 currentPlayerState != InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT2){
             throw new ActionNotAllowedException();
@@ -108,6 +128,9 @@ public class Turn {
      * @throws NoLeaderCardToPlayException if there isn't any LeaderCard in the hand that can be placed
      */
     public void choosePlayLeaderCard() throws ActionNotAllowedException, NoLeaderCardToPlayException {
+        if(currentPlayer.isHimFirstTurn()){
+            throw new ActionNotAllowedException();
+        }
         if(currentPlayerState != InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1 &&
                 currentPlayerState != InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT2){
             throw new ActionNotAllowedException();
@@ -138,6 +161,9 @@ public class Turn {
      * @throws AlreadyDiscardedThisLeaderCardException if you try to discard a card from an empty position
      */
     public void discardLeaderCard(int pos) throws AlreadyDiscardedThisLeaderCardException, ActionNotAllowedException, GameEndedException, PositionInvalidException {
+        if(currentPlayer.isHimFirstTurn()){
+            throw new ActionNotAllowedException();
+        }
         if(currentPlayerState != InWhichStatePlayer.DISCARD_LEADER_CARD1 &&
                 currentPlayerState != InWhichStatePlayer.DISCARD_LEADER_CARD2){
             throw new ActionNotAllowedException();
@@ -159,15 +185,18 @@ public class Turn {
      * @throws NotSatisfiedRequirementsForThisLeaderCardException if the requirements to play the card aren't met
      */
     public void playLeaderCard(int pos) throws NotSatisfiedRequirementsForThisLeaderCardException, ActionNotAllowedException, GameEndedException, PositionInvalidException {
+        if(currentPlayer.isHimFirstTurn()){
+            throw new ActionNotAllowedException();
+        }
         if(currentPlayerState != InWhichStatePlayer.PLAY_LEADER_CARD1 &&
             currentPlayerState != InWhichStatePlayer.PLAY_LEADER_CARD2){
             throw new ActionNotAllowedException();
         }
         currentPlayer.playLeaderCard(pos);
         //if(!currentPlayer.somethingToPay()){//this doesn't happen any more: no payment is required!
-        if(currentPlayerState == InWhichStatePlayer.DISCARD_LEADER_CARD1){
+        if(currentPlayerState == InWhichStatePlayer.PLAY_LEADER_CARD1){
             currentPlayerState = InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1;
-        } else if(currentPlayerState == InWhichStatePlayer.DISCARD_LEADER_CARD2){
+        } else if(currentPlayerState == InWhichStatePlayer.PLAY_LEADER_CARD2){
             currentPlayerState = InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT2;
         }
         //}//this doesn't happen any more: no payment is required!
@@ -178,6 +207,9 @@ public class Turn {
      * @throws ActionNotAllowedException if this action isn't allowed in this moment
      */
     public void selectNormalAction(NormalAction selectedNormalAction) throws ActionNotAllowedException {
+        if(currentPlayer.isHimFirstTurn()){
+            throw new ActionNotAllowedException();
+        }
         if(currentPlayerState != InWhichStatePlayer.SELECT_NORMAL_ACTION){
             throw new ActionNotAllowedException();
         }
@@ -213,6 +245,9 @@ public class Turn {
      * @throws NullEnumException if there is a null pointer instead of a row or column
      */
     public void takeResourcesFromTheMarket(RowColumn rowColumn, int pos) throws ActionNotAllowedException, PositionInvalidException, NullEnumException {
+        if(currentPlayer.isHimFirstTurn()){
+            throw new ActionNotAllowedException();
+        }
         if(currentPlayerState != InWhichStatePlayer.TAKE_RESOURCES_FROM_THE_MARKET){
             throw new ActionNotAllowedException();
         }
@@ -242,6 +277,9 @@ public class Turn {
      * @throws IndexOutOfWarehouseDepotsException: if you are out of bounds of the WarehouseDepots
      */
     public void addResource(LeaderWarehouse where, int pos) throws NoResourceToAddException, DifferentStorageException, OccupiedSlotExtraStorageLeaderCardException, PositionAlreadyOccupiedException, ResourceAlreadyPlacedException, DifferentResourceInThisShelfException, UnexpectedWhiteMarbleException, UnexpectedFaithMarbleException, ActionNotAllowedException, IndexOutOfWarehouseDepotsException {
+        if(currentPlayer.isHimFirstTurn()){
+            throw new ActionNotAllowedException();
+        }
         if(currentPlayerState != InWhichStatePlayer.TAKE_RESOURCES_FROM_THE_MARKET){
             throw new ActionNotAllowedException();
         }
@@ -253,6 +291,9 @@ public class Turn {
 
     //<--FIXME check javadoc from here-->
     public void addResource(LeaderWarehouse where) throws NoResourceToAddException, DifferentStorageException, OccupiedSlotExtraStorageLeaderCardException, PositionAlreadyOccupiedException, ResourceAlreadyPlacedException, DifferentResourceInThisShelfException, UnexpectedWhiteMarbleException, UnexpectedFaithMarbleException, ActionNotAllowedException {
+        if(currentPlayer.isHimFirstTurn()){
+            throw new ActionNotAllowedException();
+        }
         if(currentPlayerState != InWhichStatePlayer.TAKE_RESOURCES_FROM_THE_MARKET){
             throw new ActionNotAllowedException();
         }
@@ -271,6 +312,9 @@ public class Turn {
      * @throws PositionInvalidException if the position isn't 1 or 2
      */
     public void changeWhiteMarbleWith(int pos) throws NoWhiteMarbleLeaderCardException, NoWhiteMarbleException, ActionNotAllowedException, PositionInvalidException {
+        if(currentPlayer.isHimFirstTurn()){
+            throw new ActionNotAllowedException();
+        }
         if(currentPlayerState != InWhichStatePlayer.TAKE_RESOURCES_FROM_THE_MARKET){
             throw new ActionNotAllowedException();
         }
@@ -288,8 +332,12 @@ public class Turn {
      * @throws DrawnFromEmptyDeckException if the deck selected is empty
      * @throws SelectedADevelopmentCardYetException if you have yet selected a DevelopmentCard
      * @throws ActionNotAllowedException if you've bought a DevelopmentCard yet
+     * @throws IndexOutOfDevelopmentDeckException if you are out of bound of DevelopmentDeck
      */
-    public void buyADevelopmentCard(int xx, int yy) throws ActionNotAllowedException, SelectedADevelopmentCardYetException, NotAbleToBuyThisDevelopmentCardException, DrawnFromEmptyDeckException, PositionInvalidException, NotAbleToPlaceThisDevelopmentCardException {
+    public void buyADevelopmentCard(int xx, int yy) throws ActionNotAllowedException, SelectedADevelopmentCardYetException, NotAbleToBuyThisDevelopmentCardException, DrawnFromEmptyDeckException, PositionInvalidException, NotAbleToPlaceThisDevelopmentCardException, IndexOutOfDevelopmentDeckException {
+        if(currentPlayer.isHimFirstTurn()){
+            throw new ActionNotAllowedException();
+        }
         if(developmentCardTaken){
             throw new ActionNotAllowedException();
         }
@@ -308,8 +356,12 @@ public class Turn {
     * @throws PositionInvalidException if the position you chose does not exists
     * @throws GameEndedException if the game is finished and it's time to show final points
     * @throws ActionNotAllowedException if action is different from BUY_DEVELOPMENT_CARD
+    * @throws IndexOutOfSlotDevelopmentCardsException: if you are out of bound of slots for development cards
     */
-    public void placeDevelopmentCard(int pos) throws NoDevelopmentCardToObtainException, PositionInvalidException, GameEndedException, ActionNotAllowedException {
+    public void placeDevelopmentCard(int pos) throws NoDevelopmentCardToObtainException, PositionInvalidException, GameEndedException, ActionNotAllowedException, IndexOutOfSlotDevelopmentCardsException {
+        if(currentPlayer.isHimFirstTurn()){
+            throw new ActionNotAllowedException();
+        }
         if(currentPlayerState != InWhichStatePlayer.BUY_DEVELOPMENT_CARD){
             throw new ActionNotAllowedException();
         }
@@ -358,6 +410,9 @@ public class Turn {
      * @throws NoResourceToPayException if you haven't anything to pay
      */
     public void payWithStrongBox(Resource pay) throws WrongPaymentException, NegativeResourceException, NotAResourceForStrongBoxException, NoResourceToPayException, ActionNotAllowedException, GameEndedException {
+        if(currentPlayer.isHimFirstTurn()){
+            throw new ActionNotAllowedException();
+        }
         if(currentPlayerState != InWhichStatePlayer.PLAY_LEADER_CARD1 &&
             currentPlayerState != InWhichStatePlayer.PLAY_LEADER_CARD2 &&
             currentPlayerState != InWhichStatePlayer.BUY_DEVELOPMENT_CARD &&
@@ -383,6 +438,9 @@ public class Turn {
      * @throws EmptySlotYetException if the selected slot is empty
      */
     public void payWithWarehouseDepots(int pos) throws WrongPaymentException, EmptySlotYetException, NoResourceToPayException, ActionNotAllowedException, GameEndedException {
+        if(currentPlayer.isHimFirstTurn()){
+            throw new ActionNotAllowedException();
+        }
         if(currentPlayerState != InWhichStatePlayer.PLAY_LEADER_CARD1 &&
                 currentPlayerState != InWhichStatePlayer.PLAY_LEADER_CARD2 &&
                 currentPlayerState != InWhichStatePlayer.BUY_DEVELOPMENT_CARD &&
@@ -411,6 +469,9 @@ public class Turn {
      * @throws EmptySlotExtraStorageLeaderCardException if the operation of removing a resource from an ExtraStorageLeaderCard fails
      */
     public void payWithExtraStorageLeaderCard(int pos) throws NotAnExtraStorageLeaderCardException, WrongPaymentException, EmptySlotExtraStorageLeaderCardException, NoResourceToPayException, ActionNotAllowedException, GameEndedException, PositionInvalidException {
+        if(currentPlayer.isHimFirstTurn()){
+            throw new ActionNotAllowedException();
+        }
         if(currentPlayerState != InWhichStatePlayer.PLAY_LEADER_CARD1 &&
                 currentPlayerState != InWhichStatePlayer.PLAY_LEADER_CARD2 &&
                 currentPlayerState != InWhichStatePlayer.BUY_DEVELOPMENT_CARD &&
@@ -432,6 +493,9 @@ public class Turn {
      * @throws NoDevelopmentCardInThisPositionException if there is no DevelopmentCard in the selected position
      */
     public void selectProductionDevelopmentCard(int pos) throws ActionNotAllowedException, PositionInvalidException, NoDevelopmentCardInThisPositionException {
+        if(currentPlayer.isHimFirstTurn()){
+            throw new ActionNotAllowedException();
+        }
         if(currentPlayerState != InWhichStatePlayer.ACTIVATE_PRODUCTION){
             throw new ActionNotAllowedException();
         }
@@ -447,6 +511,9 @@ public class Turn {
      * @throws NoProductionLeaderCardException if you haven't selected a ProductionPowerLeaderCard
      */
     public void selectProductionPowerLeaderCard(int pos) throws NoProductionLeaderCardException, ActionNotAllowedException, PositionInvalidException {
+        if(currentPlayer.isHimFirstTurn()){
+            throw new ActionNotAllowedException();
+        }
         if(currentPlayerState != InWhichStatePlayer.ACTIVATE_PRODUCTION){
             throw new ActionNotAllowedException();
         }
@@ -459,6 +526,9 @@ public class Turn {
      * @throws ActionNotAllowedException if you are in the other states
      */
     public void selectDefaultProductionPower() throws ActionNotAllowedException {
+        if(currentPlayer.isHimFirstTurn()){
+            throw new ActionNotAllowedException();
+        }
         if(currentPlayerState != InWhichStatePlayer.ACTIVATE_PRODUCTION){
             throw new ActionNotAllowedException();
         }
@@ -472,8 +542,12 @@ public class Turn {
      * @throws NoGenericResourceToObtainException there ane not any generic resource to obtain
      * @throws GameEndedException if the game is finished and it's time to show final points
      * @throws NotAResourceForStrongBoxException if the resource in input isn't nor COIN, STONE, SERVANT or SHIELD
+     * @throws ActionNotAllowedException if you are in the other states
      */
-    public void obtainGenericResource(Resource resource) throws NoGenericResourceToObtainException, NotAResourceForStrongBoxException, GameEndedException {
+    public void obtainGenericResource(Resource resource) throws NoGenericResourceToObtainException, NotAResourceForStrongBoxException, GameEndedException, ActionNotAllowedException {
+        if(currentPlayer.isHimFirstTurn()){
+            throw new ActionNotAllowedException();
+        }
         currentPlayer.obtainGenericResource(resource);
         if(!currentPlayer.somethingToPay()){
             endPayment();
@@ -488,6 +562,9 @@ public class Turn {
      * @throws GameEndedException if the game is finished and it's time to show final points
      */
     public void startPayment() throws NotEnoughResourcesException, YouHaveNotSelectedAnyProductionException, ActionNotAllowedException, GameEndedException {
+        if(currentPlayer.isHimFirstTurn()){
+            throw new ActionNotAllowedException();
+        }
         if(currentPlayerState != InWhichStatePlayer.ACTIVATE_PRODUCTION){
             throw new ActionNotAllowedException();
         }
@@ -506,6 +583,9 @@ public class Turn {
      * @throws ActionNotAllowedException if you are in the other states
      */
     public ActionToken drawSoloActionToken() throws ActionNotAllowedException {
+        if(currentPlayer.isHimFirstTurn()){
+            throw new ActionNotAllowedException();
+        }
         if(currentPlayerState != InWhichStatePlayer.DRAW_SOLO_ACTION_TOKEN){
             throw new ActionNotAllowedException();
         }
@@ -519,8 +599,12 @@ public class Turn {
      * the selected slot is saved in var selectedWarehouseDepotsSlot of type int
      * @param pos: to choose the position of the slot of the WarehouseDepots
      * @throws PositionInvalidException if the selected position is invalid
+     * @throws ActionNotAllowedException if you are in the other states
      */
-    public void selectAWarehouseDepotsSlot(int pos) throws PositionInvalidException{
+    public void selectAWarehouseDepotsSlot(int pos) throws PositionInvalidException, ActionNotAllowedException {
+        if(currentPlayer.isHimFirstTurn()){
+            throw new ActionNotAllowedException();
+        }
         currentPlayer.selectAWarehouseDepotsSlot(pos);
     }
 
@@ -530,8 +614,12 @@ public class Turn {
      * @param pos2: to choose the second position of the slot of the WarehouseDepots
      * @throws NotAdmittedMovementException if the movement is invalid
      * @throws IndexOutOfWarehouseDepotsException: if you are out of bounds of the WarehouseDepots
+     * @throws ActionNotAllowedException if you are in the other states
      */
-    public void moveResourcesInWarehouseDepots(int pos2) throws NotAdmittedMovementException, IndexOutOfWarehouseDepotsException {
+    public void moveResourcesInWarehouseDepots(int pos2) throws NotAdmittedMovementException, IndexOutOfWarehouseDepotsException, ActionNotAllowedException {
+        if(currentPlayer.isHimFirstTurn()){
+            throw new ActionNotAllowedException();
+        }
         currentPlayer.moveResourcesInWarehouseDepots(pos2);
     }
 
@@ -544,8 +632,12 @@ public class Turn {
      * @throws EmptySlotYetException if the slot of the warehouseDepots was yet empty
      * @throws OccupiedSlotExtraStorageLeaderCardException if all slot of the ExtraStorageLeaderCard are yet occupied
      * @throws DifferentStorageException if the selected resource from warehouseDepots doesn't fit with the admitted resource of the selected ExtraStorageLeaderCard
+     * @throws ActionNotAllowedException if you are in the other states
      */
-    public void moveResourcesFromWarehouseDepotsToExtraStorageLeaderCard(int pos) throws PositionInvalidException, NotAnExtraStorageLeaderCardException, EmptySlotYetException, OccupiedSlotExtraStorageLeaderCardException, DifferentStorageException{
+    public void moveResourcesFromWarehouseDepotsToExtraStorageLeaderCard(int pos) throws PositionInvalidException, NotAnExtraStorageLeaderCardException, EmptySlotYetException, OccupiedSlotExtraStorageLeaderCardException, DifferentStorageException, ActionNotAllowedException {
+        if(currentPlayer.isHimFirstTurn()){
+            throw new ActionNotAllowedException();
+        }
         currentPlayer.moveResourcesFromWarehouseDepotsToExtraStorageLeaderCard(pos);
     }
 
@@ -560,8 +652,12 @@ public class Turn {
      * @throws DifferentResourceInThisShelfException if there are different resources types already placed in the chosen shelf
      * @throws EmptySlotExtraStorageLeaderCardException if the selected ExtraStorageLeaderCard is yet empty
      * @throws IndexOutOfWarehouseDepotsException: if you are out of bounds of the WarehouseDepots
+     * @throws ActionNotAllowedException if you are in the other states
      */
-    public void moveResourcesToWarehouseDepotsFromExtraStorageLeaderCard(int pos) throws PositionInvalidException, NotAnExtraStorageLeaderCardException, PositionAlreadyOccupiedException, ResourceAlreadyPlacedException, DifferentResourceInThisShelfException, EmptySlotExtraStorageLeaderCardException, IndexOutOfWarehouseDepotsException {
+    public void moveResourcesToWarehouseDepotsFromExtraStorageLeaderCard(int pos) throws PositionInvalidException, NotAnExtraStorageLeaderCardException, PositionAlreadyOccupiedException, ResourceAlreadyPlacedException, DifferentResourceInThisShelfException, EmptySlotExtraStorageLeaderCardException, IndexOutOfWarehouseDepotsException, ActionNotAllowedException {
+        if(currentPlayer.isHimFirstTurn()){
+            throw new ActionNotAllowedException();
+        }
         currentPlayer.moveResourcesToWarehouseDepotsFromExtraStorageLeaderCard(pos);
     }
 
@@ -573,6 +669,9 @@ public class Turn {
     }
 
     public void endTurnCommand() throws ActionNotAllowedException, GameEndedException {
+        if(currentPlayer.isHimFirstTurn()){
+            throw new ActionNotAllowedException();
+        }
         if(currentPlayerState != InWhichStatePlayer.FINISHING_TURN){
             throw new ActionNotAllowedException();
         }
@@ -595,10 +694,7 @@ public class Turn {
         for(Player i : Game.get(gameIndex).getPlayers()){
             if(found){
                 currentPlayer = i;
-                for(PrintWriter pw : Game.get(gameIndex).getPrintWriterList()){
-                    pw.println(new CurrentPlayerMessage(currentPlayer.getNickname()));
-                }
-                Game.get(gameIndex).getPrintWriterList().get(n).println("It's your turn!");
+                finalPartOfEndTurn(n);
                 return;
             }
             if(i == currentPlayer){
@@ -607,17 +703,32 @@ public class Turn {
             n++;
         }
         currentPlayer = Game.get(gameIndex).getPlayers().get(0);
+        finalPartOfEndTurn(0);
+    }
+
+    /**
+     * This is the final part, always executed, of method endTurn
+     * @param n is to find the player in the list
+     * @throws GameEndedException if the game is finished and it's time to show final points
+     */
+    private void finalPartOfEndTurn(int n) throws GameEndedException {
         for(PrintWriter pw : Game.get(gameIndex).getPrintWriterList()){
             pw.println(new CurrentPlayerMessage(currentPlayer.getNickname()));
         }
-        Game.get(gameIndex).getPrintWriterList().get(0).println("It's your turn!");
+        Game.get(gameIndex).getPrintWriterList().get(n).println("It's your turn!");
         if(currentPlayer.isInkwell() && gameEnded){
             Game.get(gameIndex).notifyScore();
-            for(PrintWriter i : Game.get(gameIndex).getPrintWriterList()){
-                i.println("GAME_ENDED");
+            for(PrintWriter ii : Game.get(gameIndex).getPrintWriterList()){
+                ii.println("GAME_ENDED");
             }
             System.out.println("Game " + gameIndex + " ended!");
             //throw new GameEndedException(); //commentato
+        }
+        if(!(currentPlayer.isHimFirstTurn()) && !transitionFromFirstTurnToNormalTurnsDone){
+            transitionFromFirstTurnToNormalTurnsDone = true;
+            for(PrintWriter pw : Game.get(gameIndex).getPrintWriterList()){
+                pw.println("Transition from first turn to normal turns done!!!");//<--FIXME--> create instead of the string "Transition from..." a ForwardMessage where execute has to print (using the cli) Market, DevCard and PersonalBoard
+            }
         }
     }
 

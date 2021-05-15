@@ -25,11 +25,16 @@ public class PlayerGame {
 
 
         private String nickname;
+        private LeaderCard[] cardsInHandFirst;
         private LeaderCard[] cardsInHand;
         private LeaderCard[] cardsOnTable;
 
         public String getNickname() {
             return nickname;
+        }
+
+        public LeaderCard[] getCardsInHandFirst() {
+            return cardsInHandFirst;
         }
 
         public LeaderCard[] getCardsInHand() {
@@ -64,9 +69,12 @@ public class PlayerGame {
     }
 
     private PlayerPlayer getPlayerPlayerFromNickname(String nickname){
+        //System.out.println("Finding: " + nickname);/////////////////
         for(PlayerPlayer i : players){
             if(i.nickname.equals(nickname)){
                 return i;
+            } else {
+                //System.out.println("not this player: " + i.nickname);/////////////////
             }
         }
         return null;
@@ -110,11 +118,15 @@ public class PlayerGame {
         for(String player : playersAndCardsInHand){
             String[] strings = player.split("/");
             PlayerPlayer playerPlayer = new PlayerPlayer();
-            playerPlayer.nickname = strings[2];
+            playerPlayer.nickname = strings[4];
+            //System.out.println("Added nickname: " + playerPlayer.nickname);/////////////////////////////////
+            playerPlayer.cardsInHandFirst = new LeaderCard[4];
             playerPlayer.cardsInHand = new LeaderCard[2];
             playerPlayer.cardsOnTable = new LeaderCard[2];
-            playerPlayer.cardsInHand[0] = LeaderCard.importLeaderCard(strings[0]);
-            playerPlayer.cardsInHand[1] = LeaderCard.importLeaderCard(strings[1]);
+            playerPlayer.cardsInHandFirst[0] = LeaderCard.importLeaderCard(strings[0]);
+            playerPlayer.cardsInHandFirst[1] = LeaderCard.importLeaderCard(strings[1]);
+            playerPlayer.cardsInHandFirst[2] = LeaderCard.importLeaderCard(strings[2]);
+            playerPlayer.cardsInHandFirst[3] = LeaderCard.importLeaderCard(strings[3]);
             playerPlayer.faithTrack = new FaithTrack();
             allFaithTrack.add(playerPlayer.faithTrack);
             playerPlayer.warehouseDepots = new WarehouseDepots();
@@ -127,6 +139,11 @@ public class PlayerGame {
             lorenzoTrack = new FaithTrackSP();
             allFaithTrack.add(lorenzoTrack);
         }
+    }
+
+    public void updateTwoCardToKeepSelected(String nickname, int card1, int card2){
+        getPlayerPlayerFromNickname(nickname).cardsInHand[0] = getPlayerPlayerFromNickname(nickname).cardsInHandFirst[card1-1];
+        getPlayerPlayerFromNickname(nickname).cardsInHand[1] = getPlayerPlayerFromNickname(nickname).cardsInHandFirst[card2-1];
     }
 
     public void updateMarket(String nickname, RowColumn rowColumn, int n){
@@ -152,7 +169,7 @@ public class PlayerGame {
     public void updateDevelopmentDeck(int x, int y){
         try {
             developmentDeck.draw(x, y);
-        } catch (DrawnFromEmptyDeckException e) {
+        } catch (DrawnFromEmptyDeckException | IndexOutOfDevelopmentDeckException e) {
             e.printStackTrace();
         }
     }
@@ -259,7 +276,7 @@ public class PlayerGame {
             //System.out.println("Questa è la developmentCard: " + developmentCard);///////////////////////
 
             getPlayerPlayerFromNickname(nickname).slotsDevelopmentCards.addDevelopmentCard(pos, new DevelopmentCard(developmentCard));
-        } catch (PositionInvalidException e) {
+        } catch (PositionInvalidException | IndexOutOfSlotDevelopmentCardsException e) {
             e.printStackTrace();
         }
     }

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.PersonalBoard.SlotsDevelopmentCards;
 import it.polimi.ingsw.Enums.Type;
+import it.polimi.ingsw.Exceptions.IndexOutOfSlotDevelopmentCardsException;
 import it.polimi.ingsw.Exceptions.PositionInvalidException;
 import it.polimi.ingsw.Table.Decks.Development.DevelopmentCard;
 import it.polimi.ingsw.Game.Game;
@@ -50,11 +51,12 @@ public class SlotsDevelopmentCards {
      * @param card: card that is going to be added
      * @throws PositionInvalidException: propagates this exception, generated if the position requested is occupied or
      *                                   there are no card under with lower level in the same position
+     * @throws IndexOutOfSlotDevelopmentCardsException: if you are out of bound of slots for development cards
      */
-    public void addDevelopmentCard(int pos, DevelopmentCard card) throws PositionInvalidException {
+    public void addDevelopmentCard(int pos, DevelopmentCard card) throws PositionInvalidException, IndexOutOfSlotDevelopmentCardsException {
         int levelOfCard = card.getLevel();
         if (pos >= 4 || pos < 1) {
-            throw new IndexOutOfBoundsException();
+            throw new IndexOutOfSlotDevelopmentCardsException();
         } else {
             placeCard(levelOfCard, pos, card);
             seventhSlotOccupied();

@@ -20,6 +20,7 @@
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/NegativeResourceException.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/NoGenericResourceToObtainException.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/NotAdmittedMovementException.java
+/Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Messages/GameMessages/SelectTwoCardsToKeepGameMessage.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/PersonalBoard/Faith/FaithTrack.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Table/Decks/Development/DevelopmentCard.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Messages/ForwardMessages/UpdateMarketForwardMessage.java
@@ -159,8 +160,10 @@
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Enums/LeaderWarehouse.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Messages/ErrorMessage.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/PositionAlreadyOccupiedException.java
+/Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/IndexOutOfSlotDevelopmentCardsException.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Table/Market/Marbles/Shield.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/NotEnoughResourcesException.java
+/Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Messages/ForwardMessages/SelectedTwoCardsToKeepForwardMessage.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/NoMarbleToAddFromTheMarketException.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Messages/ErrorMessages/EmptySlotEsErrorMessage.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Table/Decks/Leader/LeaderCard.java
@@ -168,6 +171,7 @@
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Game/Game.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Table/Decks/Token/BlackCross2Token.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Messages/ForwardMessages/AdvanceFaithTrackForwardMessage.java
+/Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/IndexOutOfDevelopmentDeckException.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/DifferentResourceInThisShelfException.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Messages/ErrorMessages/TypoErrorMessage.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/PositionInvalidException.java

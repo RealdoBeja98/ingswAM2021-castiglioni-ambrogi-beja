@@ -40,6 +40,8 @@ public class BuyDevelopmentCardGameMessage extends GameMessage {
             Message.sendMessage(out, new InvalidPositionErrorMessage());
         } catch (NotAbleToPlaceThisDevelopmentCardException e) {
             Message.sendMessage(out, new InvalidSelectionErrorMessage());
+        } catch (IndexOutOfDevelopmentDeckException e) {
+            Message.sendMessage(out, new InvalidPositionErrorMessage());
         }
     }
 

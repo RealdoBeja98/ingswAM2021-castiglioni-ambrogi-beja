@@ -18,12 +18,12 @@ public class GameStartServiceMessage extends ServiceMessage {
     public GameStartServiceMessage(Game game){
         String market = game.getTable().getMarket().export();
         String developmentDeck = game.getTable().getDevelopmentDeck().export();
-        ArrayList<String> playersAndCardsInHand = new ArrayList<>();
+        ArrayList<String> playersAndCardsInHandFirst = new ArrayList<>();
         for (Player i : game.getPlayers()){
-            playersAndCardsInHand.add(i.exportForPlayersAndCardsInHand());
+            playersAndCardsInHandFirst.add(i.exportForPlayersAndCardsInHandFirst());
         }
         all = market + "#" + developmentDeck;
-        for(String i : playersAndCardsInHand){
+        for(String i : playersAndCardsInHandFirst){
             all = new StringBuilder().append(all).append("#" + i).toString();
         }
         identifier = "GAME_START";
@@ -39,11 +39,11 @@ public class GameStartServiceMessage extends ServiceMessage {
         String[] strings = all.split("#");
         String market = strings[0];
         String developmentDeck = strings[1];
-        ArrayList<String> playersAndCardsInHand = new ArrayList<>();
+        ArrayList<String> playersAndCardsInHandFirst = new ArrayList<>();
         for(int i = 2; i < strings.length; i++){
-            playersAndCardsInHand.add(strings[i]);
+            playersAndCardsInHandFirst.add(strings[i]);
         }
-        PlayerGame playerGame = new PlayerGame(market, developmentDeck, playersAndCardsInHand);
+        PlayerGame playerGame = new PlayerGame(market, developmentDeck, playersAndCardsInHandFirst);
         ClientMain.setPlayerGame(playerGame);
         playerGame.setOut(out);
         System.out.println("GAME START!");
@@ -51,6 +51,7 @@ public class GameStartServiceMessage extends ServiceMessage {
         w.showMarket();
         w.showDevCard();
         w.showPersonalBoard();
+        //<--FIXME--> Insert instructions to print the four cards of each player
     }
 
     @Override

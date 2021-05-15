@@ -1,9 +1,6 @@
 package it.polimi.ingsw.Messages.GameMessages;
 
-import it.polimi.ingsw.Exceptions.ActionNotAllowedException;
-import it.polimi.ingsw.Exceptions.GameEndedException;
-import it.polimi.ingsw.Exceptions.NoDevelopmentCardToObtainException;
-import it.polimi.ingsw.Exceptions.PositionInvalidException;
+import it.polimi.ingsw.Exceptions.*;
 import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Messages.ConfirmedActionMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.GameEndedErrorMessage;
@@ -44,6 +41,8 @@ public class PlaceDevelopmentCardGameMessage extends GameMessage {
             Message.sendMessage(out, new GameEndedErrorMessage());
         } catch (ActionNotAllowedException e) {
             Message.sendMessage(out, new InvalidActionErrorMessage());
+        } catch (IndexOutOfSlotDevelopmentCardsException e) {
+            Message.sendMessage(out, new InvalidPositionErrorMessage());
         }
     }
 

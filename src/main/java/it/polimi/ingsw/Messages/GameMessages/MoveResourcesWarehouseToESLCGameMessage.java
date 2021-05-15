@@ -38,6 +38,8 @@ public class MoveResourcesWarehouseToESLCGameMessage extends GameMessage {
             Message.sendMessage(out, new OccupiedSlotLCErrorMessage());
         } catch (DifferentStorageException e) {
             Message.sendMessage(out, new DifferentStorageTypeErrorMessage());
+        } catch (ActionNotAllowedException e) {
+            Message.sendMessage(out, new InvalidActionErrorMessage());
         }
     }
 

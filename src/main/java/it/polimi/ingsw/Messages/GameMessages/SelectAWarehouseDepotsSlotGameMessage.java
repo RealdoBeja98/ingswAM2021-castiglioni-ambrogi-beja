@@ -1,8 +1,10 @@
 package it.polimi.ingsw.Messages.GameMessages;
 
+import it.polimi.ingsw.Exceptions.ActionNotAllowedException;
 import it.polimi.ingsw.Exceptions.PositionInvalidException;
 import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Messages.ConfirmedActionMessage;
+import it.polimi.ingsw.Messages.ErrorMessages.InvalidActionErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.InvalidPositionErrorMessage;
 import it.polimi.ingsw.Messages.GameMessage;
 import it.polimi.ingsw.Messages.Message;
@@ -26,6 +28,8 @@ public class SelectAWarehouseDepotsSlotGameMessage extends GameMessage {
             System.out.println(identifier);
         } catch (PositionInvalidException e) {
             Message.sendMessage(out, new InvalidPositionErrorMessage());
+        } catch (ActionNotAllowedException e) {
+            Message.sendMessage(out, new InvalidActionErrorMessage());
         }
     }
 

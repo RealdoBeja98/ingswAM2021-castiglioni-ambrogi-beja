@@ -85,6 +85,11 @@ class PlayerTest {
         }
         Player player = game.getPlayers().get(0);
         try {
+            player.selectThoCardsToKeep(1,2);
+        } catch (PositionInvalidException | ActionNotAllowedException e) {
+            e.printStackTrace();
+        }
+        try {
             player.discardLeaderCard(2);
         } catch (AlreadyDiscardedThisLeaderCardException | PositionInvalidException e) {
             e.printStackTrace();
@@ -548,7 +553,7 @@ class PlayerTest {
         Player player = game.getPlayers().get(0);
         try {
             player.getPersonalBoard().getSlotsDevelopmentCards().addDevelopmentCard(1, exampleDevelopmentCard(1));
-        } catch (PositionInvalidException e) {
+        } catch (PositionInvalidException | IndexOutOfSlotDevelopmentCardsException e) {
             e.printStackTrace();
         }
         try {
@@ -781,7 +786,7 @@ class PlayerTest {
         }
         try {
             player.buyADevelopmentCard(3,1);
-        } catch (PositionInvalidException | NotAbleToBuyThisDevelopmentCardException | NotAbleToPlaceThisDevelopmentCardException | DrawnFromEmptyDeckException | SelectedADevelopmentCardYetException e) {
+        } catch (PositionInvalidException | NotAbleToBuyThisDevelopmentCardException | NotAbleToPlaceThisDevelopmentCardException | DrawnFromEmptyDeckException | SelectedADevelopmentCardYetException | IndexOutOfDevelopmentDeckException e) {
             e.printStackTrace();
         }
         assertTrue(player.developmentCardToObtain());
@@ -810,7 +815,7 @@ class PlayerTest {
         DevelopmentCard developmentCard = game.getTable().getDevelopmentDeck().visualize()[2][0];
         try {
             player.buyADevelopmentCard(3,1);
-        } catch (PositionInvalidException | NotAbleToBuyThisDevelopmentCardException | NotAbleToPlaceThisDevelopmentCardException | DrawnFromEmptyDeckException | SelectedADevelopmentCardYetException e) {
+        } catch (PositionInvalidException | NotAbleToBuyThisDevelopmentCardException | NotAbleToPlaceThisDevelopmentCardException | DrawnFromEmptyDeckException | SelectedADevelopmentCardYetException | IndexOutOfDevelopmentDeckException e) {
             e.printStackTrace();
         }
         while(player.somethingToPay()){
@@ -822,7 +827,7 @@ class PlayerTest {
         }
         try {
             player.placeDevelopmentCard(1);
-        } catch (NoDevelopmentCardToObtainException | PositionInvalidException e) {
+        } catch (NoDevelopmentCardToObtainException | PositionInvalidException | IndexOutOfSlotDevelopmentCardsException e) {
             e.printStackTrace();
         }
         assertSame(developmentCard, player.getPersonalBoard().getSlotsDevelopmentCards().getActiveCards()[0]);
@@ -872,6 +877,11 @@ class PlayerTest {
             e.printStackTrace();
         }
         Player player = game.getPlayers().get(0);
+        try {
+            player.selectThoCardsToKeep(1,2);
+        } catch (PositionInvalidException | ActionNotAllowedException e) {
+            e.printStackTrace();
+        }
         assertSame(2, player.countLeaderCardInHand());
         player.getCardsInHand()[0] = null;
         assertSame(1, player.countLeaderCardInHand());
@@ -913,13 +923,13 @@ class PlayerTest {
         assertSame(87, player.calculateVictoryPoints());
         try {
             player.getPersonalBoard().getSlotsDevelopmentCards().addDevelopmentCard(3, exampleDevelopmentCard(1));
-        } catch (PositionInvalidException e) {
+        } catch (PositionInvalidException | IndexOutOfSlotDevelopmentCardsException e) {
             e.printStackTrace();
         }
         assertSame(90, player.calculateVictoryPoints());
         try {
             player.getPersonalBoard().getSlotsDevelopmentCards().addDevelopmentCard(3, exampleDevelopmentCard(2));
-        } catch (PositionInvalidException e) {
+        } catch (PositionInvalidException | IndexOutOfSlotDevelopmentCardsException e) {
             e.printStackTrace();
         }
         assertSame(93, player.calculateVictoryPoints());

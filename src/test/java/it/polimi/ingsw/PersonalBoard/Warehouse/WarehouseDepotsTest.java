@@ -174,7 +174,7 @@ public class WarehouseDepotsTest {
         } catch (PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException | IndexOutOfWarehouseDepotsException e) {
             e.printStackTrace();
         }
-        assertThrows(IndexOutOfBoundsException.class, () -> warehouseDepots.moveResource(1,6));
+        assertThrows(IndexOutOfWarehouseDepotsException.class, () -> warehouseDepots.moveResource(1,6));
     }
 
     /**

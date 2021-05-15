@@ -23,6 +23,7 @@ public class Player {//<--FIXME check javadoc from here-->
 
     private String nickname;
     private PersonalBoard personalBoard;
+    private LeaderCard[] cardsInHandFirst;
     private LeaderCard[] cardsInHand;
     private LeaderCard[] cardsOnTable;
     private boolean inkwell;
@@ -44,9 +45,42 @@ public class Player {//<--FIXME check javadoc from here-->
         this.gameIndex = gameIndex;
         this.nickname = nickname;
         personalBoard = new PersonalBoard(gameIndex);
-        cardsInHand = Game.get(gameIndex).getTable().getLeaderDeck().draw();
+        cardsInHandFirst = Game.get(gameIndex).getTable().getLeaderDeck().draw();
+        cardsInHand = new LeaderCard[2];
         cardsOnTable = new LeaderCard[2];
         inkwell = false;
+    }
+
+    /**
+     * This method let to know if this is the first turn of this player
+     * (in witch he hat tho select two cards to keep) or it's a normal turn
+     * @return if it is the first turn of this player or not
+     */
+    public boolean isHimFirstTurn(){
+        if(cardsInHandFirst == null){
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * This method let, at the beginning to choose two of the four leader card that you draw at the beginning
+     * @param card1 the first card you choose
+     * @param card2 the second card you choose
+     * @throws PositionInvalidException if you choose an invalid position
+     * @throws ActionNotAllowedException if you had already used this method
+     */
+    public void selectThoCardsToKeep(int card1, int card2) throws PositionInvalidException, ActionNotAllowedException {
+        if(cardsInHandFirst == null){
+            throw new ActionNotAllowedException();
+        }
+        if(card1 < 1 || card1 > 4 || card2 < 1 || card2 > 4 || card1 == card2){
+            throw new PositionInvalidException();
+        }
+        cardsInHand[0] = cardsInHandFirst[card1 - 1];
+        cardsInHand[1] = cardsInHandFirst[card2 - 1];
+        cardsInHandFirst = null;
     }
 
     /**
@@ -1062,8 +1096,9 @@ public class Player {//<--FIXME check javadoc from here-->
      * @throws NotAbleToPlaceThisDevelopmentCardException when you dont have space in your storage after buying it
      * @throws DrawnFromEmptyDeckException if the deck selected is empty
      * @throws SelectedADevelopmentCardYetException if you have yet selected a DevelopmentCard
+     * @throws IndexOutOfDevelopmentDeckException if you are out of bound of DevelopmentDeck
      */
-    public void buyADevelopmentCard(int xx, int yy) throws PositionInvalidException, NotAbleToBuyThisDevelopmentCardException, NotAbleToPlaceThisDevelopmentCardException, DrawnFromEmptyDeckException, SelectedADevelopmentCardYetException {
+    public void buyADevelopmentCard(int xx, int yy) throws PositionInvalidException, NotAbleToBuyThisDevelopmentCardException, NotAbleToPlaceThisDevelopmentCardException, DrawnFromEmptyDeckException, SelectedADevelopmentCardYetException, IndexOutOfDevelopmentDeckException {
         if(obtainedDevelopmentCard != null){
             throw new SelectedADevelopmentCardYetException();
         }
@@ -1179,8 +1214,9 @@ public class Player {//<--FIXME check javadoc from here-->
      * @param pos: to choose the position of the DevelopmentCard on SlotDevelopmentCard
      * @throws NoDevelopmentCardToObtainException if the place you chose has no development card,
      * @throws PositionInvalidException if the position you chose does not exists
+     * @throws IndexOutOfSlotDevelopmentCardsException: if you are out of bound of slots for development cards
      */
-    public void placeDevelopmentCard(int pos) throws NoDevelopmentCardToObtainException, PositionInvalidException {
+    public void placeDevelopmentCard(int pos) throws NoDevelopmentCardToObtainException, PositionInvalidException, IndexOutOfSlotDevelopmentCardsException {
         if(obtainedDevelopmentCard == null){
             throw new NoDevelopmentCardToObtainException();
         }
@@ -1271,11 +1307,13 @@ public class Player {//<--FIXME check javadoc from here-->
         return marblesFromTheMarket;
     }
 
-    public String exportForPlayersAndCardsInHand(){
-        String s1 = cardsInHand[0].export();
-        String s2 = cardsInHand[1].export();
-        String s3 = nickname;
-        String result = s1 + "/" + s2 + "/" + s3;
+    public String exportForPlayersAndCardsInHandFirst(){
+        String s1 = cardsInHandFirst[0].export();
+        String s2 = cardsInHandFirst[1].export();
+        String s3 = cardsInHandFirst[2].export();
+        String s4 = cardsInHandFirst[3].export();
+        String s5 = nickname;
+        String result = s1 + "/" + s2 + "/" + s3 + "/" + s4 + "/" + s5;
         return result;
     }
 

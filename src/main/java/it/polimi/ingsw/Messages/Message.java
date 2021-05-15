@@ -233,6 +233,9 @@ public abstract class Message {
             } else if (message[0].equals("MOVED_RESOURCE_ES_LC_TO_WAREHOUSE")) {
                 checkLength(message, 4);
                 return new MovedResourceESLCToWarehouseForwardMessage(message[1], atoi(message[2]), atoi(message[3]));
+            } else if (message[0].equals("SELECTED_TWO_CARDS_TO_KEEP")) {
+                checkLength(message, 4);
+                return new SelectedTwoCardsToKeepForwardMessage(message[1], atoi(message[2]), atoi(message[3]));
             } else
 
             if (message[0].equals("CHOOSE_DISCARD_LEADER_CARD")) {
@@ -324,6 +327,9 @@ public abstract class Message {
             } else if (message[0].equals("MOVE_RESOURCE_ES_LC_TO_WAREHOUSE")) {
                 checkLength(message, 2);
                 return new MoveResourceESLCToWEarehouseGameMessage(atoi(message[1]));
+            } else if (message[0].equals("SELECT_TWO_CARDS_TO_KEEP")) {
+                checkLength(message, 3);
+                return new SelectTwoCardsToKeepGameMessage(atoi(message[1]), atoi(message[2]));
             }
         } catch (IllegalArgumentException e){
             return new ToErrorTypoGameMessage();
