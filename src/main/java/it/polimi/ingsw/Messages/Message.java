@@ -155,6 +155,9 @@ public abstract class Message {
         if(string.equals("ERROR_GAME_STARTED")){
             return new GameStartedErrorMessage();
         }
+        if(string.equals("ERROR_GAME_DONT_EXIST")){
+            return new GameDontExistErrorMessage();
+        }
         if(string.equals("SHOW_MARKET")){
             return new ShowMarketMessage();
         }

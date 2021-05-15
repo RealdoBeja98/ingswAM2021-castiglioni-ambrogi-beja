@@ -1,6 +1,7 @@
 package it.polimi.ingsw.Mains;
 import it.polimi.ingsw.Exceptions.*;
 import it.polimi.ingsw.Game.Game;
+import it.polimi.ingsw.Messages.ErrorMessages.GameDontExistErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.GameStartedErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.NameTakenErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.NotYourTurnErrorMessage;
@@ -179,7 +180,15 @@ public class ClientHandler implements Runnable {
         int numGM = atoi(line);
         System.out.println("Joining a game...");
         game = Game.get(numGM);
-        System.out.println("Someone joined game number: " + game.getGameIndex());
+
+        try{
+            System.out.println("Someone joined game number: " + game.getGameIndex());
+        }catch(NullPointerException e){
+            System.out.println("Game doesn't exist, rejecting the player");
+            Message.sendMessage(out, new GameDontExistErrorMessage());
+            return false;
+        }
+
         return addingPlayer(in, out);
     }
 

@@ -4,6 +4,8 @@ import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Mains.ClientMain;
 import it.polimi.ingsw.Messages.ForwardMessage;
+import it.polimi.ingsw.View.Cli;
+import it.polimi.ingsw.View.View;
 
 import java.io.PrintWriter;
 

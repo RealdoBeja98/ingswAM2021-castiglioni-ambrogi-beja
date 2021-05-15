@@ -1,5 +1,6 @@
 package it.polimi.ingsw.Mains;
 import it.polimi.ingsw.Game.PlayerGame;
+import it.polimi.ingsw.Messages.ErrorMessages.GameDontExistErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.GameStartedErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.NameTakenErrorMessage;
 import it.polimi.ingsw.Messages.ForwardMessage;
@@ -76,9 +77,16 @@ public class ClientMain {
                     i++;
                 }
                 String line = in.readLine();
-                System.out.println("Joining game number: " + line);
-                line = in.readLine();
                 Message lineMessage = Message.fromString(line);
+                if (lineMessage.isEqual(new GameDontExistErrorMessage())) {
+                    (new GameDontExistErrorMessage()).execute();
+                    return;
+                }else{
+                    System.out.println("Joining game number: " + line);
+                }
+
+                line = in.readLine();
+                lineMessage = Message.fromString(line);
                 if (lineMessage.isEqual(new NameTakenErrorMessage())) {
                     (new NameTakenErrorMessage()).execute();
                     return;
@@ -143,10 +151,13 @@ public class ClientMain {
                         if (clientMessage.equals("wakeup")) {
 
                         } else if (clientMessage.equals("GAME_UPDATE")) {
-                            View w = new Cli();
-                            w.showMarket();
-                            w.showDevCard();
-                            w.showPersonalBoard();
+                            if(ClientMain.getPlayerGame() != null){
+                                View w = new Cli();
+                                w.showMarket();
+                                w.showDevCard();
+                                w.showPersonalBoard();
+                            }
+
                         } else {
                             out.println(clientMessage);
                             if (clientMessage.equals("quit")) {

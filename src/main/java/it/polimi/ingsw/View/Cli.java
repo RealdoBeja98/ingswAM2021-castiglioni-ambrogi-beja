@@ -346,7 +346,7 @@ public class Cli extends View{
 
         if(cardsInHand[1] != null && n.getNickname().equals(ClientMain.getClientNick())){
             printLeadCard(cardsInHand[1]);
-        } else if (cardsInHand[0] == null){
+        } else if (cardsInHand[1] == null){
             System.out.print("                        ");
         }
         else{
@@ -508,7 +508,15 @@ public class Cli extends View{
                 Resource sr = s.getCostOfLeaderCard();
                 Resource srr = s.getStorageType();
                 int sv = s.getVictoryPoints();
-                System.out.print("S: 1-1" + resourceToColorASCI(srr) + "/5" + resourceToColorASCI(sr) + "/" + sv + "VP          ");
+                int occ = s.occupiedResources();
+                System.out.print("S: 1-1" + resourceToColorASCI(srr) + "/5" + resourceToColorASCI(sr) + "/" + sv + "VP");
+                if(occ == 2){
+                    System.out.print(resourceToColorASCI(srr) + "║  x  x  ║" + escapeW);
+                }else if(occ == 1){
+                    System.out.print(resourceToColorASCI(srr) + "║   x    ║" + escapeW);
+                }else {
+                    System.out.print("          ");
+                }
                 break;
             case PRODUCTIONPOWER:
                 ProductionPowerLeaderCard p = (ProductionPowerLeaderCard) visualize;
