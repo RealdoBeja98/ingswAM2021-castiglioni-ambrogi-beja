@@ -38,7 +38,7 @@ public class WarehouseDepots {
      * @throws IndexOutOfWarehouseDepotsException: if you are out of bounds of the WarehouseDepots
      */
     public void addResource(Resource r, int pos) throws PositionAlreadyOccupiedException, ResourceAlreadyPlacedException, DifferentResourceInThisShelfException, IndexOutOfWarehouseDepotsException {
-        if(pos >= 7 || pos < 0){
+        if(pos >= 6 || pos < 0){
             throw new IndexOutOfWarehouseDepotsException();
         }
         if(resource[pos] != null){
@@ -83,7 +83,7 @@ public class WarehouseDepots {
      * @throws IndexOutOfWarehouseDepotsException: if you are out of bounds of the WarehouseDepots
      */
     public void moveResource(int startPos, int finalPos) throws NotAdmittedMovementException, IndexOutOfWarehouseDepotsException {
-        if(finalPos >= 7 || finalPos < 0 || startPos >= 7 || startPos < 0){
+        if(finalPos >= 6 || finalPos < 0 || startPos >= 6 || startPos < 0){
             throw new IndexOutOfWarehouseDepotsException();
         }
         WarehouseDepots copy = copy();

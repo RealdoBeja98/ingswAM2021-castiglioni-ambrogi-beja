@@ -42,6 +42,8 @@ public class MoveResourceESLCToWEarehouseGameMessage extends GameMessage {
             Message.sendMessage(out, new EmptySlotEsErrorMessage());
         } catch (IndexOutOfWarehouseDepotsException e){
             Message.sendMessage(out, new InvalidMovementErrorMessage());
+        } catch (ActionNotAllowedException e) {
+            Message.sendMessage(out, new InvalidActionErrorMessage());
         }
     }
 

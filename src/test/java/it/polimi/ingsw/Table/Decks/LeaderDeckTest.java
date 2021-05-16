@@ -30,12 +30,14 @@ public class LeaderDeckTest {
     void drawTest(){
         LeaderDeck leaderDeck = new LeaderDeck();
         ArrayList<LeaderCard> oldDeck = leaderDeck.getDeck();
-        LeaderCard[] drawTwo = leaderDeck.draw();
+        LeaderCard[] drawFour = leaderDeck.draw();
         ArrayList<LeaderCard> newDeck = leaderDeck.getDeck();
-        assertSame(drawTwo[0], oldDeck.get(0));
-        assertSame(drawTwo[1], oldDeck.get(1));
+        assertSame(drawFour[0], oldDeck.get(0));
+        assertSame(drawFour[1], oldDeck.get(1));
+        assertSame(drawFour[2], oldDeck.get(2));
+        assertSame(drawFour[3], oldDeck.get(3));
         for(int i = 0; i < newDeck.size(); i++){
-            assertSame(newDeck.get(i), oldDeck.get(i+2));
+            assertSame(newDeck.get(i), oldDeck.get(i+4));
         }
     }
 

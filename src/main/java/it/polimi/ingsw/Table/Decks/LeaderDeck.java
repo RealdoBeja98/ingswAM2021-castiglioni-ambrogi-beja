@@ -90,8 +90,8 @@ public class LeaderDeck {
      * @return an array with two cards, of type LeaderCard[]
      */
     public LeaderCard[] draw(){
-        LeaderCard[] cards = new LeaderCard[2];
-        for(int i = 0; i < 2; i++){
+        LeaderCard[] cards = new LeaderCard[4];
+        for(int i = 0; i < 4; i++){
             cards[i] = deck.get(0);
             deck.remove(0);
         }

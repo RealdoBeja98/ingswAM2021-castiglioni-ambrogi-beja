@@ -1,6 +1,7 @@
 package it.polimi.ingsw.Table.Decks;
 import it.polimi.ingsw.Enums.Type;
 import it.polimi.ingsw.Exceptions.DrawnFromEmptyDeckException;
+import it.polimi.ingsw.Exceptions.IndexOutOfDevelopmentDeckException;
 import it.polimi.ingsw.Table.Decks.Development.DevelopmentCard;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -36,24 +37,24 @@ class DevelopmentDeckTest {
         DevelopmentCard cardP = null;
         try {
             cardP = deck.draw(1, 1);
-        } catch (DrawnFromEmptyDeckException e) {
+        } catch (DrawnFromEmptyDeckException | IndexOutOfDevelopmentDeckException e) {
             e.printStackTrace();
         }
         assertSame(card, cardP);
-        assertThrows(IndexOutOfBoundsException.class, () -> deck.draw(5, 1));
+        assertThrows(IndexOutOfDevelopmentDeckException.class, () -> deck.draw(5, 1));
         try {
             cardP = deck.draw(1, 1);
-        } catch (DrawnFromEmptyDeckException e) {
+        } catch (DrawnFromEmptyDeckException | IndexOutOfDevelopmentDeckException e) {
             e.printStackTrace();
         }
         try {
             cardP = deck.draw(1, 1);
-        } catch (DrawnFromEmptyDeckException e) {
+        } catch (DrawnFromEmptyDeckException | IndexOutOfDevelopmentDeckException e) {
             e.printStackTrace();
         }
         try {
             cardP = deck.draw(1, 1);
-        } catch (DrawnFromEmptyDeckException e) {
+        } catch (DrawnFromEmptyDeckException | IndexOutOfDevelopmentDeckException e) {
             e.printStackTrace();
         }
         assertThrows(DrawnFromEmptyDeckException.class, () -> deck.draw(1, 1));
