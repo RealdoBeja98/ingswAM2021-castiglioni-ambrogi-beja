@@ -92,12 +92,17 @@ public class ClientHandler implements Runnable {
             out.println(new GameStartServiceMessage(game));
             out.println(new CurrentPlayerMessage(game.getTurn().getCurrentPlayer().getNickname()));
 
+            PingPong pingPong = new PingPong(in, out);
+            Thread pingPongThread = new Thread(pingPong);
+            pingPongThread.start();
+
             while (true) {
                 try {
                     line = in.readLine();
                     if(line == null){
                         String whoQuited = nickname;
                         forward(whoQuited + " quit", out);
+                        pingPong.stop();
                         return;
                     }
                     if (line.equals("quit")) {
@@ -109,9 +114,11 @@ public class ClientHandler implements Runnable {
                         }
                         forward(nickname + " quit", out);
                         closeCommunicationChannel(in, out);
+                        pingPong.stop();
                         return;
                     } else if (line.equals("GAME_ENDED")) {
                         closeCommunicationChannel(in, out);
+                        pingPong.stop();
                         return;
                     } else if (line.equals("NOTIFY_PB_ALL")) {
                         Message.sendMessage(out, new ShowCurrentBoardMessage());
@@ -132,6 +139,8 @@ public class ClientHandler implements Runnable {
                 }
             }
             closeCommunicationChannel(in, out);
+
+            pingPong.stop();
 
             //////////
         } catch (Exception e){
@@ -219,4 +228,5 @@ public class ClientHandler implements Runnable {
             }
         }
     }
+
 }
