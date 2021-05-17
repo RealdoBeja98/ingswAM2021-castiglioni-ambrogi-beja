@@ -119,6 +119,8 @@ public class ClientMain extends Application {
                                 } else if (serverMessage.equals("GAME_ENDED")) {
                                     out.println("GAME_ENDED");
                                     break;
+                                } else if (serverMessage.equals("ping")) {
+                                    out.println("pong");
                                 } else {
                                     Message messageServerMessage = Message.fromString(serverMessage);
                                     if (messageServerMessage instanceof ServiceMessage) {

@@ -92,7 +92,7 @@ public class ClientHandler implements Runnable {
             out.println(new GameStartServiceMessage(game));
             out.println(new CurrentPlayerMessage(game.getTurn().getCurrentPlayer().getNickname()));
 
-            PingPong pingPong = new PingPong(in, out);
+            PingPong pingPong = new PingPong(in, out, game, socket, nickname);
             Thread pingPongThread = new Thread(pingPong);
             pingPongThread.start();
 
@@ -122,6 +122,8 @@ public class ClientHandler implements Runnable {
                         return;
                     } else if (line.equals("NOTIFY_PB_ALL")) {
                         Message.sendMessage(out, new ShowCurrentBoardMessage());
+                    } else if (line.equals("pong")) {
+                        pingPong.update();
                     } else if (!game.getTurn().getCurrentPlayer().getNickname().equals(nickname)) {
                         Message.sendMessage(out, new NotYourTurnErrorMessage());
                     } else {

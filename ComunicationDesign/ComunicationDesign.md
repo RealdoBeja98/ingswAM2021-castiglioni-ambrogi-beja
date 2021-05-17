@@ -2,8 +2,8 @@ https://github.com/GetnaG/ing-sw-2019-abbo-attolini-bentej/blob/master/deliverab
 https://codingjam.it/gson-da-java-a-json-e-viceversa-primi-passi/
 https://stackoverflow.com/questions/29965764/how-to-parse-json-file-with-gson
 \
-PING
-PONG
+ping\
+pong\
 \
 ////////////////////////////////////////////{"message" = "InitialState", "players" = ["name" = "name", "inkwell" = true], "marketExtraMarble" = "marble", "marketTray" = [["marble" = "marble"]], "gameIndex" = 0, "leaderDeck" = ["leaderCard" = ["victoryPoints" = 3, "leaderCardType" = "whatIAm"], "discountLeaderCard" = ["discount" = "resource", "costOfLeaderCard" = ["cost" = "type"]], "extraStorageLeaderCard" = ["costOfLeaderCard" = "resource", "storageType" = "resource"], "productionPowerLeaderCard" = ["costOfLeaderCard" = "type", "requirement" = "resource"], "whiteMarbleLeaderCard" = ["costOfLeaderCard" = ["cost" = "type"], "whiteMarble" = "marble"]], "developmentDeck" = [[["developmentCard" = ["cost" = ["cost" = "resource"], "costNumber" = ["cost" = 0], "type" = "type", "level" = 1, "requirements" = ["requirements" = "resource"], "costRequirements" = ["cost" = 0], "products" = ["product" = "resource"], "costProducts" = ["cost" = 0], "victoryPoints" = 1]]]]}\
 \
