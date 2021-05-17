@@ -1,5 +1,0 @@
-it\polimi\ingsw\Messages\ForwardMessages\SelectedTwoCardsToKeepForwardMessage.class
-it\polimi\ingsw\Exceptions\IndexOutOfSlotDevelopmentCardsException.class
-it\polimi\ingsw\Exceptions\IndexOutOfDevelopmentDeckException.class
-it\polimi\ingsw\Messages\GameMessages\SelectTwoCardsToKeepGameMessage.class
-it\polimi\ingsw\Exceptions\IndexOutOfWarehouseDepotsException.class
