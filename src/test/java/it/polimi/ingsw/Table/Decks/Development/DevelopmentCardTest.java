@@ -84,7 +84,7 @@ public class DevelopmentCardTest {
      */
     @Test
     void testExportDevelopmentCard2(){
-        String d = "3:2:p:1:2:1:0:1:1";
+        String d = "3!2!p!1!2!1!0!1!1";
         assertTrue(d.equals((new DevelopmentCard(d)).export()));
     }
 

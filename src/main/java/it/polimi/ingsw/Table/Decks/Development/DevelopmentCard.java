@@ -188,12 +188,12 @@ public class DevelopmentCard extends Card implements Production {
             }
             result = new StringBuilder().append(result).append(toAdd).toString();
         }
-        result = new StringBuilder().append(result).append(":").toString();
+        result = new StringBuilder().append(result).append("!").toString();
         for(int i: costNumber){
             String toAdd = String.valueOf(i);
             result = new StringBuilder().append(result).append(toAdd).toString();
         }
-        result = new StringBuilder().append(result).append(":").toString();
+        result = new StringBuilder().append(result).append("!").toString();
         switch (type){
             case GREEN: result = new StringBuilder().append(result).append("g").toString();
                 break;
@@ -205,9 +205,9 @@ public class DevelopmentCard extends Card implements Production {
                 break;
             default: break;
         }
-        result = new StringBuilder().append(result).append(":").toString();
+        result = new StringBuilder().append(result).append("!").toString();
         result = new StringBuilder().append(result).append(String.valueOf(level)).toString();
-        result = new StringBuilder().append(result).append(":").toString();
+        result = new StringBuilder().append(result).append("!").toString();
         for(Resource i: requirements){
             String toAdd = "";
             switch (i){
@@ -226,12 +226,12 @@ public class DevelopmentCard extends Card implements Production {
             }
             result = new StringBuilder().append(result).append(toAdd).toString();
         }
-        result = new StringBuilder().append(result).append(":").toString();
+        result = new StringBuilder().append(result).append("!").toString();
         for(int i: costRequirements){
             String toAdd = String.valueOf(i);
             result = new StringBuilder().append(result).append(toAdd).toString();
         }
-        result = new StringBuilder().append(result).append(":").toString();
+        result = new StringBuilder().append(result).append("!").toString();
         for(Resource i: products){
             String toAdd = "";
             switch (i){
@@ -250,12 +250,12 @@ public class DevelopmentCard extends Card implements Production {
             }
             result = new StringBuilder().append(result).append(toAdd).toString();
         }
-        result = new StringBuilder().append(result).append(":").toString();
+        result = new StringBuilder().append(result).append("!").toString();
         for(int i: costProducts){
             String toAdd = String.valueOf(i);
             result = new StringBuilder().append(result).append(toAdd).toString();
         }
-        result = new StringBuilder().append(result).append(":").toString();
+        result = new StringBuilder().append(result).append("!").toString();
         result = new StringBuilder().append(result).append(String.valueOf(victoryPoints)).toString();
         return result;
     }
@@ -265,7 +265,7 @@ public class DevelopmentCard extends Card implements Production {
      * @param importedString: the string to import
      */
     public DevelopmentCard(String importedString){
-        String[] strings = importedString.split(":");
+        String[] strings = importedString.split("!");
         cost = new Resource[strings[0].length()];
         for(int i = 0; i < strings[0].length(); i++){
             String toAdd = strings[0].substring(i, i+1);

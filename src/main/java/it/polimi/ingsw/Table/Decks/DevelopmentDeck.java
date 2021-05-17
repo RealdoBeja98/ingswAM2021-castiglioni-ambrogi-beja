@@ -29,6 +29,15 @@ public class DevelopmentDeck{
         this.gameIndex = gameIndex;
         deck = new DevelopmentCard[3][4][4];
         addCard();
+        /*
+        for(DevelopmentCard[][] i : deck){
+            for(DevelopmentCard[] j : i){
+                for(DevelopmentCard k : j){
+                    System.out.println(k.export());
+                }
+            }
+        }
+        */
     }
 
     /**
