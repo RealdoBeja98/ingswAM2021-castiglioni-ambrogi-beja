@@ -25,6 +25,9 @@ public class LeaderDeck {
     public LeaderDeck(){
         deck = new ArrayList<>();
         putCards(deck);
+        for(LeaderCard i : deck){
+            System.out.println(i.export());
+        }
         Collections.shuffle(deck);
     }
 
