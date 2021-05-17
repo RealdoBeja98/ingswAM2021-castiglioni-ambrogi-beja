@@ -8,6 +8,9 @@ import it.polimi.ingsw.Messages.Message;
 import it.polimi.ingsw.Messages.ServiceMessage;
 import it.polimi.ingsw.View.Cli;
 import it.polimi.ingsw.View.View;
+import javafx.application.Application;
+import javafx.stage.Stage;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -18,7 +21,7 @@ import java.net.UnknownHostException;
 /**
  * This class represents the client of the game
  */
-public class ClientMain {
+public class ClientMain extends Application {
 
     private static PlayerGame playerGame;
     private static String currentP;
@@ -197,4 +200,28 @@ public class ClientMain {
         }
     }
 
+    @Override
+    public void start(Stage stage) throws Exception {
+        //<--FIXME penso di aver aggiunto correttamente javafx-->
+        /*esempio preso dal test
+
+        public class App extends Application {
+
+    @Override
+    public void start(Stage stage) {
+
+
+        var label = new Label("Hello, JavaFX, running on Java.");
+        var scene = new Scene(new StackPane(label), 640, 480);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public static void main(String[] args) {
+        launch();
+    }
+
+}*/
+
+    }
 }
