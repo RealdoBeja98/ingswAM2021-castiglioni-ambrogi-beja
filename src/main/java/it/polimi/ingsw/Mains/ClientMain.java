@@ -9,6 +9,10 @@ import it.polimi.ingsw.Messages.ServiceMessage;
 import it.polimi.ingsw.View.Cli;
 import it.polimi.ingsw.View.View;
 import javafx.application.Application;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.io.BufferedReader;
@@ -26,7 +30,7 @@ public class ClientMain extends Application {
     private static PlayerGame playerGame;
     private static String currentP;
     private static String clientNick;
-
+    private static String view;
 
     public static PlayerGame getPlayerGame(){
         return playerGame;
@@ -55,7 +59,7 @@ public class ClientMain extends Application {
         try {
             ///////
 
-            if (args.length != 5) {
+            if (args.length != 6) {
                 System.out.println("Invalid number of parameter");
                 return;
             }
@@ -63,6 +67,15 @@ public class ClientMain extends Application {
             String hostName = args[0];
             int portNumber = atoi(args[1]);
             clientNick = args[4];
+
+            if(args[5].equals("-GUI")){
+                view = args[5];
+                System.out.println("test");
+                launch();
+                return;
+            }else{
+                view = args[5];
+            }
 
             try (
                     Socket echoSocket = new Socket(hostName, portNumber); //creo socket e mi connetto alla .accept
@@ -205,25 +218,11 @@ public class ClientMain extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         //<--FIXME penso di aver aggiunto correttamente javafx-->
-        /*esempio preso dal test
-
-        public class App extends Application {
-
-    @Override
-    public void start(Stage stage) {
-
-
-        var label = new Label("Hello, JavaFX, running on Java.");
-        var scene = new Scene(new StackPane(label), 640, 480);
+        stage.setTitle("Masters of Renaissance");
+        Group root = new Group();
+        Label label = new Label("Hello, JavaFX, running on Java.");
+        Scene scene = new Scene(new StackPane(label), 640, 480);
         stage.setScene(scene);
         stage.show();
-    }
-
-    public static void main(String[] args) {
-        launch();
-    }
-
-}*/
-
     }
 }
