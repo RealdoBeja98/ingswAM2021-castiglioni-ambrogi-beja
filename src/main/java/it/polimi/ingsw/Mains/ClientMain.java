@@ -7,10 +7,12 @@ import it.polimi.ingsw.Messages.ForwardMessage;
 import it.polimi.ingsw.Messages.Message;
 import it.polimi.ingsw.Messages.ServiceMessage;
 import it.polimi.ingsw.View.Cli;
+import it.polimi.ingsw.View.Gui;
 import it.polimi.ingsw.View.View;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -70,7 +72,6 @@ public class ClientMain extends Application {
 
             if(args[5].equals("-GUI")){
                 view = args[5];
-                System.out.println("test");
                 launch();
                 return;
             }else{
@@ -116,6 +117,8 @@ public class ClientMain extends Application {
                 } else {
                     System.out.println("Joined the game!");
                 }
+
+                //<--FIXME gui sarebbe da spostare qui (tbh non so dove)-->
 
                 (new Thread() {
 
@@ -220,8 +223,14 @@ public class ClientMain extends Application {
         //<--FIXME penso di aver aggiunto correttamente javafx-->
         stage.setTitle("Masters of Renaissance");
         Group root = new Group();
-        Label label = new Label("Hello, JavaFX, running on Java.");
-        Scene scene = new Scene(new StackPane(label), 640, 480);
+        Canvas canvas = new Canvas(1820, 980);
+
+        View v = new Gui(canvas, root);
+        v.showDevCard();
+        v.showPersonalBoard();
+        v.showPBCurrent();
+
+        Scene scene = new Scene(root, 1820, 980);
         stage.setScene(scene);
         stage.show();
     }
