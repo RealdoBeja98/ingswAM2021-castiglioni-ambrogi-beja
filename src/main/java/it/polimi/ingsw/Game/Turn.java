@@ -7,6 +7,8 @@ import it.polimi.ingsw.Table.Decks.Token.ActionToken;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
+//<--FIXME--> bisogna fare i test della classe turn
+
 /**
  * This Class represents the turn
  */

@@ -7,15 +7,7 @@ import it.polimi.ingsw.Messages.ForwardMessage;
 import it.polimi.ingsw.Messages.Message;
 import it.polimi.ingsw.Messages.ServiceMessage;
 import it.polimi.ingsw.View.Cli;
-import it.polimi.ingsw.View.Gui;
 import it.polimi.ingsw.View.View;
-import javafx.application.Application;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -27,12 +19,12 @@ import java.net.UnknownHostException;
 /**
  * This class represents the client of the game
  */
-public class ClientMain extends Application {
+public class ClientMain {
 
     private static PlayerGame playerGame;
     private static String currentP;
     private static String clientNick;
-    private static String view;
+    private static boolean guiSet = false;
 
     public static PlayerGame getPlayerGame(){
         return playerGame;
@@ -54,6 +46,9 @@ public class ClientMain extends Application {
         return clientNick;
     }
 
+    public static boolean getGuiSet(){
+        return guiSet;
+    }
 
     public static void main(String[] args) throws IOException {
 
@@ -71,11 +66,10 @@ public class ClientMain extends Application {
             clientNick = args[4];
 
             if(args[5].equals("-GUI")){
-                view = args[5];
-                launch();
-                return;
-            }else{
-                view = args[5];
+                ClientMain.guiSet = true;
+                GuiThread guiThread = new GuiThread();
+                Thread guiThreadThread = new Thread(guiThread);
+                guiThreadThread.start();
             }
 
             try (
@@ -118,7 +112,7 @@ public class ClientMain extends Application {
                     System.out.println("Joined the game!");
                 }
 
-                //<--FIXME gui sarebbe da spostare qui (tbh non so dove)-->
+                //<--FIXME gui sarebbe da spostare qui (tbh non so dove)--> //ora che la gui sta in un altro thread forse non bisogna + spostarla
 
                 (new Thread() {
 
@@ -218,20 +212,4 @@ public class ClientMain extends Application {
         }
     }
 
-    @Override
-    public void start(Stage stage) throws Exception {
-        //<--FIXME penso di aver aggiunto correttamente javafx-->
-        stage.setTitle("Masters of Renaissance");
-        Group root = new Group();
-        Canvas canvas = new Canvas(1820, 980);
-
-        View v = new Gui(canvas, root);
-        v.showDevCard();
-        v.showPersonalBoard();
-        v.showPBCurrent();
-
-        Scene scene = new Scene(root, 1820, 980);
-        stage.setScene(scene);
-        stage.show();
-    }
 }
