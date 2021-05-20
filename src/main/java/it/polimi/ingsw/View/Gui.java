@@ -46,17 +46,16 @@ public class Gui extends View{
 
     @Override
     public void showPersonalBoard() {
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-
+        Text t = new Text();
+        t.setText("Ciao sono andrea");
+        t.setX(1000);
+        t.setY(500);
+        root.getChildren().add(t); //<--FIXME andrebbe spostato nella classe guithread (non ne son sicuro)-->
     }
 
     @Override
     public void showPBCurrent() {
-        Text t = new Text();
-        t.setText("Ciao sono andrea");
-        t.setX(200);
-        t.setY(200);
-        root.getChildren().add(t);
+
     }
 
     private void drawCards(GraphicsContext gc, int x, int y, String name) {
