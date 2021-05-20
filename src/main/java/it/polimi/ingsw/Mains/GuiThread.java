@@ -1,7 +1,4 @@
 package it.polimi.ingsw.Mains;
-
-import it.polimi.ingsw.View.Gui;
-import it.polimi.ingsw.View.View;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -21,17 +18,14 @@ public class GuiThread extends Application implements Runnable{
         stage.setTitle("Masters of Renaissance");
         Group root = new Group();
         Canvas canvas = new Canvas(1820, 980);
+        ClientMain.setCanvas(canvas);
+        ClientMain.setRoot(root);
 
-        View v = new Gui(canvas, root);
-        v.showDevCard();
-        v.showPersonalBoard();
-        v.showPBCurrent();
 
+        root.getChildren().add(canvas);
         Scene scene = new Scene(root, 1820, 980);
         stage.setScene(scene);
         stage.show();
     }
-
-
 
 }

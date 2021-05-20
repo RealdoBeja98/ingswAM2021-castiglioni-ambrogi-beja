@@ -8,6 +8,9 @@ import it.polimi.ingsw.Messages.Message;
 import it.polimi.ingsw.Messages.ServiceMessage;
 import it.polimi.ingsw.View.Cli;
 import it.polimi.ingsw.View.View;
+import javafx.scene.Group;
+import javafx.scene.canvas.Canvas;
+import javafx.stage.Stage;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -25,7 +28,27 @@ public class ClientMain {
     private static String currentP;
     private static String clientNick;
     private static boolean guiSet = false;
+    private static Group root;
+    private static Canvas canvas;
 
+
+    public static void setRoot(Group root) {
+        ClientMain.root = root;
+    }
+
+    public static void setCanvas(Canvas canvas) {
+        ClientMain.canvas = canvas;
+    }
+
+
+
+    public static Group getRoot() {
+        return root;
+    }
+
+    public static Canvas getCanvas() {
+        return canvas;
+    }
     public static PlayerGame getPlayerGame(){
         return playerGame;
     }
@@ -112,8 +135,6 @@ public class ClientMain {
                     System.out.println("Joined the game!");
                 }
 
-                //<--FIXME gui sarebbe da spostare qui (tbh non so dove)--> //ora che la gui sta in un altro thread forse non bisogna + spostarla
-
                 (new Thread() {
 
                     @Override
@@ -159,6 +180,10 @@ public class ClientMain {
                         }
                     }
                 }).start();
+
+                /*if(guiSet){
+                    return;
+                }*/
 
                 String clientMessage;
                 try {

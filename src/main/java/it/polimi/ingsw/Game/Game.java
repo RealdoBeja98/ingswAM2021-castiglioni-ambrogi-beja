@@ -102,9 +102,6 @@ public class Game {
         }
         started = true;
         System.out.println("Game: " + gameIndex + " started!");
-        for(int w = 0; w < printWriterList.size(); w++){
-            View v = new Cli();
-        }
         /*for(int wp =0; wp<players.size();wp++){
             try {
                 players.get(wp).getPersonalBoard().getStrongBox().add(Resource.COIN, 100);
