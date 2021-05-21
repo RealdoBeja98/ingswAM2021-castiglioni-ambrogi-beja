@@ -29,10 +29,10 @@ public class SelectTwoCardsToKeepGameMessage extends GameMessage {
     public void execute(Game game, PrintWriter out) {
         try {
             String currentPlayer = game.getTurn().getCurrentPlayer().getNickname();
+            forwardAll(game, new SelectedTwoCardsToKeepForwardMessage(currentPlayer, card1, card2));
             game.getTurn().selectThoCardsToKeep(card1, card2);
             Message.sendMessage(out, new ConfirmedActionMessage());
             System.out.println(identifier);
-            forwardAll(game, new SelectedTwoCardsToKeepForwardMessage(currentPlayer, card1, card2));
         } catch (ActionNotAllowedException e) {
             Message.sendMessage(out, new InvalidActionErrorMessage());
         } catch (PositionInvalidException e) {

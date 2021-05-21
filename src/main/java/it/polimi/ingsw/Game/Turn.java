@@ -2,6 +2,7 @@ package it.polimi.ingsw.Game;
 import it.polimi.ingsw.Enums.*;
 import it.polimi.ingsw.Exceptions.*;
 import it.polimi.ingsw.Messages.ForwardMessages.CurrentPlayerMessage;
+import it.polimi.ingsw.Messages.ForwardMessages.TransitionForwardMessage;
 import it.polimi.ingsw.Table.Decks.Token.ActionToken;
 
 import java.io.PrintWriter;
@@ -729,7 +730,7 @@ public class Turn {
         if(!(currentPlayer.isHimFirstTurn()) && !transitionFromFirstTurnToNormalTurnsDone){
             transitionFromFirstTurnToNormalTurnsDone = true;
             for(PrintWriter pw : Game.get(gameIndex).getPrintWriterList()){
-                pw.println("Transition from first turn to normal turns done!!!");//<--FIXME--> create instead of the string "Transition from..." a ForwardMessage where execute has to print (using the cli) Market, DevCard and PersonalBoard
+                pw.println(new TransitionForwardMessage());
             }
         }
     }

@@ -172,6 +172,9 @@ public abstract class Message {
         if(string.equals("CONFIRMED_ACTION")){
             return new ConfirmedActionMessage();
         }
+        if(string.equals("TRANSITION_MESSAGE")){
+            return new TransitionForwardMessage();
+        }
 
         String[] message = string.split(" ");
 

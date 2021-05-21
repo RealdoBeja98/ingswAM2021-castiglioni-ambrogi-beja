@@ -49,9 +49,6 @@ public class GameStartServiceMessage extends ServiceMessage {
         System.out.println("GAME START!");
 
         View w = View.get();
-        w.showMarket();
-        w.showDevCard();
-        w.showPersonalBoard();
         w.showStartingLC();
         //<--FIXME--> Insert instructions to print the four cards of each player
     }
