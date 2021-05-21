@@ -42,5 +42,8 @@ public class MoveResourcesWarehouseToESLCGameMessage extends GameMessage {
             Message.sendMessage(out, new InvalidActionErrorMessage());
         }
     }
-
+    @Override
+    public String toString(){
+        return identifier + " " + leaderCardPosition;
+    }
 }

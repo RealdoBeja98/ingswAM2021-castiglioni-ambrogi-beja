@@ -1,6 +1,7 @@
 package it.polimi.ingsw.Mains;
 import it.polimi.ingsw.Enums.LeaderWarehouse;
 import it.polimi.ingsw.Enums.NormalAction;
+import it.polimi.ingsw.Enums.RowColumn;
 import it.polimi.ingsw.Messages.GameMessages.*;
 import it.polimi.ingsw.Messages.Message;
 import javafx.application.Application;
@@ -20,6 +21,7 @@ import java.io.PrintWriter;
 public class GuiThread extends Application implements Runnable{
 
     private static PrintWriter out;
+    private int state;
 
     public static void setOut(PrintWriter out) {
         GuiThread.out = out;
@@ -37,7 +39,6 @@ public class GuiThread extends Application implements Runnable{
         Group root = new Group();
         Canvas canvas = new Canvas(1820, 980);
         ClientMain.setCanvas(canvas);
-        ClientMain.setRoot(root);
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
         Image img = new Image("Misc/BackGround.png");
@@ -58,12 +59,24 @@ public class GuiThread extends Application implements Runnable{
 
     private void buttonTurn(Group root){
         addButton(root, "_NO_A_LC", 625, 0, new ChooseNoActionLeaderCardGameMessage());
-        addButton(root, "_DIS_LC", 625, 35, new ChooseDiscardLeaderCardGameMessage());
+        addButton(root, "_DISC_LC", 625, 35, new ChooseDiscardLeaderCardGameMessage());
         addButton(root, "_PLAY_LC", 625, 70, new ChoosePlayLeaderCardGameMessage());
         addButton(root, "_NA_TAKE", 625, 105, new SelectNormalActionGameMessage(NormalAction.TAKE_RESOURCES_FROM_THE_MARKET));
         addButton(root, "_NA_BUY", 625, 140, new SelectNormalActionGameMessage(NormalAction.BUY_DEVELOPMENT_CARD));
         addButton(root, "_NA_PROD", 625, 175, new SelectNormalActionGameMessage(NormalAction.ACTIVATE_PRODUCTION));
         addButton(root, "_END_T", 625, 210, new EndTurnGameMessage());
+
+        addStateButton(root, "_PLACE", 625, 500, 1);
+        addStateButton(root, "_SELECT", 625, 535, 2);
+        addStateButton(root, "_WD_TO_WD", 625, 570, 3);
+        addStateButton(root, "_WD_TO_LC", 625, 605, 4);
+        addStateButton(root, "_LC_TO_WD", 625, 640, 5);
+        addWhereButton(root, "_W0", 755, 190, 0, LeaderWarehouse.WAREHOUSEDEPOTS);
+        addWhereButton(root, "_W1", 720, 255, 1, LeaderWarehouse.WAREHOUSEDEPOTS);
+        addWhereButton(root, "_W2", 790, 255, 2, LeaderWarehouse.WAREHOUSEDEPOTS);
+        addWhereButton(root, "_W3", 710, 300, 3, LeaderWarehouse.WAREHOUSEDEPOTS);
+        addWhereButton(root, "_W4", 755, 320, 4, LeaderWarehouse.WAREHOUSEDEPOTS);
+        addWhereButton(root, "_W5", 800, 300, 5, LeaderWarehouse.WAREHOUSEDEPOTS);
 
         addButton(root, "C11", 55, 50, new BuyDevelopmentCardGameMessage(1, 1));
         addButton(root, "C12", 205, 50, new BuyDevelopmentCardGameMessage(1, 2));
@@ -82,6 +95,15 @@ public class GuiThread extends Application implements Runnable{
         addButton(root, "_S_P1", 942, 450, new SelectProductionDevelopmentCardGameMessage(1));
         addButton(root, "_S_P2", 1052, 450, new SelectProductionDevelopmentCardGameMessage(2));
         addButton(root, "_S_P3", 1162, 450, new SelectProductionDevelopmentCardGameMessage(3));
+
+        addButton(root, "_T_R1", 330, 720, new TakeResourcesFromTheMarketGameMessage(RowColumn.ROW,1));
+        addButton(root, "_T_R2", 330, 800, new TakeResourcesFromTheMarketGameMessage(RowColumn.ROW,2));
+        addButton(root, "_T_R3", 330, 880, new TakeResourcesFromTheMarketGameMessage(RowColumn.ROW,3));
+        addButton(root, "_T_C1", 20, 940, new TakeResourcesFromTheMarketGameMessage(RowColumn.COLUMN,1));
+        addButton(root, "_T_C2", 100, 940, new TakeResourcesFromTheMarketGameMessage(RowColumn.COLUMN,2));
+        addButton(root, "_T_C3", 180, 940, new TakeResourcesFromTheMarketGameMessage(RowColumn.COLUMN,3));
+        addButton(root, "_T_C3", 260, 940, new TakeResourcesFromTheMarketGameMessage(RowColumn.COLUMN,4));
+
     }
 
     private void addButton(Group root, String buttonName, int x, int y, Message message){
@@ -100,5 +122,55 @@ public class GuiThread extends Application implements Runnable{
         TilePane r = new TilePane();
         root.getChildren().add(b);
     }
+
+    private void addStateButton(Group root, String buttonName, int x, int y, int n){
+        Button b = new Button(buttonName);
+        EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e)
+            {
+                state = n;
+            }
+        };
+
+        b.setOnAction(event);
+        b.setLayoutX(x);
+        b.setLayoutY(y);
+
+        TilePane r = new TilePane();
+        root.getChildren().add(b);
+    }
+
+    private void addWhereButton(Group root, String buttonName, int x, int y, int pos, LeaderWarehouse where){
+        Button b = new Button(buttonName);
+        EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e)
+            {
+                if(state == 1){
+                    out.println(new AddResourceToGameMessage(where, pos));
+                    state = 0;
+                }else if(state == 2){
+                    out.println(new SelectAWarehouseDepotsSlotGameMessage(pos));
+                    state = 0;
+                }else if(state == 3){
+                    out.println(new MoveResourcesInWarehouseDepotsGameMessage(pos));
+                    state = 0;
+                }else if(state == 4){
+                    out.println(new MoveResourcesWarehouseToESLCGameMessage(pos));
+                    state = 0;
+                }else if(state == 5){
+                    out.println(new MoveResourceESLCToWEarehouseGameMessage(pos));
+                    state = 0;
+                }
+            }
+        };
+
+        b.setOnAction(event);
+        b.setLayoutX(x);
+        b.setLayoutY(y);
+
+        TilePane r = new TilePane();
+        root.getChildren().add(b);
+    }
+
 
 }

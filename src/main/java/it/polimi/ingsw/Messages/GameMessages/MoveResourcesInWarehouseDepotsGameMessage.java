@@ -39,5 +39,8 @@ public class MoveResourcesInWarehouseDepotsGameMessage extends GameMessage {
             Message.sendMessage(out, new InvalidActionErrorMessage());
         }
     }
-
+    @Override
+    public String toString(){
+        return identifier + " " + position;
+    }
 }

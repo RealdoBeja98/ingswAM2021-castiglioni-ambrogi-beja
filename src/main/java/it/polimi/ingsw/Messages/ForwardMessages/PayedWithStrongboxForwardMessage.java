@@ -23,7 +23,7 @@ public class PayedWithStrongboxForwardMessage extends ForwardMessage {
     @Override
     public void execute(Game game, PrintWriter out) {
         ClientMain.getPlayerGame().removeStrongBox(nickname, resource, 1);
-        View w = new Cli();
+        View w = View.get();
         w.showPBCurrent();
     }
 

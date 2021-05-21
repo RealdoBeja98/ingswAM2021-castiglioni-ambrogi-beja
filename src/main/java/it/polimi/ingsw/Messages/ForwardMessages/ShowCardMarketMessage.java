@@ -16,7 +16,7 @@ public class ShowCardMarketMessage extends ForwardMessage {
 
     @Override
     public void execute(Game game, PrintWriter out) {
-        View w = new Cli();
+        View w = View.get();
         w.showDevCard();
     }
 

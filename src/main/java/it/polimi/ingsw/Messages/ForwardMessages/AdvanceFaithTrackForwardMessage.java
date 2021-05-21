@@ -20,7 +20,7 @@ public class AdvanceFaithTrackForwardMessage extends ForwardMessage {
     @Override
     public void execute(Game game, PrintWriter out) {
         ClientMain.getPlayerGame().allOtherPlayersGoOnFaithTrack(excludedPlayer);
-        View w = new Cli();
+        View w = View.get();
         w.showPersonalBoard();
     }
 

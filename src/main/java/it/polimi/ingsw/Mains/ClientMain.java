@@ -28,22 +28,13 @@ public class ClientMain {
     private static String currentP;
     private static String clientNick;
     private static boolean guiSet = false;
-    private static Group root;
+
     private static Canvas canvas;
 
 
-    public static void setRoot(Group root) {
-        ClientMain.root = root;
-    }
 
     public static void setCanvas(Canvas canvas) {
         ClientMain.canvas = canvas;
-    }
-
-
-
-    public static Group getRoot() {
-        return root;
     }
 
     public static Canvas getCanvas() {

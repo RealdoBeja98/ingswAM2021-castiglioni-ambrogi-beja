@@ -18,13 +18,9 @@ import java.util.ArrayList;
 public class Gui extends View{
 
     private Canvas canvas;
-    private Group root;
 
-
-    public Gui(Canvas canvas, Group root){
+    public Gui(Canvas canvas){
         this.canvas = canvas;
-        this.root = root;
-
     }
 
     @Override
@@ -88,7 +84,7 @@ public class Gui extends View{
             }
         }
         String fullName = "Marbles/" + name + ".png";
-        drawMarble(gc, 320, 690, fullName);
+        drawMarble(gc, 450, 690, fullName);
     }
 
     @Override

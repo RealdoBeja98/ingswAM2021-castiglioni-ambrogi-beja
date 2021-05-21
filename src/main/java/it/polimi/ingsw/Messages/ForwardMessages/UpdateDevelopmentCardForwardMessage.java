@@ -22,7 +22,7 @@ public class UpdateDevelopmentCardForwardMessage extends ForwardMessage {
     @Override
     public void execute(Game game, PrintWriter out) {
         ClientMain.getPlayerGame().updateDevelopmentDeck(x, y);
-        View w = new Cli();
+        View w = View.get();
         w.showDevCard();
     }
 

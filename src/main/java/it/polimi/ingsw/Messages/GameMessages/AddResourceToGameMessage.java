@@ -71,4 +71,8 @@ public class AddResourceToGameMessage extends GameMessage {
         }
     }
 
+    @Override
+    public String toString(){
+        return identifier + " " + leaderWarehouse + " " + place;
+    }
 }

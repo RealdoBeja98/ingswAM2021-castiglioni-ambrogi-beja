@@ -23,7 +23,7 @@ public class ObtainedGenericResourceForwardMessage extends ForwardMessage {
     @Override
     public void execute(Game game, PrintWriter out) {
         ClientMain.getPlayerGame().addStrongBox(nickname, resource, 1);
-        View w = new Cli();
+        View w = View.get();
         w.showPBCurrent();
     }
 

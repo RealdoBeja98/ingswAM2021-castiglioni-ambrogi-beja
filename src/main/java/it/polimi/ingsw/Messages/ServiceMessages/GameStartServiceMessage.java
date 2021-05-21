@@ -50,7 +50,7 @@ public class GameStartServiceMessage extends ServiceMessage {
 
         View w = View.get();
         w.showStartingLC();
-        //<--FIXME--> Insert instructions to print the four cards of each player
+
     }
 
     @Override

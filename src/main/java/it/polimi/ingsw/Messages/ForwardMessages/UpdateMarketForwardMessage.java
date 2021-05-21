@@ -25,7 +25,7 @@ public class UpdateMarketForwardMessage extends ForwardMessage {
     @Override
     public void execute(Game game, PrintWriter out) {
         ClientMain.getPlayerGame().updateMarket(nickname, rowColumn, place);
-        View w = new Cli();
+        View w = View.get();
         w.showMarket();
     }
 

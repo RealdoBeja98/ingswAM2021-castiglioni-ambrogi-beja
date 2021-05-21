@@ -10,7 +10,7 @@ public abstract class View {
 
     public static View get(){
         if(ClientMain.getGuiSet()){
-            return new Gui(ClientMain.getCanvas(), ClientMain.getRoot());
+            return new Gui(ClientMain.getCanvas());
         } else {
             return new Cli();
         }

@@ -24,7 +24,7 @@ public class PlacedDevelopmentCardForwardMessage extends ForwardMessage {
     @Override
     public void execute(Game game, PrintWriter out) {
         ClientMain.getPlayerGame().addDevelopmentCard(nickname, position, developmentCard);
-        View w = new Cli();
+        View w = View.get();
         w.showPBCurrent();
     }
 

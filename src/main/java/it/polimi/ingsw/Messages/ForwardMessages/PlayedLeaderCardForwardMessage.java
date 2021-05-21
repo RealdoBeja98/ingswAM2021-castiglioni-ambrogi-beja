@@ -22,7 +22,7 @@ public class PlayedLeaderCardForwardMessage extends ForwardMessage {
     @Override
     public void execute(Game game, PrintWriter out) {
         ClientMain.getPlayerGame().playLeaderCard(nickname, pos);
-        View w = new Cli();
+        View w = View.get();
         w.showPBCurrent();
     }
 

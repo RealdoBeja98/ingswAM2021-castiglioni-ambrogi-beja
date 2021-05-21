@@ -22,7 +22,7 @@ public class PayedWithExtraStorageLeaderCardForwardMessage extends ForwardMessag
     @Override
     public void execute(Game game, PrintWriter out) {
         ClientMain.getPlayerGame().removeResourceExtraStorageLeaderCard(nickname, leaderCardPosition);
-        View w = new Cli();
+        View w = View.get();
         w.showPBCurrent();
     }
 

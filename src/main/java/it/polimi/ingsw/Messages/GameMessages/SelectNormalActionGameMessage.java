@@ -38,4 +38,8 @@ public class SelectNormalActionGameMessage extends GameMessage {
         }
     }
 
+    @Override
+    public String toString(){
+        return identifier + " " + normalAction;
+    }
 }

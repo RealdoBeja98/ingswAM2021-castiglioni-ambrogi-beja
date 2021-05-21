@@ -35,7 +35,7 @@ public class AddedResourceToForwardMessage extends ForwardMessage {
             case DISCARD:
                 break;
         }
-        View w = new Cli();
+        View w = View.get();
         w.showPBCurrent();
     }
 

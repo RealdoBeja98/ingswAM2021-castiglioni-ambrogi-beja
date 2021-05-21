@@ -22,7 +22,7 @@ public class PayedWithWarehouseDepotsForwardMessage extends ForwardMessage {
     @Override
     public void execute(Game game, PrintWriter out) {
         ClientMain.getPlayerGame().removeResourceWarehouseDepots(nickname, pos);
-        View w = new Cli();
+        View w = View.get();
         w.showPBCurrent();
     }
 

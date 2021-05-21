@@ -24,7 +24,7 @@ public class MovedResourceESLCToWarehouseForwardMessage extends ForwardMessage {
     @Override
     public void execute(Game game, PrintWriter out) {
         ClientMain.getPlayerGame().moveResourcesToWarehouseDepotsFromExtraStorageLeaderCard(nickname, leaderCardPosition, warehousePosition);
-        View w = new Cli();
+        View w = View.get();
         w.showPBCurrent();
     }
 
