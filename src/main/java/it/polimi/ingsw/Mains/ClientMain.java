@@ -102,7 +102,7 @@ public class ClientMain {
                     BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in)) //scanf
 
             ) {
-
+                GuiThread.setOut(out);
                 int i = 2;
                 String init;
                 while (i <= 4) {

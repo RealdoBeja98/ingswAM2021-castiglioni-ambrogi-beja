@@ -51,11 +51,8 @@ public class Gui extends View{
 
     @Override
     public void showPersonalBoard() {
-        Text t = new Text();
-        t.setText("Ciao sono andrea");
-        t.setX(1000);
-        t.setY(500);
-        //root.getChildren().add(t); //<--FIXME andrebbe spostato nella classe guithread (non ne son sicuro)-->
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        gc.fillText("aaaaaaaaaaaa", 1000, 500);
     }
 
     @Override
