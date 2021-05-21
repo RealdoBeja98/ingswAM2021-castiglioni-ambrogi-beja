@@ -52,6 +52,7 @@ public class GameStartServiceMessage extends ServiceMessage {
         w.showMarket();
         w.showDevCard();
         w.showPersonalBoard();
+        w.showStartingLC();
         //<--FIXME--> Insert instructions to print the four cards of each player
     }
 

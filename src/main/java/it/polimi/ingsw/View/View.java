@@ -16,6 +16,8 @@ public abstract class View {
         }
     }
 
+    public abstract void showStartingLC();
+
     /**
      *abstract method: see implementation in son classes for the details
      */

@@ -23,6 +23,11 @@ public class Gui extends View{
     }
 
     @Override
+    public void showStartingLC() {
+
+    }
+
+    @Override
     public void showMarket() {
 
     }
@@ -50,7 +55,7 @@ public class Gui extends View{
         t.setText("Ciao sono andrea");
         t.setX(1000);
         t.setY(500);
-        root.getChildren().add(t); //<--FIXME andrebbe spostato nella classe guithread (non ne son sicuro)-->
+        //root.getChildren().add(t); //<--FIXME andrebbe spostato nella classe guithread (non ne son sicuro)-->
     }
 
     @Override

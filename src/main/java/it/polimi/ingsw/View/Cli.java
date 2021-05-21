@@ -13,6 +13,29 @@ import java.util.ArrayList;
  */
 public class Cli extends View{
 
+    @Override
+    public void showStartingLC() {
+        System.out.println("╔═════════════════════════════════════════════════════════════════════════════════════════════════════════╗");
+        System.out.println("║╔═══════════════════════════════════════════════════════════════════════════════════════════════════════╗║");
+        System.out.println("║║ Please chose 2 cards                                                                                  ║║");
+        System.out.println("║╠═════════════════════════╦═════════════════════════╦═════════════════════════╦═════════════════════════╣║");
+        ArrayList<PlayerGame.PlayerPlayer> players = ClientMain.getPlayerGame().getPlayers();
+        for(PlayerGame.PlayerPlayer n : players){
+            if(n.getNickname().equals(ClientMain.getClientNick())){
+                System.out.print("║║");
+                LeaderCard[] cardsInHand = n.getCardsInHandFirst();
+                for(int i = 0; i < cardsInHand.length; i++){
+                    System.out.print(" ");
+                    printLeadCard(cardsInHand[i]);
+                    System.out.print("║");
+                }
+            }
+        }
+        System.out.println("║");
+        System.out.println("║╚═════════════════════════╩═════════════════════════╩═════════════════════════╩═════════════════════════╝║");
+        System.out.println("╚═════════════════════════════════════════════════════════════════════════════════════════════════════════╝");
+    }
+
     /**
      * This method show the player the state of the market
      */
