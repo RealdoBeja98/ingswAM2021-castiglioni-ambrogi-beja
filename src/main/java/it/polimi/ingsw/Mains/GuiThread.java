@@ -43,34 +43,29 @@ public class GuiThread extends Application implements Runnable{
         GraphicsContext gc = canvas.getGraphicsContext2D();
         Image img = new Image("Misc/BackGround.png");
         gc.drawImage(img, 0, 0, 1820, 980);
-        Image img2 = new Image("Misc/PersonalBoard.png");
-        gc.drawImage(img2, 700, 0, 560, 490);
-        gc.drawImage(img2, 1260, 0, 560, 490);
-        gc.drawImage(img2, 700, 490, 560, 490);
-        gc.drawImage(img2, 1260, 490, 560, 490);
-
 
         root.getChildren().add(canvas);
-        buttonTurn(root);
+        buttonTurn(root, stage);
         Scene scene = new Scene(root, 1820, 980);
         stage.setScene(scene);
         stage.show();
     }
 
-    private void buttonTurn(Group root){
-        addButton(root, "_NO_A_LC", 625, 0, new ChooseNoActionLeaderCardGameMessage());
-        addButton(root, "_DISC_LC", 625, 35, new ChooseDiscardLeaderCardGameMessage());
-        addButton(root, "_PLAY_LC", 625, 70, new ChoosePlayLeaderCardGameMessage());
-        addButton(root, "_NA_TAKE", 625, 105, new SelectNormalActionGameMessage(NormalAction.TAKE_RESOURCES_FROM_THE_MARKET));
-        addButton(root, "_NA_BUY", 625, 140, new SelectNormalActionGameMessage(NormalAction.BUY_DEVELOPMENT_CARD));
-        addButton(root, "_NA_PROD", 625, 175, new SelectNormalActionGameMessage(NormalAction.ACTIVATE_PRODUCTION));
-        addButton(root, "_END_T", 625, 210, new EndTurnGameMessage());
+    private void buttonTurn(Group root, Stage stage){
+        addButton(root, "_NO_A_LC", 615, 0, new ChooseNoActionLeaderCardGameMessage());
+        addButton(root, "_DISC_LC", 615, 35, new ChooseDiscardLeaderCardGameMessage());
+        addButton(root, "_PLAY_LC", 615, 70, new ChoosePlayLeaderCardGameMessage());
+        addButton(root, "_NA_TAKE", 615, 105, new SelectNormalActionGameMessage(NormalAction.TAKE_RESOURCES_FROM_THE_MARKET));
+        addButton(root, "_NA_BUY", 615, 140, new SelectNormalActionGameMessage(NormalAction.BUY_DEVELOPMENT_CARD));
+        addButton(root, "_NA_PROD", 615, 175, new SelectNormalActionGameMessage(NormalAction.ACTIVATE_PRODUCTION));
+        addButton(root, "_END_T", 615, 210, new EndTurnGameMessage());
 
-        addStateButton(root, "_PLACE", 625, 500, 1);
-        addStateButton(root, "_SELECT", 625, 535, 2);
-        addStateButton(root, "_WD_TO_WD", 625, 570, 3);
-        addStateButton(root, "_WD_TO_LC", 625, 605, 4);
-        addStateButton(root, "_LC_TO_WD", 625, 640, 5);
+        addStateButton(root, "_PLACE", 615, 500, 1);
+        addStateButton(root, "_SELECT", 615, 535, 2);
+        addStateButton(root, "_WD_TO_WD", 615, 570, 3);
+        addStateButton(root, "_WD_TO_LC", 615, 605, 4);
+        addStateButton(root, "_LC_TO_WD", 615, 640, 5);
+        addButton(root, "_DISCARD", 615, 675, new AddResourceToGameMessage(LeaderWarehouse.DISCARD, 0));
         addWhereButton(root, "_W0", 755, 190, 0, LeaderWarehouse.WAREHOUSEDEPOTS);
         addWhereButton(root, "_W1", 720, 255, 1, LeaderWarehouse.WAREHOUSEDEPOTS);
         addWhereButton(root, "_W2", 790, 255, 2, LeaderWarehouse.WAREHOUSEDEPOTS);
@@ -104,6 +99,7 @@ public class GuiThread extends Application implements Runnable{
         addButton(root, "_T_C3", 180, 940, new TakeResourcesFromTheMarketGameMessage(RowColumn.COLUMN,3));
         addButton(root, "_T_C3", 260, 940, new TakeResourcesFromTheMarketGameMessage(RowColumn.COLUMN,4));
 
+        addQuitButton(root, "_QUIT", 615, 900, "quit", stage);
     }
 
     private void addButton(Group root, String buttonName, int x, int y, Message message){
@@ -112,6 +108,24 @@ public class GuiThread extends Application implements Runnable{
             public void handle(ActionEvent e)
             {
                 out.println(message);
+            }
+        };
+
+        b.setOnAction(event);
+        b.setLayoutX(x);
+        b.setLayoutY(y);
+
+        TilePane r = new TilePane();
+        root.getChildren().add(b);
+    }
+
+    private void addQuitButton(Group root, String buttonName, int x, int y, String message, Stage stage){
+        Button b = new Button(buttonName);
+        EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e)
+            {
+                out.println(message);
+                stage.close();
             }
         };
 
@@ -171,6 +185,5 @@ public class GuiThread extends Application implements Runnable{
         TilePane r = new TilePane();
         root.getChildren().add(b);
     }
-
 
 }

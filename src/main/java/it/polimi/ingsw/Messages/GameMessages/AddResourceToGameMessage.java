@@ -73,6 +73,11 @@ public class AddResourceToGameMessage extends GameMessage {
 
     @Override
     public String toString(){
-        return identifier + " " + leaderWarehouse + " " + place;
+        if(leaderWarehouse == LeaderWarehouse.DISCARD){
+            return identifier + " " + leaderWarehouse;
+        }else{
+            return identifier + " " + leaderWarehouse + " " + place;
+        }
+
     }
 }
