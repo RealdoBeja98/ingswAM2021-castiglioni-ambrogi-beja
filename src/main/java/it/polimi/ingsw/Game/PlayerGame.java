@@ -23,7 +23,6 @@ public class PlayerGame {
 
     public class PlayerPlayer {
 
-
         private String nickname;
         private LeaderCard[] cardsInHandFirst;
         private LeaderCard[] cardsInHand;

@@ -40,4 +40,9 @@ public class ChangeWhiteMarbleWithGameMessage extends GameMessage {
         }
     }
 
+    @Override
+    public String toString(){
+        return identifier + " " + leaderCardPosition;
+    }
+
 }

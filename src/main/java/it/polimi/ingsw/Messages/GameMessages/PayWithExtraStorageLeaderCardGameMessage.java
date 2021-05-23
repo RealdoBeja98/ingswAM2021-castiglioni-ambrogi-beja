@@ -52,4 +52,9 @@ public class PayWithExtraStorageLeaderCardGameMessage extends GameMessage {
         }
     }
 
+    @Override
+    public String toString(){
+        return identifier + " " + leaderCardPosition;
+    }
+
 }

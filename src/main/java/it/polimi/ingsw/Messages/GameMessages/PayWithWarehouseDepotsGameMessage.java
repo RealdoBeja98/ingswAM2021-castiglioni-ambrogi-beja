@@ -48,4 +48,9 @@ public class PayWithWarehouseDepotsGameMessage extends GameMessage {
         }
     }
 
+    @Override
+    public String toString(){
+        return identifier + " " + position;
+    }
+
 }

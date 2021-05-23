@@ -43,4 +43,9 @@ public class DiscardLeaderCardGameMessage extends GameMessage {
         }
     }
 
+    @Override
+    public String toString(){
+        return identifier + " " + leaderCardToDiscard;
+    }
+
 }

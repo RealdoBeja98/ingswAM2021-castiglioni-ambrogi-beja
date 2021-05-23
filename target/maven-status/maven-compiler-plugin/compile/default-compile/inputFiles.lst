@@ -9,6 +9,7 @@
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/NotAbleToBuyThisDevelopmentCardException.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Messages/GameMessages/DrawSoloActionTokenGameMessage.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Messages/ErrorMessages/NoPLCErrorMessage.java
+/Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Enums/LeaderCardState.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/View/Cli.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Messages/ForwardMessages/PayedWithStrongboxForwardMessage.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/NegativeResourceException.java

@@ -64,16 +64,16 @@ public class Gui extends View{
         ArrayList<PlayerGame.PlayerPlayer> players = ClientMain.getPlayerGame().getPlayers();
         for(PlayerGame.PlayerPlayer n : players){
             if(n.getNickname().equals(ClientMain.getClientNick())){
-                drawBoard(n, gc, 700, 0);
+                drawBoard(n, gc, 735, 0);
             } else {
                 if(navigatorBoard == 0){
-                    drawBoard(n, gc, 1330, 0);
+                    drawBoard(n, gc, 1375, 0);
                 }
                 if(navigatorBoard == 1){
-                    drawBoard(n, gc, 700, 490);
+                    drawBoard(n, gc, 735, 490);
                 }
                 if(navigatorBoard == 2){
-                    drawBoard(n, gc, 1330, 490);
+                    drawBoard(n, gc, 1375, 490);
                 }
                 navigatorBoard++;
             }
@@ -90,22 +90,22 @@ public class Gui extends View{
         for(PlayerGame.PlayerPlayer n : players){
             if(n.getNickname().equals(ClientMain.getClientNick())){
                 if(n.getNickname().equals(ClientMain.getCurrentP())){
-                    drawBoard(n, gc, 700, 0);
+                    drawBoard(n, gc, 735, 0);
                 }
             } else {
                 if(navigatorBoard == 0){
                     if(n.getNickname().equals(ClientMain.getCurrentP())){
-                        drawBoard(n, gc, 1330, 0);
+                        drawBoard(n, gc, 1375, 0);
                     }
                 }
                 if(navigatorBoard == 1){
                     if(n.getNickname().equals(ClientMain.getCurrentP())){
-                        drawBoard(n, gc, 700, 490);
+                        drawBoard(n, gc, 735, 490);
                     }
                 }
                 if(navigatorBoard == 2){
                     if(n.getNickname().equals(ClientMain.getCurrentP())){
-                        drawBoard(n, gc, 1330, 490);
+                        drawBoard(n, gc, 1375, 490);
                     }
                 }
                 navigatorBoard++;
@@ -177,6 +177,7 @@ public class Gui extends View{
         drawFavorTiles(gc, x, y, favorTiles);
         drawWarehouseDepots(n, gc, x, y);
         drawActiveCards(n, gc, x, y);
+        drawDiscardedCards(n, gc, x, y);
         drawCardsOnTable(n, gc, x, y);
         drawCardsInHand(n, gc, x, y);
         drawStrongbox(n, gc, x, y);
@@ -254,7 +255,7 @@ public class Gui extends View{
             int yy = 0;
             switch (i){
                 case 0:
-                    xx = 139;
+                    xx = 142;
                     yy = 72;
                     break;
                 case 1:
@@ -262,7 +263,7 @@ public class Gui extends View{
                     yy = 40;
                     break;
                 case 2:
-                    xx = 440;
+                    xx = 445;
                     yy = 77;
                     break;
                 default: break;
@@ -336,6 +337,15 @@ public class Gui extends View{
         }
     }
 
+    private void drawDiscardedCards(PlayerGame.PlayerPlayer n, GraphicsContext gc, int x, int y){
+        String name = "NullLeaderCard";
+        String fullName = "LeaderCard/" + name + ".png";
+        drawCards(gc, x+ 560, y+ 0, fullName, 70, 110);
+        drawCards(gc, x+ 560, y+ 110, "Labels/DiscardedCard.png", 70, 25);
+        drawCards(gc, x+ 560, y+ 245, fullName, 70, 110);
+        drawCards(gc, x+ 560, y+ 355, "Labels/DiscardedCard.png", 70, 25);
+    }
+
     private void drawCardsOnTable(PlayerGame.PlayerPlayer n, GraphicsContext gc, int x, int y){
         LeaderCard[] cardsOnTable = n.getCardsOnTable();
         if(cardsOnTable[0] != null){
@@ -353,19 +363,25 @@ public class Gui extends View{
     }
 
     private void drawCardsInHand(PlayerGame.PlayerPlayer n, GraphicsContext gc, int x, int y){
-        if(n.getNickname().equals(ClientMain.getClientNick())){
-            LeaderCard[] cardsInHand = n.getCardsInHand();
-            if(cardsInHand[0] != null){
+        LeaderCard[] cardsInHand = n.getCardsInHand();
+        if(cardsInHand[0] != null){
+            if(n.getNickname().equals(ClientMain.getClientNick())){
                 String name = cardsInHand[0].export();
                 String fullName = "LeaderCard/" + name + ".png";
                 drawCards(gc, x+ 560, y+ 0, fullName, 70, 110);
                 drawCards(gc, x+ 560, y+ 110, "Labels/CardInHand.png", 70, 25);
+            } else {
+                drawCards(gc, x+ 560, y+ 110, "Labels/Invisible.png", 70, 25);
             }
-            if(cardsInHand[1] != null){
+        }
+        if(cardsInHand[1] != null){
+            if(n.getNickname().equals(ClientMain.getClientNick())){
                 String name = cardsInHand[1].export();
                 String fullName = "LeaderCard/" + name + ".png";
                 drawCards(gc, x+ 560, y+ 245, fullName, 70, 110);
                 drawCards(gc, x+ 560, y+ 355, "Labels/CardInHand.png", 70, 25);
+            } else {
+                drawCards(gc, x+ 560, y+ 355, "Labels/Invisible.png", 70, 25);
             }
         }
     }
@@ -377,12 +393,12 @@ public class Gui extends View{
         int shield = n.getStrongBox().getShield();
         drawLittleSquare(gc, x+15, y+350, selectResource(Resource.COIN), 20, 20);
         drawNumber(gc, x+35, y+350, coin);
-        drawLittleSquare(gc, x+15, y+370, selectResource(Resource.STONE), 20, 20);
-        drawNumber(gc, x+35, y+370, stone);
-        drawLittleSquare(gc, x+15, y+390, selectResource(Resource.SERVANT), 20, 20);
-        drawNumber(gc, x+35, y+390, servant);
-        drawLittleSquare(gc, x+15, y+410, selectResource(Resource.SHIELD), 20, 20);
-        drawNumber(gc, x+35, y+410, shield);
+        drawLittleSquare(gc, x+15, y+380, selectResource(Resource.STONE), 20, 20);
+        drawNumber(gc, x+35, y+380, stone);
+        drawLittleSquare(gc, x+15, y+410, selectResource(Resource.SERVANT), 20, 20);
+        drawNumber(gc, x+35, y+410, servant);
+        drawLittleSquare(gc, x+15, y+440, selectResource(Resource.SHIELD), 20, 20);
+        drawNumber(gc, x+35, y+440, shield);
     }
 
     private void drawNumber(GraphicsContext gc, int x, int y, int number){

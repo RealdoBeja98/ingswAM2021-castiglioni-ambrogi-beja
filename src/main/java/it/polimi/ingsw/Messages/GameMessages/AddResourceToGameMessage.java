@@ -78,6 +78,6 @@ public class AddResourceToGameMessage extends GameMessage {
         }else{
             return identifier + " " + leaderWarehouse + " " + place;
         }
-
     }
+
 }

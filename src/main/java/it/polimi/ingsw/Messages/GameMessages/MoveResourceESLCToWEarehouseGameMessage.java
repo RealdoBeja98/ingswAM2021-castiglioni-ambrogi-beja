@@ -50,4 +50,5 @@ public class MoveResourceESLCToWEarehouseGameMessage extends GameMessage {
     public String toString(){
         return identifier + " " + leaderCardPosition;
     }
+
 }

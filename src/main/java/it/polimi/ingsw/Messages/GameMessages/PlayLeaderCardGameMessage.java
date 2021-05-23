@@ -45,4 +45,9 @@ public class PlayLeaderCardGameMessage extends GameMessage {
         }
     }
 
+    @Override
+    public String toString(){
+        return identifier + " " + leaderCardToPlay;
+    }
+
 }
