@@ -21,7 +21,7 @@ import java.io.PrintWriter;
 public class GuiThread extends Application implements Runnable{
 
     private static PrintWriter out;
-    private int state;
+    private int state = 0;
 
     public static void setOut(PrintWriter out) {
         GuiThread.out = out;
@@ -35,14 +35,14 @@ public class GuiThread extends Application implements Runnable{
 
     @Override
     public void start(Stage stage) throws Exception {
-        stage.setTitle("Masters of Renaissance");
+        stage.setTitle("Masters of Renaissance" + " - " + ClientMain.getClientNick());
         Group root = new Group();
-        Canvas canvas = new Canvas(1820, 980);
+        Canvas canvas = new Canvas(1960, 980);
         ClientMain.setCanvas(canvas);
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
         Image img = new Image("Misc/BackGround.png");
-        gc.drawImage(img, 0, 0, 1820, 980);
+        gc.drawImage(img, 0, 0, 1960, 980);
 
         root.getChildren().add(canvas);
         buttonTurn(root, stage);
@@ -65,7 +65,8 @@ public class GuiThread extends Application implements Runnable{
         addStateButton(root, "_WD_TO_WD", 615, 570, 3);
         addStateButton(root, "_WD_TO_LC", 615, 605, 4);
         addStateButton(root, "_LC_TO_WD", 615, 640, 5);
-        addButton(root, "_DISCARD", 615, 675, new AddResourceToGameMessage(LeaderWarehouse.DISCARD, 0));
+        addStateButton(root, "_PAY_W_WD", 615, 675, 6);
+        addButton(root, "_DISCARD", 615, 710, new AddResourceToGameMessage(LeaderWarehouse.DISCARD, 0));
         addWhereButton(root, "_W0", 755, 190, 0, LeaderWarehouse.WAREHOUSEDEPOTS);
         addWhereButton(root, "_W1", 720, 255, 1, LeaderWarehouse.WAREHOUSEDEPOTS);
         addWhereButton(root, "_W2", 790, 255, 2, LeaderWarehouse.WAREHOUSEDEPOTS);
@@ -173,6 +174,9 @@ public class GuiThread extends Application implements Runnable{
                     state = 0;
                 }else if(state == 5){
                     out.println(new MoveResourceESLCToWEarehouseGameMessage(pos));
+                    state = 0;
+                }else if(state == 6){
+                    out.println(new PayWithWarehouseDepotsGameMessage(pos));
                     state = 0;
                 }
             }
