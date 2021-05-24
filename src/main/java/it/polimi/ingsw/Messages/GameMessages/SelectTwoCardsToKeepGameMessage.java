@@ -41,5 +41,8 @@ public class SelectTwoCardsToKeepGameMessage extends GameMessage {
             Message.sendMessage(out, new GameEndedErrorMessage());
         }
     }
-
+    @Override
+    public String toString(){
+        return identifier + " " + card1 + " " + card2;
+    }
 }

@@ -3,11 +3,16 @@ import it.polimi.ingsw.Enums.FavorTiles;
 import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Game.PlayerGame;
 import it.polimi.ingsw.Mains.ClientMain;
+import it.polimi.ingsw.Mains.GuiThread;
 import it.polimi.ingsw.Table.Decks.Development.DevelopmentCard;
 import it.polimi.ingsw.Table.Decks.Leader.LeaderCard;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.stage.Popup;
 
 
 import java.util.ArrayList;
@@ -22,6 +27,19 @@ public class Gui extends View{
 
     @Override
     public void showStartingLC() {
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        ArrayList<PlayerGame.PlayerPlayer> players = ClientMain.getPlayerGame().getPlayers();
+        for(PlayerGame.PlayerPlayer n : players){
+            if(n.getNickname().equals(ClientMain.getClientNick())){
+                LeaderCard[] cardsInHand = n.getCardsInHandFirst();
+                for (int i = 0; i < cardsInHand.length; i++) {
+                    String name = cardsInHand[0].export();
+                    String fullName = "LeaderCard/" + name + ".png";
+                    drawCards(gc, 1000, 900, fullName, 150, 230);
+                }
+                GuiThread.setCardPrinted();
+            }
+        }
 
     }
 
@@ -64,16 +82,16 @@ public class Gui extends View{
         ArrayList<PlayerGame.PlayerPlayer> players = ClientMain.getPlayerGame().getPlayers();
         for(PlayerGame.PlayerPlayer n : players){
             if(n.getNickname().equals(ClientMain.getClientNick())){
-                drawBoard(n, gc, 735, 0);
+                drawBoard(n, gc, 720, 0);
             } else {
                 if(navigatorBoard == 0){
-                    drawBoard(n, gc, 1375, 0);
+                    drawBoard(n, gc, 1360, 0);
                 }
                 if(navigatorBoard == 1){
-                    drawBoard(n, gc, 735, 490);
+                    drawBoard(n, gc, 720, 490);
                 }
                 if(navigatorBoard == 2){
-                    drawBoard(n, gc, 1375, 490);
+                    drawBoard(n, gc, 1360, 490);
                 }
                 navigatorBoard++;
             }
@@ -90,22 +108,22 @@ public class Gui extends View{
         for(PlayerGame.PlayerPlayer n : players){
             if(n.getNickname().equals(ClientMain.getClientNick())){
                 if(n.getNickname().equals(ClientMain.getCurrentP())){
-                    drawBoard(n, gc, 735, 0);
+                    drawBoard(n, gc, 720, 0);
                 }
             } else {
                 if(navigatorBoard == 0){
                     if(n.getNickname().equals(ClientMain.getCurrentP())){
-                        drawBoard(n, gc, 1375, 0);
+                        drawBoard(n, gc, 1360, 0);
                     }
                 }
                 if(navigatorBoard == 1){
                     if(n.getNickname().equals(ClientMain.getCurrentP())){
-                        drawBoard(n, gc, 735, 490);
+                        drawBoard(n, gc, 720, 490);
                     }
                 }
                 if(navigatorBoard == 2){
                     if(n.getNickname().equals(ClientMain.getCurrentP())){
-                        drawBoard(n, gc, 1375, 490);
+                        drawBoard(n, gc, 1360, 490);
                     }
                 }
                 navigatorBoard++;
@@ -296,7 +314,7 @@ public class Gui extends View{
         }
     }
 
-    private void drawActiveCards(PlayerGame.PlayerPlayer n, GraphicsContext gc, int x, int y) {
+    private void drawActiveCards(PlayerGame.PlayerPlayer n, GraphicsContext gc, int x, int y) { //FIXME-->
         DevelopmentCard[][] visualize = n.getSlotsDevelopmentCards().getSlot();
         if(visualize[0][0] != null){
             String name = n.getSlotsDevelopmentCards().getSlot()[0][0].export();

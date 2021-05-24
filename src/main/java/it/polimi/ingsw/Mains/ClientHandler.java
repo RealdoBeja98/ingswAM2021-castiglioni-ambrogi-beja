@@ -89,6 +89,8 @@ public class ClientHandler implements Runnable {
                     return;
                 }
             }
+
+
             out.println(new GameStartServiceMessage(game));
             out.println(new CurrentPlayerMessage(game.getTurn().getCurrentPlayer().getNickname()));
 

@@ -1,7 +1,9 @@
 package it.polimi.ingsw.Mains;
 import it.polimi.ingsw.Enums.*;
+import it.polimi.ingsw.Game.PlayerGame;
 import it.polimi.ingsw.Messages.GameMessages.*;
 import it.polimi.ingsw.Messages.Message;
+import it.polimi.ingsw.Table.Decks.Leader.LeaderCard;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -12,6 +14,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.TilePane;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 import java.io.PrintWriter;
@@ -20,7 +23,14 @@ public class GuiThread extends Application implements Runnable{
 
     private static PrintWriter out;
     private int state = 0;
+    private int[] val = {0,0};
     private LeaderCardState leaderCardState = null;
+    private static boolean cardPrinted = false;
+
+    public static void setCardPrinted() {
+        GuiThread.cardPrinted = true;
+    }
+
 
     public static void setOut(PrintWriter out) {
         GuiThread.out = out;
@@ -38,13 +48,14 @@ public class GuiThread extends Application implements Runnable{
         Group root = new Group();
         Canvas canvas = new Canvas(1995, 1025);
         ClientMain.setCanvas(canvas);
-
+        out.println("increase");
         GraphicsContext gc = canvas.getGraphicsContext2D();
         Image img = new Image("Misc/BackGround.png");
         gc.drawImage(img, 0, 0, 1995, 1025);
 
         root.getChildren().add(canvas);
         buttonTurn(root, stage);
+        popper(root, img, gc);
         Scene scene = new Scene(root, 1995, 1025);
         stage.setScene(scene);
         stage.show();
@@ -91,7 +102,7 @@ public class GuiThread extends Application implements Runnable{
 
 
 
-        addWhereButton(root, "_W0", 830, 190, 0);
+        addWhereButton(root, "_W0", 790, 190, 0);
         addWhereButton(root, "_W1", 755, 255, 1);
         addWhereButton(root, "_W2", 825, 255, 2);
         addWhereButton(root, "_W3", 745, 300, 3);
@@ -125,6 +136,7 @@ public class GuiThread extends Application implements Runnable{
         addButton(root, "_T_C3", 260, 940, new TakeResourcesFromTheMarketGameMessage(RowColumn.COLUMN,4));
 
         addQuitButton(root, "_QUIT", 615, 940, "quit", stage);
+
     }
 
     private void addButton(Group root, String buttonName, int x, int y, Message message){
@@ -140,7 +152,6 @@ public class GuiThread extends Application implements Runnable{
         b.setLayoutX(x);
         b.setLayoutY(y);
 
-        TilePane r = new TilePane();
         root.getChildren().add(b);
     }
 
@@ -175,7 +186,6 @@ public class GuiThread extends Application implements Runnable{
         b.setLayoutX(x);
         b.setLayoutY(y);
 
-        TilePane r = new TilePane();
         root.getChildren().add(b);
     }
 
@@ -204,7 +214,6 @@ public class GuiThread extends Application implements Runnable{
         b.setLayoutX(x);
         b.setLayoutY(y);
 
-        TilePane r = new TilePane();
         root.getChildren().add(b);
     }
 
@@ -221,7 +230,6 @@ public class GuiThread extends Application implements Runnable{
         b.setLayoutX(x);
         b.setLayoutY(y);
 
-        TilePane r = new TilePane();
         root.getChildren().add(b);
     }
 
@@ -273,8 +281,88 @@ public class GuiThread extends Application implements Runnable{
         b.setLayoutX(x);
         b.setLayoutY(y);
 
-        TilePane r = new TilePane();
         root.getChildren().add(b);
     }
 
+    public void popper(Group root, Image img, GraphicsContext gc) {
+        Button c1 = new Button("C1");
+        EventHandler<ActionEvent> ec1 = new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e) {
+                if (val[0] == 0 && cardPrinted) {
+                    val[0] = 1;
+                } else if (val[1] == 0 && cardPrinted) {
+                    val[1] = 1;
+                }
+            }
+        };
+        c1.setOnAction(ec1);
+        c1.setLayoutX(1000);
+        c1.setLayoutY(800);
+
+        Button c2 = new Button("C2");
+        EventHandler<ActionEvent> ec2 = new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e) {
+                if (val[0] == 0 && cardPrinted) {
+                    val[0] = 2;
+                } else if (val[1] == 0 && cardPrinted) {
+                    val[1] = 2;
+                }
+            }
+        };
+        c2.setOnAction(ec2);
+        c2.setLayoutX(1050);
+        c2.setLayoutY(800);
+
+        Button c3 = new Button("C3");
+        EventHandler<ActionEvent> ec3 = new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e) {
+                if (val[0] == 0 && cardPrinted) {
+                    val[0] = 3;
+                } else if (val[1] == 0 && cardPrinted) {
+                    val[1] = 3;
+                }
+            }
+        };
+        c3.setOnAction(ec3);
+        c3.setLayoutX(1100);
+        c3.setLayoutY(800);
+
+        Button c4 = new Button("C4");
+        EventHandler<ActionEvent> ec4 = new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e) {
+                if (val[0] == 0 && cardPrinted) {
+                    val[0] = 4;
+                } else if (val[1] == 0 && cardPrinted) {
+                    val[1] = 4;
+                }
+            }
+        };
+        c4.setOnAction(ec4);
+        c4.setLayoutX(1150);
+        c4.setLayoutY(800);
+
+        Button ok = new Button("OK");
+        EventHandler<ActionEvent> finalEvent = new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e) {
+                if(val[0] != 0 && val[1] != 0){
+                    c1.setVisible(false);
+                    c2.setVisible(false);
+                    c3.setVisible(false);
+                    c4.setVisible(false);
+                    ok.setVisible(false);
+                    gc.drawImage(img, 0, 0, 1995, 1025);
+                    out.println(new SelectTwoCardsToKeepGameMessage(val[0], val[1]));
+                }
+            }
+        };
+        ok.setOnAction(finalEvent);
+        ok.setLayoutX(1100);
+        ok.setLayoutY(900);
+
+        root.getChildren().add(c1);
+        root.getChildren().add(c2);
+        root.getChildren().add(c3);
+        root.getChildren().add(c4);
+        root.getChildren().add(ok);
+    }
 }
