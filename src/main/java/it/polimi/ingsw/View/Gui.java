@@ -27,7 +27,7 @@ public class Gui extends View{
 
     @Override
     public void showStartingLC() {
-        GraphicsContext gc = canvas.getGraphicsContext2D();
+        /*GraphicsContext gc = canvas.getGraphicsContext2D(); FIXME l'ultimo giocatore genera il canvas troppo tardi ma non so come fixarlo
         ArrayList<PlayerGame.PlayerPlayer> players = ClientMain.getPlayerGame().getPlayers();
         for(PlayerGame.PlayerPlayer n : players){
             if(n.getNickname().equals(ClientMain.getClientNick())){
@@ -39,7 +39,7 @@ public class Gui extends View{
                 }
                 GuiThread.setCardPrinted();
             }
-        }
+        }*/
 
     }
 

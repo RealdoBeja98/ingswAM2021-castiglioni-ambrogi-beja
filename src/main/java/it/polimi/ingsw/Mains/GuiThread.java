@@ -136,7 +136,7 @@ public class GuiThread extends Application implements Runnable{
         addButton(root, "_T_C3", 260, 940, new TakeResourcesFromTheMarketGameMessage(RowColumn.COLUMN,4));
 
         addQuitButton(root, "_QUIT", 615, 940, "quit", stage);
-
+        // FIXME add place dev card
     }
 
     private void addButton(Group root, String buttonName, int x, int y, Message message){
