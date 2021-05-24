@@ -28,6 +28,34 @@ class DevelopmentDeckTest {
     }
 
     /**
+     * This method tests if all card of a type are finished
+     */
+    @Test
+    void allCardOfATypeFinished() {
+        DevelopmentDeck deck = new DevelopmentDeck(999);
+        try {
+            deck.draw(1,1);
+            deck.draw(1,1);
+            deck.draw(1,1);
+            deck.draw(1,1);
+            deck.draw(2,1);
+            deck.draw(2,1);
+            deck.draw(2,1);
+            deck.draw(2,1);
+            deck.draw(3,1);
+            deck.draw(3,1);
+            deck.draw(3,1);
+            assertFalse(deck.allCardOfATypeFinished());
+            deck.draw(3,1);
+            assertTrue(deck.allCardOfATypeFinished());
+        } catch (DrawnFromEmptyDeckException e) {
+            e.printStackTrace();
+        } catch (IndexOutOfDevelopmentDeckException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * This method tests drawing from a deck
      */
     @Test

@@ -255,8 +255,24 @@ public class Game {
                 winner = f;
             }
         }
-        for(int o = 0; o < printWriterList.size(); o++){
-            printWriterList.get(o).println("The winner is: " + players.get(winner).getNickname());
+        if(Game.get(gameIndex).getNumberOfPlayer() == 1){
+            if(Game.get(gameIndex).getTable().getDevelopmentDeck().allCardOfATypeFinished()){
+                for(int o = 0; o < printWriterList.size(); o++){
+                    printWriterList.get(o).println("You have lost because there is enough a type of DevelopmentCard finished in the DevelopmentDeck");
+                }
+            } else if(Game.get(gameIndex).getPlayers().get(0).getPersonalBoard().getLorenzoTrack().getFaithMarker() == 24){
+                for(int o = 0; o < printWriterList.size(); o++){
+                    printWriterList.get(o).println("You have lost because Lorenzo has reached the last place of faithTrack!");
+                }
+            } else {
+                for(int o = 0; o < printWriterList.size(); o++){
+                    printWriterList.get(o).println("Victory!!!");
+                }
+            }
+        } else {
+            for(int o = 0; o < printWriterList.size(); o++){
+                printWriterList.get(o).println("The winner is: " + players.get(winner).getNickname());
+            }
         }
     }
 

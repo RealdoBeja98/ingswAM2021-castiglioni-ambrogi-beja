@@ -6,6 +6,8 @@ import it.polimi.ingsw.Messages.ErrorMessages.NameTakenErrorMessage;
 import it.polimi.ingsw.Messages.ForwardMessage;
 import it.polimi.ingsw.Messages.Message;
 import it.polimi.ingsw.Messages.ServiceMessage;
+import it.polimi.ingsw.Messages.UpdateSoloActionTokenMessage;
+import it.polimi.ingsw.PersonalBoard.Faith.FaithTrackSP;
 import it.polimi.ingsw.View.Cli;
 import it.polimi.ingsw.View.View;
 import javafx.scene.Group;
@@ -65,6 +67,8 @@ public class ClientMain {
     }
 
     public static void main(String[] args) throws IOException {
+
+        FaithTrackSP.setForClient();
 
         ///////
         try {
@@ -148,6 +152,8 @@ public class ClientMain {
                                     if (messageServerMessage instanceof ServiceMessage) {
                                         messageServerMessage.execute(null, out);
                                     } else if (messageServerMessage instanceof ForwardMessage) {
+                                        messageServerMessage.execute(null, null);
+                                    } else if (messageServerMessage instanceof UpdateSoloActionTokenMessage) {
                                         messageServerMessage.execute(null, null);
                                     } else {
                                         String constQuit = "quit";
