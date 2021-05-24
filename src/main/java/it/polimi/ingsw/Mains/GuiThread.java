@@ -26,14 +26,22 @@ public class GuiThread extends Application implements Runnable{
     private int[] val = {0,0};
     private LeaderCardState leaderCardState = null;
     private static boolean cardPrinted = false;
+    private static GuiThread instance;
+    private final static Object lock = new Object();
+
+    public GuiThread(){
+        instance = this;
+    }
 
     public static void setCardPrinted() {
         GuiThread.cardPrinted = true;
     }
 
-
     public static void setOut(PrintWriter out) {
         GuiThread.out = out;
+        synchronized (GuiThread.lock){
+            GuiThread.lock.notifyAll();
+        }
     }
 
     @Override
@@ -48,6 +56,11 @@ public class GuiThread extends Application implements Runnable{
         Group root = new Group();
         Canvas canvas = new Canvas(1995, 1025);
         ClientMain.setCanvas(canvas);
+        synchronized (GuiThread.lock){
+            while(out == null){
+                GuiThread.lock.wait();
+            }
+        }
         out.println("increase");
         GraphicsContext gc = canvas.getGraphicsContext2D();
         Image img = new Image("Misc/BackGround.png");
@@ -365,4 +378,5 @@ public class GuiThread extends Application implements Runnable{
         root.getChildren().add(c4);
         root.getChildren().add(ok);
     }
+
 }

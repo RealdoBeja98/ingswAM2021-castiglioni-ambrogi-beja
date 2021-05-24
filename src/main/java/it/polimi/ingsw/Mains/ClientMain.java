@@ -31,17 +31,27 @@ public class ClientMain {
     private static String clientNick;
     private static boolean guiSet = false;
 
-    private static Canvas canvas;
+    private static Canvas canvas = null;
 
+    private static ClientMain instance;
 
+    private final static Object lock = new Object();
+
+    public static ClientMain getInstance(){
+        return ClientMain.instance;
+    }
 
     public static void setCanvas(Canvas canvas) {
         ClientMain.canvas = canvas;
+        synchronized (ClientMain.lock){
+            ClientMain.lock.notifyAll();
+        }
     }
 
     public static Canvas getCanvas() {
         return canvas;
     }
+
     public static PlayerGame getPlayerGame(){
         return playerGame;
     }
@@ -66,7 +76,9 @@ public class ClientMain {
         return guiSet;
     }
 
-    public static void main(String[] args) throws IOException {
+    public void main(String[] args) throws IOException {
+
+        ClientMain.instance = this;
 
         FaithTrackSP.setForClient();
 
@@ -88,6 +100,11 @@ public class ClientMain {
                 GuiThread guiThread = new GuiThread();
                 Thread guiThreadThread = new Thread(guiThread);
                 guiThreadThread.start();
+                synchronized (ClientMain.lock){
+                    while (ClientMain.canvas == null){
+                        ClientMain.lock.wait();
+                    }
+                }
             }
 
             try (
@@ -98,6 +115,7 @@ public class ClientMain {
 
             ) {
                 GuiThread.setOut(out);
+
                 int i = 2;
                 String init;
                 while (i <= 4) {
