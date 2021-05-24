@@ -83,7 +83,28 @@ public class DevelopmentDeck{
     }
 
     /**
+     * this method tell if there is enough a type finished
+     * @return if there is enough a type finished
+     */
+    public boolean allCardOfATypeFinished(){
+        int[][] decksTrack = numbersOfCardsLeft();
+        for(int j = 0; j < 4; j++){
+            boolean result = true;
+            for(int i = 0; i < 3; i++){
+                if(decksTrack[i][j] > 0){
+                    result = false;
+                }
+            }
+            if(result == true){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * This method draws the card on top of the selected deck
+     * if all the cards of that type are gone and we are in the case of solo-game, calls the end of the game
      * @param x: the chosen row
      * @param y: the chosen column
      * @return the selected card, of type DevelopmentCard
@@ -100,6 +121,11 @@ public class DevelopmentDeck{
         }
         DevelopmentCard drawnCard = visualize()[x-1][y-1];
         deck[x - 1][y - 1][4 - z] = null;
+        if(Game.get(gameIndex) != null && Game.get(gameIndex).getNumberOfPlayer() == 1){
+            if(allCardOfATypeFinished()){
+                Game.get(gameIndex).endGame();
+            }
+        }
         return drawnCard;
     }
 

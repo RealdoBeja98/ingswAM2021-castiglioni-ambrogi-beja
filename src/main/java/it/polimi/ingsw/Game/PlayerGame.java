@@ -102,7 +102,12 @@ public class PlayerGame {
     }
 
     private DevelopmentDeck developmentDeck;
-    private FaithTrackSP lorenzoTrack;
+
+    private FaithTrackSP lorenzoTrack = null;
+
+    public FaithTrackSP getLorenzoTrack(){
+        return lorenzoTrack;
+    }
 
     public void setOut(PrintWriter out) {
         this.out = out;

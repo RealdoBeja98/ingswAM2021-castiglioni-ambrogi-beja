@@ -15,7 +15,7 @@ public class FaithTrack {
 
     private int faithMarker;
     private FavorTiles[] favorTiles;
-    private final int gameIndex;
+    protected final int gameIndex;
 
     /**
      * Constructor method of this class

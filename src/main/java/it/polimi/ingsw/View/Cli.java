@@ -3,6 +3,7 @@ import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Enums.Type;
 import it.polimi.ingsw.Game.PlayerGame;
 import it.polimi.ingsw.Mains.ClientMain;
+import it.polimi.ingsw.PersonalBoard.Faith.FaithTrackSP;
 import it.polimi.ingsw.Table.Decks.Development.DevelopmentCard;
 import it.polimi.ingsw.Table.Decks.Leader.*;
 import it.polimi.ingsw.Table.Market.Marbles.Marble;
@@ -127,6 +128,9 @@ public class Cli extends View{
         for(PlayerGame.PlayerPlayer n : players){
             printBoard(n);
         }
+        if(ClientMain.getPlayerGame().getLorenzoTrack() != null){
+            printLorenzoFaithTrack();
+        }
     }
 
     @Override
@@ -136,8 +140,73 @@ public class Cli extends View{
             if(n.getNickname().equals(ClientMain.getCurrentP())){
                 printBoard(n);
             }
-
         }
+        if(ClientMain.getPlayerGame().getLorenzoTrack() != null){
+            printLorenzoFaithTrack();
+        }
+    }
+
+    private void printLorenzoFaithTrack(){
+        FaithTrackSP lorenzoFaithTrack = ClientMain.getPlayerGame().getLorenzoTrack();
+        System.out.println("╔════════════════════════════════════════════════════════════════════════════════════════════════════════════╗");
+        System.out.println("║╔══════════════════════════════════════════════════════════════════════════════════════════════════════════╗║");
+        System.out.println("║║ Lorenzo Track                                                                                            ║║");
+        System.out.println("║╚══════════════════════════════════════════════════════════════════════════════════════════════════════════╝║");
+        System.out.println("║╔══════════════════════════════════════════════════════════════════════════════════════════════════════════╗║");
+        int f = lorenzoFaithTrack.getFaithMarker();
+        System.out.print("║║");
+        int i = 0;
+        while(i < (f * 2)){
+            System.out.print(" ");
+            i++;
+        }
+        System.out.print(Color.ANSI_RED.escape() + "x" + Color.ANSI_WHITE.escape());
+        while(i < 105){
+            System.out.print(" ");
+            i++;
+        }
+        System.out.println("║║");
+        System.out.print("║║");
+        int j = 0;
+        int p = 0;
+        while (j < 50){
+            if(j % 2 == 0){
+                if(p == 3 || p == 6 || p == 9 || p == 12 || p == 15 || p == 18 || p == 21){
+                    System.out.print(Color.ANSI_YELLOW.escape() + "_" + Color.ANSI_WHITE.escape());
+                }else if(p == 8 || p == 16 || p == 24){
+                    System.out.print(Color.ANSI_RED.escape() + "_" + Color.ANSI_WHITE.escape());
+                }else{
+                    System.out.print("_");
+                }
+                p++;
+            }else{
+                System.out.print(" ");
+            }
+            j++;
+        }
+        while(j < 95){
+            System.out.print(" ");
+            j++;
+        }
+        for(int k = 0; k < 3; k++){
+            switch (lorenzoFaithTrack.getFavorTiles()[k]){
+                case DITCH:
+                    System.out.print("DIT");
+                    break;
+                case TURNED:
+                    System.out.print("TUR");
+                    break;
+                case COVERED:
+                    System.out.print("COV");
+                    break;
+            }
+            if(k <= 1){
+                System.out.print(" ");
+            }
+        }
+        System.out.println("║║");
+        System.out.println("║╚══════════════════════════════════════════════════════════════════════════════════════════════════════════╝║");
+        System.out.println("╚════════════════════════════════════════════════════════════════════════════════════════════════════════════╝");
     }
 
     private void printBoard(PlayerGame.PlayerPlayer n) {
@@ -186,9 +255,25 @@ public class Cli extends View{
             }
             j++;
         }
-        while(j < 106){
+        while(j < 95){
             System.out.print(" ");
             j++;
+        }
+        for(int k = 0; k < 3; k++){
+            switch (n.getFaithTrack().getFavorTiles()[k]){
+                case DITCH:
+                    System.out.print("DIT");
+                    break;
+                case TURNED:
+                    System.out.print("TUR");
+                    break;
+                case COVERED:
+                    System.out.print("COV");
+                    break;
+            }
+            if(k <= 1){
+                System.out.print(" ");
+            }
         }
         System.out.println("║║");
         System.out.println("║╚══════════════════════════════════════════════════════════════════════════════════════════════════════════╝║");
