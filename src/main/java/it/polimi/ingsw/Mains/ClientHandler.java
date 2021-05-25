@@ -18,10 +18,18 @@ public class ClientHandler implements Runnable {
     private Game game;
     private String nickname;
 
+    /**
+     * This class represents the player loby and entrance parameters
+     * @param socket
+     */
     public ClientHandler(Socket socket) {
         this.socket = socket;
     }
 
+    /**
+     * This method sets all the parameters that a player needs
+     * to type to enter a specific game
+     */
     public void run() {
 
         //////////
@@ -155,6 +163,11 @@ public class ClientHandler implements Runnable {
 
     }
 
+    /**
+     * This method represent the moment when a player quits his game and notifying all other
+     * @param in reads the message which comes from the socket
+     * @param out sends message to a socket
+     */
     private void closeCommunicationChannel(BufferedReader in, PrintWriter out) {
         try {
             in.close();
@@ -170,6 +183,11 @@ public class ClientHandler implements Runnable {
         System.out.println("Player: " + nickname + " quit game " + game.getGameIndex());
     }
 
+    /**
+     * This message does the atoi to a coming string
+     * @param str string
+     * @return
+     */
     private int atoi(String str)
     {
         try{
@@ -179,6 +197,14 @@ public class ClientHandler implements Runnable {
         }
     }
 
+    /**
+     * This method does the creating of a game with the parameters that the player has given, and
+     * prints it to the console
+     * @param in reads the message which comes from the socket
+     * @param out sends message to a socket
+     * @return addingPlayer the player which was successfully entered the game
+     * @throws IOException
+     */
     private boolean creatingGame(String line, BufferedReader in, PrintWriter out) throws IOException {
         System.out.println("Creating a new game...");
         line = in.readLine();
@@ -188,6 +214,14 @@ public class ClientHandler implements Runnable {
         return addingPlayer(in, out);
     }
 
+    /**
+     * This method let
+     * @param line
+     * @param in reads the message which comes from the socket
+     * @param out sends message to a socket
+     * @return
+     * @throws IOException
+     */
     private boolean joiningGame(String line, BufferedReader in, PrintWriter out) throws IOException {
         line = in.readLine();
         int numGM = atoi(line);
@@ -205,6 +239,13 @@ public class ClientHandler implements Runnable {
         return addingPlayer(in, out);
     }
 
+    /**
+     * This methods lets a player entering a specific game with the controlling of
+     * his nickname, if it is taken or not.After this letting him to participate
+     * @param in reads the message which comes from the socket
+     * @param out sends message to a socket
+     * @throws IOException
+     */
     private boolean addingPlayer(BufferedReader in, PrintWriter out) throws IOException {
         String line;
         out.println(game.getGameIndex());
@@ -225,6 +266,11 @@ public class ClientHandler implements Runnable {
         }
     }
 
+    /**
+     * Is handy for the forward messages
+     * @param message forward message
+     * @param toExclude
+     */
     private void forward(String message, PrintWriter toExclude){
         for(PrintWriter i : game.getPrintWriterList()){
             if(i != toExclude){

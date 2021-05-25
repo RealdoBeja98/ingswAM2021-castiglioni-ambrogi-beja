@@ -19,6 +19,9 @@ import javafx.stage.Stage;
 
 import java.io.PrintWriter;
 
+/**
+ * This class represents the gui clas
+ */
 public class GuiThread extends Application implements Runnable{
 
     private static PrintWriter out;
@@ -44,12 +47,20 @@ public class GuiThread extends Application implements Runnable{
         }
     }
 
+    /**
+     * Overrides the method run and launching the gui thread
+     */
     @Override
     public void run(){
         launch();
         return;
     }
 
+    /**
+     * This method creates the game with the stage scene and canvas
+     * @param stage
+     * @throws Exception
+     */
     @Override
     public void start(Stage stage) throws Exception {
         stage.setTitle("Masters of Renaissance" + " - " + ClientMain.getClientNick());
@@ -74,6 +85,11 @@ public class GuiThread extends Application implements Runnable{
         stage.show();
     }
 
+    /**
+     * this method creates the buttons of turn
+     * @param root
+     * @param stage
+     */
     private void buttonTurn(Group root, Stage stage){
         addButton(root, "_SEL_NO_A_LC", 615, 0, new ChooseNoActionLeaderCardGameMessage());
         addButton(root, "_SEL_DISC_LC", 615, 35, new ChooseDiscardLeaderCardGameMessage());
@@ -152,6 +168,14 @@ public class GuiThread extends Application implements Runnable{
         // FIXME add place dev card
     }
 
+    /**
+     * This method aìonly makes possible to add a button
+     * @param root
+     * @param buttonName name of the button
+     * @param x coordinate
+     * @param y coordinate
+     * @param message message inside  the  button
+     */
     private void addButton(Group root, String buttonName, int x, int y, Message message){
         Button b = new Button(buttonName);
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
@@ -168,6 +192,15 @@ public class GuiThread extends Application implements Runnable{
         root.getChildren().add(b);
     }
 
+    /**
+     * This method adds the quit button and end the game for the player
+     * @param root
+     * @param buttonName name of the button
+     * @param x coordinate
+     * @param y coordinate
+     * @param message
+     * @param stage
+     */
     private void addQuitButton(Group root, String buttonName, int x, int y, String message, Stage stage){
         Button b = new Button(buttonName);
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
@@ -186,6 +219,14 @@ public class GuiThread extends Application implements Runnable{
         root.getChildren().add(b);
     }
 
+    /**
+     * This method add the buttons which uses the parameter given to him
+      * @param root
+     * @param buttonName name of the button
+     * @param x coordinate
+     * @param y coordinate
+     * @param n state
+     */
     private void addStateButton(Group root, String buttonName, int x, int y, int n){
         Button b = new Button(buttonName);
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
@@ -202,6 +243,13 @@ public class GuiThread extends Application implements Runnable{
         root.getChildren().add(b);
     }
 
+    /**
+     * This method add the buttons which uses the parameter given to him
+     * @param root
+     * @param buttonName name of the button
+     * @param x coordinate
+     * @param y coordinate
+     */
     private void addWhereButton(Group root, String buttonName, int x, int y, int pos){
         Button b = new Button(buttonName);
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
@@ -230,6 +278,14 @@ public class GuiThread extends Application implements Runnable{
         root.getChildren().add(b);
     }
 
+    /**
+     * This method add the buttons which uses the parameter given to him
+     * @param root
+     * @param buttonName name of the button
+     * @param x coordinate
+     * @param y coordinate
+     * @param n state
+     */
     private void addLeaderCardStateButton(Group root, String buttonName, int x, int y, LeaderCardState n){
         Button b = new Button(buttonName);
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
@@ -246,6 +302,13 @@ public class GuiThread extends Application implements Runnable{
         root.getChildren().add(b);
     }
 
+    /**
+     * This method adds the leader card button
+     * @param root
+     * @param buttonName name of the button
+     * @param x coordinate
+     * @param y coordinate
+     */
     private void addLeaderCardButton(Group root, String buttonName, int x, int y, int pos){
         Button b = new Button(buttonName);
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
@@ -297,6 +360,9 @@ public class GuiThread extends Application implements Runnable{
         root.getChildren().add(b);
     }
 
+    /**
+     * Created the buttons for the initial 4 cards
+     */
     public void popper(Group root, Image img, GraphicsContext gc) {
         Button c1 = new Button("C1");
         EventHandler<ActionEvent> ec1 = new EventHandler<ActionEvent>() {
