@@ -102,7 +102,7 @@ public class Game {
         }
         started = true;
         System.out.println("Game: " + gameIndex + " started!");
-        /*for(int wp =0; wp<players.size();wp++){
+        for(int wp =0; wp<players.size();wp++){
             try {
                 players.get(wp).getPersonalBoard().getStrongBox().add(Resource.COIN, 100);
                 players.get(wp).getPersonalBoard().getStrongBox().add(Resource.STONE, 100);
@@ -111,7 +111,7 @@ public class Game {
             } catch (NotAResourceForStrongBoxException e) {
                 e.printStackTrace();
             }
-        }*/
+        }
     }
 
     /**

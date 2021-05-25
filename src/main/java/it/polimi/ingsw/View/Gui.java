@@ -36,9 +36,9 @@ public class Gui extends View{
             if(n.getNickname().equals(ClientMain.getClientNick())){
                 LeaderCard[] cardsInHand = n.getCardsInHandFirst();
                 for (int i = 0; i < cardsInHand.length; i++) {
-                    String name = cardsInHand[0].export();
+                    String name = cardsInHand[i].export();
                     String fullName = "LeaderCard/" + name + ".png";
-                    drawCards(gc, 1000, 900, fullName, 150, 230);
+                    drawCards(gc, i*170+1000, 600, fullName, 150, 230);
                 }
                 GuiThread.setCardPrinted();
             }
@@ -355,42 +355,42 @@ public class Gui extends View{
      */
     private void drawActiveCards(PlayerGame.PlayerPlayer n, GraphicsContext gc, int x, int y) { //FIXME-->
         DevelopmentCard[][] visualize = n.getSlotsDevelopmentCards().getSlot();
-        if(visualize[0][0] != null){
-            String name = n.getSlotsDevelopmentCards().getSlot()[0][0].export();
-            String fullName = "DevelopmentCards/" + name + ".png";
-            drawCards(gc, x+ 300, y+400, fullName, 70, 110);
-        }if(visualize[0][1] != null){
-            String name = n.getSlotsDevelopmentCards().getSlot()[0][1].export();
-            String fullName = "DevelopmentCards/" + name + ".png";
-            drawCards(gc, x+ 300, y+400, fullName, 70, 110);
-        }if(visualize[0][2] != null){
-            String name = n.getSlotsDevelopmentCards().getSlot()[0][2].export();
-            String fullName = "DevelopmentCards/" + name + ".png";
-            drawCards(gc, x+ 300, y+400, fullName, 70, 110);
-        }if(visualize[1][0] != null){
-            String name = n.getSlotsDevelopmentCards().getSlot()[1][0].export();
-            String fullName = "DevelopmentCards/" + name + ".png";
-            drawCards(gc, x+ 300, y+400, fullName, 70, 110);
-        }if(visualize[1][1] != null){
-            String name = n.getSlotsDevelopmentCards().getSlot()[1][1].export();
-            String fullName = "DevelopmentCards/" + name + ".png";
-            drawCards(gc, x+ 300, y+400, fullName, 70, 110);
-        }if(visualize[1][2] != null){
-            String name = n.getSlotsDevelopmentCards().getSlot()[1][2].export();
-            String fullName = "DevelopmentCards/" + name + ".png";
-            drawCards(gc, x+ 300, y+400, fullName, 70, 110);
-        }if(visualize[2][0] != null){
+        if(visualize[2][0] != null){
             String name = n.getSlotsDevelopmentCards().getSlot()[2][0].export();
             String fullName = "DevelopmentCards/" + name + ".png";
-            drawCards(gc, x+ 300, y+400, fullName, 70, 110);
+            drawCards(gc, x+ 220, y+270, fullName, 90, 140);
         }if(visualize[2][1] != null){
             String name = n.getSlotsDevelopmentCards().getSlot()[2][1].export();
             String fullName = "DevelopmentCards/" + name + ".png";
-            drawCards(gc, x+ 300, y+400, fullName, 70, 110);
+            drawCards(gc, x+ 325, y+270, fullName, 90, 140);
         }if(visualize[2][2] != null){
             String name = n.getSlotsDevelopmentCards().getSlot()[2][2].export();
             String fullName = "DevelopmentCards/" + name + ".png";
-            drawCards(gc, x+ 300, y+400, fullName, 70, 110);
+            drawCards(gc, x+ 440, y+270, fullName, 90, 140);
+        }if(visualize[1][0] != null){
+            String name = n.getSlotsDevelopmentCards().getSlot()[1][0].export();
+            String fullName = "DevelopmentCards/" + name + ".png";
+            drawCards(gc, x+ 220, y+240, fullName, 90, 140);
+        }if(visualize[1][1] != null){
+            String name = n.getSlotsDevelopmentCards().getSlot()[1][1].export();
+            String fullName = "DevelopmentCards/" + name + ".png";
+            drawCards(gc, x+ 325, y+240, fullName, 90, 140);
+        }if(visualize[1][2] != null){
+            String name = n.getSlotsDevelopmentCards().getSlot()[1][2].export();
+            String fullName = "DevelopmentCards/" + name + ".png";
+            drawCards(gc, x+ 440, y+240, fullName, 90, 140);
+        }if(visualize[0][0] != null){
+            String name = n.getSlotsDevelopmentCards().getSlot()[2][0].export();
+            String fullName = "DevelopmentCards/" + name + ".png";
+            drawCards(gc, x+ 220, y+210, fullName, 90, 140);
+        }if(visualize[0][1] != null){
+            String name = n.getSlotsDevelopmentCards().getSlot()[2][1].export();
+            String fullName = "DevelopmentCards/" + name + ".png";
+            drawCards(gc, x+ 325, y+210, fullName, 90, 140);
+        }if(visualize[0][2] != null){
+            String name = n.getSlotsDevelopmentCards().getSlot()[2][2].export();
+            String fullName = "DevelopmentCards/" + name + ".png";
+            drawCards(gc, x+ 440, y+210, fullName, 90, 140);
         }
     }
 
