@@ -295,22 +295,22 @@ public class Gui extends View{
         Resource[] resource = n.getWarehouseDepots().getResource();
         if(resource[0] != null){
             String fullName = selectResource(resource[0]);
-            drawLittleSquare(gc, x+65, y+220, fullName, 17, 17);
+            drawLittleSquare(gc, x+65, y+218, fullName, 17, 17);
         }if(resource[1] != null){
-            String fullName = selectMarble(resource[1]);
-            drawLittleSquare(gc, x+56, y+262, fullName, 17, 17);
+            String fullName = selectResource(resource[1]);
+            drawLittleSquare(gc, x+53, y+259, fullName, 17, 17);
         }if(resource[2] != null){
-            String fullName = selectMarble(resource[2]);
-            drawLittleSquare(gc, x+74, y+262, fullName, 17, 17);
+            String fullName = selectResource(resource[2]);
+            drawLittleSquare(gc, x+74, y+259, fullName, 17, 17);
         }if(resource[3] != null){
-            String fullName = selectMarble(resource[3]);
-            drawLittleSquare(gc, x+48, y+301, fullName, 17, 17);
+            String fullName = selectResource(resource[3]);
+            drawLittleSquare(gc, x+45, y+303, fullName, 17, 17);
         }if(resource[4] != null){
-            String fullName = selectMarble(resource[4]);
-            drawLittleSquare(gc, x+64, y+301, fullName, 17, 17);
+            String fullName = selectResource(resource[4]);
+            drawLittleSquare(gc, x+64, y+303, fullName, 17, 17);
         }if(resource[5] != null){
-            String fullName = selectMarble(resource[5]);
-            drawLittleSquare(gc, x+84, y+301, fullName, 17, 17);
+            String fullName = selectResource(resource[5]);
+            drawLittleSquare(gc, x+84, y+303, fullName, 17, 17);
         }
     }
 

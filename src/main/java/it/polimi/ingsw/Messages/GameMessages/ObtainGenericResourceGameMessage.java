@@ -45,4 +45,8 @@ public class ObtainGenericResourceGameMessage extends GameMessage {
         }
     }
 
+    @Override
+    public String toString(){
+        return identifier + " " + resource;
+    }
 }
