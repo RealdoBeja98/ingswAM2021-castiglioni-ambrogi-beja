@@ -243,6 +243,11 @@ public class ClientMain {
 
     }
 
+    /**
+     * This message does the atoi to a coming string
+     * @param str string
+     * @return
+     */
     private static int atoi(String str)
     {
         try{

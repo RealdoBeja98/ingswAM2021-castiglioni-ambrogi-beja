@@ -2,6 +2,10 @@ package it.polimi.ingsw.Mains;
 
 import java.io.IOException;
 
+/**
+ * Is the main of client
+ * Passes the arguments to other classes and starts the method
+ */
 public class ClientLauncher {
 
     private static String[] arguments;

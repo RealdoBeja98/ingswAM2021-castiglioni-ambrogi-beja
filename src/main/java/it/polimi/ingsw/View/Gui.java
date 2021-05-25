@@ -17,6 +17,9 @@ import javafx.stage.Popup;
 
 import java.util.ArrayList;
 
+/**
+ * This class represents the creation of a gui interface
+ */
 public class Gui extends View{
 
     private final Canvas canvas;
@@ -43,6 +46,9 @@ public class Gui extends View{
 
     }
 
+    /**
+     * This method shoqs the market of a player
+     */
     @Override
     public void showMarket() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -58,6 +64,9 @@ public class Gui extends View{
         drawLittleSquare(gc, 450, 690, fullName, 80, 80);
     }
 
+    /**
+     * This method shows the Development card
+     */
     @Override
     public void showDevCard() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -75,6 +84,9 @@ public class Gui extends View{
         }
     }
 
+    /**
+     * This method show the personal board of a player
+     */
     @Override
     public void showPersonalBoard() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -99,6 +111,10 @@ public class Gui extends View{
 
     }
 
+    /**
+     * This method shows the current personal board whith the updated
+     * if a movement is done before
+     */
     @Override
     public void showPBCurrent() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -131,6 +147,9 @@ public class Gui extends View{
         }
     }
 
+    /**
+     * This method draws the all cards
+     */
     private void drawCards(GraphicsContext gc, int x, int y, String name, int l1, int l2) {
         Image img = new Image(name);
         gc.drawImage(img, x, y, l1, l2);
@@ -159,6 +178,11 @@ public class Gui extends View{
         return "Marbles/" + name + ".png";
     }
 
+    /**
+     * This method lets you choose a resource from gui
+     * @param resource resource
+     * @return
+     */
     private String selectResource(Resource resource) {
         String name;
         if(resource == null){
@@ -184,6 +208,9 @@ public class Gui extends View{
         gc.drawImage(img, x, y, l1, l2);
     }
 
+    /**
+     * This method lets you to draw the entire board
+     */
     private void drawBoard(PlayerGame.PlayerPlayer n, GraphicsContext gc, int x, int y){
         Image pb = new Image("Misc/PersonalBoard.png");
         gc.drawImage(pb, x, y, 560, 490);
@@ -201,7 +228,9 @@ public class Gui extends View{
         drawStrongbox(n, gc, x, y);
     }
 
-
+    /**
+     * This method draws the faith track
+     */
     private void drawFaith(GraphicsContext gc, int x, int y, int faithNumber){
         Image faith = new Image("Misc/FaithMarker.png");
         if(faithNumber == 0){
@@ -291,6 +320,9 @@ public class Gui extends View{
         }
     }
 
+    /**
+     * This method draws the Warehouse Depots
+     */
     private void drawWarehouseDepots(PlayerGame.PlayerPlayer n, GraphicsContext gc, int x, int y){
         Resource[] resource = n.getWarehouseDepots().getResource();
         if(resource[0] != null){
@@ -314,6 +346,13 @@ public class Gui extends View{
         }
     }
 
+    /**
+     * This method draws the Active Cards
+     * @param n
+     * @param gc
+     * @param x
+     * @param y
+     */
     private void drawActiveCards(PlayerGame.PlayerPlayer n, GraphicsContext gc, int x, int y) { //FIXME-->
         DevelopmentCard[][] visualize = n.getSlotsDevelopmentCards().getSlot();
         if(visualize[2][0] != null){
@@ -355,6 +394,13 @@ public class Gui extends View{
         }
     }
 
+    /**
+     * This method draws the Discarded Cards
+     * @param n
+     * @param gc
+     * @param x
+     * @param y
+     */
     private void drawDiscardedCards(PlayerGame.PlayerPlayer n, GraphicsContext gc, int x, int y){
         String name = "NullLeaderCard";
         String fullName = "LeaderCard/" + name + ".png";
@@ -364,6 +410,9 @@ public class Gui extends View{
         drawCards(gc, x+ 560, y+ 355, "Labels/DiscardedCard.png", 70, 25);
     }
 
+    /**
+     * This method draws the Cards on Table
+     */
     private void drawCardsOnTable(PlayerGame.PlayerPlayer n, GraphicsContext gc, int x, int y){
         LeaderCard[] cardsOnTable = n.getCardsOnTable();
         if(cardsOnTable[0] != null){
@@ -380,6 +429,9 @@ public class Gui extends View{
         }
     }
 
+    /**
+     * This method draws the Cards on Hands
+     */
     private void drawCardsInHand(PlayerGame.PlayerPlayer n, GraphicsContext gc, int x, int y){
         LeaderCard[] cardsInHand = n.getCardsInHand();
         if(cardsInHand[0] != null){
@@ -404,6 +456,9 @@ public class Gui extends View{
         }
     }
 
+    /**
+     * This method draws the StrongBox
+     */
     private void drawStrongbox(PlayerGame.PlayerPlayer n, GraphicsContext gc, int x, int y){
         int coin = n.getStrongBox().getCoin();
         int stone = n.getStrongBox().getStone();
@@ -419,6 +474,9 @@ public class Gui extends View{
         drawNumber(gc, x+35, y+440, shield);
     }
 
+    /**
+     * This method draws the numbers of strongbox
+     */
     private void drawNumber(GraphicsContext gc, int x, int y, int number){
         int c2 = number % 10;
         int c1 = number / 10;

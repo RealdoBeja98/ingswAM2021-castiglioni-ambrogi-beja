@@ -8,7 +8,10 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.sql.Timestamp;
 
-
+/**
+ * This class represent the handshake and the action of
+ * disconnecting and reconnecting of a player
+ */
 public class PingPong implements Runnable{
 
     private BufferedReader in;
@@ -19,6 +22,14 @@ public class PingPong implements Runnable{
     private boolean exist = true;
     long lastUpdate;
 
+    /**
+     * Constructor of the class PingPong
+     * @param in reads message from the socket
+     * @param out sends message to the socket
+     * @param game game instance
+     * @param socket socket instance
+     * @param nickname name of a specific player
+     */
     public PingPong(BufferedReader in, PrintWriter out, Game game, Socket socket, String nickname){
         this.in = in;
         this.out = out;
@@ -28,10 +39,16 @@ public class PingPong implements Runnable{
         lastUpdate = (new Timestamp(System.currentTimeMillis())).getTime();
     }
 
+    /**
+     * This methods comes handy to update the time of the moment
+     */
     public void update(){
         lastUpdate = (new Timestamp(System.currentTimeMillis())).getTime();
     }
 
+    /**
+     * This method sets exist to false if player is not in game
+     */
     public void stop(){
         exist = false;
     }
@@ -58,6 +75,11 @@ public class PingPong implements Runnable{
         }
     }
 
+    /**
+     * This method closes the communication for player whose not in the game
+     * @param in reads the message coming from socket
+     * @param out sends message to socket
+     */
     private void closeCommunicationChannel(BufferedReader in, PrintWriter out) {
         try {
             in.close();
@@ -73,6 +95,11 @@ public class PingPong implements Runnable{
         System.out.println("Player: " + nickname + " quit game " + game.getGameIndex());
     }
 
+    /**
+     * This method represents the forward messages
+     * @param message
+     * @param toExclude
+     */
     private void forward(String message, PrintWriter toExclude){
         for(PrintWriter i : game.getPrintWriterList()){
             if(i != toExclude){
