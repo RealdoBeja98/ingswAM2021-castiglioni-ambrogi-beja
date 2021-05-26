@@ -13,6 +13,9 @@ public class WhiteMarbleErrorMessage extends ErrorMessage {
         identifier = "ERROR_WHITE_MARBLE";
     }
 
+    /**
+     * This method represents what message to print in console
+     */
     @Override
     public String toString(){
         return "Error: unexpected white marble!";

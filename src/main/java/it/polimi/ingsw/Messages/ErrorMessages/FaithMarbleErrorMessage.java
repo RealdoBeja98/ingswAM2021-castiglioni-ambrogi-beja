@@ -13,6 +13,9 @@ public class FaithMarbleErrorMessage extends ErrorMessage {
         identifier = "ERROR_FAITH_MARBLE";
     }
 
+    /**
+     * This method represents what message to print in console
+     */
     @Override
     public String toString(){
         return "Error: unexpected faith marble!";

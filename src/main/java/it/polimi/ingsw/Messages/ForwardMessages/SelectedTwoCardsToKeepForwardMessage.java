@@ -39,6 +39,9 @@ public class SelectedTwoCardsToKeepForwardMessage extends ForwardMessage {
         ClientMain.getPlayerGame().updateTwoCardToKeepSelected(nickname, card1, card2);
     }
 
+    /**
+     * This method represents what message to print in console
+     */
     @Override
     public String toString(){
         return identifier + " " + nickname + " " + card1 + " " + card2;

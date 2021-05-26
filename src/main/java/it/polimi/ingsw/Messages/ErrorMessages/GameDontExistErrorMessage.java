@@ -12,6 +12,9 @@ public class GameDontExistErrorMessage extends ErrorMessage {
         identifier = "ERROR_GAME_DONT_EXIST";
     }
 
+    /**
+     * This method represents what message to print in console
+     */
     @Override
     public String toString() {
         return "Error: Game don't exist, please create a new one with -n!";

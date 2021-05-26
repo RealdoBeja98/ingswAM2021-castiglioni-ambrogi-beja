@@ -13,6 +13,9 @@ public class TypoErrorMessage extends ErrorMessage {
         identifier = "ERROR_TYPO";
     }
 
+    /**
+     * This method represents what message to print in console
+     */
     @Override
     public String toString(){
         return "Error: syntax error (ERROR_TYPO)!";

@@ -13,6 +13,9 @@ public class NoWhiteMarbleErrorMessage extends ErrorMessage {
         identifier = "ERROR_NO_WHITE_MARBLE";
     }
 
+    /**
+     * This method represents what message to print in console
+     */
     @Override
     public String toString(){
         return "Error: you aren't going to change a white marble or you haven't selected a WhiteMarbleLeaderCard!";

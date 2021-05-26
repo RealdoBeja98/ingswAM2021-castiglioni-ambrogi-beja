@@ -12,6 +12,9 @@ public class AlreadyEmptyErrorMessage extends ErrorMessage {
         identifier = "ERROR_ALREADY_EMPTY";
     }
 
+    /**
+     * This method represents what message to print in console
+     */
     @Override
     public String toString(){
         return "Error: this slot is already empty!";

@@ -13,6 +13,9 @@ public class NoCardsPlayErrorMessage extends ErrorMessage {
         identifier = "ERROR_NO_CARDS_PLAY";
     }
 
+    /**
+     * This method represents what message to print in console
+     */
     @Override
     public String toString(){
         return "Error: you haven't any leader card to play!";

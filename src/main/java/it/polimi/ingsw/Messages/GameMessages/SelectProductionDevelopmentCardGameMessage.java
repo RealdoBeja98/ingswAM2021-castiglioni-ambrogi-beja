@@ -36,6 +36,10 @@ public class SelectProductionDevelopmentCardGameMessage extends GameMessage {
             Message.sendMessage(out, new NoDevelopmentCardErrorMessage());
         }
     }
+
+    /**
+     * This method represents what message to print in console
+     */
     @Override
     public String toString(){
         return identifier + " " + position;

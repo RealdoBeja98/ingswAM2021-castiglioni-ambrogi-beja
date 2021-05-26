@@ -13,6 +13,9 @@ public class NotEnoughRErrorMessage extends ErrorMessage {
         identifier = "ERROR_NOT_ENOUGH_R";
     }
 
+    /**
+     * This method represents what message to print in console
+     */
     @Override
     public String toString() {
         return "Error: you haven't enough resources!";

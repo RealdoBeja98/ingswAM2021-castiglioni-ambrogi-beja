@@ -13,6 +13,9 @@ public class ResourceAlreadyPresentOtherShelfErrorMessage extends ErrorMessage {
         identifier = "ERROR_RESOURCE_ALREADY_PRESENT_OTHER_SHELF";
     }
 
+    /**
+     * This method represents what message to print in console
+     */
     @Override
     public String toString(){
         return "Error: this resource is already present in another shelf!";

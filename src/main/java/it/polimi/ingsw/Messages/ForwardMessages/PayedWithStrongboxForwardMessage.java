@@ -39,6 +39,9 @@ public class PayedWithStrongboxForwardMessage extends ForwardMessage {
         w.showPBCurrent();
     }
 
+    /**
+     * This method represents what message to print in console
+     */
     @Override
     public String toString(){
         return identifier + " " + nickname + " " + resource;

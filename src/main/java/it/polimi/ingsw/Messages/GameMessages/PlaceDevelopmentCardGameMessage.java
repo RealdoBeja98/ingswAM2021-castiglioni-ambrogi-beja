@@ -46,6 +46,9 @@ public class PlaceDevelopmentCardGameMessage extends GameMessage {
         }
     }
 
+    /**
+     * This method represents what message to print in console
+     */
     @Override
     public String toString(){
         return identifier + " " + position;

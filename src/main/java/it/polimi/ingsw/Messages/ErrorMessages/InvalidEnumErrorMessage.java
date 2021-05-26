@@ -13,6 +13,9 @@ public class InvalidEnumErrorMessage extends ErrorMessage {
         identifier = "ERROR_INVALID_ENUM";
     }
 
+    /**
+     * This method represents what message to print in console
+     */
     @Override
     public String toString(){
         return "Error: you passed a null pointer instead of an enum!";

@@ -56,6 +56,9 @@ public class UpdateObtainedMultipleResourceForwardMessage extends ForwardMessage
         }
     }
 
+    /**
+     * This method represents what message to print in console
+     */
     @Override
     public String toString(){
         return identifier + " " + nickname + " " + faith + " " + coin + " " + stone + " " + servant + " " + shield;

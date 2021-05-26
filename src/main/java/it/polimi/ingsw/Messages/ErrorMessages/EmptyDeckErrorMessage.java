@@ -13,6 +13,9 @@ public class EmptyDeckErrorMessage extends ErrorMessage {
         identifier = "ERROR_EMPTY_DECK";
     }
 
+    /**
+     * This method represents what message to print in console
+     */
     @Override
     public String toString(){
         return "Error: this deck is empty!";

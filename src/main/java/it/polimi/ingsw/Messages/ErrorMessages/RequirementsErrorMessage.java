@@ -13,6 +13,9 @@ public class RequirementsErrorMessage extends ErrorMessage {
         identifier = "ERROR_REQUIREMENTS";
     }
 
+    /**
+     * This method represents what message to print in console
+     */
     @Override
     public String toString(){
         return "Error: you haven't satisfied requirements for this LeaderCard!";

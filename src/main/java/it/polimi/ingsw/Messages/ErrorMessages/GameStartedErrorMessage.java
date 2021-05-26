@@ -13,6 +13,9 @@ public class GameStartedErrorMessage extends ErrorMessage {
         identifier = "ERROR_GAME_STARTED";
     }
 
+    /**
+     * This method represents what message to print in console
+     */
     @Override
     public String toString() {
         return "Error: the game is already started!";

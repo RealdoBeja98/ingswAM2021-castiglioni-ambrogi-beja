@@ -13,6 +13,9 @@ public class InvalidMovementErrorMessage extends ErrorMessage {
         identifier = "ERROR_INVALID_MOVEMENT";
     }
 
+    /**
+     * This method represents what message to print in console
+     */
     @Override
     public String toString() {
         return "Error: this movement is invalid!";

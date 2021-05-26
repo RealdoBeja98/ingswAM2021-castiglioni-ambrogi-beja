@@ -13,6 +13,9 @@ public class WrongResourceErrorMessage extends ErrorMessage {
         identifier = "ERROR_WRONG_RESOURCE";
     }
 
+    /**
+     * This method represents what message to print in console
+     */
     @Override
     public String toString(){
         return "Error: you are paying with a wrong resource!";

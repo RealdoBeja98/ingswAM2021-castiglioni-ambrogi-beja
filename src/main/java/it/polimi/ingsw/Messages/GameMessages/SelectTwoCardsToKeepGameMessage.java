@@ -41,6 +41,10 @@ public class SelectTwoCardsToKeepGameMessage extends GameMessage {
             Message.sendMessage(out, new GameEndedErrorMessage());
         }
     }
+
+    /**
+     * This method represents what message to print in console
+     */
     @Override
     public String toString(){
         return identifier + " " + card1 + " " + card2;

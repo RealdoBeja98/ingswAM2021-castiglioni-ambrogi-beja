@@ -66,6 +66,9 @@ public class UpdateSoloActionTokenMessage extends Message{
         }
     }
 
+    /**
+     * This method represents what message to print in console
+     */
     @Override
     public String toString(){
         return "UPDATE_SOLO_ACTION_TOKEN" + " "+actionToken;

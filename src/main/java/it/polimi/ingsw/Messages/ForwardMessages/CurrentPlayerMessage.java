@@ -29,6 +29,9 @@ public class CurrentPlayerMessage extends ForwardMessage {
         ClientMain.setCurrentP(currentP);
     }
 
+    /**
+     * This method represents what message to print in console
+     */
     @Override
     public String toString(){
         return identifier + " " + currentP;

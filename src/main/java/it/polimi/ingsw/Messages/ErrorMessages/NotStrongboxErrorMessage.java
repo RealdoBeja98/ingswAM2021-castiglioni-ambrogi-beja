@@ -13,6 +13,9 @@ public class NotStrongboxErrorMessage extends ErrorMessage {
         identifier = "ERROR_NOT_STRONGBOX";
     }
 
+    /**
+     * This method represents what message to print in console
+     */
     @Override
     public String toString(){
         return "Error: this isn't a resource addable to strongbox!";

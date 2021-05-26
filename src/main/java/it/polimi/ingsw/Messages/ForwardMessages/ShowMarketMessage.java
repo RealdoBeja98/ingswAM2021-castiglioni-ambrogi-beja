@@ -28,6 +28,9 @@ public class ShowMarketMessage extends ForwardMessage {
         w.showMarket();
     }
 
+    /**
+     * This method represents what message to print in console
+     */
     @Override
     public String toString(){
         return identifier;

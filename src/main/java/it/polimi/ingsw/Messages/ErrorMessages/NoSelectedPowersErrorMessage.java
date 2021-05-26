@@ -13,6 +13,9 @@ public class NoSelectedPowersErrorMessage extends ErrorMessage {
         identifier = "ERROR_NO_SELECTED_POWERS";
     }
 
+    /**
+     * This method represents what message to print in console
+     */
     @Override
     public String toString() {
         return "Error: you haven't selected any production power!";

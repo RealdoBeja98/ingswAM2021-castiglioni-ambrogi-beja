@@ -35,6 +35,9 @@ public class AdvanceFaithTrackForwardMessage extends ForwardMessage {
         w.showPersonalBoard();
     }
 
+    /**
+     * This method represents what message to print in console
+     */
     @Override
     public String toString(){
         return identifier + " " + excludedPlayer;

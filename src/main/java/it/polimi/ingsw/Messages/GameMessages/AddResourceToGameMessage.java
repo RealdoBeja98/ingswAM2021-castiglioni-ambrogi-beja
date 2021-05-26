@@ -71,6 +71,9 @@ public class AddResourceToGameMessage extends GameMessage {
         }
     }
 
+    /**
+     * This method represents what message to print in console
+     */
     @Override
     public String toString(){
         if(leaderWarehouse == LeaderWarehouse.DISCARD){

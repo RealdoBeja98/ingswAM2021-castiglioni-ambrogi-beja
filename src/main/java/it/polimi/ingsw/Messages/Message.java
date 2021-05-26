@@ -383,6 +383,9 @@ public abstract class Message {
         return false;
     }
 
+    /**
+     * This method represents what message to print in console
+     */
     @Override
     public String toString(){
         return identifier;

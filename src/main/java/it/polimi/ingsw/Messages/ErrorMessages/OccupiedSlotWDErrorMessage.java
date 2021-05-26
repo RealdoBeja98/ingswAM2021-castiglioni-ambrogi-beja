@@ -13,6 +13,9 @@ public class OccupiedSlotWDErrorMessage extends ErrorMessage {
         identifier = "ERROR_OCCUPIED_SLOT_WD";
     }
 
+    /**
+     * This method represents what message to print in console
+     */
     @Override
     public String toString(){
         return "Error: this position is already taken!";

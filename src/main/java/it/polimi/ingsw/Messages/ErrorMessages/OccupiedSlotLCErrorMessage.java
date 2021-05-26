@@ -13,6 +13,9 @@ public class OccupiedSlotLCErrorMessage extends ErrorMessage {
         identifier = "ERROR_OCCUPIED_SLOT_LC";
     }
 
+    /**
+     * This method represents what message to print in console
+     */
     @Override
     public String toString(){
         return "Error: all slots of this ExtraStorageLeaderCard are occupied!";

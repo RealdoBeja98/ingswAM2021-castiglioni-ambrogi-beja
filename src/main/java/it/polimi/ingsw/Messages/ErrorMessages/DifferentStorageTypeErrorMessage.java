@@ -13,6 +13,9 @@ public class DifferentStorageTypeErrorMessage extends ErrorMessage {
         identifier = "ERROR_DIFFERENT_STORAGE_TYPE";
     }
 
+    /**
+     * This method represents what message to print in console
+     */
     @Override
     public String toString(){
         return "Error: you've selected a different storage type!";

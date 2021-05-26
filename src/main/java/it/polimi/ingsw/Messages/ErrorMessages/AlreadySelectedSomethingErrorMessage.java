@@ -13,6 +13,9 @@ public class AlreadySelectedSomethingErrorMessage extends ErrorMessage {
         identifier = "ERROR_ALREADY_SELECTED_SOMETHING";
     }
 
+    /**
+     * This method represents what message to print in console
+     */
     @Override
     public String toString(){
         return "Error: you have yet selected a development card!";

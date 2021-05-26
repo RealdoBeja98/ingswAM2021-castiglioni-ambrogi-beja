@@ -13,6 +13,9 @@ public class InvalidPositionErrorMessage extends ErrorMessage {
         identifier = "ERROR_INVALID_POSITION";
     }
 
+    /**
+     * This method represents what message to print in console
+     */
     @Override
     public String toString(){
         return "Error: this position is invalid!";

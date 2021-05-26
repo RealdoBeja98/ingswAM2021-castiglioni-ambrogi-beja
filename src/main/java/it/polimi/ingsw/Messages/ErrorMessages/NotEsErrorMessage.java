@@ -13,6 +13,9 @@ public class NotEsErrorMessage extends ErrorMessage {
         identifier = "ERROR_NOT_ES";
     }
 
+    /**
+     * This method represents what message to print in console
+     */
     @Override
     public String toString(){
         return "Error: this isn't an ExtraStorageLeaderCard!";

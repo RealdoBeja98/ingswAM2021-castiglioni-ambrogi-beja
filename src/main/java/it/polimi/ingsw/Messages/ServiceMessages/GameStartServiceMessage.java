@@ -69,6 +69,9 @@ public class GameStartServiceMessage extends ServiceMessage {
 
     }
 
+    /**
+     * This method represents what message to print in console
+     */
     @Override
     public String toString(){
         return identifier + " " + all;

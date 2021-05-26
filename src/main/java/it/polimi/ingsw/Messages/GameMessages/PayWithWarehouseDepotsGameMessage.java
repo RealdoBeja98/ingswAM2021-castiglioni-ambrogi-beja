@@ -48,6 +48,9 @@ public class PayWithWarehouseDepotsGameMessage extends GameMessage {
         }
     }
 
+    /**
+     * This method represents what message to print in console
+     */
     @Override
     public String toString(){
         return identifier + " " + position;

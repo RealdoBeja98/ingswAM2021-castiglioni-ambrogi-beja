@@ -13,6 +13,9 @@ public class NoDevelopmentCardErrorMessage extends ErrorMessage {
         identifier = "ERROR_NO_DEVELOPMENT_CARD";
     }
 
+    /**
+     * This method represents what message to print in console
+     */
     @Override
     public String toString() {
         return "Error: you haven't any development card in this position!";

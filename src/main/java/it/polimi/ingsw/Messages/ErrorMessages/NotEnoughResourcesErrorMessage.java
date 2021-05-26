@@ -13,6 +13,9 @@ public class NotEnoughResourcesErrorMessage extends ErrorMessage {
         identifier = "ERROR_NOT_ENOUGH_RESOURCES";
     }
 
+    /**
+     * This method represents what message to print in console
+     */
     @Override
     public String toString(){
         return "Error: you aren't able to buy this DevelopmentCard!";

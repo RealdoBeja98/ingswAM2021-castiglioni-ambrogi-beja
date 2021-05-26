@@ -13,6 +13,9 @@ public class NoResourcePErrorMessage extends ErrorMessage {
         identifier = "ERROR_NO_RESOURCE_P";
     }
 
+    /**
+     * This method represents what message to print in console
+     */
     @Override
     public String toString(){
         return "Error: you haven't any resource to pay!";

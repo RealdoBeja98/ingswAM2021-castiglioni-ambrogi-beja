@@ -13,6 +13,9 @@ public class NotYourTurnErrorMessage extends ErrorMessage {
         identifier = "ERROR_NOT_YOUR_TURN";
     }
 
+    /**
+     * This method represents what message to print in console
+     */
     @Override
     public String toString(){
         return "Error: now it isn't your turn!";

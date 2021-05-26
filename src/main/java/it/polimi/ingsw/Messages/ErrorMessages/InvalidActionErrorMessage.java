@@ -13,6 +13,9 @@ public class InvalidActionErrorMessage extends ErrorMessage {
         identifier = "ERROR_INVALID_ACTION";
     }
 
+    /**
+     * This method represents what message to print in console
+     */
     @Override
     public String toString(){
         return "Error: this action is invalid (in this moment)!";

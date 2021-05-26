@@ -39,6 +39,9 @@ public class PlayedLeaderCardForwardMessage extends ForwardMessage {
     }
 
 
+    /**
+     * This method represents what message to print in console
+     */
     @Override
     public String toString(){
         return identifier + " " + nickname + " " + pos;

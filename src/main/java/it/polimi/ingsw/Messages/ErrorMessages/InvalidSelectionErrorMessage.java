@@ -13,6 +13,9 @@ public class InvalidSelectionErrorMessage extends ErrorMessage {
         identifier = "ERROR_INVALID_SELECTION";
     }
 
+    /**
+     * This method represents what message to print in console
+     */
     @Override
     public String toString(){
         return "Error: this selection is invalid!";

@@ -13,6 +13,9 @@ public class NoPLCErrorMessage extends ErrorMessage {
         identifier = "ERROR_NO_PLC";
     }
 
+    /**
+     * This method represents what message to print in console
+     */
     @Override
     public String toString() {
         return "Error: You haven't selected a ProductionLeaderCard!";
