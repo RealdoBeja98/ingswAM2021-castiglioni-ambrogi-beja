@@ -297,24 +297,24 @@ public class Gui extends View{
             String fullName = selectResource(resource[0]);
             drawLittleSquare(gc, x+65, y+220, fullName, 17, 17);
         }if(resource[1] != null){
-            String fullName = selectMarble(resource[1]);
-            drawLittleSquare(gc, x+56, y+262, fullName, 17, 17);
+            String fullName = selectResource(resource[1]);
+            drawLittleSquare(gc, x+55, y+258, fullName, 17, 17);
         }if(resource[2] != null){
-            String fullName = selectMarble(resource[2]);
-            drawLittleSquare(gc, x+74, y+262, fullName, 17, 17);
+            String fullName = selectResource(resource[2]);
+            drawLittleSquare(gc, x+74, y+258, fullName, 17, 17);
         }if(resource[3] != null){
-            String fullName = selectMarble(resource[3]);
-            drawLittleSquare(gc, x+48, y+301, fullName, 17, 17);
+            String fullName = selectResource(resource[3]);
+            drawLittleSquare(gc, x+45, y+304, fullName, 17, 17);
         }if(resource[4] != null){
-            String fullName = selectMarble(resource[4]);
-            drawLittleSquare(gc, x+64, y+301, fullName, 17, 17);
+            String fullName = selectResource(resource[4]);
+            drawLittleSquare(gc, x+64, y+304, fullName, 17, 17);
         }if(resource[5] != null){
-            String fullName = selectMarble(resource[5]);
-            drawLittleSquare(gc, x+84, y+301, fullName, 17, 17);
+            String fullName = selectResource(resource[5]);
+            drawLittleSquare(gc, x+85, y+304, fullName, 17, 17);
         }
     }
 
-    private void drawActiveCards(PlayerGame.PlayerPlayer n, GraphicsContext gc, int x, int y) { //FIXME-->
+    private void drawActiveCards(PlayerGame.PlayerPlayer n, GraphicsContext gc, int x, int y) {
         DevelopmentCard[][] visualize = n.getSlotsDevelopmentCards().getSlot();
         if(visualize[2][0] != null){
             String name = n.getSlotsDevelopmentCards().getSlot()[2][0].export();
