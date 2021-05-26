@@ -2,8 +2,13 @@ package it.polimi.ingsw.Messages.ErrorMessages;
 
 import it.polimi.ingsw.Messages.ErrorMessage;
 
+/**
+ * Class of an error message
+ */
 public class ResourceAlreadyPresentOtherShelfErrorMessage extends ErrorMessage {
-
+    /**
+     * constructor of class
+     */
     public ResourceAlreadyPresentOtherShelfErrorMessage(){
         identifier = "ERROR_RESOURCE_ALREADY_PRESENT_OTHER_SHELF";
     }

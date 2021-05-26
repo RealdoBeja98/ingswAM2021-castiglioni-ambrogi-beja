@@ -10,6 +10,9 @@ import it.polimi.ingsw.View.View;
 
 import java.io.PrintWriter;
 
+/**
+ * Class of a forward message
+ */
 public class AddedResourceToForwardMessage extends ForwardMessage {
 
     private String nickname;
@@ -17,6 +20,13 @@ public class AddedResourceToForwardMessage extends ForwardMessage {
     private Resource resource;
     private int place;
 
+    /**
+     * Constructor of the class
+     * @param nickname name of player
+     * @param leaderWarehouse instance of leaderwarehouse
+     * @param resource instance of resourse
+     * @param place posistion
+     */
     public AddedResourceToForwardMessage(String nickname, LeaderWarehouse leaderWarehouse, Resource resource, int place){
         identifier = "ADDED_RESOURCE_TO";
         this.nickname = nickname;

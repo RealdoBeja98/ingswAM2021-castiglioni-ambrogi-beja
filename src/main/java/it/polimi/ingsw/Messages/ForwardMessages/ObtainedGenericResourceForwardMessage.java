@@ -8,18 +8,30 @@ import it.polimi.ingsw.View.Cli;
 import it.polimi.ingsw.View.View;
 
 import java.io.PrintWriter;
-
+/**
+ * Class of a forward message
+ */
 public class ObtainedGenericResourceForwardMessage extends ForwardMessage {
 
     private String nickname;
     private Resource resource;
 
+    /**
+     * Constructor of the class
+     * @param nickname name of the player
+     * @param resource instance of resource
+     */
     public ObtainedGenericResourceForwardMessage(String nickname, Resource resource){
         identifier = "OBTAINED_GENERIC_RESOURCE";
         this.nickname = nickname;
         this.resource = resource;
     }
 
+    /**
+     * This method adds resource to strongbox
+     * @param game game instance
+     * @param out sends message to socket
+     */
     @Override
     public void execute(Game game, PrintWriter out) {
         ClientMain.getPlayerGame().addStrongBox(nickname, resource, 1);

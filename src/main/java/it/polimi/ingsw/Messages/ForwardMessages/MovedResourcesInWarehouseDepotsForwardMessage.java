@@ -7,13 +7,21 @@ import it.polimi.ingsw.View.Cli;
 import it.polimi.ingsw.View.View;
 
 import java.io.PrintWriter;
-
+/**
+ * Class of a forward message
+ */
 public class MovedResourcesInWarehouseDepotsForwardMessage extends ForwardMessage {
 
     private String nickname;
     private int position;
     private int otherPosition;
 
+    /**
+     * Constructor of the class
+     * @param nickname name of the player
+     * @param position position coordinate
+     * @param otherPosition final destination
+     */
     public MovedResourcesInWarehouseDepotsForwardMessage(String nickname, int position, int otherPosition){
         identifier = "MOVED_RESOURCES_IN_WAREHOUSE_DEPOTS";
         this.nickname = nickname;
@@ -21,6 +29,11 @@ public class MovedResourcesInWarehouseDepotsForwardMessage extends ForwardMessag
         this.otherPosition = otherPosition;
     }
 
+    /**
+     * This method moves resource to warehouse depots
+     * @param game game instance
+     * @param out send message to socket
+     */
     @Override
     public void execute(Game game, PrintWriter out) {
         ClientMain.getPlayerGame().moveResourceWarehouseDepots(nickname, position, otherPosition);

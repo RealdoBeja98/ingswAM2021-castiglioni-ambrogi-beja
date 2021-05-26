@@ -11,10 +11,17 @@ import it.polimi.ingsw.View.View;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
+/**
+ * Class of the game start service message
+ */
 public class GameStartServiceMessage extends ServiceMessage {
 
     private String all;
 
+    /**
+     * Constructor of the class
+     * @param game game instance
+     */
     public GameStartServiceMessage(Game game){
         String market = game.getTable().getMarket().export();
         String developmentDeck = game.getTable().getDevelopmentDeck().export();
@@ -29,11 +36,20 @@ public class GameStartServiceMessage extends ServiceMessage {
         identifier = "GAME_START";
     }
 
+    /**
+     * Constructor of the message
+     * @param all
+     */
     public GameStartServiceMessage(String all){
         this.all = all;
         identifier = "GAME_START";
     }
 
+    /**
+     * This method is for setting reade the start of the game for the messages
+     * @param game game instance
+     * @param out send messages to the socket
+     */
     @Override
     public void execute(Game game, PrintWriter out) {
         String[] strings = all.split("#");

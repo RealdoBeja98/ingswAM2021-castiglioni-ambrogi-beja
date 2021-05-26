@@ -5,13 +5,23 @@ import it.polimi.ingsw.Messages.ServiceMessage;
 import it.polimi.ingsw.View.Cli;
 import it.polimi.ingsw.View.View;
 import java.io.PrintWriter;
-
+/**
+ * Class of a forward message
+ */
 public class ShowMarketMessage extends ForwardMessage {
 
+    /**
+     * Constructor of the class
+     */
     public ShowMarketMessage(){
         identifier = "SHOW_MARKET";
     }
 
+    /**
+     * This method shows the morket
+     * @param game game instance
+     * @param out send s message to socket
+     */
     @Override
     public void execute(Game game, PrintWriter out) {
         View w = View.get();

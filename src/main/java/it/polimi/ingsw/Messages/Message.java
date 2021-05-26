@@ -12,7 +12,9 @@ import it.polimi.ingsw.Table.Decks.Token.ActionToken;
 import java.io.PrintWriter;
 
 //<--FIXME--> bisogna (in generale) fare i test dei messaggi (ossia i test di come vengono costruite le stringhe dei messaggi)
-
+/**
+ * Class of the  message
+ */
 public abstract class Message {
 
     protected String identifier;
@@ -23,12 +25,22 @@ public abstract class Message {
 
     public abstract void execute(Game game, PrintWriter out);
 
+    /**
+     * This method check the length of the message
+     * @param message message
+     * @param n integer
+     */
     private static void checkLength(String[] message, int n) {
         if(message.length != n){
             throw new IllegalArgumentException();
         }
     }
 
+    /**
+     * This method is for atoi strings
+     * @param str
+     * @return
+     */
     private static int atoi(String str)
     {
         try{
@@ -38,6 +50,11 @@ public abstract class Message {
         }
     }
 
+    /**
+     * This method catches the arriving message and makes tho controlling part and in the end
+     * sends to socket the proper message
+     * @param string string message
+     */
     public static Message fromString(String string){
 
         if(string.equals("ERROR_NO_CARDS_DISCARD")){
@@ -346,10 +363,19 @@ public abstract class Message {
         return new ToErrorTypoGameMessage(string);
     }
 
+    /**
+     * This method sends the message to the destination socket
+     * @param dest destination
+     * @param message message
+     */
     public static void sendMessage(PrintWriter dest, Message message){
         dest.println(message.identifier);
     }
 
+    /**
+     * This methods cheks for a particular message
+     * @param other
+     */
     public boolean isEqual(Message other){
         if(this.identifier.equals(other.identifier)){
             return  true;

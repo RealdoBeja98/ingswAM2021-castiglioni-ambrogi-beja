@@ -6,16 +6,28 @@ import it.polimi.ingsw.Table.Decks.Token.ActionToken;
 import it.polimi.ingsw.View.View;
 
 import java.io.PrintWriter;
-
+/**
+ * Class of the update solo action
+ */
 public class UpdateSoloActionTokenMessage extends Message{
 
     private ActionToken actionToken;
 
+    /**
+     * Constructor of the class
+     * @param actionToken token
+     */
     public UpdateSoloActionTokenMessage(ActionToken actionToken){
         identifier = "UPDATE_SOLO_ACTION_TOKEN";
         this.actionToken = actionToken;
     }
 
+    /**
+     * This method is for updating in solo player, and sending the proper messages from
+     * the moves of the player
+     * @param game
+     * @param out
+     */
     @Override
     public void execute(Game game, PrintWriter out) {
         System.out.println(this);

@@ -2,8 +2,13 @@ package it.polimi.ingsw.Messages.ErrorMessages;
 
 import it.polimi.ingsw.Messages.ErrorMessage;
 
+/**
+ * Class of an error message
+ */
 public class NoCardDiscardErrorMessage extends ErrorMessage {
-
+    /**
+     * constructor of class
+     */
     public NoCardDiscardErrorMessage(){
         identifier = "ERROR_NO_CARDS_DISCARD";
     }

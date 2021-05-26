@@ -8,13 +8,21 @@ import it.polimi.ingsw.View.Cli;
 import it.polimi.ingsw.View.View;
 
 import java.io.PrintWriter;
-
+/**
+ * Class of a forward message
+ */
 public class UpdateMarketForwardMessage extends ForwardMessage {
 
     private String nickname;
     private RowColumn rowColumn;
     private int place;
 
+    /**
+     * Constructor of the class
+     * @param nickname name of the player
+     * @param place position
+     * @param rowColumn choose row or column
+     */
     public UpdateMarketForwardMessage(String nickname, RowColumn rowColumn, int place){
         identifier = "UPDATE_MARKET";
         this.rowColumn = rowColumn;
@@ -22,6 +30,11 @@ public class UpdateMarketForwardMessage extends ForwardMessage {
         this.nickname = nickname;
     }
 
+    /**
+     * This method updates the market
+     * @param game game instance
+     * @param out sends message to the socket
+     */
     @Override
     public void execute(Game game, PrintWriter out) {
         ClientMain.getPlayerGame().updateMarket(nickname, rowColumn, place);

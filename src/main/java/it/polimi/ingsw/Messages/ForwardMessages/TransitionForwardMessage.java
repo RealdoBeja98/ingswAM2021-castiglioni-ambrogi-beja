@@ -5,9 +5,14 @@ import it.polimi.ingsw.Messages.ForwardMessage;
 import it.polimi.ingsw.View.View;
 
 import java.io.PrintWriter;
-
+/**
+ * Class of a forward message
+ */
 public class TransitionForwardMessage extends ForwardMessage {
 
+    /**
+     * Constructor of the class
+     */
     public TransitionForwardMessage(){
         identifier = "TRANSITION_MESSAGE";
     }

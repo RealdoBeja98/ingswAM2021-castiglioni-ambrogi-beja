@@ -2,8 +2,13 @@ package it.polimi.ingsw.Messages.ErrorMessages;
 
 import it.polimi.ingsw.Messages.ErrorMessage;
 
+/**
+ * Class of an error message
+ */
 public class NotEnoughRErrorMessage extends ErrorMessage {
-
+    /**
+     * constructor of class
+     */
     public NotEnoughRErrorMessage(){
         identifier = "ERROR_NOT_ENOUGH_R";
     }
