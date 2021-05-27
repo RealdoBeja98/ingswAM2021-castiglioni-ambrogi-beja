@@ -19,6 +19,9 @@ import it.polimi.ingsw.Table.Market.Market;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
+/**
+ * Class of the Player Game
+ */
 public class PlayerGame {
 
     public class PlayerPlayer {

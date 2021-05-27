@@ -52,8 +52,8 @@ public class Player {//<--FIXME check javadoc from here-->
     }
 
     /**
-     * This method let to know if this is the first turn of this player
-     * (in witch he hat tho select two cards to keep) or it's a normal turn
+     * This method lets you know if this is the first turn of this player
+     * or it's a normal turn
      * @return if it is the first turn of this player or not
      */
     public boolean isHimFirstTurn(){
@@ -65,7 +65,7 @@ public class Player {//<--FIXME check javadoc from here-->
     }
 
     /**
-     * This method let, at the beginning to choose two of the four leader card that you draw at the beginning
+     * This method lets at the beginning to choose two of the four leader cards that you draw at the beginning
      * @param card1 the first card you choose
      * @param card2 the second card you choose
      * @throws PositionInvalidException if you choose an invalid position

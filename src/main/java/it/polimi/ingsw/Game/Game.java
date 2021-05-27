@@ -60,7 +60,7 @@ public class Game {
      * @param name: the nickname of the player
      * @param printWriter it's for adding the communication channel "out" of the added player
      * @throws NameAlreadyRegisteredException if the name has been already added
-     * @throws GameAlreadyStartedException if the game is already started
+     * @throws GameAlreadyStartedException if the game has already started
      */
     public void addPlayer(String name, PrintWriter printWriter) throws NameAlreadyRegisteredException, GameAlreadyStartedException {
         if(started){
@@ -83,7 +83,7 @@ public class Game {
      * This method adds a player to the game (without passing the PrintWriter socket)
      * @param name: the nickname of the player
      * @throws NameAlreadyRegisteredException if the name has been already added
-     * @throws GameAlreadyStartedException if the game is already started
+     * @throws GameAlreadyStartedException if the game has already started
      */
     public void addPlayer(String name) throws NameAlreadyRegisteredException, GameAlreadyStartedException {
         addPlayer(name, null);
@@ -237,6 +237,9 @@ public class Game {
         }
     }
 
+    /**
+     * This method notifies to all the other player the current score
+     */
     public void notifyScore(){
         int[] points = new int[players.size()];
         for(int i = 0; i < players.size(); i++){
@@ -276,6 +279,9 @@ public class Game {
         }
     }
 
+    /**
+     * This method gets number of player
+     */
     public int getNumberOfPlayer() {
         return numberOfPlayer;
     }
