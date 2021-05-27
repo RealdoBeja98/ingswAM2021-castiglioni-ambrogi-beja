@@ -284,6 +284,14 @@ public class GuiThread extends Application implements Runnable{
         root.getChildren().add(b);
     }
 
+    /**
+     * This method sets the place of a button
+     * @param root group root
+     * @param buttonName name of the button
+     * @param x position
+     * @param y position
+     * @param pos integer
+     */
     private void addWhereButton(Group root, String buttonName, int x, int y, int pos){
         Button b = new Button(buttonName);
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
@@ -312,6 +320,14 @@ public class GuiThread extends Application implements Runnable{
         root.getChildren().add(b);
     }
 
+    /**
+     * This method creates the leader card state
+     * @param root group root
+     * @param buttonName name of the button
+     * @param x position
+     * @param y position
+     * @param n state
+     */
     private void addLeaderCardStateButton(Group root, String buttonName, int x, int y, LeaderCardState n){
         Button b = new Button(buttonName);
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
@@ -328,6 +344,14 @@ public class GuiThread extends Application implements Runnable{
         root.getChildren().add(b);
     }
 
+    /**
+     * This method creates the leader card button
+     * @param root group root
+     * @param buttonName name of the button
+     * @param x position
+     * @param y position
+     * @param pos integer
+     */
     private void addLeaderCardButton(Group root, String buttonName, int x, int y, int pos){
         Button b = new Button(buttonName);
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
@@ -379,6 +403,12 @@ public class GuiThread extends Application implements Runnable{
         root.getChildren().add(b);
     }
 
+    /**
+     * This method creates the 4 buttons of the in initial cards
+     * @param root group root
+     * @param img image
+     * @param gc graphics
+     */
     public void popper(Group root, Image img, GraphicsContext gc) {
         Button c1 = new Button("C1");
         Button c2 = new Button("C2");
