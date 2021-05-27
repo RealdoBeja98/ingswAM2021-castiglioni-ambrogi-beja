@@ -31,6 +31,11 @@ public class GuiThread extends Application implements Runnable{
     private static boolean cardPrinted = false;
     private static GuiThread instance;
     private final static Object lock = new Object();
+    private static boolean isSetBackground = false;
+
+    public static boolean getIsSetBackground(){
+        return GuiThread.isSetBackground;
+    }
 
     /**
      * Constructor of the class
@@ -62,8 +67,14 @@ public class GuiThread extends Application implements Runnable{
      */
     @Override
     public void run(){
-        launch();
-        return;
+
+        //try{/////
+            launch();
+            return;
+        //} catch (Exception e){/////
+            //e.printStackTrace();/////
+        //}/////
+
     }
 
     /**
@@ -72,25 +83,33 @@ public class GuiThread extends Application implements Runnable{
      */
     @Override
     public void start(Stage stage) throws Exception {
-        stage.setTitle("Masters of Renaissance" + " - " + ClientMain.getClientNick());
-        Group root = new Group();
-        Canvas canvas = new Canvas(1995, 1025);
-        ClientMain.setCanvas(canvas);
-        synchronized (GuiThread.lock){
-            while(out == null){
-                GuiThread.lock.wait();
-            }
-        }
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-        Image img = new Image("Misc/BackGround.png");
-        gc.drawImage(img, 0, 0, 1995, 1025);
 
-        root.getChildren().add(canvas);
-        buttonTurn(root, stage);
-        popper(root, img, gc);
-        Scene scene = new Scene(root, 1995, 1025);
-        stage.setScene(scene);
-        stage.show();
+        //try{/////
+            stage.setTitle("Masters of Renaissance" + " - " + ClientMain.getClientNick());
+            Group root = new Group();
+            Canvas canvas = new Canvas(1995, 1025);
+            ClientMain.setCanvas(canvas);
+            synchronized (GuiThread.lock){
+                while(out == null){
+                    GuiThread.lock.wait();
+                }
+            }
+            GraphicsContext gc = canvas.getGraphicsContext2D();
+            Image img = new Image("Misc/BackGround.png");
+            gc.drawImage(img, 0, 0, 1995, 1025);
+            GuiThread.isSetBackground = true;
+            ClientMain.notifyClientMain();
+
+            root.getChildren().add(canvas);
+            buttonTurn(root, stage);
+            popper(root, img, gc);
+            Scene scene = new Scene(root, 1995, 1025);
+            stage.setScene(scene);
+            stage.show();
+        //} catch (Exception e){/////
+            //e.printStackTrace();/////
+        //}/////
+
     }
 
     /**
@@ -409,7 +428,7 @@ public class GuiThread extends Application implements Runnable{
      * @param img image
      * @param gc graphics
      */
-    public void popper(Group root, Image img, GraphicsContext gc) {
+    private void popper(Group root, Image img, GraphicsContext gc) {
         Button c1 = new Button("C1");
         Button c2 = new Button("C2");
         Button c3 = new Button("C3");

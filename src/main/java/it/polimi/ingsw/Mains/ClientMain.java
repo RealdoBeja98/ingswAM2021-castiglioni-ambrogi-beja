@@ -43,6 +43,10 @@ public class ClientMain {
 
     public static void setCanvas(Canvas canvas) {
         ClientMain.canvas = canvas;
+        ClientMain.notifyClientMain();
+    }
+
+    public static void notifyClientMain(){
         synchronized (ClientMain.lock){
             ClientMain.lock.notifyAll();
         }
@@ -168,6 +172,15 @@ public class ClientMain {
                                 } else {
                                     Message messageServerMessage = Message.fromString(serverMessage);
                                     if (messageServerMessage instanceof ServiceMessage) {
+                                        synchronized (ClientMain.lock){
+                                            while(GuiThread.getIsSetBackground() == false){
+                                                try {
+                                                    ClientMain.lock.wait();
+                                                } catch (InterruptedException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+                                        }
                                         messageServerMessage.execute(null, out);
                                     } else if (messageServerMessage instanceof ForwardMessage) {
                                         messageServerMessage.execute(null, null);
