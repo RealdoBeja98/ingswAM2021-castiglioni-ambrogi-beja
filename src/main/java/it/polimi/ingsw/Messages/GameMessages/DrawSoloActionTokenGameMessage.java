@@ -11,12 +11,23 @@ import it.polimi.ingsw.Table.Decks.Token.ActionToken;
 
 import java.io.PrintWriter;
 
+/**
+ * This is a class of game message
+ */
 public class DrawSoloActionTokenGameMessage extends GameMessage {
 
+    /**
+     * Constructor of class game message
+     */
     public DrawSoloActionTokenGameMessage(){
         identifier = "DRAW_SOLO_ACTION_TOKEN";
     }
 
+    /**
+     * This method represents the sending of a  correct message
+     * @param game game instance
+     * @param out sends message to socket
+     */
     @Override
     public void execute(Game game, PrintWriter out) {
         try {

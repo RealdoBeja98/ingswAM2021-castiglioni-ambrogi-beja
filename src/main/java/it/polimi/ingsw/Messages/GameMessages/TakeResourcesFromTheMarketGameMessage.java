@@ -15,17 +15,30 @@ import it.polimi.ingsw.Messages.Message;
 
 import java.io.PrintWriter;
 
+/**
+ * This is a class of game message
+ */
 public class TakeResourcesFromTheMarketGameMessage extends GameMessage {
 
     private RowColumn rowColumn;
     private int place;
 
+    /**
+     * Constructor of class game message
+     * @param rowColumn row or column
+     * @param place position
+     */
     public TakeResourcesFromTheMarketGameMessage(RowColumn rowColumn, int place){
         identifier = "TAKE_RESOURCES_FROM_THE_MARKET";
         this.rowColumn = rowColumn;
         this.place = place;
     }
 
+    /**
+     * This method represents the sending of a  correct message
+     * @param game game instance
+     * @param out sends message to socket
+     */
     @Override
     public void execute(Game game, PrintWriter out) {
         try {

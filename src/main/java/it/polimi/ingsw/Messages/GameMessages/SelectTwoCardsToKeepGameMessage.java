@@ -14,17 +14,30 @@ import it.polimi.ingsw.Messages.Message;
 
 import java.io.PrintWriter;
 
+/**
+ * This is a class of game message
+ */
 public class SelectTwoCardsToKeepGameMessage extends GameMessage {
 
     private int card1;
     private int card2;
 
+    /**
+     * Constructor of class game message
+     * @param card2 card2
+     * @param card1  card1
+     */
     public SelectTwoCardsToKeepGameMessage(int card1, int card2){
         identifier = "SELECT_TWO_CARDS_TO_KEEP";
         this.card1 = card1;
         this.card2 = card2;
     }
 
+    /**
+     * This method represents the sending of a  correct message
+     * @param game game instance
+     * @param out sends message to socket
+     */
     @Override
     public void execute(Game game, PrintWriter out) {
         try {

@@ -16,17 +16,30 @@ import it.polimi.ingsw.View.View;
 
 import java.io.PrintWriter;
 
+/**
+ * This is a class of game message
+ */
 public class AddResourceToGameMessage extends GameMessage {
 
     private LeaderWarehouse leaderWarehouse;
     private int place;
 
+    /**
+     * Constructor of class game message
+     * @param leaderWarehouse instance of leader ware house
+     * @param place position
+     */
     public AddResourceToGameMessage(LeaderWarehouse leaderWarehouse, int place){
         identifier = "ADD_RESOURCE_TO";
         this.leaderWarehouse = leaderWarehouse;
         this.place = place;
     }
 
+    /**
+     * This method represents the sending of a  correct message
+     * @param game game instance
+     * @param out sends message to socket
+     */
     @Override
     public void execute(Game game, PrintWriter out) {
         try {

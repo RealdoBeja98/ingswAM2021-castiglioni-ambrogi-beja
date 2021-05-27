@@ -10,15 +10,27 @@ import it.polimi.ingsw.Messages.Message;
 
 import java.io.PrintWriter;
 
+/**
+ * This is a class of game message
+ */
 public class MoveResourceESLCToWEarehouseGameMessage extends GameMessage {
 
     private int leaderCardPosition;
 
+    /**
+     * Constructor of class game message
+     * @param leaderCardPosition integer
+     */
     public MoveResourceESLCToWEarehouseGameMessage(int leaderCardPosition){
         identifier = "MOVE_RESOURCE_ES_LC_TO_WAREHOUSE";
         this.leaderCardPosition = leaderCardPosition;
     }
 
+    /**
+     * This method represents the sending of a  correct message
+     * @param game game instance
+     * @param out sends message to socket
+     */
     @Override
     public void execute(Game game, PrintWriter out) {
         try {

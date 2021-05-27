@@ -12,15 +12,27 @@ import it.polimi.ingsw.Messages.ForwardMessages.ShowMarketMessage;
 
 import java.io.PrintWriter;
 
+/**
+ * This is a class of game message
+ */
 public class SelectNormalActionGameMessage extends GameMessage {
 
     private NormalAction normalAction;
 
+    /**
+     * Constructor of class game message
+     * @param normalAction instance of normalaction
+     */
     public SelectNormalActionGameMessage(NormalAction normalAction){
         identifier = "SELECT_NORMAL_ACTION";
         this.normalAction = normalAction;
     }
 
+    /**
+     * This method represents the sending of a  correct message
+     * @param game game instance
+     * @param out sends message to socket
+     */
     @Override
     public void execute(Game game, PrintWriter out) {
         try {

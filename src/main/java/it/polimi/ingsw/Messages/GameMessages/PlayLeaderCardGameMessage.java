@@ -17,15 +17,27 @@ import it.polimi.ingsw.Messages.Message;
 
 import java.io.PrintWriter;
 
+/**
+ * This is a class of game message
+ */
 public class PlayLeaderCardGameMessage extends GameMessage {
 
     private int leaderCardToPlay;
 
+    /**
+     * Constructor of class game message
+     * @param leaderCardToPlay integer
+     */
     public PlayLeaderCardGameMessage(int leaderCardToPlay){
         identifier = "PLAY_LEADER_CARD";
         this.leaderCardToPlay = leaderCardToPlay;
     }
 
+    /**
+     * This method represents the sending of a  correct message
+     * @param game game instance
+     * @param out sends message to socket
+     */
     @Override
     public void execute(Game game, PrintWriter out) {
         try {

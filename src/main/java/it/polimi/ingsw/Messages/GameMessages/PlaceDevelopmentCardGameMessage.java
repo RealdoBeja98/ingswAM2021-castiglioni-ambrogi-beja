@@ -15,15 +15,27 @@ import it.polimi.ingsw.Table.Decks.Development.DevelopmentCard;
 
 import java.io.PrintWriter;
 
+/**
+ * This is a class of game message
+ */
 public class PlaceDevelopmentCardGameMessage extends GameMessage {
 
     private int position;
 
+    /**
+     * Constructor of class game message
+     * @param position integer
+     */
     public PlaceDevelopmentCardGameMessage(int position){
         identifier = "PLACE_DEVELOPMENT_CARD";
         this.position = position;
     }
 
+    /**
+     * This method represents the sending of a  correct message
+     * @param game game instance
+     * @param out sends message to socket
+     */
     @Override
     public void execute(Game game, PrintWriter out) {
         try {

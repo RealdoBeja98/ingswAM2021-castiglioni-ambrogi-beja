@@ -17,15 +17,27 @@ import it.polimi.ingsw.Messages.Message;
 
 import java.io.PrintWriter;
 
+/**
+ * This is a class of game message
+ */
 public class ObtainGenericResourceGameMessage extends GameMessage {
 
     private Resource resource;
 
+    /**
+     * Constructor of class game message
+     * @param resource instance of resource
+     */
     public ObtainGenericResourceGameMessage(Resource resource){
         identifier = "OBTAIN_GENERIC_RESOURCE";
         this.resource = resource;
     }
 
+    /**
+     * This method represents the sending of a  correct message
+     * @param game game instance
+     * @param out sends message to socket
+     */
     @Override
     public void execute(Game game, PrintWriter out) {
         try {

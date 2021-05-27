@@ -12,12 +12,23 @@ import it.polimi.ingsw.Messages.Message;
 
 import java.io.PrintWriter;
 
+/**
+ * This is a class of game message
+ */
 public class EndTurnGameMessage extends GameMessage {
 
+    /**
+     * Constructor of class game message
+     */
     public EndTurnGameMessage(){
         identifier = "END_TURN";
     }
 
+    /**
+     * This method represents the sending of a  correct message
+     * @param game game instance
+     * @param out sends message to socket
+     */
     @Override
     public void execute(Game game, PrintWriter out) {
         try {

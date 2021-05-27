@@ -15,15 +15,26 @@ import it.polimi.ingsw.View.View;
 
 import java.io.PrintWriter;
 
+/**
+ * This is a class of game message
+ */
 public class DiscardLeaderCardGameMessage extends GameMessage {
 
     private int leaderCardToDiscard;
 
+    /**
+     * Constructor of class game message
+     * @param leaderCardToDiscard integer
+     */
     public DiscardLeaderCardGameMessage(int leaderCardToDiscard){
         identifier = "DISCARD_LEADER_CARD";
         this.leaderCardToDiscard = leaderCardToDiscard;
     }
-
+    /**
+     * This method represents the sending of a  correct message
+     * @param game game instance
+     * @param out sends message to socket
+     */
     @Override
     public void execute(Game game, PrintWriter out) {
         try {

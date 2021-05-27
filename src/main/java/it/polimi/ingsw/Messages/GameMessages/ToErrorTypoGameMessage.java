@@ -8,12 +8,19 @@ import it.polimi.ingsw.Messages.Message;
 
 import java.io.PrintWriter;
 
+/**
+ * This is a class of game message
+ */
 public class ToErrorTypoGameMessage extends GameMessage {
 
     public ToErrorTypoGameMessage(){
         identifier = "TO_ERROR_TYPO";
     }
 
+    /**
+     * Constructor of class game message
+     * @param messageString string message
+     */
     public ToErrorTypoGameMessage(String messageString){
         if(messageString == null){
             identifier = "TO_ERROR_TYPO";
@@ -22,6 +29,11 @@ public class ToErrorTypoGameMessage extends GameMessage {
         }
     }
 
+    /**
+     * This method represents the sending of a  correct message
+     * @param game game instance
+     * @param out sends message to socket
+     */
     @Override
     public void execute(Game game, PrintWriter out) {
         Message.sendMessage(out, new TypoErrorMessage());

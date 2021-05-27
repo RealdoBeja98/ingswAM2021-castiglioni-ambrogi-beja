@@ -11,12 +11,22 @@ import it.polimi.ingsw.Messages.Message;
 
 import java.io.PrintWriter;
 
+/**
+ * This is a class of game message
+ */
 public class ChooseNoActionLeaderCardGameMessage extends GameMessage {
 
+    /**
+     * Constructor of class game message
+     */
     public ChooseNoActionLeaderCardGameMessage(){
         identifier = "CHOOSE_NO_ACTION_LEADER_CARD";
     }
-
+    /**
+     * This method represents the sending of a  correct message
+     * @param game game instance
+     * @param out sends message to socket
+     */
     @Override
     public void execute(Game game, PrintWriter out) {
         try {
