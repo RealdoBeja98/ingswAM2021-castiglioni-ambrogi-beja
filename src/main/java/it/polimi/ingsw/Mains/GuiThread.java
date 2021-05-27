@@ -19,6 +19,9 @@ import javafx.stage.Stage;
 
 import java.io.PrintWriter;
 
+/**
+ * Class of gui thread
+ */
 public class GuiThread extends Application implements Runnable{
 
     private static PrintWriter out;
@@ -29,14 +32,24 @@ public class GuiThread extends Application implements Runnable{
     private static GuiThread instance;
     private final static Object lock = new Object();
 
+    /**
+     * Constructor of the class
+     */
     public GuiThread(){
         instance = this;
     }
 
+    /**
+     * Prints the card
+     */
     public static void setCardPrinted() {
         GuiThread.cardPrinted = true;
     }
 
+    /**
+     * Sets parameter out to other classes
+     * @param out sends message to socket
+     */
     public static void setOut(PrintWriter out) {
         GuiThread.out = out;
         synchronized (GuiThread.lock){
@@ -44,12 +57,19 @@ public class GuiThread extends Application implements Runnable{
         }
     }
 
+    /**
+     * Launches the thread gui
+     */
     @Override
     public void run(){
         launch();
         return;
     }
 
+    /**
+     * This method creates the gui, stages canvas scene
+     * @param stage scene
+     */
     @Override
     public void start(Stage stage) throws Exception {
         stage.setTitle("Masters of Renaissance" + " - " + ClientMain.getClientNick());
@@ -73,6 +93,11 @@ public class GuiThread extends Application implements Runnable{
         stage.show();
     }
 
+    /**
+     * This methods creates the buttons for the turn
+     * @param root group root
+     * @param stage stage
+     */
     private void buttonTurn(Group root, Stage stage){
         addButton(root, "_SEL_NO_A_LC", 615, 0, new ChooseNoActionLeaderCardGameMessage());
         addButton(root, "_SEL_DISC_LC", 615, 35, new ChooseDiscardLeaderCardGameMessage());
@@ -155,6 +180,14 @@ public class GuiThread extends Application implements Runnable{
         addQuitButton(root, "_QUIT", 615, 960, "quit", stage);
     }
 
+    /**
+     * This method creates and adds the button
+     * @param root group root
+     * @param buttonName name of the button
+     * @param x position
+     * @param y position
+     * @param message message what does the button
+     */
     private void addButton(Group root, String buttonName, int x, int y, Message message){
         Button b = new Button(buttonName);
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
@@ -171,6 +204,15 @@ public class GuiThread extends Application implements Runnable{
         root.getChildren().add(b);
     }
 
+    /**
+     * This method creates the quit button
+     * @param root group root
+     * @param buttonName name of the button
+     * @param x position
+     * @param y position
+     * @param message message what doet the button
+     * @param stage stage
+     */
     private void addQuitButton(Group root, String buttonName, int x, int y, String message, Stage stage){
         Button b = new Button(buttonName);
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
@@ -189,6 +231,14 @@ public class GuiThread extends Application implements Runnable{
         root.getChildren().add(b);
     }
 
+    /**
+     * This method creates the state buttons
+     * @param root group root
+     * @param buttonName name of the button
+     * @param x position
+     * @param y position
+     * @param n integer
+     */
     private void addStateButton(Group root, String buttonName, int x, int y, int n){
         Button b = new Button(buttonName);
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
@@ -204,7 +254,14 @@ public class GuiThread extends Application implements Runnable{
 
         root.getChildren().add(b);
     }
-
+    /**
+     * This method creates slot production button
+     * @param root group root
+     * @param buttonName name of the button
+     * @param x position
+     * @param y position
+     * @param pos integer
+     */
     private void addSlotProductionButton(Group root, String buttonName, int x, int y, int pos){
         Button b = new Button(buttonName);
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
