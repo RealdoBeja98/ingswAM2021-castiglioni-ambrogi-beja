@@ -12,6 +12,9 @@ import it.polimi.ingsw.Messages.ServiceMessages.GameStartServiceMessage;
 import java.io.*;
 import java.net.Socket;
 
+/**
+ * Class of client handle
+ */
 public class ClientHandler implements Runnable {
 
     private final Socket socket;
