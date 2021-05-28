@@ -611,10 +611,12 @@ public class MessagesTest {
     //    assertTrue(message instanceof PayedWithStrongboxForwardMessage);
     //    //assertTrue(message.getIdentifier().equals("PAYED_WITH_STRONGBOX"));
     //    //assertTrue(message.toString().equals(messageString));
-    //} 
+    //}
+
     /**
      * This method tests creation of message SelectNormalActionGameMessage
      */
+    /*
     @Test
     void ShowMarketMessageTest(){
         String messageString = "SHOW_MARKET";
@@ -622,10 +624,12 @@ public class MessagesTest {
         assertTrue(message instanceof ShowMarketMessage);
         assertTrue(message.getIdentifier().equals("SHOW_MARKET"));
         assertTrue(message.toString().equals(messageString));
-    } 
+    }
+    */
     /**
      * This method tests creation of message SelectNormalActionGameMessage
      */
+    /*
     @Test
     void ShowMarketMessageTest(){
         String messageString = "SHOW_MARKET";
@@ -633,10 +637,12 @@ public class MessagesTest {
         assertTrue(message instanceof ShowMarketMessage);
         assertTrue(message.getIdentifier().equals("SHOW_MARKET"));
         assertTrue(message.toString().equals(messageString));
-    } 
+    }
+    */
     /**
      * This method tests creation of message SelectNormalActionGameMessage
      */
+    /*
     @Test
     void ShowMarketMessageTest(){
         String messageString = "SHOW_MARKET";
@@ -644,10 +650,12 @@ public class MessagesTest {
         assertTrue(message instanceof ShowMarketMessage);
         assertTrue(message.getIdentifier().equals("SHOW_MARKET"));
         assertTrue(message.toString().equals(messageString));
-    } 
+    }
+    */
     /**
      * This method tests creation of message SelectNormalActionGameMessage
      */
+    /*
     @Test
     void ShowMarketMessageTest(){
         String messageString = "SHOW_MARKET";
@@ -655,7 +663,8 @@ public class MessagesTest {
         assertTrue(message instanceof ShowMarketMessage);
         assertTrue(message.getIdentifier().equals("SHOW_MARKET"));
         assertTrue(message.toString().equals(messageString));
-    } 
+    }
+    */
 
 // <--FIXME--> aggiungere gli altri test degli altri messaggi; i ForwardMessage li testi come i gameMessage
 
