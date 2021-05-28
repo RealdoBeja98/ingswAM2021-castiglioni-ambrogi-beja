@@ -186,7 +186,7 @@ public abstract class Message {
         if(string.equals("SHOW_CURRENT_BOARD")){
             return new ShowCurrentBoardMessage();
         }
-        if(string.equals("CONFIRMED_ACTION")){
+        if(string.equals("ConfirmedActionMessage")){
             return new ConfirmedActionMessage();
         }
         if(string.equals("TRANSITION_MESSAGE")){
