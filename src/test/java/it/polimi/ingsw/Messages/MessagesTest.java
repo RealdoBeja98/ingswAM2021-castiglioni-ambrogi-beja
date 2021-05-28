@@ -46,11 +46,15 @@ import it.polimi.ingsw.Messages.ErrorMessages.WrongResourceErrorMessage;
 import it.polimi.ingsw.Messages.ForwardMessages.AddedResourceToForwardMessage;
 import it.polimi.ingsw.Messages.ForwardMessages.AdvanceFaithTrackForwardMessage;
 import it.polimi.ingsw.Messages.ForwardMessages.DiscardedLeaderCardForwardMessage;
+import it.polimi.ingsw.Messages.ForwardMessages.MovedResourceESLCToWarehouseForwardMessage;
+import it.polimi.ingsw.Messages.ForwardMessages.MovedResourcesInWarehouseDepotsForwardMessage;
 import it.polimi.ingsw.Messages.ForwardMessages.ObtainedGenericResourceForwardMessage;
 import it.polimi.ingsw.Messages.ForwardMessages.PayedWithExtraStorageLeaderCardForwardMessage;
 import it.polimi.ingsw.Messages.ForwardMessages.PayedWithStrongboxForwardMessage;
+import it.polimi.ingsw.Messages.ForwardMessages.PayedWithWarehouseDepotsForwardMessage;
 import it.polimi.ingsw.Messages.ForwardMessages.PlacedDevelopmentCardForwardMessage;
 import it.polimi.ingsw.Messages.ForwardMessages.PlayedLeaderCardForwardMessage;
+import it.polimi.ingsw.Messages.ForwardMessages.SelectedTwoCardsToKeepForwardMessage;
 import it.polimi.ingsw.Messages.ForwardMessages.ShowCardMarketMessage;
 import it.polimi.ingsw.Messages.ForwardMessages.ShowCurrentBoardMessage;
 import it.polimi.ingsw.Messages.ForwardMessages.ShowMarketMessage;
@@ -58,7 +62,31 @@ import it.polimi.ingsw.Messages.ForwardMessages.TransitionForwardMessage;
 import it.polimi.ingsw.Messages.ForwardMessages.UpdateDevelopmentCardForwardMessage;
 import it.polimi.ingsw.Messages.ForwardMessages.UpdateMarketForwardMessage;
 import it.polimi.ingsw.Messages.ForwardMessages.UpdateObtainedMultipleResourceForwardMessage;
+import it.polimi.ingsw.Messages.GameMessages.BuyDevelopmentCardGameMessage;
+import it.polimi.ingsw.Messages.GameMessages.ChangeWhiteMarbleWithGameMessage;
+import it.polimi.ingsw.Messages.GameMessages.ChooseDiscardLeaderCardGameMessage;
+import it.polimi.ingsw.Messages.GameMessages.ChooseNoActionLeaderCardGameMessage;
+import it.polimi.ingsw.Messages.GameMessages.ChoosePlayLeaderCardGameMessage;
+import it.polimi.ingsw.Messages.GameMessages.DiscardLeaderCardGameMessage;
+import it.polimi.ingsw.Messages.GameMessages.DrawSoloActionTokenGameMessage;
+import it.polimi.ingsw.Messages.GameMessages.EndTurnGameMessage;
+import it.polimi.ingsw.Messages.GameMessages.MoveResourceESLCToWEarehouseGameMessage;
+import it.polimi.ingsw.Messages.GameMessages.MoveResourcesInWarehouseDepotsGameMessage;
+import it.polimi.ingsw.Messages.GameMessages.MoveResourcesWarehouseToESLCGameMessage;
+import it.polimi.ingsw.Messages.GameMessages.ObtainGenericResourceGameMessage;
+import it.polimi.ingsw.Messages.GameMessages.PayWithExtraStorageLeaderCardGameMessage;
+import it.polimi.ingsw.Messages.GameMessages.PayWithStrongboxGameMessage;
+import it.polimi.ingsw.Messages.GameMessages.PayWithWarehouseDepotsGameMessage;
+import it.polimi.ingsw.Messages.GameMessages.PlaceDevelopmentCardGameMessage;
+import it.polimi.ingsw.Messages.GameMessages.PlayLeaderCardGameMessage;
+import it.polimi.ingsw.Messages.GameMessages.SelectAWarehouseDepotsSlotGameMessage;
+import it.polimi.ingsw.Messages.GameMessages.SelectDefaultProductionPowerGameMessage;
 import it.polimi.ingsw.Messages.GameMessages.SelectNormalActionGameMessage;
+import it.polimi.ingsw.Messages.GameMessages.SelectProductionDevelopmentCardGameMessage;
+import it.polimi.ingsw.Messages.GameMessages.SelectProductionPowerLeaderCardGameMessage;
+import it.polimi.ingsw.Messages.GameMessages.SelectTwoCardsToKeepGameMessage;
+import it.polimi.ingsw.Messages.GameMessages.StartPaymentGameMessage;
+import it.polimi.ingsw.Messages.GameMessages.TakeResourcesFromTheMarketGameMessage;
 import it.polimi.ingsw.Messages.ServiceMessages.GameStartServiceMessage;
 import it.polimi.ingsw.Table.Decks.Development.DevelopmentCard;
 import it.polimi.ingsw.Table.Decks.Token.ActionToken;
@@ -428,7 +456,7 @@ public class MessagesTest {
         assertTrue(message.toString().equals(messageString));
     }
     /**
-     * This method tests creation of message SelectNormalActionGameMessage
+     * This method tests creation of message TransitionForwardMessageTest
      */
     @Test
     void TransitionForwardMessageTest(){
@@ -439,7 +467,7 @@ public class MessagesTest {
         assertTrue(message.toString().equals(messageString));
     }
     /**
-     * This method tests creation of message SelectNormalActionGameMessage
+     * This method tests creation of message ConfirmedActionMessageTest
      */
     @Test
     void ConfirmedActionMessageTest(){
@@ -448,7 +476,7 @@ public class MessagesTest {
         assertTrue(message instanceof ConfirmedActionMessage);
     }
     /**
-     * This method tests creation of message SelectNormalActionGameMessage
+     * This method tests creation of message ShowCurrentBoardMessageTest
      */
     @Test
     void ShowCurrentBoardMessageTest(){
@@ -459,7 +487,7 @@ public class MessagesTest {
         assertTrue(message.toString().equals(messageString));
     }
    /**
-     * This method tests creation of message SelectNormalActionGameMessage
+     * This method tests creation of message ShowCardMarketMessageTest
      */
     @Test
     void ShowCardMarketMessageTest(){
@@ -470,7 +498,7 @@ public class MessagesTest {
         assertTrue(message.toString().equals(messageString));
     } 
     /**
-     * This method tests creation of message SelectNormalActionGameMessage
+     * This method tests creation of message UpdateMarketForwardMessageTest
      */
     @Test
     void UpdateMarketForwardMessageTest(){
@@ -483,7 +511,7 @@ public class MessagesTest {
     }
     
     /**
-     * This method tests creation of message SelectNormalActionGameMessage
+     * This method tests creation of message UpdateDevelopmentCardForwardMessageTest
      */
     @Test
     void UpdateDevelopmentCardForwardMessageTest(){
@@ -494,7 +522,7 @@ public class MessagesTest {
         assertTrue(message.toString().equals(messageString));
     } 
     /**
-     * This method tests creation of message SelectNormalActionGameMessage
+     * This method tests creation of message UpdateSoloActionTokenMessage
      */
     @Test
     void UpdateSoloActionTokenMessage(){
@@ -506,7 +534,7 @@ public class MessagesTest {
     } 
     
     /**
-     * This method tests creation of message SelectNormalActionGameMessage
+     * This method tests creation of message AdvanceFaithTrackForwardMessageTest
      */
     @Test
     void AdvanceFaithTrackForwardMessageTest(){
@@ -517,7 +545,7 @@ public class MessagesTest {
         assertTrue(message.toString().equals(messageString));
     } 
     /**
-     * This method tests creation of message SelectNormalActionGameMessage
+     * This method tests creation of message DiscardedLeaderCardForwardMessageTest
      */
     @Test
     void DiscardedLeaderCardForwardMessageTest(){
@@ -528,7 +556,7 @@ public class MessagesTest {
         assertTrue(message.toString().equals(messageString));
     } 
     /**
-     * This method tests creation of message SelectNormalActionGameMessage
+     * This method tests creation of message PlayedLeaderCardForwardMessageTest
      */
     @Test
     void PlayedLeaderCardForwardMessageTest(){
@@ -539,7 +567,7 @@ public class MessagesTest {
         assertTrue(message.toString().equals(messageString));
     } 
     /**
-     * This method tests creation of message SelectNormalActionGameMessage
+     * This method tests creation of message AddedResourceToForwardMessageTest
      */
     @Test
     void AddedResourceToForwardMessageTest(){
@@ -550,7 +578,7 @@ public class MessagesTest {
         assertTrue(message.toString().equals(messageString));
     } 
     /**
-     * This method tests creation of message SelectNormalActionGameMessage
+     * This method tests creation of message PlacedDevelopmentCardForwardMessageTest
      */
     @Test
     void PlacedDevelopmentCardForwardMessageTest(){
@@ -569,7 +597,7 @@ public class MessagesTest {
         assertTrue(message.toString().equals(messageString));
     } 
     /**
-     * This method tests creation of message SelectNormalActionGameMessage
+     * This method tests creation of message UpdateObtainedMultipleResourceForwardMessageTest
      */
     @Test
     void UpdateObtainedMultipleResourceForwardMessageTest(){
@@ -580,7 +608,7 @@ public class MessagesTest {
         assertTrue(message.toString().equals(messageString));
     } 
     /**
-     * This method tests creation of message SelectNormalActionGameMessage
+     * This method tests creation of message ObtainedGenericResourceForwardMessageTest
      */
     @Test
     void ObtainedGenericResourceForwardMessageTest(){
@@ -591,7 +619,7 @@ public class MessagesTest {
         assertTrue(message.toString().equals(messageString));
     } 
     /**
-     * This method tests creation of message SelectNormalActionGameMessage
+     * This method tests creation of message PayedWithExtraStorageLeaderCardForwardMessageTest
      */
     @Test
     void PayedWithExtraStorageLeaderCardForwardMessageTest(){
@@ -613,63 +641,328 @@ public class MessagesTest {
     //    //assertTrue(message.toString().equals(messageString));
     //}
 
-    /**
-     * This method tests creation of message SelectNormalActionGameMessage
+    /*
+     * This method tests creation of message PayedWithWarehouseDepotsForwardMessageTest
      */
-<<<<<<< HEAD
+    @Test
+    void PayedWithWarehouseDepotsForwardMessageTest(){
+        String messageString = "PAYED_WITH_WAREHOUSE_DEPOTS" + " " + "nickname" + " " + 1;
+        Message message = Message.fromString(messageString);
+        assertTrue(message instanceof PayedWithWarehouseDepotsForwardMessage);
+        assertTrue(message.getIdentifier().equals("PAYED_WITH_WAREHOUSE_DEPOTS"));
+        assertTrue(message.toString().equals(messageString));
+    }
+
+    /* 
+     * This method tests creation of message MovedResourcesInWarehouseDepotsForwardMessageTest
+     */
+    @Test
+    void MovedResourcesInWarehouseDepotsForwardMessageTest(){
+        String messageString = "MOVED_RESOURCES_IN_WAREHOUSE_DEPOTS" + " " + "nickname" + " " + 1 + " " + 1;
+        Message message = Message.fromString(messageString);
+        assertTrue(message instanceof MovedResourcesInWarehouseDepotsForwardMessage);
+        assertTrue(message.getIdentifier().equals("MOVED_RESOURCES_IN_WAREHOUSE_DEPOTS"));
+        assertTrue(message.toString().equals(messageString));
+    }
     
-=======
     /*
-    @Test
-    void ShowMarketMessageTest(){
-        String messageString = "SHOW_MARKET";
-        Message message = Message.fromString(messageString);
-        assertTrue(message instanceof ShowMarketMessage);
-        assertTrue(message.getIdentifier().equals("SHOW_MARKET"));
-        assertTrue(message.toString().equals(messageString));
-    }
-    */
-    /**
-     * This method tests creation of message SelectNormalActionGameMessage
+     * This method tests creation of message MovedResourceESLCToWarehouseForwardMessageTest
      */
-    /*
+    
     @Test
-    void ShowMarketMessageTest(){
-        String messageString = "SHOW_MARKET";
+    void MovedResourceESLCToWarehouseForwardMessageTest(){
+        String messageString = "MOVED_RESOURCE_ES_LC_TO_WAREHOUSE" + " " + "nickname" + " " + 1 + " " + 1;
         Message message = Message.fromString(messageString);
-        assertTrue(message instanceof ShowMarketMessage);
-        assertTrue(message.getIdentifier().equals("SHOW_MARKET"));
+        assertTrue(message instanceof MovedResourceESLCToWarehouseForwardMessage);
+        assertTrue(message.getIdentifier().equals("MOVED_RESOURCE_ES_LC_TO_WAREHOUSE"));
         assertTrue(message.toString().equals(messageString));
     }
-    */
+    
     /**
-     * This method tests creation of message SelectNormalActionGameMessage
+     * This method tests creation of message SelectedTwoCardsToKeepForwardMessageTest
      */
-    /*
     @Test
-    void ShowMarketMessageTest(){
-        String messageString = "SHOW_MARKET";
+    void SelectedTwoCardsToKeepForwardMessageTest(){
+        String messageString = "SELECTED_TWO_CARDS_TO_KEEP" + " " + "nickname" + " " + 1 + " " + 1;
         Message message = Message.fromString(messageString);
-        assertTrue(message instanceof ShowMarketMessage);
-        assertTrue(message.getIdentifier().equals("SHOW_MARKET"));
+        assertTrue(message instanceof SelectedTwoCardsToKeepForwardMessage);
+        assertTrue(message.getIdentifier().equals("SELECTED_TWO_CARDS_TO_KEEP"));
         assertTrue(message.toString().equals(messageString));
     }
-    */
->>>>>>> 4727dd5577c2bb023dd6823feb68ecbcf6d38376
-    /**
-     * This method tests creation of message SelectNormalActionGameMessage
-     */
-    /*
-    @Test
-    void ShowMarketMessageTest(){
-        String messageString = "SHOW_MARKET";
-        Message message = Message.fromString(messageString);
-        assertTrue(message instanceof ShowMarketMessage);
-        assertTrue(message.getIdentifier().equals("SHOW_MARKET"));
-        assertTrue(message.toString().equals(messageString));
-    }
-    */
 
-// <--FIXME--> aggiungere gli altri test degli altri messaggi; i ForwardMessage li testi come i gameMessage
+    /**
+     * This method tests creation of message ChooseDiscardLeaderCardGameMessageTest
+     */
+    @Test
+    void ChooseDiscardLeaderCardGameMessageTest(){
+        String messageString = "CHOOSE_DISCARD_LEADER_CARD";
+        Message message = Message.fromString(messageString);
+        assertTrue(message instanceof ChooseDiscardLeaderCardGameMessage);
+        assertTrue(message.getIdentifier().equals("CHOOSE_DISCARD_LEADER_CARD"));
+        assertTrue(message.toString().equals(messageString));
+    }
 
+    /**
+     * This method tests creation of message DiscardLeaderCardGameMessageTest
+     */
+    @Test
+    void DiscardLeaderCardGameMessageTest(){
+        String messageString = "DISCARD_LEADER_CARD" + " " + 1;
+        Message message = Message.fromString(messageString);
+        assertTrue(message instanceof DiscardLeaderCardGameMessage);
+        assertTrue(message.getIdentifier().equals("DISCARD_LEADER_CARD"));
+        assertTrue(message.toString().equals(messageString));
+    }
+
+    /**
+     * This method tests creation of message ChoosePlayLeaderCardGameMessageTest
+     */
+    @Test
+    void ChoosePlayLeaderCardGameMessageTest(){
+        String messageString = "CHOOSE_PLAY_LEADER_CARD";
+        Message message = Message.fromString(messageString);
+        assertTrue(message instanceof ChoosePlayLeaderCardGameMessage);
+        assertTrue(message.getIdentifier().equals("CHOOSE_PLAY_LEADER_CARD"));
+        assertTrue(message.toString().equals(messageString));
+    }
+
+    /**
+     * This method tests creation of message PlayLeaderCardGameMessageTest
+     */
+    @Test
+    void PlayLeaderCardGameMessageTest(){
+        String messageString = "PLAY_LEADER_CARD" + " " + 1;
+        Message message = Message.fromString(messageString);
+        assertTrue(message instanceof PlayLeaderCardGameMessage);
+        assertTrue(message.getIdentifier().equals("PLAY_LEADER_CARD"));
+        assertTrue(message.toString().equals(messageString));
+    }
+
+    /**
+     * This method tests creation of message ChooseNoActionLeaderCardGameMessageTest
+     */
+    @Test
+    void ChooseNoActionLeaderCardGameMessageTest(){
+        String messageString = "CHOOSE_NO_ACTION_LEADER_CARD";
+        Message message = Message.fromString(messageString);
+        assertTrue(message instanceof ChooseNoActionLeaderCardGameMessage);
+        assertTrue(message.getIdentifier().equals("CHOOSE_NO_ACTION_LEADER_CARD"));
+        assertTrue(message.toString().equals(messageString));
+    }
+
+    /**
+     * This method tests creation of message EndTurnGameMessageTest
+     */
+    @Test
+    void EndTurnGameMessageTest(){
+        String messageString = "END_TURN";
+        Message message = Message.fromString(messageString);
+        assertTrue(message instanceof EndTurnGameMessage);
+        assertTrue(message.getIdentifier().equals("END_TURN"));
+        assertTrue(message.toString().equals(messageString));
+    }
+
+    /**
+     * This method tests creation of message TakeResourcesFromTheMarketGameMessageTest
+     */
+    @Test
+    void TakeResourcesFromTheMarketGameMessageTest(){
+        String messageString = "TAKE_RESOURCES_FROM_THE_MARKET" + " " + RowColumn.COLUMN + " " + 1;
+        Message message = Message.fromString(messageString);
+        assertTrue(message instanceof TakeResourcesFromTheMarketGameMessage);
+        assertTrue(message.getIdentifier().equals("TAKE_RESOURCES_FROM_THE_MARKET"));
+        assertTrue(message.toString().equals(messageString));
+    }
+
+    /**
+     * This method tests creation of message ChangeWhiteMarbleWithGameMessageTest
+     */
+    @Test
+    void ChangeWhiteMarbleWithGameMessageTest(){
+        String messageString = "CHANGE_WHITE_MARBLE_WITH" + " " + 1;
+        Message message = Message.fromString(messageString);
+        assertTrue(message instanceof ChangeWhiteMarbleWithGameMessage);
+        assertTrue(message.getIdentifier().equals("CHANGE_WHITE_MARBLE_WITH"));
+        assertTrue(message.toString().equals(messageString));
+    }
+
+    /**
+     * This method tests creation of message BuyDevelopmentCardGameMessageTest
+     */
+    @Test
+    void BuyDevelopmentCardGameMessageTest(){
+        String messageString = "BUY_DEVELOPMENT_CARD" + " " + 1 + " " + 1;
+        Message message = Message.fromString(messageString);
+        assertTrue(message instanceof BuyDevelopmentCardGameMessage);
+        assertTrue(message.getIdentifier().equals("BUY_DEVELOPMENT_CARD"));
+        assertTrue(message.toString().equals(messageString));
+    }
+
+    /**
+     * This method tests creation of message PayWithStrongboxGameMessageTest
+     */
+    @Test
+    void PayWithStrongboxGameMessageTest(){
+        String messageString = "PAY_WITH_STRONGBOX" + " " + Resource.COIN;
+        Message message = Message.fromString(messageString);
+        assertTrue(message instanceof PayWithStrongboxGameMessage);
+        assertTrue(message.getIdentifier().equals("PAY_WITH_STRONGBOX"));
+        assertTrue(message.toString().equals(messageString));
+    }
+
+    /**
+     * This method tests creation of message PayWithWarehouseDepotsGameMessageTest
+     */
+    @Test
+    void PayWithWarehouseDepotsGameMessageTest(){
+        String messageString = "PAY_WITH_WAREHOUSE_DEPOTS" + " " + 1;
+        Message message = Message.fromString(messageString);
+        assertTrue(message instanceof PayWithWarehouseDepotsGameMessage);
+        assertTrue(message.getIdentifier().equals("PAY_WITH_WAREHOUSE_DEPOTS"));
+        assertTrue(message.toString().equals(messageString));
+    }
+
+    /**
+     * This method tests creation of message PayWithExtraStorageLeaderCardGameMessageTest
+     */
+    @Test
+    void PayWithExtraStorageLeaderCardGameMessageTest(){
+        String messageString = "PAY_WITH_EXTRA_STORAGE_LEADER_CARD" + " " + 1;
+        Message message = Message.fromString(messageString);
+        assertTrue(message instanceof PayWithExtraStorageLeaderCardGameMessage);
+        assertTrue(message.getIdentifier().equals("PAY_WITH_EXTRA_STORAGE_LEADER_CARD"));
+        assertTrue(message.toString().equals(messageString));
+    }
+
+    /**
+     * This method tests creation of message PlaceDevelopmentCardGameMessageTest
+     */
+    @Test
+    void PlaceDevelopmentCardGameMessageTest(){
+        String messageString = "PLACE_DEVELOPMENT_CARD" + " " + 1;
+        Message message = Message.fromString(messageString);
+        assertTrue(message instanceof PlaceDevelopmentCardGameMessage);
+        assertTrue(message.getIdentifier().equals("PLACE_DEVELOPMENT_CARD"));
+        assertTrue(message.toString().equals(messageString));
+    }
+
+    /**
+     * This method tests creation of message SelectProductionDevelopmentCardGameMessageTest
+     */
+    @Test
+    void SelectProductionDevelopmentCardGameMessageTest(){
+        String messageString = "SELECT_PRODUCTION_DEVELOPMENT_CARD" + " " + 1;
+        Message message = Message.fromString(messageString);
+        assertTrue(message instanceof SelectProductionDevelopmentCardGameMessage);
+        assertTrue(message.getIdentifier().equals("SELECT_PRODUCTION_DEVELOPMENT_CARD"));
+        assertTrue(message.toString().equals(messageString));
+    }
+
+    /**
+     * This method tests creation of message SelectProductionPowerLeaderCardGameMessageTest
+     */
+    @Test
+    void SelectProductionPowerLeaderCardGameMessageTest(){
+        String messageString = "SELECT_PRODUCTION_POWER_LEADER_CARD" + " " + 1;
+        Message message = Message.fromString(messageString);
+        assertTrue(message instanceof SelectProductionPowerLeaderCardGameMessage);
+        assertTrue(message.getIdentifier().equals("SELECT_PRODUCTION_POWER_LEADER_CARD"));
+        assertTrue(message.toString().equals(messageString));
+    }
+
+    /**
+     * This method tests creation of message ObtainGenericResourceGameMessageTest
+     */
+    @Test
+    void ObtainGenericResourceGameMessageTest(){
+        String messageString = "OBTAIN_GENERIC_RESOURCE" + " " + Resource.COIN;
+        Message message = Message.fromString(messageString);
+        assertTrue(message instanceof ObtainGenericResourceGameMessage);
+        assertTrue(message.getIdentifier().equals("OBTAIN_GENERIC_RESOURCE"));
+        assertTrue(message.toString().equals(messageString));
+    }
+
+    /**
+     * This method tests creation of message StartPaymentGameMessageTest
+     */
+    @Test
+    void StartPaymentGameMessageTest(){
+        String messageString = "START_PAYMENT";
+        Message message = Message.fromString(messageString);
+        assertTrue(message instanceof StartPaymentGameMessage);
+        assertTrue(message.getIdentifier().equals("START_PAYMENT"));
+        assertTrue(message.toString().equals(messageString));
+    }
+
+    /**
+     * This method tests creation of message DrawSoloActionTokenGameMessageTest
+     */
+    @Test
+    void DrawSoloActionTokenGameMessageTest(){
+        String messageString = "DRAW_SOLO_ACTION_TOKEN";
+        Message message = Message.fromString(messageString);
+        assertTrue(message instanceof DrawSoloActionTokenGameMessage);
+        assertTrue(message.getIdentifier().equals("DRAW_SOLO_ACTION_TOKEN"));
+        assertTrue(message.toString().equals(messageString));
+    }
+
+    /**
+     * This method tests creation of message SelectAWarehouseDepotsSlotGameMessageTest
+     */
+    @Test
+    void SelectAWarehouseDepotsSlotGameMessageTest(){
+        String messageString = "SELECT_A_WAREHOUSE_DEPOTS_SLOT" + " " + 1;
+        Message message = Message.fromString(messageString);
+        assertTrue(message instanceof SelectAWarehouseDepotsSlotGameMessage);
+        assertTrue(message.getIdentifier().equals("SELECT_A_WAREHOUSE_DEPOTS_SLOT"));
+        assertTrue(message.toString().equals(messageString));
+    }
+
+    /**
+     * This method tests creation of message MoveResourcesInWarehouseDepotsGameMessageTest
+     */
+    @Test
+    void MoveResourcesInWarehouseDepotsGameMessageTest(){
+        String messageString = "MOVE_RESOURCES_IN_WAREHOUSE_DEPOTS" + " " + 1;
+        Message message = Message.fromString(messageString);
+        assertTrue(message instanceof MoveResourcesInWarehouseDepotsGameMessage);
+        assertTrue(message.getIdentifier().equals("MOVE_RESOURCES_IN_WAREHOUSE_DEPOTS"));
+        assertTrue(message.toString().equals(messageString));
+    }
+
+    /**
+     * This method tests creation of message MoveResourcesWarehouseToESLCGameMessageTest
+     */
+    @Test
+    void MoveResourcesWarehouseToESLCGameMessageTest(){
+        String messageString = "MOVE_RESOURCES_WAREHOUSE_TO_ES_LC" + " " + 1;
+        Message message = Message.fromString(messageString);
+        assertTrue(message instanceof MoveResourcesWarehouseToESLCGameMessage);
+        assertTrue(message.getIdentifier().equals("MOVE_RESOURCES_WAREHOUSE_TO_ES_LC"));
+        assertTrue(message.toString().equals(messageString));
+    }
+
+    /**
+     * This method tests creation of message MoveResourceESLCToWEarehouseGameMessageTest
+     */
+    @Test
+    void MoveResourceESLCToWEarehouseGameMessageTest(){
+        String messageString = "MOVE_RESOURCE_ES_LC_TO_WAREHOUSE" + " " + 1;
+        Message message = Message.fromString(messageString);
+        assertTrue(message instanceof MoveResourceESLCToWEarehouseGameMessage);
+        assertTrue(message.getIdentifier().equals("MOVE_RESOURCE_ES_LC_TO_WAREHOUSE"));
+        assertTrue(message.toString().equals(messageString));
+    }
+
+    /**
+     * This method tests creation of message SelectTwoCardsToKeepGameMessageTest
+     */
+    @Test
+    void SelectTwoCardsToKeepGameMessageTest(){
+        String messageString = "SELECT_TWO_CARDS_TO_KEEP" + " " + 1 + " " + 1;
+        Message message = Message.fromString(messageString);
+        assertTrue(message instanceof SelectTwoCardsToKeepGameMessage);
+        assertTrue(message.getIdentifier().equals("SELECT_TWO_CARDS_TO_KEEP"));
+        assertTrue(message.toString().equals(messageString));
+    }
 }
