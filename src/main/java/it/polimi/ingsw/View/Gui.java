@@ -5,16 +5,12 @@ import it.polimi.ingsw.Game.PlayerGame;
 import it.polimi.ingsw.Mains.ClientMain;
 import it.polimi.ingsw.Mains.GuiThread;
 import it.polimi.ingsw.Table.Decks.Development.DevelopmentCard;
+import it.polimi.ingsw.Table.Decks.Leader.ExtraStorageLeaderCard;
 import it.polimi.ingsw.Table.Decks.Leader.LeaderCard;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import it.polimi.ingsw.Table.Decks.Token.ActionToken;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
-import javafx.stage.Popup;
-
-
 import java.util.ArrayList;
 
 public class Gui extends View{
@@ -179,7 +175,7 @@ public class Gui extends View{
         return "Resources/" + name + ".png";
     }
 
-    private void drawLittleSquare(GraphicsContext gc, int x, int y, String name, int l1, int l2) {
+    public void drawLittleSquare(GraphicsContext gc, int x, int y, String name, int l1, int l2) {
         Image img = new Image(name);
         gc.drawImage(img, x, y, l1, l2);
     }
@@ -371,12 +367,34 @@ public class Gui extends View{
             String fullName = "LeaderCard/" + name + ".png";
             drawCards(gc, x+ 560, y+ 0, fullName, 70, 110);
             drawCards(gc, x+ 560, y+ 110, "Labels/CardInPlay.png", 70, 25);
+            int resourcesInTheCard = 0;
+            if(cardsOnTable[0] instanceof ExtraStorageLeaderCard){
+                resourcesInTheCard = ((ExtraStorageLeaderCard)cardsOnTable[0]).occupiedResources();
+            }
+            String tickName = "Misc/" + "tick" + ".png";
+            if(resourcesInTheCard >= 1){
+                drawLittleSquare(gc, x+574, y+60, tickName, 20, 20);
+            }
+            if(resourcesInTheCard >= 2){
+                drawLittleSquare(gc, x+586, y+60, tickName, 20, 20);
+            }
         }
         if(cardsOnTable[1] != null){
             String name = cardsOnTable[1].export();
             String fullName = "LeaderCard/" + name + ".png";
             drawCards(gc, x+ 560, y+ 245, fullName, 70, 110);
             drawCards(gc, x+ 560, y+ 355, "Labels/CardInPlay.png", 70, 25);
+            int resourcesInTheCard = 0;
+            if(cardsOnTable[1] instanceof ExtraStorageLeaderCard){
+                resourcesInTheCard = ((ExtraStorageLeaderCard)cardsOnTable[1]).occupiedResources();
+            }
+            String tickName = "Misc/" + "tick" + ".png";
+            if(resourcesInTheCard >= 1){
+                drawLittleSquare(gc, x+574, y+280, tickName, 20, 20);
+            }
+            if(resourcesInTheCard >= 2){
+                drawLittleSquare(gc, x+586, y+280, tickName, 20, 20);
+            }
         }
     }
 
@@ -424,6 +442,35 @@ public class Gui extends View{
         int c1 = number / 10;
         drawLittleSquare(gc, x+0, y+0, "Numbers/" + c1 + ".png", 20, 20);
         drawLittleSquare(gc, x+20, y+0, "Numbers/" + c2 + ".png", 20, 20);
+    }
+
+    @Override
+    public void showSoloActionToken(ActionToken actionToken) {
+        System.out.println("UPDATE_SOLO_ACTION_TOKEN" + " " + actionToken.getWhatIAm());
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        String name = "";
+        switch(actionToken.getWhatIAm()){
+            case BLUE:
+                name = "BlueSoloToken";
+                break;
+            case GREEN:
+                name = "GreenSoloToken";
+                break;
+            case YELLOW:
+                name = "YellowSoloToken";
+                break;
+            case PURPLE:
+                name = "PurpleSoloToken";
+                break;
+            case BLACKCROSS1:
+                name = "BlackCross1SoloToken";
+                break;
+            case BLACKCROSS2:
+                name = "BlackCross2SoloToken";
+                break;
+        }
+        String fullName = "SoloActionToken/" + name + ".png";
+        drawLittleSquare(gc, 320, 955, fullName,40, 40);
     }
 
 }

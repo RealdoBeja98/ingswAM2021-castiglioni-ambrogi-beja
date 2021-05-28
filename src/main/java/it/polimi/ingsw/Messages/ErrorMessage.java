@@ -1,6 +1,7 @@
 package it.polimi.ingsw.Messages;
 
 import it.polimi.ingsw.Game.Game;
+import it.polimi.ingsw.View.View;
 
 import java.io.PrintWriter;
 
@@ -16,7 +17,7 @@ public abstract class ErrorMessage extends Message{
      */
     @Override
     public void execute(Game game, PrintWriter out) {
-        System.out.println(this);
+        View.printMessage(this);
     }
 
     public void execute(){

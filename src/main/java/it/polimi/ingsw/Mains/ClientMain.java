@@ -116,7 +116,6 @@ public class ClientMain {
                     PrintWriter out = new PrintWriter(echoSocket.getOutputStream(), true);//scrive sul canale main
                     BufferedReader in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream())); // legge dal canale sopra
                     BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in)) //scanf
-
             ) {
                 GuiThread.setOut(out);
 
@@ -133,7 +132,7 @@ public class ClientMain {
                     (new GameDontExistErrorMessage()).execute();
                     return;
                 }else{
-                    System.out.println("Joining game number: " + line);
+                    View.printMessage("Joining game number: " + line);
                 }
 
                 line = in.readLine();
@@ -145,11 +144,11 @@ public class ClientMain {
                     (new GameStartedErrorMessage()).execute();
                     return;
                 } else if (line.equals("You have the inkwell!")) {
-                    System.out.println("Joined the game!");
-                    System.out.println("You have the inkwell!");
+                    View.printMessage("Joined the game!");
+                    View.printMessage("You have the inkwell!");
                     line = in.readLine();
                 } else {
-                    System.out.println("Joined the game!");
+                    View.printMessage("Joined the game!");
                 }
 
                 (new Thread() {
@@ -188,15 +187,13 @@ public class ClientMain {
                                         messageServerMessage.execute(null, null);
                                     } else {
                                         String constQuit = "quit";
-                                        //System.out.println("the message is: " + messageServerMessage.toString());///////////////////
                                         String last = messageServerMessage.toString().substring(messageServerMessage.toString().length()-4);
-                                        //System.out.println("last is: " + last);////////////////////
                                         if(last.equals(constQuit)){
                                             String whoQuited = messageServerMessage.toString().substring(0, messageServerMessage.toString().length() - 5);
                                             playerGame.quitAPlayer(whoQuited);
-                                            System.out.println(messageServerMessage);
+                                            View.printMessage(messageServerMessage);
                                         } else {
-                                            System.out.println(messageServerMessage);
+                                            View.printMessage(messageServerMessage);
                                         }
                                     }
                                 }

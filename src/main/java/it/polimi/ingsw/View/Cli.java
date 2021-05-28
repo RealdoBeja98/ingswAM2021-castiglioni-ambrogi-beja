@@ -6,6 +6,7 @@ import it.polimi.ingsw.Mains.ClientMain;
 import it.polimi.ingsw.PersonalBoard.Faith.FaithTrackSP;
 import it.polimi.ingsw.Table.Decks.Development.DevelopmentCard;
 import it.polimi.ingsw.Table.Decks.Leader.*;
+import it.polimi.ingsw.Table.Decks.Token.ActionToken;
 import it.polimi.ingsw.Table.Market.Marbles.Marble;
 import java.util.ArrayList;
 
@@ -643,6 +644,11 @@ public class Cli extends View{
                 break;
             default: break;
         }
+    }
+
+    @Override
+    public void showSoloActionToken(ActionToken actionToken) {
+        System.out.println("UPDATE_SOLO_ACTION_TOKEN" + actionToken.getWhatIAm());
     }
 
 }
