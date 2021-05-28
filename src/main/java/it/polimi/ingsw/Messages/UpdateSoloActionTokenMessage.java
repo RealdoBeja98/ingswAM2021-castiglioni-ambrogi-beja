@@ -30,7 +30,8 @@ public class UpdateSoloActionTokenMessage extends Message{
      */
     @Override
     public void execute(Game game, PrintWriter out) {
-        System.out.println(this);
+        View w = View.get();
+        w.showSoloActionToken(actionToken);
         switch (actionToken.getWhatIAm()){
             case GREEN:
                 ClientMain.getPlayerGame().discardDevelopmentDeck(actionToken.getWhatIAm());

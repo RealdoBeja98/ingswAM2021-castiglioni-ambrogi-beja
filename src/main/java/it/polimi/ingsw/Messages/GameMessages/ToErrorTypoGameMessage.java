@@ -30,7 +30,7 @@ public class ToErrorTypoGameMessage extends GameMessage {
     }
 
     /**
-     * This method represents the sending of a  correct message
+     * This method represents the sending of a correct message
      * @param game game instance
      * @param out sends message to socket
      */
@@ -38,6 +38,5 @@ public class ToErrorTypoGameMessage extends GameMessage {
     public void execute(Game game, PrintWriter out) {
         Message.sendMessage(out, new TypoErrorMessage());
     }
-
 
 }
