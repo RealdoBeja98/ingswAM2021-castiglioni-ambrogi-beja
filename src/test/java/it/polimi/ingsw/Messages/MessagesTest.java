@@ -615,36 +615,7 @@ public class MessagesTest {
     /**
      * This method tests creation of message SelectNormalActionGameMessage
      */
-    @Test
-    void ShowMarketMessageTest(){
-        String messageString = "SHOW_MARKET";
-        Message message = Message.fromString(messageString);
-        assertTrue(message instanceof ShowMarketMessage);
-        assertTrue(message.getIdentifier().equals("SHOW_MARKET"));
-        assertTrue(message.toString().equals(messageString));
-    } 
-    /**
-     * This method tests creation of message SelectNormalActionGameMessage
-     */
-    @Test
-    void ShowMarketMessageTest(){
-        String messageString = "SHOW_MARKET";
-        Message message = Message.fromString(messageString);
-        assertTrue(message instanceof ShowMarketMessage);
-        assertTrue(message.getIdentifier().equals("SHOW_MARKET"));
-        assertTrue(message.toString().equals(messageString));
-    } 
-    /**
-     * This method tests creation of message SelectNormalActionGameMessage
-     */
-    @Test
-    void ShowMarketMessageTest(){
-        String messageString = "SHOW_MARKET";
-        Message message = Message.fromString(messageString);
-        assertTrue(message instanceof ShowMarketMessage);
-        assertTrue(message.getIdentifier().equals("SHOW_MARKET"));
-        assertTrue(message.toString().equals(messageString));
-    } 
+    
     /**
      * This method tests creation of message SelectNormalActionGameMessage
      */
