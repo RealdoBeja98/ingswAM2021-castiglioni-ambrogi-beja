@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="it.polimi.ingsw.Table.Decks.ResourceProductionTest" time="0.078" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="it.polimi.ingsw.Messages.MessagesTest" time="0.123" tests="2" errors="0" skipped="0" failures="0">
   <properties>
     <property name="awt.toolkit" value="sun.lwawt.macosx.LWCToolkit"/>
     <property name="java.specification.version" value="15"/>
@@ -76,5 +76,6 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="59.0"/>
   </properties>
-  <testcase name="sumOfResourceProduction" classname="it.polimi.ingsw.Table.Decks.ResourceProductionTest" time="0.068"/>
+  <testcase name="NoCardDiscardErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.117"/>
+  <testcase name="SelectNormalActionGameMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.002"/>
 </testsuite>
