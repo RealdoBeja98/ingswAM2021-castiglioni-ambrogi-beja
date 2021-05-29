@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: it.polimi.ingsw.Messages.MessagesTest
 -------------------------------------------------------------------------------
-Tests run: 78, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.429 s - in it.polimi.ingsw.Messages.MessagesTest
+Tests run: 78, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.351 s - in it.polimi.ingsw.Messages.MessagesTest

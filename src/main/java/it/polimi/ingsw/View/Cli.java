@@ -648,7 +648,7 @@ public class Cli extends View{
 
     @Override
     public void showSoloActionToken(ActionToken actionToken) {
-        System.out.println("UPDATE_SOLO_ACTION_TOKEN" + actionToken.getWhatIAm());
+        System.out.println("UPDATE_SOLO_ACTION_TOKEN " + actionToken.getWhatIAm());
     }
 
 }

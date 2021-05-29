@@ -149,6 +149,7 @@ public class ClientMain {
                     return;
                 } else if (line.equals("You have the inkwell!")) {
                     View.printMessage("Joined the game!");
+                    /*
                     if(guiSet){
                         synchronized (ClientMain.lock){
                             while(GuiThread.getIsSetBackground() == false){
@@ -160,6 +161,7 @@ public class ClientMain {
                             }
                         }
                     }
+                    */
                     View.printMessage("You have the inkwell!");
                     line = in.readLine();
                 } else {

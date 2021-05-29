@@ -39,6 +39,7 @@ public class MessageThread implements Runnable{
                 } else {
                     Message messageServerMessage = Message.fromString(serverMessage);
                     if (messageServerMessage instanceof ServiceMessage) {
+                        /*
                         if(ClientMain.getGuiSet()){
                             synchronized (ClientMain.getLock()){
                                 while(GuiThread.getIsSetBackground() == false){
@@ -50,6 +51,7 @@ public class MessageThread implements Runnable{
                                 }
                             }
                         }
+                        */
                         messageServerMessage.execute(null, out);
                     } else if (messageServerMessage instanceof ForwardMessage) {
                         messageServerMessage.execute(null, null);
@@ -64,6 +66,7 @@ public class MessageThread implements Runnable{
                             View.printMessage(messageServerMessage);
                         } else {
                             //System.out.println("VIENE MOSTARTA LA SCRITTA");
+                            //System.out.println("Stai andando a printare " + messageServerMessage.toString() + " con guiset: " + ClientMain.getGuiSet());
                             View.printMessage(messageServerMessage);
                         }
                     }

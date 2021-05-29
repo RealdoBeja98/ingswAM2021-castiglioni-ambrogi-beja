@@ -88,14 +88,14 @@ public class GuiThread extends Application implements Runnable{
             stage.setTitle("Masters of Renaissance" + " - " + ClientMain.getClientNick());
             Group root = new Group();
             Canvas canvas = new Canvas(1995, 1025);
+            GraphicsContext gc = canvas.getGraphicsContext2D();
+            Image img = new Image("Misc/BackGround.png");
             ClientMain.setCanvas(canvas);
             synchronized (GuiThread.lock){
                 while(out == null){
                     GuiThread.lock.wait();
                 }
             }
-            GraphicsContext gc = canvas.getGraphicsContext2D();
-            Image img = new Image("Misc/BackGround.png");
             gc.drawImage(img, 0, 0, 1995, 1025);
             //System.out.println("STATO APPENA SETTATO LO SFONDO");
             GuiThread.isSetBackground = true;
