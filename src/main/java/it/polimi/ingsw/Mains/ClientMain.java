@@ -171,12 +171,14 @@ public class ClientMain {
                                 } else {
                                     Message messageServerMessage = Message.fromString(serverMessage);
                                     if (messageServerMessage instanceof ServiceMessage) {
-                                        synchronized (ClientMain.lock){
-                                            while(GuiThread.getIsSetBackground() == false){
-                                                try {
-                                                    ClientMain.lock.wait();
-                                                } catch (InterruptedException e) {
-                                                    e.printStackTrace();
+                                        if(ClientMain.guiSet){
+                                            synchronized (ClientMain.lock){
+                                                while(GuiThread.getIsSetBackground() == false){
+                                                    try {
+                                                        ClientMain.lock.wait();
+                                                    } catch (InterruptedException e) {
+                                                        e.printStackTrace();
+                                                    }
                                                 }
                                             }
                                         }
