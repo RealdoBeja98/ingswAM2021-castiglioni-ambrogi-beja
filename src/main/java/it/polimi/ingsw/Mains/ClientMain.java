@@ -37,6 +37,10 @@ public class ClientMain {
 
     private final static Object lock = new Object();
 
+    public static Object getLock(){
+        return ClientMain.lock;
+    }
+
     public static ClientMain getInstance(){
         return ClientMain.instance;
     }
@@ -151,66 +155,14 @@ public class ClientMain {
                     View.printMessage("Joined the game!");
                 }
 
-                (new Thread() {
+                MessageThread messageThread = new MessageThread(out, in);
+                Thread mt = new Thread(messageThread);
+                mt.start();
 
-                    @Override
-                    public void run() {
-                        String serverMessage;
-
-                        try {
-                            while ((serverMessage = in.readLine()) != null) {
-                                if (serverMessage.equals("quit")) {
-                                    break;
-                                } else if (serverMessage.equals("wakeup")) {
-                                    out.println("wakeup");
-                                } else if (serverMessage.equals("GAME_ENDED")) {
-                                    out.println("GAME_ENDED");
-                                    break;
-                                } else if (serverMessage.equals("ping")) {
-                                    out.println("pong");
-                                } else {
-                                    Message messageServerMessage = Message.fromString(serverMessage);
-                                    if (messageServerMessage instanceof ServiceMessage) {
-                                        if(ClientMain.guiSet){
-                                            synchronized (ClientMain.lock){
-                                                while(GuiThread.getIsSetBackground() == false){
-                                                    try {
-                                                        ClientMain.lock.wait();
-                                                    } catch (InterruptedException e) {
-                                                        e.printStackTrace();
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        messageServerMessage.execute(null, out);
-                                    } else if (messageServerMessage instanceof ForwardMessage) {
-                                        messageServerMessage.execute(null, null);
-                                    } else if (messageServerMessage instanceof UpdateSoloActionTokenMessage) {
-                                        messageServerMessage.execute(null, null);
-                                    } else {
-                                        String constQuit = "quit";
-                                        String last = messageServerMessage.toString().substring(messageServerMessage.toString().length()-4);
-                                        if(last.equals(constQuit)){
-                                            String whoQuited = messageServerMessage.toString().substring(0, messageServerMessage.toString().length() - 5);
-                                            playerGame.quitAPlayer(whoQuited);
-                                            View.printMessage(messageServerMessage);
-                                        } else {
-                                            View.printMessage(messageServerMessage);
-                                        }
-                                    }
-                                }
-
-                            }
-                        } catch (IOException e) {
-                            System.err.println("Couldn't get I/O for the connection to the server");
-                            System.exit(1);
-                        }
-                    }
-                }).start();
-
-                /*if(guiSet){
+                if(guiSet){
+                    mt.join();
                     return;
-                }*/
+                }
 
                 String clientMessage;
                 try {
