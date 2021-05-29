@@ -27,6 +27,7 @@ public class MessageThread implements Runnable{
 
         try {
             while ((serverMessage = in.readLine()) != null) {
+                //<--FIXME--> creare metodo piccolino mainLoop; usare metodo più piccolo
                 if (serverMessage.equals("quit")) {
                     break;
                 } else if (serverMessage.equals("wakeup")) {

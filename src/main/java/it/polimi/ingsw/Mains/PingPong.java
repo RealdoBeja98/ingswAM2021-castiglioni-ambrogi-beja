@@ -57,6 +57,7 @@ public class PingPong implements Runnable{
     public void run() {
         while(true){
             try {
+                //<-FIXME--> usare define
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
                 e.printStackTrace();

@@ -11,6 +11,8 @@ import it.polimi.ingsw.Table.Decks.Token.ActionToken;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+//import jdk.tools.jlink.internal.Platform;
+import javafx.application.Platform;
 import java.util.ArrayList;
 
 public class Gui extends View{
@@ -23,6 +25,15 @@ public class Gui extends View{
 
     @Override
     public void showStartingLC() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                _showStartingLC();
+            }
+        }     );
+    }
+
+    private void _showStartingLC() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         ArrayList<PlayerGame.PlayerPlayer> players = ClientMain.getPlayerGame().getPlayers();
         for(PlayerGame.PlayerPlayer n : players){
@@ -41,6 +52,15 @@ public class Gui extends View{
 
     @Override
     public void showMarket() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                _showMarket();
+            }
+        }     );
+    }
+
+    private void _showMarket() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         for(int i = 0; i < 3; i++){
             for(int j = 0; j < 4; j++){
@@ -56,6 +76,15 @@ public class Gui extends View{
 
     @Override
     public void showDevCard() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                _showDevCard();
+            }
+        }     );
+    }
+
+    public void _showDevCard() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         for(int i = 0; i < 4; i++){
             for(int j = 0; j < 3; j++){
@@ -73,6 +102,15 @@ public class Gui extends View{
 
     @Override
     public void showPersonalBoard() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                _showPersonalBoard();
+            }
+        }     );
+    }
+
+    public void _showPersonalBoard() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         int navigatorBoard = 0;
         ArrayList<PlayerGame.PlayerPlayer> players = ClientMain.getPlayerGame().getPlayers();
@@ -95,11 +133,22 @@ public class Gui extends View{
 
     }
 
+    //<--FIXME--> sitemare costanti e switch
+
     @Override
     public void showPBCurrent() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                _showPBCurrent();
+            }
+        }     );
+    }
+
+    //<--FIXME--> almeno uno switch; usa un array delle posizioni
+    private void _showPBCurrent() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         int navigatorBoard = 0;
-
         ArrayList<PlayerGame.PlayerPlayer> players = ClientMain.getPlayerGame().getPlayers();
         for(PlayerGame.PlayerPlayer n : players){
             if(n.getNickname().equals(ClientMain.getClientNick())){
@@ -206,7 +255,7 @@ public class Gui extends View{
         drawStrongbox(n, gc, x, y);
     }
 
-
+    //<--FIXME--> fare json per caricare questi valori
     private void drawFaith(GraphicsContext gc, int x, int y, int faithNumber){
         Image faith = new Image("Misc/FaithMarker.png");
         if(faithNumber == 0){
@@ -296,6 +345,7 @@ public class Gui extends View{
         }
     }
 
+    //<--FIXME--> fare mappe; fullName è un invariante per le quadre
     private void drawWarehouseDepots(PlayerGame.PlayerPlayer n, GraphicsContext gc, int x, int y){
         Resource[] resource = n.getWarehouseDepots().getResource();
         if(resource[0] != null){
@@ -319,6 +369,7 @@ public class Gui extends View{
         }
     }
 
+    //<--FIXME--> fare questo più elegante
     private void drawActiveCards(PlayerGame.PlayerPlayer n, GraphicsContext gc, int x, int y) {
         DevelopmentCard[][] visualize = n.getSlotsDevelopmentCards().getSlot();
         if(visualize[2][0] != null){
@@ -407,6 +458,8 @@ public class Gui extends View{
         }
     }
 
+    //<--FIXME--> risolvere codici duplicati (anche i nomi delle label sono duplicati)
+
     private void drawCardsInHand(PlayerGame.PlayerPlayer n, GraphicsContext gc, int x, int y){
         LeaderCard[] cardsInHand = n.getCardsInHand();
         if(cardsInHand[0] != null){
@@ -455,6 +508,15 @@ public class Gui extends View{
 
     @Override
     public void showSoloActionToken(ActionToken actionToken) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                _showSoloActionToken(actionToken);
+            }
+        }     );
+    }
+
+    private void _showSoloActionToken(ActionToken actionToken) {
         System.out.println("UPDATE_SOLO_ACTION_TOKEN" + " " + actionToken.getWhatIAm());
         GraphicsContext gc = canvas.getGraphicsContext2D();
         String name = "";

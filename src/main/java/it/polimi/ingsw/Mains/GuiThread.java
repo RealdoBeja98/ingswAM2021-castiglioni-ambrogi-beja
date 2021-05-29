@@ -19,6 +19,8 @@ import javafx.stage.Stage;
 
 import java.io.PrintWriter;
 
+//<--FIXME--> mettiamo bottone per il debug
+
 /**
  * Class of gui thread
  */

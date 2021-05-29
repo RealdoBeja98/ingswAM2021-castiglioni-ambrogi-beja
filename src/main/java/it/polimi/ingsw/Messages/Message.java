@@ -56,6 +56,7 @@ public abstract class Message {
      * @param string string message
      */
     public static Message fromString(String string){
+        //<--FIXME--> mettere una mappa
 
         if(string.equals("ERROR_NO_CARDS_DISCARD")){
             return new NoCardDiscardErrorMessage();
