@@ -28,12 +28,12 @@ public abstract class View {
         View view = View.get();
         if(view instanceof Gui){
             GraphicsContext gc = ClientMain.getCanvas().getGraphicsContext2D();
-            ((Gui) view).drawLittleSquare(gc, 318, 928, "Misc/WhiteBackground.png", 280, 26);
-            gc.fillText(string, 320, 945);
+            ((Gui) view).drawLittleSquare(gc, 318, 931, "Misc/WhiteBackground.png", 280, 26);
+            gc.fillText(string, 320, 948);
             String cons = "Joining game number: ";
             if(string.length() > cons.length() && cons.equals(string.substring(0, cons.length()))){
-                ((Gui) view).drawLittleSquare(gc, 318, 964, "Misc/WhiteBackground.png", 150, 26);
-                gc.fillText(string, 320, 981);
+                ((Gui) view).drawLittleSquare(gc, 318, 967, "Misc/WhiteBackground.png", 150, 26);
+                gc.fillText(string, 320, 984);
             }
         }
     }

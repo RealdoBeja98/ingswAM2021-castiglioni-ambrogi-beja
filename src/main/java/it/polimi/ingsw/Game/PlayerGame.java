@@ -34,6 +34,7 @@ public class PlayerGame {
         private WarehouseDepots warehouseDepots;
         private StrongBox strongBox;
         private SlotsDevelopmentCards slotsDevelopmentCards;
+        private boolean inkwell = false;
 
         /**
          * Getter of this class
@@ -89,6 +90,13 @@ public class PlayerGame {
          */
         public SlotsDevelopmentCards getSlotsDevelopmentCards() {
             return slotsDevelopmentCards;
+        }
+
+        /**
+         * Getter of this class
+         */
+        public boolean getInkwell(){
+            return  inkwell;
         }
 
     }
@@ -163,7 +171,7 @@ public class PlayerGame {
     /**
      * Constructor of this class
      */
-    public PlayerGame(String market, String developmentDeck, ArrayList<String> playersAndCardsInHand){
+    public PlayerGame(String market, String developmentDeck, ArrayList<String> playersAndCardsInHand, String whoHasTheInkwell){
         this.market = new Market(market);
         this.developmentDeck = new DevelopmentDeck(developmentDeck);
         this.players = new ArrayList<>();
@@ -171,7 +179,9 @@ public class PlayerGame {
             String[] strings = player.split("/");
             PlayerPlayer playerPlayer = new PlayerPlayer();
             playerPlayer.nickname = strings[4];
-            //System.out.println("Added nickname: " + playerPlayer.nickname);/////////////////////////////////
+            if(playerPlayer.nickname.equals(whoHasTheInkwell)){
+                playerPlayer.inkwell = true;
+            }
             playerPlayer.cardsInHandFirst = new LeaderCard[4];
             playerPlayer.cardsInHand = new LeaderCard[2];
             playerPlayer.cardsOnTable = new LeaderCard[2];

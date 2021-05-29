@@ -26,13 +26,18 @@ public class GameStartServiceMessage extends ServiceMessage {
         String market = game.getTable().getMarket().export();
         String developmentDeck = game.getTable().getDevelopmentDeck().export();
         ArrayList<String> playersAndCardsInHandFirst = new ArrayList<>();
+        String whoHasTheInkwell = "";
         for (Player i : game.getPlayers()){
             playersAndCardsInHandFirst.add(i.exportForPlayersAndCardsInHandFirst());
+            if(i.isInkwell()){
+                whoHasTheInkwell = i.getNickname();
+            }
         }
         all = market + "#" + developmentDeck;
         for(String i : playersAndCardsInHandFirst){
             all = new StringBuilder().append(all).append("#" + i).toString();
         }
+        all = new StringBuilder().append(all).append("#" + whoHasTheInkwell).toString();
         identifier = "GAME_START";
     }
 
@@ -56,10 +61,11 @@ public class GameStartServiceMessage extends ServiceMessage {
         String market = strings[0];
         String developmentDeck = strings[1];
         ArrayList<String> playersAndCardsInHandFirst = new ArrayList<>();
-        for(int i = 2; i < strings.length; i++){
+        for(int i = 2; i < strings.length - 1; i++){
             playersAndCardsInHandFirst.add(strings[i]);
         }
-        PlayerGame playerGame = new PlayerGame(market, developmentDeck, playersAndCardsInHandFirst);
+        String whoHasTheInkwell = strings[strings.length - 1];
+        PlayerGame playerGame = new PlayerGame(market, developmentDeck, playersAndCardsInHandFirst, whoHasTheInkwell);
         ClientMain.setPlayerGame(playerGame);
         playerGame.setOut(out);
         System.out.println("GAME START!");

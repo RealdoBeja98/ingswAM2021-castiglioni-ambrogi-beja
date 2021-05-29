@@ -183,8 +183,17 @@ public class Gui extends View{
     private void drawBoard(PlayerGame.PlayerPlayer n, GraphicsContext gc, int x, int y){
         Image pb = new Image("Misc/PersonalBoard.png");
         gc.drawImage(pb, x, y, 560, 490);
+        if(n.getInkwell()){
+            Image inkwell = new Image("Misc/Inkwell.png");
+            gc.drawImage(inkwell, x, y, 20, 20);
+        } else {
+            Image noInkwell = new Image("Misc/NoInkwell.png");
+            gc.drawImage(noInkwell, x, y, 20, 20);
+        }
+        Image whiteBackGround = new Image("Misc/WhiteBackGround.png");
+        gc.drawImage(whiteBackGround, x+20, y, 110, 20);
         String nickname = n.getNickname();
-        gc.fillText(nickname, x, y+20);
+        gc.fillText(nickname, x+20, y+14);
         int faithNumber = n.getFaithTrack().getFaithMarker();
         drawFaith(gc, x, y, faithNumber);
         FavorTiles[] favorTiles = n.getFaithTrack().getFavorTiles();
