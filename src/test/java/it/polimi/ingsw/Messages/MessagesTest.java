@@ -4,6 +4,7 @@ import it.polimi.ingsw.Enums.NormalAction;
 import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Enums.RowColumn;
 import it.polimi.ingsw.Enums.Type;
+import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Messages.ErrorMessages.AlreadyDiscardedPositionErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.AlreadyEmptyErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.AlreadySelectedSomethingErrorMessage;
@@ -39,6 +40,7 @@ import it.polimi.ingsw.Messages.ErrorMessages.TypoErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.WhiteMarbleErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.WrongResourceErrorMessage;
 import it.polimi.ingsw.Messages.ForwardMessages.*;
+import it.polimi.ingsw.Messages.GameMessages.AddResourceToGameMessage;
 import it.polimi.ingsw.Messages.GameMessages.BuyDevelopmentCardGameMessage;
 import it.polimi.ingsw.Messages.GameMessages.ChangeWhiteMarbleWithGameMessage;
 import it.polimi.ingsw.Messages.GameMessages.ChooseDiscardLeaderCardGameMessage;
@@ -63,6 +65,7 @@ import it.polimi.ingsw.Messages.GameMessages.SelectProductionPowerLeaderCardGame
 import it.polimi.ingsw.Messages.GameMessages.SelectTwoCardsToKeepGameMessage;
 import it.polimi.ingsw.Messages.GameMessages.StartPaymentGameMessage;
 import it.polimi.ingsw.Messages.GameMessages.TakeResourcesFromTheMarketGameMessage;
+import it.polimi.ingsw.Messages.ServiceMessages.GameStartServiceMessage;
 import it.polimi.ingsw.Table.Decks.Development.DevelopmentCard;
 import it.polimi.ingsw.Table.Decks.Token.GreenActionToken;
 import org.junit.jupiter.api.Test;
@@ -980,6 +983,42 @@ public class MessagesTest {
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof SelectTwoCardsToKeepGameMessage);
         assertEquals("SELECT_TWO_CARDS_TO_KEEP", message.getIdentifier());
+        assertEquals(message.toString(), messageString);
+    }
+
+    /**
+     * This method tests creation of message SelectTwoCardsToKeepGameMessageTest
+     */
+    @Test
+    void CurrentPlayerMessageTest() {
+        String messageString = "SET_CURRENT_PLAYER" + " " + "nickname";
+        Message message = Message.fromString(messageString);
+        assertTrue(message instanceof CurrentPlayerMessage);
+        assertEquals("SET_CURRENT_PLAYER", message.getIdentifier());
+        assertEquals(message.toString(), messageString);
+    }
+
+    /**
+     * This method tests creation of message SelectTwoCardsToKeepGameMessageTest
+     */
+    //@Test
+    //void AddResourceToGameMessageTest() {
+    //    String messageString = "DISCARD" + " " + LeaderWarehouse.LEADERCARD + " " + 1;
+    //    Message message = Message.fromString(messageString);
+    //   assertTrue(message instanceof AddResourceToGameMessage);
+    //    assertEquals("DISCARD", message.getIdentifier());
+    //    assertEquals(message.toString(), messageString);
+    //
+
+    /**
+     * This method tests creation of message SelectTwoCardsToKeepGameMessageTest
+     */
+    @Test
+    void GameStartServiceMessageTest() {
+        String messageString = "GAME_START" + " " + "nickname";
+        Message message = Message.fromString(messageString);
+        assertTrue(message instanceof GameStartServiceMessage);
+        assertEquals("GAME_START", message.getIdentifier());
         assertEquals(message.toString(), messageString);
     }
 }
