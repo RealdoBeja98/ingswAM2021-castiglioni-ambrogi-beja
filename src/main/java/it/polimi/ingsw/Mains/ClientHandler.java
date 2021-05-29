@@ -230,7 +230,6 @@ public class ClientHandler implements Runnable {
         int numGM = atoi(line);
         System.out.println("Joining a game...");
         game = Game.get(numGM);
-
         try{
             System.out.println("Someone joined game number: " + game.getGameIndex());
         }catch(NullPointerException e){
@@ -238,7 +237,6 @@ public class ClientHandler implements Runnable {
             Message.sendMessage(out, new GameDontExistErrorMessage());
             return false;
         }
-
         return addingPlayer(in, out);
     }
 
