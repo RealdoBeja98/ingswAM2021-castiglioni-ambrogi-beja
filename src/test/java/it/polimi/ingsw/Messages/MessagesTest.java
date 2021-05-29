@@ -38,23 +38,7 @@ import it.polimi.ingsw.Messages.ErrorMessages.RequirementsErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.TypoErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.WhiteMarbleErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.WrongResourceErrorMessage;
-import it.polimi.ingsw.Messages.ForwardMessages.AddedResourceToForwardMessage;
-import it.polimi.ingsw.Messages.ForwardMessages.AdvanceFaithTrackForwardMessage;
-import it.polimi.ingsw.Messages.ForwardMessages.DiscardedLeaderCardForwardMessage;
-import it.polimi.ingsw.Messages.ForwardMessages.MovedResourceESLCToWarehouseForwardMessage;
-import it.polimi.ingsw.Messages.ForwardMessages.MovedResourcesInWarehouseDepotsForwardMessage;
-import it.polimi.ingsw.Messages.ForwardMessages.ObtainedGenericResourceForwardMessage;
-import it.polimi.ingsw.Messages.ForwardMessages.PayedWithExtraStorageLeaderCardForwardMessage;
-import it.polimi.ingsw.Messages.ForwardMessages.PayedWithWarehouseDepotsForwardMessage;
-import it.polimi.ingsw.Messages.ForwardMessages.PlacedDevelopmentCardForwardMessage;
-import it.polimi.ingsw.Messages.ForwardMessages.PlayedLeaderCardForwardMessage;
-import it.polimi.ingsw.Messages.ForwardMessages.SelectedTwoCardsToKeepForwardMessage;
-import it.polimi.ingsw.Messages.ForwardMessages.ShowCardMarketMessage;
-import it.polimi.ingsw.Messages.ForwardMessages.ShowCurrentBoardMessage;
-import it.polimi.ingsw.Messages.ForwardMessages.TransitionForwardMessage;
-import it.polimi.ingsw.Messages.ForwardMessages.UpdateDevelopmentCardForwardMessage;
-import it.polimi.ingsw.Messages.ForwardMessages.UpdateMarketForwardMessage;
-import it.polimi.ingsw.Messages.ForwardMessages.UpdateObtainedMultipleResourceForwardMessage;
+import it.polimi.ingsw.Messages.ForwardMessages.*;
 import it.polimi.ingsw.Messages.GameMessages.BuyDevelopmentCardGameMessage;
 import it.polimi.ingsw.Messages.GameMessages.ChangeWhiteMarbleWithGameMessage;
 import it.polimi.ingsw.Messages.GameMessages.ChooseDiscardLeaderCardGameMessage;
@@ -94,7 +78,7 @@ public class MessagesTest {
      * This method tests creation of message NoCardDiscardErrorMessage
      */
     @Test
-    void NoCardDiscardErrorMessageTest(){
+    void NoCardDiscardErrorMessageTest() {
         String messageString = "ERROR_NO_CARDS_DISCARD";
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof NoCardDiscardErrorMessage);
@@ -105,7 +89,7 @@ public class MessagesTest {
      * This method tests creation of message NotYourTurnErrorMessage
      */
     @Test
-    void NotYourTurnErrorMessageTest(){
+    void NotYourTurnErrorMessageTest() {
         String messageString = "ERROR_NOT_YOUR_TURN";
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof NotYourTurnErrorMessage);
@@ -113,10 +97,10 @@ public class MessagesTest {
     }
 
     /**
-     * This method tests creation of message InvalidActionErrorMessage 
+     * This method tests creation of message InvalidActionErrorMessage
      */
     @Test
-    void InvalidActionErrorMessageTest(){
+    void InvalidActionErrorMessageTest() {
         String messageString = "ERROR_INVALID_ACTION";
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof InvalidActionErrorMessage);
@@ -127,7 +111,7 @@ public class MessagesTest {
      * This method tests creation of message AlreadyDiscardedPositionErrorMessageTest
      */
     @Test
-    void AlreadyDiscardedPositionErrorMessageTest(){
+    void AlreadyDiscardedPositionErrorMessageTest() {
         String messageString = "ERROR_ALREADY_DISCARDED_POSITION";
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof AlreadyDiscardedPositionErrorMessage);
@@ -138,7 +122,7 @@ public class MessagesTest {
      * This method tests creation of message GameEndedErrorMessageTest
      */
     @Test
-    void GameEndedErrorMessageTest(){
+    void GameEndedErrorMessageTest() {
         String messageString = "ERROR_GAME_ENDED";
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof GameEndedErrorMessage);
@@ -149,7 +133,7 @@ public class MessagesTest {
      * This method tests creation of message InvalidPositionErrorMessageTest
      */
     @Test
-    void InvalidPositionErrorMessageTest(){
+    void InvalidPositionErrorMessageTest() {
         String messageString = "ERROR_INVALID_POSITION";
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof InvalidPositionErrorMessage);
@@ -160,7 +144,7 @@ public class MessagesTest {
      * This method tests creation of message TypoErrorMessageTest
      */
     @Test
-    void TypoErrorMessageTest(){
+    void TypoErrorMessageTest() {
         String messageString = "ERROR_TYPO";
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof TypoErrorMessage);
@@ -171,7 +155,7 @@ public class MessagesTest {
      * This method tests creation of message NoCardsPlayErrorMessageTest
      */
     @Test
-    void NoCardsPlayErrorMessageTest(){
+    void NoCardsPlayErrorMessageTest() {
         String messageString = "ERROR_NO_CARDS_PLAY";
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof NoCardsPlayErrorMessage);
@@ -182,7 +166,7 @@ public class MessagesTest {
      * This method tests creation of message RequirementsErrorMessageTest
      */
     @Test
-    void RequirementsErrorMessageTest(){
+    void RequirementsErrorMessageTest() {
         String messageString = "ERROR_REQUIREMENTS";
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof RequirementsErrorMessage);
@@ -193,7 +177,7 @@ public class MessagesTest {
      * This method tests creation of message InvalidEnumErrorMessageTest
      */
     @Test
-    void InvalidEnumErrorMessageTest(){
+    void InvalidEnumErrorMessageTest() {
         String messageString = "ERROR_INVALID_ENUM";
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof InvalidEnumErrorMessage);
@@ -204,7 +188,7 @@ public class MessagesTest {
      * This method tests creation of message NoResourceAErrorMessageTest
      */
     @Test
-    void NoResourceAErrorMessageTest(){
+    void NoResourceAErrorMessageTest() {
         String messageString = "ERROR_NO_RESOURCE_A";
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof NoResourceAErrorMessage);
@@ -215,7 +199,7 @@ public class MessagesTest {
      * This method tests creation of message DifferentStorageTypeErrorMessageTest
      */
     @Test
-    void DifferentStorageTypeErrorMessageTest(){
+    void DifferentStorageTypeErrorMessageTest() {
         String messageString = "ERROR_DIFFERENT_STORAGE_TYPE";
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof DifferentStorageTypeErrorMessage);
@@ -226,7 +210,7 @@ public class MessagesTest {
      * This method tests creation of message OccupiedSlotLCErrorMessageTest
      */
     @Test
-    void OccupiedSlotLCErrorMessageTest(){
+    void OccupiedSlotLCErrorMessageTest() {
         String messageString = "ERROR_OCCUPIED_SLOT_LC";
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof OccupiedSlotLCErrorMessage);
@@ -237,7 +221,7 @@ public class MessagesTest {
      * This method tests creation of message OccupiedSlotWDErrorMessageTest
      */
     @Test
-    void OccupiedSlotWDErrorMessageTest(){
+    void OccupiedSlotWDErrorMessageTest() {
         String messageString = "ERROR_OCCUPIED_SLOT_WD";
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof OccupiedSlotWDErrorMessage);
@@ -248,7 +232,7 @@ public class MessagesTest {
      * This method tests creation of message DifferentResourceAlreadyPresentErrorMessageTest
      */
     @Test
-    void DifferentResourceAlreadyPresentErrorMessageTest(){
+    void DifferentResourceAlreadyPresentErrorMessageTest() {
         String messageString = "ERROR_DIFFERENT_RESOURCE_ALREADY_PRESENT";
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof DifferentResourceAlreadyPresentErrorMessage);
@@ -259,7 +243,7 @@ public class MessagesTest {
      * This method tests creation of message WhiteMarbleErrorMessageTest
      */
     @Test
-    void WhiteMarbleErrorMessageTest(){
+    void WhiteMarbleErrorMessageTest() {
         String messageString = "ERROR_WHITE_MARBLE";
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof WhiteMarbleErrorMessage);
@@ -270,7 +254,7 @@ public class MessagesTest {
      * This method tests creation of message FaithMarbleErrorMessageTest
      */
     @Test
-    void FaithMarbleErrorMessageTest(){
+    void FaithMarbleErrorMessageTest() {
         String messageString = "ERROR_FAITH_MARBLE";
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof FaithMarbleErrorMessage);
@@ -281,7 +265,7 @@ public class MessagesTest {
      * This method tests creation of message NoWhiteMarbleErrorMessageTest
      */
     @Test
-    void NoWhiteMarbleErrorMessageTest(){
+    void NoWhiteMarbleErrorMessageTest() {
         String messageString = "ERROR_NO_WHITE_MARBLE";
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof NoWhiteMarbleErrorMessage);
@@ -292,7 +276,7 @@ public class MessagesTest {
      * This method tests creation of message AlreadySelectedSomethingErrorMessageTest
      */
     @Test
-    void AlreadySelectedSomethingErrorMessageTest(){
+    void AlreadySelectedSomethingErrorMessageTest() {
         String messageString = "ERROR_ALREADY_SELECTED_SOMETHING";
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof AlreadySelectedSomethingErrorMessage);
@@ -303,7 +287,7 @@ public class MessagesTest {
      * This method tests creation of message NotEnoughResourcesErrorMessageTest
      */
     @Test
-    void NotEnoughResourcesErrorMessageTest(){
+    void NotEnoughResourcesErrorMessageTest() {
         String messageString = "ERROR_NOT_ENOUGH_RESOURCES";
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof NotEnoughResourcesErrorMessage);
@@ -314,7 +298,7 @@ public class MessagesTest {
      * This method tests creation of message EmptyDeckErrorMessageTest
      */
     @Test
-    void EmptyDeckErrorMessageTest(){
+    void EmptyDeckErrorMessageTest() {
         String messageString = "ERROR_EMPTY_DECK";
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof EmptyDeckErrorMessage);
@@ -325,7 +309,7 @@ public class MessagesTest {
      * This method tests creation of message InvalidSelectionErrorMessageTest
      */
     @Test
-    void InvalidSelectionErrorMessageTest(){
+    void InvalidSelectionErrorMessageTest() {
         String messageString = "ERROR_INVALID_SELECTION";
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof InvalidSelectionErrorMessage);
@@ -336,7 +320,7 @@ public class MessagesTest {
      * This method tests creation of message WrongResourceErrorMessageTest
      */
     @Test
-    void WrongResourceErrorMessageTest(){
+    void WrongResourceErrorMessageTest() {
         String messageString = "ERROR_WRONG_RESOURCE";
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof WrongResourceErrorMessage);
@@ -347,7 +331,7 @@ public class MessagesTest {
      * This method tests creation of message MissingResourceErrorMessageTest
      */
     @Test
-    void MissingResourceErrorMessageTest(){
+    void MissingResourceErrorMessageTest() {
         String messageString = "ERROR_MISSING_RESOURCE";
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof MissingResourceErrorMessage);
@@ -358,7 +342,7 @@ public class MessagesTest {
      * This method tests creation of message NotStrongboxErrorMessageTest
      */
     @Test
-    void NotStrongboxErrorMessageTest(){
+    void NotStrongboxErrorMessageTest() {
         String messageString = "ERROR_NOT_STRONGBOX";
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof NotStrongboxErrorMessage);
@@ -369,7 +353,7 @@ public class MessagesTest {
      * This method tests creation of message AlreadyEmptyErrorMessageTest
      */
     @Test
-    void AlreadyEmptyErrorMessageTest(){
+    void AlreadyEmptyErrorMessageTest() {
         String messageString = "ERROR_ALREADY_EMPTY";
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof AlreadyEmptyErrorMessage);
@@ -380,7 +364,7 @@ public class MessagesTest {
      * This method tests creation of message NotEsErrorMessageTest
      */
     @Test
-    void NotEsErrorMessageTest(){
+    void NotEsErrorMessageTest() {
         String messageString = "ERROR_NOT_ES";
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof NotEsErrorMessage);
@@ -391,7 +375,7 @@ public class MessagesTest {
      * This method tests creation of message NoCardObtainableErrorMessageTest
      */
     @Test
-    void NoCardObtainableErrorMessageTest(){
+    void NoCardObtainableErrorMessageTest() {
         String messageString = "ERROR_NO_CARD_OBTAINABLE";
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof NoCardObtainableErrorMessage);
@@ -402,7 +386,7 @@ public class MessagesTest {
      * This method tests creation of message NoDevelopmentCardErrorMessageTest
      */
     @Test
-    void NoDevelopmentCardErrorMessageTest(){
+    void NoDevelopmentCardErrorMessageTest() {
         String messageString = "ERROR_NO_DEVELOPMENT_CARD";
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof NoDevelopmentCardErrorMessage);
@@ -413,7 +397,7 @@ public class MessagesTest {
      * This method tests creation of message NoPLCErrorMessageTest
      */
     @Test
-    void NoPLCErrorMessageTest(){
+    void NoPLCErrorMessageTest() {
         String messageString = "ERROR_NO_PLC";
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof NoPLCErrorMessage);
@@ -424,7 +408,7 @@ public class MessagesTest {
      * This method tests creation of message GenericResourceErrorMessageTest
      */
     @Test
-    void GenericResourceErrorMessageTest(){
+    void GenericResourceErrorMessageTest() {
         String messageString = "ERROR_GENERIC_RESOURCE";
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof GenericResourceErrorMessage);
@@ -435,7 +419,7 @@ public class MessagesTest {
      * This method tests creation of message NotEnoughRErrorMessageTest
      */
     @Test
-    void NotEnoughRErrorMessageTest(){
+    void NotEnoughRErrorMessageTest() {
         String messageString = "ERROR_NOT_ENOUGH_R";
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof NotEnoughRErrorMessage);
@@ -446,7 +430,7 @@ public class MessagesTest {
      * This method tests creation of message NoSelectedPowersErrorMessageTest
      */
     @Test
-    void NoSelectedPowersErrorMessageTest(){
+    void NoSelectedPowersErrorMessageTest() {
         String messageString = "ERROR_NO_SELECTED_POWERS";
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof NoSelectedPowersErrorMessage);
@@ -457,7 +441,7 @@ public class MessagesTest {
      * This method tests creation of message InvalidMovementErrorMessageTest
      */
     @Test
-    void InvalidMovementErrorMessageTest(){
+    void InvalidMovementErrorMessageTest() {
         String messageString = "ERROR_INVALID_MOVEMENT";
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof InvalidMovementErrorMessage);
@@ -468,7 +452,7 @@ public class MessagesTest {
      * This method tests creation of message SelectNormalActionGameMessage
      */
     @Test
-    void SelectNormalActionGameMessageTest(){
+    void SelectNormalActionGameMessageTest() {
         String messageString = "SELECT_NORMAL_ACTION" + " " + NormalAction.ACTIVATE_PRODUCTION;
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof SelectNormalActionGameMessage);
@@ -480,7 +464,7 @@ public class MessagesTest {
      * This method tests creation of message TransitionForwardMessageTest
      */
     @Test
-    void TransitionForwardMessageTest(){
+    void TransitionForwardMessageTest() {
         String messageString = "TRANSITION_MESSAGE";
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof TransitionForwardMessage);
@@ -492,8 +476,8 @@ public class MessagesTest {
      * This method tests creation of message ConfirmedActionMessageTest
      */
     @Test
-    void ConfirmedActionMessageTest(){
-        String messageString = "ConfirmedActionMessage" ;
+    void ConfirmedActionMessageTest() {
+        String messageString = "ConfirmedActionMessage";
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof ConfirmedActionMessage);
     }
@@ -502,7 +486,7 @@ public class MessagesTest {
      * This method tests creation of message ShowCurrentBoardMessageTest
      */
     @Test
-    void ShowCurrentBoardMessageTest(){
+    void ShowCurrentBoardMessageTest() {
         String messageString = "SHOW_CURRENT_BOARD";
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof ShowCurrentBoardMessage);
@@ -510,11 +494,11 @@ public class MessagesTest {
         assertEquals(message.toString(), messageString);
     }
 
-   /**
+    /**
      * This method tests creation of message ShowCardMarketMessageTest
      */
     @Test
-    void ShowCardMarketMessageTest(){
+    void ShowCardMarketMessageTest() {
         String messageString = "SHOW_CARD_MARKET";
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof ShowCardMarketMessage);
@@ -526,20 +510,20 @@ public class MessagesTest {
      * This method tests creation of message UpdateMarketForwardMessageTest
      */
     @Test
-    void UpdateMarketForwardMessageTest(){
-        String messageString = "UPDATE_MARKET" + " " + "nickname" + " " + RowColumn.COLUMN + " " + 2 ;
+    void UpdateMarketForwardMessageTest() {
+        String messageString = "UPDATE_MARKET" + " " + "nickname" + " " + RowColumn.COLUMN + " " + 2;
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof UpdateMarketForwardMessage);
         assertEquals("UPDATE_MARKET", message.getIdentifier());
         assertEquals(message.toString(), messageString);
 
     }
-    
+
     /**
      * This method tests creation of message UpdateDevelopmentCardForwardMessageTest
      */
     @Test
-    void UpdateDevelopmentCardForwardMessageTest(){
+    void UpdateDevelopmentCardForwardMessageTest() {
         String messageString = "UPDATE_DEVELOPMENT_CARD" + " " + 1 + " " + 2;
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof UpdateDevelopmentCardForwardMessage);
@@ -551,19 +535,19 @@ public class MessagesTest {
      * This method tests creation of message UpdateSoloActionTokenMessage
      */
     @Test
-    void UpdateSoloActionTokenMessage(){
+    void UpdateSoloActionTokenMessage() {
         String messageString = "UPDATE_SOLO_ACTION_TOKEN" + " " + new GreenActionToken();
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof UpdateSoloActionTokenMessage);
         assertEquals("UPDATE_SOLO_ACTION_TOKEN", message.getIdentifier());
         assertEquals(message.toString(), messageString);
-    } 
-    
+    }
+
     /**
      * This method tests creation of message AdvanceFaithTrackForwardMessageTest
      */
     @Test
-    void AdvanceFaithTrackForwardMessageTest(){
+    void AdvanceFaithTrackForwardMessageTest() {
         String messageString = "ADVANCE_FAITH_TRACK" + " " + "nickname";
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof AdvanceFaithTrackForwardMessage);
@@ -575,8 +559,8 @@ public class MessagesTest {
      * This method tests creation of message DiscardedLeaderCardForwardMessageTest
      */
     @Test
-    void DiscardedLeaderCardForwardMessageTest(){
-        String messageString = "DISCARDED_LEADER_CARD"+ " " + "nickname" + " " + 1 ;
+    void DiscardedLeaderCardForwardMessageTest() {
+        String messageString = "DISCARDED_LEADER_CARD" + " " + "nickname" + " " + 1;
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof DiscardedLeaderCardForwardMessage);
         assertEquals("DISCARDED_LEADER_CARD", message.getIdentifier());
@@ -587,8 +571,8 @@ public class MessagesTest {
      * This method tests creation of message PlayedLeaderCardForwardMessageTest
      */
     @Test
-    void PlayedLeaderCardForwardMessageTest(){
-        String messageString = "PLAYED_LEADER_CARD" + " " + "nickname" + " " + 1 ;
+    void PlayedLeaderCardForwardMessageTest() {
+        String messageString = "PLAYED_LEADER_CARD" + " " + "nickname" + " " + 1;
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof PlayedLeaderCardForwardMessage);
         assertEquals("PLAYED_LEADER_CARD", message.getIdentifier());
@@ -599,8 +583,8 @@ public class MessagesTest {
      * This method tests creation of message AddedResourceToForwardMessageTest
      */
     @Test
-    void AddedResourceToForwardMessageTest(){
-        String messageString = "ADDED_RESOURCE_TO"+ " " + "nickname" + " " + LeaderWarehouse.DISCARD + " " + Resource.COIN + " " + 1;
+    void AddedResourceToForwardMessageTest() {
+        String messageString = "ADDED_RESOURCE_TO" + " " + "nickname" + " " + LeaderWarehouse.DISCARD + " " + Resource.COIN + " " + 1;
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof AddedResourceToForwardMessage);
         assertEquals("ADDED_RESOURCE_TO", message.getIdentifier());
@@ -611,13 +595,13 @@ public class MessagesTest {
      * This method tests creation of message PlacedDevelopmentCardForwardMessageTest
      */
     @Test
-    void PlacedDevelopmentCardForwardMessageTest(){
+    void PlacedDevelopmentCardForwardMessageTest() {
         Resource[] cost = {Resource.COIN, Resource.SERVANT, Resource.SHIELD};
         int[] costNumber = {1, 2, 3};
         Resource[] requirements = {Resource.COIN};
         int[] costRequirements = {3};
         Resource[] products = {Resource.FAITH, Resource.SERVANT};
-        int[] costProducts = {2,1};
+        int[] costProducts = {2, 1};
         DevelopmentCard developmentCard = new DevelopmentCard(cost, costNumber, Type.GREEN, 2,
                 requirements, costRequirements, products, costProducts, 5);
         String messageString = "PLACED_DEVELOPMENT_CARD" + " " + "nickname" + " " + 1 + " " + developmentCard.export();
@@ -631,7 +615,7 @@ public class MessagesTest {
      * This method tests creation of message UpdateObtainedMultipleResourceForwardMessageTest
      */
     @Test
-    void UpdateObtainedMultipleResourceForwardMessageTest(){
+    void UpdateObtainedMultipleResourceForwardMessageTest() {
         String messageString = "UPDATE_MULTIPLE_RESOURCES" + " " + "nickname" + " " + 1 + " " + 1 + " " + 1 + " " + 1 + " " + 1;
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof UpdateObtainedMultipleResourceForwardMessage);
@@ -643,7 +627,7 @@ public class MessagesTest {
      * This method tests creation of message ObtainedGenericResourceForwardMessageTest
      */
     @Test
-    void ObtainedGenericResourceForwardMessageTest(){
+    void ObtainedGenericResourceForwardMessageTest() {
         String messageString = "OBTAINED_GENERIC_RESOURCE" + " " + "nickname" + " " + Resource.COIN;
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof ObtainedGenericResourceForwardMessage);
@@ -655,7 +639,7 @@ public class MessagesTest {
      * This method tests creation of message PayedWithExtraStorageLeaderCardForwardMessageTest
      */
     @Test
-    void PayedWithExtraStorageLeaderCardForwardMessageTest(){
+    void PayedWithExtraStorageLeaderCardForwardMessageTest() {
         String messageString = "PAYED_WITH_EXTRA_STORAGE_LEADER_CARD" + " " + "nickname" + " " + 1;
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof PayedWithExtraStorageLeaderCardForwardMessage);
@@ -664,22 +648,22 @@ public class MessagesTest {
     }
 
     /**
-     * This method tests creation of message SelectNormalActionGameMessage
+     * This method tests creation of message PayedWithStrongboxForwardMessage
      */
-    //@Test<--FIXME TEST
-    //void PayedWithStrongboxForwardMessageTest(){
-    //    String messageString = "PAYED_WITH_STRONGBOXPAYED_WITH_STRONGBOX" + " " + "nickname" + " " + Resource.SERVANT;
-    //    Message message = Message.fromString(messageString);
-    //    assertTrue(message instanceof PayedWithStrongboxForwardMessage);
-    //    //assertTrue(message.getIdentifier().equals("PAYED_WITH_STRONGBOX"));
-    //    //assertTrue(message.toString().equals(messageString));
-    //}
+    @Test
+    void PayedWithStrongboxForwardMessageTest() {
+        String messageString = "PAYED_WITH_STRONGBOX" + " " + "nickname" + " " + Resource.SERVANT;
+        Message message = Message.fromString(messageString);
+        assertTrue(message instanceof PayedWithStrongboxForwardMessage);
+        assertEquals("PAYED_WITH_STRONGBOX", message.getIdentifier());
+        assertEquals(message.toString(), messageString);
+    }
 
     /**
      * This method tests creation of message PayedWithWarehouseDepotsForwardMessageTest
      */
     @Test
-    void PayedWithWarehouseDepotsForwardMessageTest(){
+    void PayedWithWarehouseDepotsForwardMessageTest() {
         String messageString = "PAYED_WITH_WAREHOUSE_DEPOTS" + " " + "nickname" + " " + 1;
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof PayedWithWarehouseDepotsForwardMessage);
@@ -691,31 +675,31 @@ public class MessagesTest {
      * This method tests creation of message MovedResourcesInWarehouseDepotsForwardMessageTest
      */
     @Test
-    void MovedResourcesInWarehouseDepotsForwardMessageTest(){
+    void MovedResourcesInWarehouseDepotsForwardMessageTest() {
         String messageString = "MOVED_RESOURCES_IN_WAREHOUSE_DEPOTS" + " " + "nickname" + " " + 1 + " " + 1;
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof MovedResourcesInWarehouseDepotsForwardMessage);
         assertEquals("MOVED_RESOURCES_IN_WAREHOUSE_DEPOTS", message.getIdentifier());
         assertEquals(message.toString(), messageString);
     }
-    
+
     /**
      * This method tests creation of message MovedResourceESLCToWarehouseForwardMessageTest
      */
     @Test
-    void MovedResourceESLCToWarehouseForwardMessageTest(){
+    void MovedResourceESLCToWarehouseForwardMessageTest() {
         String messageString = "MOVED_RESOURCE_ES_LC_TO_WAREHOUSE" + " " + "nickname" + " " + 1 + " " + 1;
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof MovedResourceESLCToWarehouseForwardMessage);
         assertEquals("MOVED_RESOURCE_ES_LC_TO_WAREHOUSE", message.getIdentifier());
         assertEquals(message.toString(), messageString);
     }
-    
+
     /**
      * This method tests creation of message SelectedTwoCardsToKeepForwardMessageTest
      */
     @Test
-    void SelectedTwoCardsToKeepForwardMessageTest(){
+    void SelectedTwoCardsToKeepForwardMessageTest() {
         String messageString = "SELECTED_TWO_CARDS_TO_KEEP" + " " + "nickname" + " " + 1 + " " + 1;
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof SelectedTwoCardsToKeepForwardMessage);
@@ -727,7 +711,7 @@ public class MessagesTest {
      * This method tests creation of message ChooseDiscardLeaderCardGameMessageTest
      */
     @Test
-    void ChooseDiscardLeaderCardGameMessageTest(){
+    void ChooseDiscardLeaderCardGameMessageTest() {
         String messageString = "CHOOSE_DISCARD_LEADER_CARD";
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof ChooseDiscardLeaderCardGameMessage);
@@ -739,7 +723,7 @@ public class MessagesTest {
      * This method tests creation of message DiscardLeaderCardGameMessageTest
      */
     @Test
-    void DiscardLeaderCardGameMessageTest(){
+    void DiscardLeaderCardGameMessageTest() {
         String messageString = "DISCARD_LEADER_CARD" + " " + 1;
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof DiscardLeaderCardGameMessage);
@@ -751,7 +735,7 @@ public class MessagesTest {
      * This method tests creation of message ChoosePlayLeaderCardGameMessageTest
      */
     @Test
-    void ChoosePlayLeaderCardGameMessageTest(){
+    void ChoosePlayLeaderCardGameMessageTest() {
         String messageString = "CHOOSE_PLAY_LEADER_CARD";
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof ChoosePlayLeaderCardGameMessage);
@@ -763,7 +747,7 @@ public class MessagesTest {
      * This method tests creation of message PlayLeaderCardGameMessageTest
      */
     @Test
-    void PlayLeaderCardGameMessageTest(){
+    void PlayLeaderCardGameMessageTest() {
         String messageString = "PLAY_LEADER_CARD" + " " + 1;
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof PlayLeaderCardGameMessage);
@@ -775,7 +759,7 @@ public class MessagesTest {
      * This method tests creation of message ChooseNoActionLeaderCardGameMessageTest
      */
     @Test
-    void ChooseNoActionLeaderCardGameMessageTest(){
+    void ChooseNoActionLeaderCardGameMessageTest() {
         String messageString = "CHOOSE_NO_ACTION_LEADER_CARD";
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof ChooseNoActionLeaderCardGameMessage);
@@ -787,7 +771,7 @@ public class MessagesTest {
      * This method tests creation of message EndTurnGameMessageTest
      */
     @Test
-    void EndTurnGameMessageTest(){
+    void EndTurnGameMessageTest() {
         String messageString = "END_TURN";
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof EndTurnGameMessage);
@@ -799,7 +783,7 @@ public class MessagesTest {
      * This method tests creation of message TakeResourcesFromTheMarketGameMessageTest
      */
     @Test
-    void TakeResourcesFromTheMarketGameMessageTest(){
+    void TakeResourcesFromTheMarketGameMessageTest() {
         String messageString = "TAKE_RESOURCES_FROM_THE_MARKET" + " " + RowColumn.COLUMN + " " + 1;
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof TakeResourcesFromTheMarketGameMessage);
@@ -811,7 +795,7 @@ public class MessagesTest {
      * This method tests creation of message ChangeWhiteMarbleWithGameMessageTest
      */
     @Test
-    void ChangeWhiteMarbleWithGameMessageTest(){
+    void ChangeWhiteMarbleWithGameMessageTest() {
         String messageString = "CHANGE_WHITE_MARBLE_WITH" + " " + 1;
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof ChangeWhiteMarbleWithGameMessage);
@@ -823,7 +807,7 @@ public class MessagesTest {
      * This method tests creation of message BuyDevelopmentCardGameMessageTest
      */
     @Test
-    void BuyDevelopmentCardGameMessageTest(){
+    void BuyDevelopmentCardGameMessageTest() {
         String messageString = "BUY_DEVELOPMENT_CARD" + " " + 1 + " " + 1;
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof BuyDevelopmentCardGameMessage);
@@ -835,7 +819,7 @@ public class MessagesTest {
      * This method tests creation of message PayWithStrongboxGameMessageTest
      */
     @Test
-    void PayWithStrongboxGameMessageTest(){
+    void PayWithStrongboxGameMessageTest() {
         String messageString = "PAY_WITH_STRONGBOX" + " " + Resource.COIN;
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof PayWithStrongboxGameMessage);
@@ -847,7 +831,7 @@ public class MessagesTest {
      * This method tests creation of message PayWithWarehouseDepotsGameMessageTest
      */
     @Test
-    void PayWithWarehouseDepotsGameMessageTest(){
+    void PayWithWarehouseDepotsGameMessageTest() {
         String messageString = "PAY_WITH_WAREHOUSE_DEPOTS" + " " + 1;
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof PayWithWarehouseDepotsGameMessage);
@@ -859,7 +843,7 @@ public class MessagesTest {
      * This method tests creation of message PayWithExtraStorageLeaderCardGameMessageTest
      */
     @Test
-    void PayWithExtraStorageLeaderCardGameMessageTest(){
+    void PayWithExtraStorageLeaderCardGameMessageTest() {
         String messageString = "PAY_WITH_EXTRA_STORAGE_LEADER_CARD" + " " + 1;
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof PayWithExtraStorageLeaderCardGameMessage);
@@ -871,7 +855,7 @@ public class MessagesTest {
      * This method tests creation of message PlaceDevelopmentCardGameMessageTest
      */
     @Test
-    void PlaceDevelopmentCardGameMessageTest(){
+    void PlaceDevelopmentCardGameMessageTest() {
         String messageString = "PLACE_DEVELOPMENT_CARD" + " " + 1;
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof PlaceDevelopmentCardGameMessage);
@@ -883,7 +867,7 @@ public class MessagesTest {
      * This method tests creation of message SelectProductionDevelopmentCardGameMessageTest
      */
     @Test
-    void SelectProductionDevelopmentCardGameMessageTest(){
+    void SelectProductionDevelopmentCardGameMessageTest() {
         String messageString = "SELECT_PRODUCTION_DEVELOPMENT_CARD" + " " + 1;
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof SelectProductionDevelopmentCardGameMessage);
@@ -895,7 +879,7 @@ public class MessagesTest {
      * This method tests creation of message SelectProductionPowerLeaderCardGameMessageTest
      */
     @Test
-    void SelectProductionPowerLeaderCardGameMessageTest(){
+    void SelectProductionPowerLeaderCardGameMessageTest() {
         String messageString = "SELECT_PRODUCTION_POWER_LEADER_CARD" + " " + 1;
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof SelectProductionPowerLeaderCardGameMessage);
@@ -907,7 +891,7 @@ public class MessagesTest {
      * This method tests creation of message ObtainGenericResourceGameMessageTest
      */
     @Test
-    void ObtainGenericResourceGameMessageTest(){
+    void ObtainGenericResourceGameMessageTest() {
         String messageString = "OBTAIN_GENERIC_RESOURCE" + " " + Resource.COIN;
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof ObtainGenericResourceGameMessage);
@@ -919,7 +903,7 @@ public class MessagesTest {
      * This method tests creation of message StartPaymentGameMessageTest
      */
     @Test
-    void StartPaymentGameMessageTest(){
+    void StartPaymentGameMessageTest() {
         String messageString = "START_PAYMENT";
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof StartPaymentGameMessage);
@@ -931,7 +915,7 @@ public class MessagesTest {
      * This method tests creation of message DrawSoloActionTokenGameMessageTest
      */
     @Test
-    void DrawSoloActionTokenGameMessageTest(){
+    void DrawSoloActionTokenGameMessageTest() {
         String messageString = "DRAW_SOLO_ACTION_TOKEN";
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof DrawSoloActionTokenGameMessage);
@@ -943,7 +927,7 @@ public class MessagesTest {
      * This method tests creation of message SelectAWarehouseDepotsSlotGameMessageTest
      */
     @Test
-    void SelectAWarehouseDepotsSlotGameMessageTest(){
+    void SelectAWarehouseDepotsSlotGameMessageTest() {
         String messageString = "SELECT_A_WAREHOUSE_DEPOTS_SLOT" + " " + 1;
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof SelectAWarehouseDepotsSlotGameMessage);
@@ -955,7 +939,7 @@ public class MessagesTest {
      * This method tests creation of message MoveResourcesInWarehouseDepotsGameMessageTest
      */
     @Test
-    void MoveResourcesInWarehouseDepotsGameMessageTest(){
+    void MoveResourcesInWarehouseDepotsGameMessageTest() {
         String messageString = "MOVE_RESOURCES_IN_WAREHOUSE_DEPOTS" + " " + 1;
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof MoveResourcesInWarehouseDepotsGameMessage);
@@ -967,7 +951,7 @@ public class MessagesTest {
      * This method tests creation of message MoveResourcesWarehouseToESLCGameMessageTest
      */
     @Test
-    void MoveResourcesWarehouseToESLCGameMessageTest(){
+    void MoveResourcesWarehouseToESLCGameMessageTest() {
         String messageString = "MOVE_RESOURCES_WAREHOUSE_TO_ES_LC" + " " + 1;
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof MoveResourcesWarehouseToESLCGameMessage);
@@ -979,7 +963,7 @@ public class MessagesTest {
      * This method tests creation of message MoveResourceESLCToWarehouseGameMessageTest
      */
     @Test
-    void MoveResourceESLCToWarehouseGameMessageTest(){
+    void MoveResourceESLCToWarehouseGameMessageTest() {
         String messageString = "MOVE_RESOURCE_ES_LC_TO_WAREHOUSE" + " " + 1;
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof MoveResourceESLCToWEarehouseGameMessage);
@@ -991,7 +975,7 @@ public class MessagesTest {
      * This method tests creation of message SelectTwoCardsToKeepGameMessageTest
      */
     @Test
-    void SelectTwoCardsToKeepGameMessageTest(){
+    void SelectTwoCardsToKeepGameMessageTest() {
         String messageString = "SELECT_TWO_CARDS_TO_KEEP" + " " + 1 + " " + 1;
         Message message = Message.fromString(messageString);
         assertTrue(message instanceof SelectTwoCardsToKeepGameMessage);
