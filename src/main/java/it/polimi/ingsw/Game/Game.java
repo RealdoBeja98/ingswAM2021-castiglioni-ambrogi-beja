@@ -1,13 +1,8 @@
 package it.polimi.ingsw.Game;
-import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Exceptions.GameAlreadyStartedException;
 import it.polimi.ingsw.Exceptions.GameEndedException;
 import it.polimi.ingsw.Exceptions.NameAlreadyRegisteredException;
-import it.polimi.ingsw.Exceptions.NotAResourceForStrongBoxException;
 import it.polimi.ingsw.Table.Table;
-import it.polimi.ingsw.View.Cli;
-import it.polimi.ingsw.View.View;
-
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -189,10 +184,19 @@ public class Game {
         return printWriterList;
     }
 
+    /**
+     * Getter of the parameter started
+     * @return true if the game started, of type boolean
+     */
     public boolean getStarted(){
         return started;
     }
 
+    /**
+     * This method remove a player that chose to quit the game
+     * @param nickname: the name of the player that quit
+     * @throws GameEndedException if the game was already ended
+     */
     public void removePlayer(String nickname) throws GameEndedException {
         for(int i = 0; i < players.size(); i++){
             if(!started){
@@ -251,7 +255,7 @@ public class Game {
         }
         for(int y = 0; y < printWriterList.size(); y++){
             for(int z = 0; z < players.size(); z++){
-                printWriterList.get(y).println(players.get(z).getNickname() + " scored: " + String.valueOf(points[z]) + " points");
+                printWriterList.get(y).println(players.get(z).getNickname() + " scored: " + points[z] + " points");
             }
         }
         int max = points[0];

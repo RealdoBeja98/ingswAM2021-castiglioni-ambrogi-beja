@@ -34,7 +34,7 @@ public class FaithTrackSP extends FaithTrack{
      */
     @Override
     public void goOn(int n){
-        if(FaithTrackSP.isSetForClient == false){
+        if(!FaithTrackSP.isSetForClient){
             if(!(Game.get(gameIndex).getPlayers().get(0).getPersonalBoard().getFaithTrack().getFaithMarker() == 24)){
                 super.goOn(n);
             }

@@ -54,13 +54,13 @@ public class UpdateSoloActionTokenMessage extends Message{
                 w4.showDevCard();
                 break;
             case BLACKCROSS1:
-                ClientMain.getPlayerGame().loernzoGoOn();
+                ClientMain.getPlayerGame().lorenzoGoOn();
                 View w5 = View.get();
                 w5.showPBCurrent();
                 break;
             case BLACKCROSS2:
-                ClientMain.getPlayerGame().loernzoGoOn();
-                ClientMain.getPlayerGame().loernzoGoOn();
+                ClientMain.getPlayerGame().lorenzoGoOn();
+                ClientMain.getPlayerGame().lorenzoGoOn();
                 View w6 = View.get();
                 w6.showPBCurrent();
                 break;
@@ -72,7 +72,7 @@ public class UpdateSoloActionTokenMessage extends Message{
      */
     @Override
     public String toString(){
-        return "UPDATE_SOLO_ACTION_TOKEN" + " "+actionToken;
+        return "UPDATE_SOLO_ACTION_TOKEN" + " "+ actionToken;
     }
 
 }

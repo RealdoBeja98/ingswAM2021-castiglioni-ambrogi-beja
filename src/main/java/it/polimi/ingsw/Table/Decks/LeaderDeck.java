@@ -25,11 +25,6 @@ public class LeaderDeck {
     public LeaderDeck(){
         deck = new ArrayList<>();
         putCards(deck);
-        /*
-        for(LeaderCard i : deck){
-            System.out.println(i.export());
-        }
-        */
         Collections.shuffle(deck);
     }
 
@@ -105,7 +100,7 @@ public class LeaderDeck {
 
     /**
      * Getter of the parameter deck
-     * @return a copy of the deck of leader cards, of type ArrayList<LeaderCard>
+     * @return a copy of the deck of leader cards, of type ArrayList of LeaderCard
      */
     public ArrayList<LeaderCard> getDeck(){
         return (ArrayList<LeaderCard>)deck.clone();

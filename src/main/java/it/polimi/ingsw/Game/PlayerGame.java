@@ -30,6 +30,10 @@ public class PlayerGame {
         private LeaderCard[] cardsInHandFirst;
         private LeaderCard[] cardsInHand;
         private LeaderCard[] cardsOnTable;
+        private FaithTrack faithTrack;
+        private WarehouseDepots warehouseDepots;
+        private StrongBox strongBox;
+        private SlotsDevelopmentCards slotsDevelopmentCards;
 
         /**
          * Getter of this class
@@ -87,11 +91,6 @@ public class PlayerGame {
             return slotsDevelopmentCards;
         }
 
-        private FaithTrack faithTrack;
-        private WarehouseDepots warehouseDepots;
-        private StrongBox strongBox;
-        private SlotsDevelopmentCards slotsDevelopmentCards;
-
     }
 
     /**
@@ -100,18 +99,17 @@ public class PlayerGame {
      * @param nickname string name
      */
     private PlayerPlayer getPlayerPlayerFromNickname(String nickname){
-        //System.out.println("Finding: " + nickname);/////////////////
         for(PlayerPlayer i : players){
             if(i.nickname.equals(nickname)){
                 return i;
-            } else {
-                //System.out.println("not this player: " + i.nickname);/////////////////
             }
         }
         return null;
     }
 
     private static ArrayList<FaithTrack> allFaithTrack = new ArrayList<>();
+    private ArrayList<PlayerPlayer> players;
+    private Market market;
 
     public static ArrayList<FaithTrack> getAllFaithTrack(){
         return allFaithTrack;
@@ -124,7 +122,7 @@ public class PlayerGame {
         return (ArrayList<PlayerPlayer>) players.clone();
     }
 
-    private ArrayList<PlayerPlayer> players;
+
 
     /**
      * Getter of this class
@@ -133,7 +131,7 @@ public class PlayerGame {
         return market;
     }
 
-    private Market market;
+
 
     /**
      * Getter of this class
@@ -449,7 +447,7 @@ public class PlayerGame {
         }
     }
 
-    public void loernzoGoOn(){
+    public void lorenzoGoOn(){
         lorenzoTrack.goOn(1);
     }
 

@@ -29,15 +29,6 @@ public class DevelopmentDeck{
         this.gameIndex = gameIndex;
         deck = new DevelopmentCard[3][4][4];
         addCard();
-        /*
-        for(DevelopmentCard[][] i : deck){
-            for(DevelopmentCard[] j : i){
-                for(DevelopmentCard k : j){
-                    System.out.println(k.export());
-                }
-            }
-        }
-        */
     }
 
     /**
@@ -95,7 +86,7 @@ public class DevelopmentDeck{
                     result = false;
                 }
             }
-            if(result == true){
+            if(result){
                 return true;
             }
         }
@@ -309,7 +300,7 @@ public class DevelopmentDeck{
                 }
             }
         }
-        result = new StringBuilder().append(result).append(String.valueOf(gameIndex)).toString();
+        result = new StringBuilder().append(result).append(gameIndex).toString();
         return result;
     }
 

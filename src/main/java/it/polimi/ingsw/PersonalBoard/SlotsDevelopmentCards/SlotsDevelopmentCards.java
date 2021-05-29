@@ -62,19 +62,6 @@ public class SlotsDevelopmentCards {
             seventhSlotOccupied();
             viewActiveCards();
         }
-        /*
-        //////////
-        for(DevelopmentCard[] i : slot){
-            for(DevelopmentCard j : i){
-                if(j == null){
-                    System.out.println("WWWWWWWWWWWWW");
-                } else {
-                    System.out.println(j.export());
-                }
-            }
-        }
-        //////////
-        */
     }
 
     /**

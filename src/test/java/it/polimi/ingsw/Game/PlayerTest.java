@@ -1,5 +1,4 @@
 package it.polimi.ingsw.Game;
-
 import it.polimi.ingsw.Enums.LeaderWarehouse;
 import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Enums.RowColumn;
@@ -9,7 +8,6 @@ import it.polimi.ingsw.Table.Decks.Development.DevelopmentCard;
 import it.polimi.ingsw.Table.Decks.Leader.*;
 import it.polimi.ingsw.Table.Market.Marbles.*;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 /**

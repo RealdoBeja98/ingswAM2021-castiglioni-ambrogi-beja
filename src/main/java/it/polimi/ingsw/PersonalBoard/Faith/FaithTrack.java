@@ -12,7 +12,6 @@ import java.util.ArrayList;
 public class FaithTrack {
 
     private static final int unusefulGameIndex = -1;
-
     private int faithMarker;
     private FavorTiles[] favorTiles;
     protected final int gameIndex;

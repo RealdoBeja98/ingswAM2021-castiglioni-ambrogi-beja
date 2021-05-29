@@ -3,8 +3,8 @@ import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Enums.Type;
 import it.polimi.ingsw.Table.Decks.ResourceProduction;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Test class for the class: DevelopmentCard
@@ -85,7 +85,7 @@ public class DevelopmentCardTest {
     @Test
     void testExportDevelopmentCard2(){
         String d = "3!2!p!1!2!1!0!1!1";
-        assertTrue(d.equals((new DevelopmentCard(d)).export()));
+        assertEquals(d, (new DevelopmentCard(d)).export());
     }
 
 }

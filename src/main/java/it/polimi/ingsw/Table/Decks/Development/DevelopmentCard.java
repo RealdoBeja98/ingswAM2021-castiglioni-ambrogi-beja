@@ -206,7 +206,7 @@ public class DevelopmentCard extends Card implements Production {
             default: break;
         }
         result = new StringBuilder().append(result).append("!").toString();
-        result = new StringBuilder().append(result).append(String.valueOf(level)).toString();
+        result = new StringBuilder().append(result).append(level).toString();
         result = new StringBuilder().append(result).append("!").toString();
         for(Resource i: requirements){
             String toAdd = "";
@@ -256,7 +256,7 @@ public class DevelopmentCard extends Card implements Production {
             result = new StringBuilder().append(result).append(toAdd).toString();
         }
         result = new StringBuilder().append(result).append("!").toString();
-        result = new StringBuilder().append(result).append(String.valueOf(victoryPoints)).toString();
+        result = new StringBuilder().append(result).append(victoryPoints).toString();
         return result;
     }
 
