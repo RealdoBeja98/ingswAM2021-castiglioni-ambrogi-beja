@@ -97,6 +97,7 @@ public class GuiThread extends Application implements Runnable{
             GraphicsContext gc = canvas.getGraphicsContext2D();
             Image img = new Image("Misc/BackGround.png");
             gc.drawImage(img, 0, 0, 1995, 1025);
+            //System.out.println("STATO APPENA SETTATO LO SFONDO");
             GuiThread.isSetBackground = true;
             ClientMain.notifyClientMain();
 

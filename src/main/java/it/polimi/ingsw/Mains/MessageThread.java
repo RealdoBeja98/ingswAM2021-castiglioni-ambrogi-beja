@@ -63,6 +63,7 @@ public class MessageThread implements Runnable{
                             ClientMain.getPlayerGame().quitAPlayer(whoQuited);
                             View.printMessage(messageServerMessage);
                         } else {
+                            //System.out.println("VIENE MOSTARTA LA SCRITTA");
                             View.printMessage(messageServerMessage);
                         }
                     }
