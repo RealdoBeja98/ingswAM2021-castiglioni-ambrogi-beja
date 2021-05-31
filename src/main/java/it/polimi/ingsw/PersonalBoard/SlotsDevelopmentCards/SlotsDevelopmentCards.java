@@ -4,6 +4,7 @@ import it.polimi.ingsw.Exceptions.IndexOutOfSlotDevelopmentCardsException;
 import it.polimi.ingsw.Exceptions.PositionInvalidException;
 import it.polimi.ingsw.Table.Decks.Development.DevelopmentCard;
 import it.polimi.ingsw.Game.Game;
+import it.polimi.ingsw.Utilities.MyInt;
 
 /**
  * This Class represents the slots for the development card
@@ -196,46 +197,58 @@ public class SlotsDevelopmentCards {
     }
 
     /**
-     * This method checks if you have all the required development cards placed
-     * @param typesToHave: development card's type required
-     * @return a boolean which is true if you you have at least the required development card's type
+     * this method return how much card of every type you have
+     * @param green: card of type green
+     * @param blue: card of type blue
+     * @param yellow: card of type yellow
+     * @param purple: card of type purple
      */
-    public boolean checkHaveTypes(Type[] typesToHave){
-        int green = 0;
-        int blue = 0;
-        int yellow = 0;
-        int purple = 0;
+    private void typesThatYouHave(MyInt green, MyInt blue, MyInt yellow, MyInt purple){
         for(DevelopmentCard[] i : slot){
             for(DevelopmentCard j : i){
                 if(j != null){
                     switch (j.getType()){
-                        case GREEN: green++;
+                        case GREEN: green.n++;
                             break;
-                        case BLUE: blue++;
+                        case BLUE: blue.n++;
                             break;
-                        case YELLOW: yellow++;
+                        case YELLOW: yellow.n++;
                             break;
-                        case PURPLE: purple++;
+                        case PURPLE: purple.n++;
                             break;
                         default: break;
                     }
                 }
             }
         }
+    }
+
+    /**
+     * This method checks if you have all the required development cards placed
+     * @param typesToHave: development card's type required
+     * @return a boolean which is true if you you have at least the required development card's type
+     */
+    public boolean checkHaveTypes(Type[] typesToHave){
+        MyInt green = new MyInt();
+        MyInt blue = new MyInt();
+        MyInt yellow = new MyInt();
+        MyInt purple = new MyInt();
+        typesThatYouHave(green, blue, yellow, purple);
+
         for(Type i : typesToHave){
             switch (i){
-                case GREEN: green--;
+                case GREEN: green.n--;
                     break;
-                case BLUE: blue--;
+                case BLUE: blue.n--;
                     break;
-                case YELLOW: yellow--;
+                case YELLOW: yellow.n--;
                     break;
-                case PURPLE: purple--;
+                case PURPLE: purple.n--;
                     break;
                 default: break;
             }
         }
-        return green >= 0 && blue >= 0 && yellow >= 0 && purple >= 0;
+        return green.n >= 0 && blue.n >= 0 && yellow.n >= 0 && purple.n >= 0;
     }
 
     /**
@@ -255,4 +268,5 @@ public class SlotsDevelopmentCards {
         }
         return false;
     }
+
 }

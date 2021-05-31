@@ -7,6 +7,7 @@ import it.polimi.ingsw.Mains.ClientMain;
 import it.polimi.ingsw.Messages.ServiceMessage;
 import it.polimi.ingsw.View.Cli;
 import it.polimi.ingsw.View.View;
+import javafx.util.Pair;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -19,12 +20,11 @@ public class GameStartServiceMessage extends ServiceMessage {
     private String all;
 
     /**
-     * Constructor of the class
-     * @param game game instance
+     * This method return both player and cards that they have at starting and who has the inkwell exported as strings
+     * @param game: game instance
+     * @return players with their cards with who has the inkwell exported as strings
      */
-    public GameStartServiceMessage(Game game){
-        String market = game.getTable().getMarket().export();
-        String developmentDeck = game.getTable().getDevelopmentDeck().export();
+    private Pair<ArrayList<String>, String> getPlayersAndCardsInHandFirst(Game game){
         ArrayList<String> playersAndCardsInHandFirst = new ArrayList<>();
         String whoHasTheInkwell = "";
         for (Player i : game.getPlayers()){
@@ -33,6 +33,19 @@ public class GameStartServiceMessage extends ServiceMessage {
                 whoHasTheInkwell = i.getNickname();
             }
         }
+        return new Pair<>(playersAndCardsInHandFirst, whoHasTheInkwell);
+    }
+
+    /**
+     * Constructor of the class
+     * @param game: game instance
+     */
+    public GameStartServiceMessage(Game game){
+        String market = game.getTable().getMarket().export();
+        String developmentDeck = game.getTable().getDevelopmentDeck().export();
+        Pair<ArrayList<String>, String> returnPlayersAndCardsInHandFirst = getPlayersAndCardsInHandFirst(game);
+        ArrayList<String> playersAndCardsInHandFirst = returnPlayersAndCardsInHandFirst.getKey();
+        String whoHasTheInkwell = returnPlayersAndCardsInHandFirst.getValue();
         all = market + "#" + developmentDeck;
         for(String i : playersAndCardsInHandFirst){
             all = new StringBuilder().append(all).append("#" + i).toString();
@@ -43,7 +56,7 @@ public class GameStartServiceMessage extends ServiceMessage {
 
     /**
      * Constructor of the message
-     * @param all
+     * @param all: a sting that codifies how is made the start of the game
      */
     public GameStartServiceMessage(String all){
         this.all = all;
@@ -52,8 +65,8 @@ public class GameStartServiceMessage extends ServiceMessage {
 
     /**
      * This method is for setting reade the start of the game for the messages
-     * @param game game instance
-     * @param out send messages to the socket
+     * @param game: game instance
+     * @param out: send messages to the socket
      */
     @Override
     public void execute(Game game, PrintWriter out) {
@@ -69,10 +82,8 @@ public class GameStartServiceMessage extends ServiceMessage {
         ClientMain.setPlayerGame(playerGame);
         playerGame.setOut(out);
         System.out.println("GAME START!");
-
         View w = View.get();
         w.showStartingLC();
-
     }
 
     /**

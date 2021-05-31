@@ -37,14 +37,11 @@ public abstract class LeaderCard extends Card {
      */
     public static LeaderCard importLeaderCard(String importedString){
         String leaderCardType = importedString.substring(0, 1);
-        if(leaderCardType.equals("D")){
-            return new DiscountLeaderCard(importedString);
-        } else if(leaderCardType.equals("E")){
-            return new ExtraStorageLeaderCard(importedString);
-        } else if(leaderCardType.equals("P")){
-            return new ProductionPowerLeaderCard(importedString);
-        } else if(leaderCardType.equals("W")){
-            return new WhiteMarbleLeaderCard(importedString);
+        switch (leaderCardType){
+            case "D": return new DiscountLeaderCard(importedString);
+            case "E": return new ExtraStorageLeaderCard(importedString);
+            case "P": return new ProductionPowerLeaderCard(importedString);
+            case "W": return new WhiteMarbleLeaderCard(importedString);
         }
         return null;
     }

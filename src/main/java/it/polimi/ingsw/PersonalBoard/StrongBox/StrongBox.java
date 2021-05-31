@@ -2,6 +2,7 @@ package it.polimi.ingsw.PersonalBoard.StrongBox;
 import it.polimi.ingsw.Exceptions.NegativeResourceException;
 import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Exceptions.NotAResourceForStrongBoxException;
+import it.polimi.ingsw.Utilities.MyInt;
 
 /**
  * This Class represents the strong box associated to a player
@@ -79,6 +80,15 @@ public class StrongBox {
         }
     }
 
+    private int subtract(int resource, int n) throws NegativeResourceException {
+        if (resource - n < 0) {
+            throw new NegativeResourceException();
+        } else {
+            resource -= n;
+            return resource;
+        }
+    }
+
     /**
      * This method receives a resource and a position, and then decrease the relative internal counter
      * @param r: the resource type
@@ -89,32 +99,16 @@ public class StrongBox {
     public void remove(Resource r, int n) throws NegativeResourceException, NotAResourceForStrongBoxException {
         switch (r) {
             case COIN:
-                if (coin - n < 0) {
-                    throw new NegativeResourceException();
-                } else {
-                    coin -= n;
-                }
+                coin = subtract(coin, n);
                 break;
             case STONE:
-                if (stone - n < 0) {
-                    throw new NegativeResourceException();
-                } else {
-                    stone -= n;
-                }
+                stone = subtract(stone, n);
                 break;
             case SERVANT:
-                if (servant - n < 0) {
-                    throw new NegativeResourceException();
-                } else {
-                    servant -= n;
-                }
+                servant = subtract(servant, n);
                 break;
             case SHIELD:
-                if (shield - n < 0) {
-                    throw new NegativeResourceException();
-                } else {
-                    shield -= n;
-                }
+                shield = subtract(shield, n);
                 break;
             default: throw new NotAResourceForStrongBoxException();
         }

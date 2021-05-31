@@ -58,6 +58,7 @@ public class MoveResourceESLCToWEarehouseGameMessage extends GameMessage {
             Message.sendMessage(out, new InvalidActionErrorMessage());
         }
     }
+
     /**
      * This method represents what message to print in console
      */

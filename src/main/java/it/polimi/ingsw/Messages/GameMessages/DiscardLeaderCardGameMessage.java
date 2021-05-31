@@ -53,6 +53,7 @@ public class DiscardLeaderCardGameMessage extends GameMessage {
             Message.sendMessage(out, new InvalidPositionErrorMessage());
         }
     }
+
     /**
      * This method represents what message to print in console
      */

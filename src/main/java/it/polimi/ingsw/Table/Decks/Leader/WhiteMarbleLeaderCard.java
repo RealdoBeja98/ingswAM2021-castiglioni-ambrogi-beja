@@ -1,6 +1,7 @@
 package it.polimi.ingsw.Table.Decks.Leader;
 import it.polimi.ingsw.Enums.LeaderCardType;
 import it.polimi.ingsw.Enums.Type;
+import it.polimi.ingsw.Utilities.ImportExport;
 import it.polimi.ingsw.Table.Market.Marbles.*;
 import java.util.ArrayList;
 
@@ -48,35 +49,10 @@ public class WhiteMarbleLeaderCard extends LeaderCard {
         String fromVictoryPoints = String.valueOf(victoryPoints);
         String fromCostOfLeaderCard = "";
         for(Type i : costOfLeaderCard){
-            String toAdd = "";
-            switch (i){
-                case GREEN: toAdd = "g";
-                    break;
-                case BLUE: toAdd = "b";
-                    break;
-                case YELLOW: toAdd = "y";
-                    break;
-                case PURPLE: toAdd = "p";
-                    break;
-                default: break;
-            }
+            String toAdd = ImportExport.exportType(i);
             fromCostOfLeaderCard = new StringBuilder().append(fromCostOfLeaderCard).append(toAdd).toString();
         }
-        String fromWhiteMarble = "";
-        switch (whiteMarble.getWhatIAm()){
-            case FAITH: fromWhiteMarble = "0";
-                break;
-            case COIN: fromWhiteMarble = "1";
-                break;
-            case STONE: fromWhiteMarble = "2";
-                break;
-            case SERVANT: fromWhiteMarble = "3";
-                break;
-            case SHIELD: fromWhiteMarble = "4";
-                break;
-            case WHITE: fromWhiteMarble = "5";
-                break;
-        }
+        String fromWhiteMarble = ImportExport.exportResource(whiteMarble.getWhatIAm());
         result = new StringBuilder().append(result).append(fromVictoryPoints).append(fromCostOfLeaderCard).append(fromWhiteMarble).toString();
         return result;
     }
@@ -89,32 +65,12 @@ public class WhiteMarbleLeaderCard extends LeaderCard {
         this.whatIAm = LeaderCardType.WHITE;
         victoryPoints = Integer.parseInt(importedString.substring(1, 2));
         String toWhiteMarble = importedString.substring(importedString.length() - 1);
-        if(toWhiteMarble.equals("0")){
-            whiteMarble = new Faith();
-        } else if(toWhiteMarble.equals("1")){
-            whiteMarble = new Coin();
-        } else if(toWhiteMarble.equals("2")){
-            whiteMarble = new Stone();
-        } else if(toWhiteMarble.equals("3")){
-            whiteMarble = new Servant();
-        } else if(toWhiteMarble.equals("4")){
-            whiteMarble = new Shield();
-        } else {
-            whiteMarble = new White();
-        }
+        whiteMarble = ImportExport.importMarble(toWhiteMarble);
         String fromCostOfLeaderCard = importedString.substring(2, importedString.length() - 1);
         ArrayList<Type> toCostOfLeaderCard = new ArrayList<>();
         for(int i = 0; i < fromCostOfLeaderCard.length(); i++){
             String toAdd = fromCostOfLeaderCard.substring(i, i+1);
-            if(toAdd.equals("g")){
-                toCostOfLeaderCard.add(Type.GREEN);
-            } else if(toAdd.equals("b")){
-                toCostOfLeaderCard.add(Type.BLUE);
-            } else if(toAdd.equals("y")){
-                toCostOfLeaderCard.add(Type.YELLOW);
-            } else if(toAdd.equals("p")){
-                toCostOfLeaderCard.add(Type.PURPLE);
-            }
+            toCostOfLeaderCard.add(ImportExport.importType(toAdd));
         }
         costOfLeaderCard = new Type[toCostOfLeaderCard.size()];
         toCostOfLeaderCard.toArray(costOfLeaderCard);

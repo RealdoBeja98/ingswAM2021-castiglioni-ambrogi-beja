@@ -64,4 +64,5 @@ public class ObtainGenericResourceGameMessage extends GameMessage {
     public String toString(){
         return identifier + " " + resource;
     }
+
 }

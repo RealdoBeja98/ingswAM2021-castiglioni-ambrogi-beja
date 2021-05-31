@@ -27,8 +27,8 @@ public class SelectProductionPowerLeaderCardGameMessage extends GameMessage {
 
     /**
      * This method represents the sending of a  correct message
-     * @param game game instance
-     * @param out sends message to socket
+     * @param game: game instance
+     * @param out: sends message to socket
      */
     @Override
     public void execute(Game game, PrintWriter out) {

@@ -37,10 +37,9 @@ public class SelectNormalActionGameMessage extends GameMessage {
     public void execute(Game game, PrintWriter out) {
         try {
             game.getTurn().selectNormalAction(normalAction);
-
             if(normalAction.toString().equals("TAKE_RESOURCES_FROM_THE_MARKET")){
                 Message.sendMessage(out, new ShowMarketMessage());
-            }else if(normalAction.toString().equals("BUY_DEVELOPMENT_CARD")){
+            } else if (normalAction.toString().equals("BUY_DEVELOPMENT_CARD")){
                 Message.sendMessage(out, new ShowCardMarketMessage());
             }
             Message.sendMessage(out, new ConfirmedActionMessage());
@@ -57,4 +56,5 @@ public class SelectNormalActionGameMessage extends GameMessage {
     public String toString(){
         return identifier + " " + normalAction;
     }
+
 }

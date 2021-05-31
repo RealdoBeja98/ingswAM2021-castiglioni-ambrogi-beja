@@ -15,7 +15,7 @@ import java.io.PrintWriter;
 /**
  * This is a class of game message
  */
-public class PayWithExtraStorageLeaderCardGameMessage extends GameMessage {
+public class PayWithExtraStorageLeaderCardGameMessage extends PayWithSomethingGameMessage {
 
     private int leaderCardPosition;
 
@@ -37,16 +37,9 @@ public class PayWithExtraStorageLeaderCardGameMessage extends GameMessage {
     public void execute(Game game, PrintWriter out) {
         try {
             String currentPlayer = game.getTurn().getCurrentPlayer().getNickname();
-            int faith = game.getTurn().getCurrentPlayer().obtainingResourcesAfterPaying(Resource.FAITH);
-            int coin = game.getTurn().getCurrentPlayer().obtainingResourcesAfterPaying(Resource.COIN);
-            int servant = game.getTurn().getCurrentPlayer().obtainingResourcesAfterPaying(Resource.SERVANT);
-            int shield = game.getTurn().getCurrentPlayer().obtainingResourcesAfterPaying(Resource.SHIELD);
-            int stone = game.getTurn().getCurrentPlayer().obtainingResourcesAfterPaying(Resource.STONE);
-            game.getTurn().payWithExtraStorageLeaderCard(leaderCardPosition);
-            Message.sendMessage(out, new ConfirmedActionMessage());
-            System.out.println(identifier);
-            forwardAll(game, new UpdateObtainedMultipleResourceForwardMessage(currentPlayer, faith, coin, servant, shield, stone));
-            forwardAll(game, new PayedWithExtraStorageLeaderCardForwardMessage(currentPlayer, leaderCardPosition));
+            super.execute(game, out);
+            game.getTurn().payWithExtraStorageLeaderCard(leaderCardPosition);//
+            forwardAll(game, new PayedWithExtraStorageLeaderCardForwardMessage(currentPlayer, leaderCardPosition));//
         } catch (NotAnExtraStorageLeaderCardException e) {
             Message.sendMessage(out, new NotEsErrorMessage());
         } catch (WrongPaymentException e) {

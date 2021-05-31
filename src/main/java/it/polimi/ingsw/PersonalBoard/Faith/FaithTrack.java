@@ -3,6 +3,7 @@ import it.polimi.ingsw.Enums.FavorTiles;
 import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Game.Player;
 import it.polimi.ingsw.Game.PlayerGame;
+import javafx.util.Pair;
 
 import java.util.ArrayList;
 
@@ -11,15 +12,38 @@ import java.util.ArrayList;
  */
 public class FaithTrack {
 
+    private final static int[] popstate = {8, 16, 24};
+    private final static int[] thresholds = {5, 12, 19};
+    private final static int[] bonusFavourTiles = {2, 3, 4};
     private static final int unusefulGameIndex = -1;
     private int faithMarker;
     private FavorTiles[] favorTiles;
     protected final int gameIndex;
+    private static ArrayList<Pair<Integer, Integer>> bonusFaithMarker = null;
+
+    /**
+     * This method is to initialize bonusFaithMarker
+     */
+    private static void initializeBonusFaithMarker(){
+        if(bonusFaithMarker != null){
+            return;
+        }
+        bonusFaithMarker = new ArrayList<>();
+        bonusFaithMarker.add(new Pair<>(24, 20));
+        bonusFaithMarker.add(new Pair<>(21, 16));
+        bonusFaithMarker.add(new Pair<>(18, 12));
+        bonusFaithMarker.add(new Pair<>(15, 9));
+        bonusFaithMarker.add(new Pair<>(12, 6));
+        bonusFaithMarker.add(new Pair<>(9, 4));
+        bonusFaithMarker.add(new Pair<>(6, 2));
+        bonusFaithMarker.add(new Pair<>(3, 1));
+    }
 
     /**
      * Constructor method of this class
      */
     public FaithTrack(int gameIndex){
+        FaithTrack.initializeBonusFaithMarker();
         this.gameIndex = gameIndex;
         faithMarker = 0;
         favorTiles = new FavorTiles[3];
@@ -32,6 +56,7 @@ public class FaithTrack {
      * Constructor method of this class without gameIndex
      */
     public FaithTrack(){
+        FaithTrack.initializeBonusFaithMarker();
         this.gameIndex = unusefulGameIndex;
         faithMarker = 0;
         favorTiles = new FavorTiles[3];
@@ -85,18 +110,18 @@ public class FaithTrack {
      */
     public void goOn(int n){
         faithMarker += n;
-        if(faithMarker >= 24){
-            faithMarker = 24;
+        if(faithMarker >= popstate[2]){
+            faithMarker = popstate[2];
         }
-        if (faithMarker >= 8 && favorTiles[0] == FavorTiles.COVERED){
+        if (faithMarker >= popstate[0] && favorTiles[0] == FavorTiles.COVERED){
             popeState(0);
         }
 
-        if (faithMarker >= 16 && favorTiles[1] == FavorTiles.COVERED) {
+        if (faithMarker >= popstate[1] && favorTiles[1] == FavorTiles.COVERED) {
             popeState(1);
         }
 
-        if (faithMarker >= 24 && favorTiles[2] == FavorTiles.COVERED) {
+        if (faithMarker >= popstate[2] && favorTiles[2] == FavorTiles.COVERED) {
             popeState(2);
             if(gameIndex != unusefulGameIndex){
                 Game.get(gameIndex).endGame();
@@ -109,12 +134,12 @@ public class FaithTrack {
      * @param n: number of the occurring Vatican Report
      */
     private void popeState(int n){
-        int threshold = 5;
+        int threshold = thresholds[0];
         if(n == 1){
-            threshold = 12;
+            threshold = thresholds[1];
         }
         if(n == 2){
-            threshold = 19;
+            threshold = thresholds[2];
         }
         for(FaithTrack i : faithTrackOfAllPlayers()){
             if(i.faithMarker >= threshold){
@@ -135,41 +160,20 @@ public class FaithTrack {
     public int victoryPoints(){
         int bonusFavorTiles = 0;
         if(favorTiles[0] == FavorTiles.TURNED){
-            bonusFavorTiles += 2;
+            bonusFavorTiles += bonusFavourTiles[0];
         }
         if(favorTiles[1] == FavorTiles.TURNED){
-            bonusFavorTiles += 3;
+            bonusFavorTiles += bonusFavourTiles[1];
         }
         if(favorTiles[2] == FavorTiles.TURNED){
-            bonusFavorTiles += 4;
+            bonusFavorTiles += bonusFavourTiles[2];
         }
-        if(faithMarker >= 24){
-            return 20 + bonusFavorTiles;
+        for(Pair<Integer, Integer> pair : bonusFaithMarker){
+            if(faithMarker >= pair.getKey()){
+                return pair.getValue() + bonusFavorTiles;
+            }
         }
-        else if(faithMarker >= 21){
-            return 16 + bonusFavorTiles;
-        }
-        else if(faithMarker >= 18){
-            return 12 + bonusFavorTiles;
-        }
-        else if(faithMarker >= 15){
-            return 9 + bonusFavorTiles;
-        }
-        else if(faithMarker >= 12){
-            return 6 + bonusFavorTiles;
-        }
-        else if(faithMarker >= 9){
-            return 4 + bonusFavorTiles;
-        }
-        else if(faithMarker >= 6){
-            return 2 + bonusFavorTiles;
-        }
-        else if(faithMarker >= 3){
-            return 1 + bonusFavorTiles;
-        }
-        else{
-            return 0;
-        }
+        return 0;
     }
 
     /**

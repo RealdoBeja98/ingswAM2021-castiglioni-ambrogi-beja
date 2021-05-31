@@ -52,4 +52,5 @@ public class SelectAWarehouseDepotsSlotGameMessage extends GameMessage {
     public String toString(){
         return identifier + " " + position;
     }
+
 }

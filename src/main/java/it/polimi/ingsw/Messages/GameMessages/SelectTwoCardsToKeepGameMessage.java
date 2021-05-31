@@ -24,8 +24,8 @@ public class SelectTwoCardsToKeepGameMessage extends GameMessage {
 
     /**
      * Constructor of class game message
-     * @param card2 card2
-     * @param card1  card1
+     * @param card2: card2
+     * @param card1:  card1
      */
     public SelectTwoCardsToKeepGameMessage(int card1, int card2){
         identifier = "SELECT_TWO_CARDS_TO_KEEP";
@@ -35,8 +35,8 @@ public class SelectTwoCardsToKeepGameMessage extends GameMessage {
 
     /**
      * This method represents the sending of a  correct message
-     * @param game game instance
-     * @param out sends message to socket
+     * @param game: game instance
+     * @param out: sends message to socket
      */
     @Override
     public void execute(Game game, PrintWriter out) {
@@ -62,4 +62,5 @@ public class SelectTwoCardsToKeepGameMessage extends GameMessage {
     public String toString(){
         return identifier + " " + card1 + " " + card2;
     }
+
 }

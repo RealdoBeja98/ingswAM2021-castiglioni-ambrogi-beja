@@ -4,6 +4,7 @@ import it.polimi.ingsw.Enums.Type;
 import it.polimi.ingsw.Table.Decks.Card;
 import it.polimi.ingsw.Table.Decks.Production;
 import it.polimi.ingsw.Table.Decks.ResourceProduction;
+import it.polimi.ingsw.Utilities.MyInt;
 
 /**
  * This Class represents a development card
@@ -110,58 +111,55 @@ public class DevelopmentCard extends Card implements Production {
     }
 
     /**
+     * this method fill the cost/products for the ResourceProduction
+     * @param coin: for the cost/products of the coin
+     * @param servant: for the cost/products of the servant
+     * @param shield: for the cost/products of the shield
+     * @param stone: for the cost/products of the stone
+     */
+    private void fillCost(MyInt coin, MyInt servant, MyInt shield, MyInt stone, MyInt faith, Resource var[], int varCost[]){
+        for(int i = 0; i < var.length; i++){
+            switch(var[i]){
+                case COIN: coin.n += varCost[i];
+                    break;
+
+                case SERVANT: servant.n += varCost[i];
+                    break;
+
+                case SHIELD: shield.n += varCost[i];
+                    break;
+
+                case STONE: stone.n += varCost[i];
+                    break;
+
+                case FAITH: faith.n += varCost[i];
+                    break;
+
+                default: break;
+            }
+        }
+    }
+
+    /**
      * This method creates a new instance of the class resource production, given the requirement specified in this card and the static output
      * @return a class that represent the production power of this card, of type ResourceProduction
      */
     public ResourceProduction resourceProduction(){
-        int costCoin = 0;
-        int costServant = 0;
-        int costShield = 0;
-        int costStone = 0;
+        MyInt costCoin = new MyInt();
+        MyInt costServant = new MyInt();
+        MyInt costShield = new MyInt();
+        MyInt costStone = new MyInt();
+        fillCost(costCoin, costServant, costShield, costStone, null, requirements, costRequirements);
 
-        for(int i = 0; i < requirements.length; i++){
-            switch(requirements[i]){
-                case COIN: costCoin += costRequirements[i];
-                    break;
+        MyInt productionCoin = new MyInt();
+        MyInt productionServant = new MyInt();
+        MyInt productionShield = new MyInt();
+        MyInt productionStone = new MyInt();
+        MyInt productionFaith = new MyInt();
+        fillCost(productionCoin, productionServant, productionShield, productionStone, productionFaith, products, costProducts);
 
-                case SERVANT: costServant +=costRequirements[i];
-                    break;
-
-                case SHIELD: costShield += costRequirements[i];
-                    break;
-
-                case STONE: costStone +=costRequirements[i];
-                    break;
-
-                default: break;
-            }
-        }
-        int productionCoin = 0;
-        int productionServant = 0;
-        int productionShield = 0;
-        int productionStone = 0;
-        int productionFaith = 0;
-        for(int i = 0; i < products.length; i++){
-            switch(products[i]){
-                case COIN: productionCoin += costRequirements[i];
-                    break;
-
-                case SERVANT: productionServant +=costProducts[i];
-                    break;
-
-                case SHIELD: productionShield += costProducts[i];
-                    break;
-
-                case STONE: productionStone +=costProducts[i];
-                    break;
-
-                case FAITH: productionFaith += costProducts[i];
-                default: break;
-            }
-        }
-
-        return new ResourceProduction(costCoin, costServant, costShield, costStone, 0, productionCoin,
-                productionServant, productionShield, productionStone, 0, productionFaith);
+        return new ResourceProduction(costCoin.n, costServant.n, costShield.n, costStone.n, 0, productionCoin.n,
+                productionServant.n, productionShield.n, productionStone.n, 0, productionFaith.n);
     }
 
     /**

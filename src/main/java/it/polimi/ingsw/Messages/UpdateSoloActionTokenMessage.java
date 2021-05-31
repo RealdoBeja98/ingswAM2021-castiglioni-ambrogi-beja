@@ -34,35 +34,17 @@ public class UpdateSoloActionTokenMessage extends Message{
         w.showSoloActionToken(actionToken);
         switch (actionToken.getWhatIAm()){
             case GREEN:
-                ClientMain.getPlayerGame().discardDevelopmentDeck(actionToken.getWhatIAm());
-                View w1 = View.get();
-                w1.showDevCard();
-                break;
             case BLUE:
-                ClientMain.getPlayerGame().discardDevelopmentDeck(actionToken.getWhatIAm());
-                View w2 = View.get();
-                w2.showDevCard();
-                break;
             case YELLOW:
-                ClientMain.getPlayerGame().discardDevelopmentDeck(actionToken.getWhatIAm());
-                View w3 = View.get();
-                w3.showDevCard();
-                break;
             case PURPLE:
                 ClientMain.getPlayerGame().discardDevelopmentDeck(actionToken.getWhatIAm());
-                View w4 = View.get();
-                w4.showDevCard();
-                break;
-            case BLACKCROSS1:
-                ClientMain.getPlayerGame().lorenzoGoOn();
-                View w5 = View.get();
-                w5.showPBCurrent();
+                w.showDevCard();
                 break;
             case BLACKCROSS2:
                 ClientMain.getPlayerGame().lorenzoGoOn();
+            case BLACKCROSS1:
                 ClientMain.getPlayerGame().lorenzoGoOn();
-                View w6 = View.get();
-                w6.showPBCurrent();
+                w.showPBCurrent();
                 break;
         }
     }

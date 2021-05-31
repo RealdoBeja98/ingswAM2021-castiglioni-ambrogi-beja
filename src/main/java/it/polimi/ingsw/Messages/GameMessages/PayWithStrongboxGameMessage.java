@@ -15,7 +15,7 @@ import java.io.PrintWriter;
 /**
  * This is a class of game message
  */
-public class PayWithStrongboxGameMessage extends GameMessage {
+public class PayWithStrongboxGameMessage extends PayWithSomethingGameMessage {
 
     private Resource resource;
 
@@ -37,16 +37,9 @@ public class PayWithStrongboxGameMessage extends GameMessage {
     public void execute(Game game, PrintWriter out) {
         try {
             String currentPlayer = game.getTurn().getCurrentPlayer().getNickname();
-            int faith = game.getTurn().getCurrentPlayer().obtainingResourcesAfterPaying(Resource.FAITH);
-            int coin = game.getTurn().getCurrentPlayer().obtainingResourcesAfterPaying(Resource.COIN);
-            int servant = game.getTurn().getCurrentPlayer().obtainingResourcesAfterPaying(Resource.SERVANT);
-            int shield = game.getTurn().getCurrentPlayer().obtainingResourcesAfterPaying(Resource.SHIELD);
-            int stone = game.getTurn().getCurrentPlayer().obtainingResourcesAfterPaying(Resource.STONE);
-            game.getTurn().payWithStrongBox(resource);
-            Message.sendMessage(out, new ConfirmedActionMessage());
-            System.out.println(identifier);
-            forwardAll(game, new UpdateObtainedMultipleResourceForwardMessage(currentPlayer, faith, coin, servant, shield, stone));
-            forwardAll(game, new PayedWithStrongboxForwardMessage(currentPlayer, resource));
+            super.execute(game, out);
+            game.getTurn().payWithStrongBox(resource);//
+            forwardAll(game, new PayedWithStrongboxForwardMessage(currentPlayer, resource));//
         } catch (WrongPaymentException e) {
             Message.sendMessage(out, new WrongResourceErrorMessage());
         } catch (NegativeResourceException e) {
@@ -69,4 +62,5 @@ public class PayWithStrongboxGameMessage extends GameMessage {
     public String toString(){
         return identifier + " " + resource;
     }
+
 }

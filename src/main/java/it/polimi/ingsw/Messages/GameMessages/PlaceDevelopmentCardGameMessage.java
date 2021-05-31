@@ -65,4 +65,5 @@ public class PlaceDevelopmentCardGameMessage extends GameMessage {
     public String toString(){
         return identifier + " " + position;
     }
+
 }

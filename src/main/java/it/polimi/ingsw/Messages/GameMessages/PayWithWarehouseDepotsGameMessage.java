@@ -15,7 +15,7 @@ import java.io.PrintWriter;
 /**
  * This is a class of game message
  */
-public class PayWithWarehouseDepotsGameMessage extends GameMessage {
+public class PayWithWarehouseDepotsGameMessage extends PayWithSomethingGameMessage {
 
     private int position;
 
@@ -37,16 +37,9 @@ public class PayWithWarehouseDepotsGameMessage extends GameMessage {
     public void execute(Game game, PrintWriter out) {
         try {
             String currentPlayer = game.getTurn().getCurrentPlayer().getNickname();
-            int faith = game.getTurn().getCurrentPlayer().obtainingResourcesAfterPaying(Resource.FAITH);
-            int coin = game.getTurn().getCurrentPlayer().obtainingResourcesAfterPaying(Resource.COIN);
-            int servant = game.getTurn().getCurrentPlayer().obtainingResourcesAfterPaying(Resource.SERVANT);
-            int shield = game.getTurn().getCurrentPlayer().obtainingResourcesAfterPaying(Resource.SHIELD);
-            int stone = game.getTurn().getCurrentPlayer().obtainingResourcesAfterPaying(Resource.STONE);
-            game.getTurn().payWithWarehouseDepots(position);
-            Message.sendMessage(out, new ConfirmedActionMessage());
-            System.out.println(identifier);
-            forwardAll(game, new UpdateObtainedMultipleResourceForwardMessage(currentPlayer, faith, coin, servant, shield, stone));
-            forwardAll(game, new PayedWithWarehouseDepotsForwardMessage(currentPlayer, position));
+            super.execute(game, out);
+            game.getTurn().payWithWarehouseDepots(position);//
+            forwardAll(game, new PayedWithWarehouseDepotsForwardMessage(currentPlayer, position));//
         } catch (WrongPaymentException e) {
             Message.sendMessage(out, new WrongResourceErrorMessage());
         } catch (EmptySlotYetException e) {

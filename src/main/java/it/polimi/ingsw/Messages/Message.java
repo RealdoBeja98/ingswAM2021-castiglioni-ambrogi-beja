@@ -11,7 +11,6 @@ import it.polimi.ingsw.Messages.ServiceMessages.*;
 import it.polimi.ingsw.Table.Decks.Token.ActionToken;
 import java.io.PrintWriter;
 
-//<--FIXME--> bisogna (in generale) fare i test dei messaggi (ossia i test di come vengono costruite le stringhe dei messaggi)
 /**
  * Class of the  message
  */

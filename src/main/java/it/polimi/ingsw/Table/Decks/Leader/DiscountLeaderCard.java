@@ -2,6 +2,8 @@ package it.polimi.ingsw.Table.Decks.Leader;
 import it.polimi.ingsw.Enums.LeaderCardType;
 import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Enums.Type;
+import it.polimi.ingsw.Utilities.ImportExport;
+
 import java.util.ArrayList;
 
 /**
@@ -46,35 +48,10 @@ public class DiscountLeaderCard extends LeaderCard {
     public String export() {
         String result = "D";
         String fromVictoryPoints = String.valueOf(victoryPoints);
-        String fromDiscount = "";
-        switch (discount){
-            case FAITH: fromDiscount = "0";
-                break;
-            case COIN: fromDiscount = "1";
-                break;
-            case STONE: fromDiscount = "2";
-                break;
-            case SERVANT: fromDiscount = "3";
-                break;
-            case SHIELD: fromDiscount = "4";
-                break;
-            case WHITE: fromDiscount = "5";
-                break;
-        }
+        String fromDiscount = ImportExport.exportResource(discount);
         String fromCostOfLeaderCard = "";
         for(Type i : costOfLeaderCard){
-            String toAdd = "";
-            switch (i){
-                case GREEN: toAdd = "g";
-                    break;
-                case BLUE: toAdd = "b";
-                    break;
-                case YELLOW: toAdd = "y";
-                    break;
-                case PURPLE: toAdd = "p";
-                    break;
-                default: break;
-            }
+            String toAdd = ImportExport.exportType(i);
             fromCostOfLeaderCard = new StringBuilder().append(fromCostOfLeaderCard).append(toAdd).toString();
         }
         result = new StringBuilder().append(result).append(fromVictoryPoints).append(fromDiscount).append(fromCostOfLeaderCard).toString();
@@ -89,32 +66,12 @@ public class DiscountLeaderCard extends LeaderCard {
         this.whatIAm = LeaderCardType.DISCOUNT;
         victoryPoints = Integer.parseInt(importedString.substring(1, 2));
         String toAddDiscount = importedString.substring(2, 3);
-        if(toAddDiscount.equals("0")){
-            discount = Resource.FAITH;
-        } else if(toAddDiscount.equals("1")){
-            discount = Resource.COIN;
-        } else if(toAddDiscount.equals("2")){
-            discount = Resource.STONE;
-        } else if(toAddDiscount.equals("3")){
-            discount = Resource.SERVANT;
-        } else if(toAddDiscount.equals("4")){
-            discount = Resource.SHIELD;
-        } else {
-            discount = Resource.WHITE;
-        }
+        discount = ImportExport.importResource(toAddDiscount);
         String fromCostOfLeaderCard = importedString.substring(3);
         ArrayList<Type> toCostOfLeaderCard = new ArrayList<>();
         for(int i = 0; i < fromCostOfLeaderCard.length(); i++){
             String toAdd = fromCostOfLeaderCard.substring(i, i+1);
-            if(toAdd.equals("g")){
-                toCostOfLeaderCard.add(Type.GREEN);
-            } else if(toAdd.equals("b")){
-                toCostOfLeaderCard.add(Type.BLUE);
-            } else if(toAdd.equals("y")){
-                toCostOfLeaderCard.add(Type.YELLOW);
-            } else if(toAdd.equals("p")){
-                toCostOfLeaderCard.add(Type.PURPLE);
-            }
+            toCostOfLeaderCard.add(ImportExport.importType(toAdd));
         }
         costOfLeaderCard = new Type[toCostOfLeaderCard.size()];
         toCostOfLeaderCard.toArray(costOfLeaderCard);

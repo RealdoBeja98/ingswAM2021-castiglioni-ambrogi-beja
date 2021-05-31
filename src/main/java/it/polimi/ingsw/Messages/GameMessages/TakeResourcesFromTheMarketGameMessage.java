@@ -25,8 +25,8 @@ public class TakeResourcesFromTheMarketGameMessage extends GameMessage {
 
     /**
      * Constructor of class game message
-     * @param rowColumn row or column
-     * @param place position
+     * @param rowColumn: row or column
+     * @param place: position
      */
     public TakeResourcesFromTheMarketGameMessage(RowColumn rowColumn, int place){
         identifier = "TAKE_RESOURCES_FROM_THE_MARKET";
@@ -35,9 +35,21 @@ public class TakeResourcesFromTheMarketGameMessage extends GameMessage {
     }
 
     /**
+     * This method is to send other players messages with resources just took
+     * @param game: game instance
+     * @param out: sends message to socket
+     */
+    private void sendMarblesFromTheMarket(Game game, PrintWriter out){
+        int size = game.getTurn().getCurrentPlayer().getMarblesFromTheMarket().size();
+        for (int i = 0; i < size; i++) {
+            out.println(game.getTurn().getCurrentPlayer().getMarblesFromTheMarket().get(i));
+        }
+    }
+
+    /**
      * This method represents the sending of a  correct message
-     * @param game game instance
-     * @param out sends message to socket
+     * @param game: game instance
+     * @param out: sends message to socket
      */
     @Override
     public void execute(Game game, PrintWriter out) {
@@ -46,10 +58,7 @@ public class TakeResourcesFromTheMarketGameMessage extends GameMessage {
             game.getTurn().takeResourcesFromTheMarket(rowColumn, place);
             Message.sendMessage(out, new ConfirmedActionMessage());
             System.out.println(this);
-            int size = game.getTurn().getCurrentPlayer().getMarblesFromTheMarket().size();
-            for (int i = 0; i < size; i++) {
-                out.println(game.getTurn().getCurrentPlayer().getMarblesFromTheMarket().get(i));
-            }
+            sendMarblesFromTheMarket(game, out);
             forwardAll(game, new UpdateMarketForwardMessage(currentPlayer, rowColumn, place));
         } catch (ActionNotAllowedException e) {
             Message.sendMessage(out, new InvalidActionErrorMessage());

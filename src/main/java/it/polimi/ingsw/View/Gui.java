@@ -11,7 +11,6 @@ import it.polimi.ingsw.Table.Decks.Token.ActionToken;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-//import jdk.tools.jlink.internal.Platform;
 import javafx.application.Platform;
 import java.util.ArrayList;
 

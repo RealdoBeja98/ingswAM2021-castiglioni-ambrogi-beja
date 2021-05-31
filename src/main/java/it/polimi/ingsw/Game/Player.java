@@ -528,7 +528,7 @@ public class Player {//<--FIXME check javadoc from here-->
      * @throws DifferentStorageException if you select an ExtraStorageLeaderCard of another type of the resource to add
      * @throws OccupiedSlotExtraStorageLeaderCardException if you select an ExtraStorageLeaderCard yet occupied
      * @throws PositionAlreadyOccupiedException if you select a position yet occupied of the WarehouseDepots
-     * @throws ResourceAlreadyPlacedException if you place in WarehouseDepots a type of resource you yet placed in another shielf
+     * @throws ResourceAlreadyPlacedException if you place in WarehouseDepots a type of resource you yet placed in another shelf
      * @throws DifferentResourceInThisShelfException if you place in WarehouseDepots the resource in a shelf where there is yet another resource of another type
      * @throws UnexpectedWhiteMarbleException if it's unexpectly found you are going to place a white marble
      * @throws UnexpectedFaithMarbleException if it's unexpectly found you are going to place a faith marble

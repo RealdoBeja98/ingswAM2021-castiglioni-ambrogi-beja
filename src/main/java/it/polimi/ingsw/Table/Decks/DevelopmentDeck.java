@@ -173,12 +173,101 @@ public class DevelopmentDeck{
     }
 
     /**
-     * This method fills all the decks with cards
+     * method to add the cost of a DevelopmentCard during DevelopmentDeck creation
+     * @param i is a json Object
+     * @return the cost, of type Resource[]
      */
-    private void addCard(){
+    private Resource[] addCost(Object i){
+        JSONArray tempCost = (JSONArray) ((JSONObject) i).get("cost");
+        int sizeCost = tempCost.size();
+        Resource[] cost = new Resource[sizeCost];
+        for(int ii = 0; ii < sizeCost; ii++){
+            cost[ii] = Resource.valueOf((String)tempCost.get(ii));
+        }
+        return cost;
+    }
 
+    /**
+     * method to add the costNumber of a DevelopmentCard during DevelopmentDeck creation
+     * @param i is a json Object
+     * @return the costNumber, of type int[]
+     */
+    private int[] addCostNumber(Object i){
+        JSONArray tempCostNumber = (JSONArray) ((JSONObject) i).get("costNumber");
+        int sizeCostNumber = tempCostNumber.size();
+        int[] costNumber = new int[sizeCostNumber];
+        for(int ii = 0; ii < sizeCostNumber; ii++){
+            costNumber[ii] = (int)((Long)tempCostNumber.get(ii)).longValue();
+        }
+        return costNumber;
+    }
+
+    /**
+     * method to add the requirements of a DevelopmentCard during DevelopmentDeck creation
+     * @param i is a json Object
+     * @return the requirements, of type Resource[]
+     */
+    private Resource[] addRequirements(Object i){
+        JSONArray tempRequirements = (JSONArray) ((JSONObject) i).get("requirements");
+        int sizeRequirements = tempRequirements.size();
+        Resource[] requirements = new Resource[sizeRequirements];
+        for(int ii = 0; ii < sizeRequirements; ii++){
+            requirements[ii] = Resource.valueOf((String)tempRequirements.get(ii));
+        }
+        return requirements;
+    }
+
+    /**
+     * method to add the costRequirements of a DevelopmentCard during DevelopmentDeck creation
+     * @param i is a json Object
+     * @return the costRequirements, of type int[]
+     */
+    private int[] addCostRequirements(Object i){
+        JSONArray tempCostRequirements = (JSONArray) ((JSONObject) i).get("costRequirements");
+        int sizeCostRequirements = tempCostRequirements.size();
+        int[] costRequirements = new int[sizeCostRequirements];
+        for(int ii = 0; ii < sizeCostRequirements; ii++){
+            costRequirements[ii] = (int)((Long)tempCostRequirements.get(ii)).longValue();
+        }
+        return costRequirements;
+    }
+
+    /**
+     * method to add the products of a DevelopmentCard during DevelopmentDeck creation
+     * @param i is a json Object
+     * @return the products, of type Resource[]
+     */
+    private Resource[] addProducts(Object i){
+        JSONArray tempProducts = (JSONArray) ((JSONObject) i).get("products");
+        int sizeProducts = tempProducts.size();
+        Resource[] products = new Resource[sizeProducts];
+        for(int ii = 0; ii < sizeProducts; ii++){
+            products[ii] = Resource.valueOf((String)tempProducts.get(ii));
+        }
+        return products;
+    }
+
+    /**
+     * method to add the costProducts of a DevelopmentCard during DevelopmentDeck creation
+     * @param i is a json Object
+     * @return the costProducts, of type int[]
+     */
+    private int[] addCostProducts(Object i){
+        JSONArray tempCostProducts = (JSONArray) ((JSONObject) i).get("costProducts");
+        int sizeCostProducts = tempCostProducts.size();
+        int[] costProducts = new int[sizeCostProducts];
+        for(int ii = 0; ii < sizeCostProducts; ii++){
+            costProducts[ii] = (int)((Long)tempCostProducts.get(ii)).longValue();
+        }
+        return costProducts;
+    }
+
+    /**
+     * this method is to obtain a list of the DevelopmentCard to add from the json
+     * @return the list of the development cards composing the DevelopmentDeck, of type ArrayList<DevelopmentCard>
+     */
+    private ArrayList<DevelopmentCard> obtainDevelopmentCardsToAdd(){
         ArrayList<DevelopmentCard> developmentCardsToAdd = new ArrayList<>();
-
         JSONParser jsonParser = new JSONParser();
         try (FileReader reader = new FileReader("src/main/resources/DevelopmentCardsList.json"))
         {
@@ -186,51 +275,21 @@ public class DevelopmentDeck{
             JSONArray json = (JSONArray) obj;
             for(Object i : json) {
 
-                JSONArray tempCost = (JSONArray) ((JSONObject) i).get("cost");
-                int sizeCost = tempCost.size();
-                Resource[] cost = new Resource[sizeCost];
-                for(int ii = 0; ii < sizeCost; ii++){
-                    cost[ii] = Resource.valueOf((String)tempCost.get(ii));
-                }
+                Resource[] cost = addCost(i);
 
-                JSONArray tempCostNumber = (JSONArray) ((JSONObject) i).get("costNumber");
-                int sizeCostNumber = tempCostNumber.size();
-                int[] costNumber = new int[sizeCostNumber];
-                for(int ii = 0; ii < sizeCostNumber; ii++){
-                    costNumber[ii] = (int)((Long)tempCostNumber.get(ii)).longValue();
-                }
+                int[] costNumber = addCostNumber(i);
 
                 Type type = Type.valueOf((String)((JSONObject) i).get("type"));
 
                 int level = (int)((Long) ((JSONObject) i).get("level")).longValue();
 
-                JSONArray tempRequirements = (JSONArray) ((JSONObject) i).get("requirements");
-                int sizeRequirements = tempRequirements.size();
-                Resource[] requirements = new Resource[sizeRequirements];
-                for(int ii = 0; ii < sizeRequirements; ii++){
-                    requirements[ii] = Resource.valueOf((String)tempRequirements.get(ii));
-                }
+                Resource[] requirements = addRequirements(i);
 
-                JSONArray tempCostRequirements = (JSONArray) ((JSONObject) i).get("costRequirements");
-                int sizeCostRequirements = tempCostRequirements.size();
-                int[] costRequirements = new int[sizeCostRequirements];
-                for(int ii = 0; ii < sizeCostRequirements; ii++){
-                    costRequirements[ii] = (int)((Long)tempCostRequirements.get(ii)).longValue();
-                }
+                int[] costRequirements = addCostRequirements(i);
 
-                JSONArray tempProducts = (JSONArray) ((JSONObject) i).get("products");
-                int sizeProducts = tempProducts.size();
-                Resource[] products = new Resource[sizeProducts];
-                for(int ii = 0; ii < sizeProducts; ii++){
-                    products[ii] = Resource.valueOf((String)tempProducts.get(ii));
-                }
+                Resource[] products = addProducts(i);
 
-                JSONArray tempCostProducts = (JSONArray) ((JSONObject) i).get("costProducts");
-                int sizeCostProducts = tempCostProducts.size();
-                int[] costProducts = new int[sizeCostProducts];
-                for(int ii = 0; ii < sizeCostProducts; ii++){
-                    costProducts[ii] = (int)((Long)tempCostProducts.get(ii)).longValue();
-                }
+                int[] costProducts = addCostProducts(i);
 
                 int victoryPoints = (int)((Long) ((JSONObject) i).get("victoryPoints")).longValue();
 
@@ -242,8 +301,30 @@ public class DevelopmentDeck{
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
-        int x = 2;
-        while(x >= 0){
+        return developmentCardsToAdd;
+    }
+
+    /**
+     * This method fills the DevelopmentDeck
+     * @param level: the number of the row
+     * @param color: the deck of that color
+     * @param column: the number of the column
+     */
+    private void fillDevelopmentDeck(int level, ArrayList<DevelopmentCard> color, int column){
+        for(int ii = 0; ii < 4; ii++){
+            deck[level][column][ii] = color.get(ii);
+        }
+    }
+
+    /**
+     * This method fills all the decks with cards
+     */
+    private void addCard(){
+
+        ArrayList<DevelopmentCard> developmentCardsToAdd = obtainDevelopmentCardsToAdd();
+
+        int level = 2;
+        while(level >= 0){
             ArrayList<DevelopmentCard> green = new ArrayList<>();
             ArrayList<DevelopmentCard> purple = new ArrayList<>();
             ArrayList<DevelopmentCard> blue = new ArrayList<>();
@@ -271,19 +352,13 @@ public class DevelopmentDeck{
             Collections.shuffle(blue);
             Collections.shuffle(yellow);
             Collections.shuffle(purple);
-            for(int ii = 0; ii < 4; ii++){
-                deck[x][0][ii] = green.get(ii);
-            }
-            for(int ii = 0; ii < 4; ii++){
-                deck[x][1][ii] = blue.get(ii);
-            }
-            for(int ii = 0; ii < 4; ii++){
-                deck[x][2][ii] = yellow.get(ii);
-            }
-            for(int ii = 0; ii < 4; ii++){
-                deck[x][3][ii] = purple.get(ii);
-            }
-            x = x - 1;
+
+            fillDevelopmentDeck(level, green, 0);
+            fillDevelopmentDeck(level, blue, 1);
+            fillDevelopmentDeck(level, yellow, 2);
+            fillDevelopmentDeck(level, purple, 3);
+
+            level = level - 1;
         }
     }
 

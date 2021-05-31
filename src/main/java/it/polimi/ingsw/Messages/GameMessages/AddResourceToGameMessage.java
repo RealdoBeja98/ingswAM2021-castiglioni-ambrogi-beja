@@ -36,7 +36,37 @@ public class AddResourceToGameMessage extends GameMessage {
     }
 
     /**
-     * This method represents the sending of a  correct message
+     * This method is the second part of the method execute
+     * @param game game instance
+     * @param out sends message to socket
+     * @param currentPlayer the nickname of the current player
+     * @param whichResourceToAdd the resource to add
+     * @throws OccupiedSlotExtraStorageLeaderCardException if you select an ExtraStorageLeaderCard yet occupied
+     * @throws PositionAlreadyOccupiedException if you select a position yet occupied of the WarehouseDepots
+     * @throws UnexpectedFaithMarbleException if it's unexpectly found you are going to place a white marble
+     * @throws ActionNotAllowedException
+     * @throws NoResourceToAddException if the list marblesFromTheMarket, in witch there are all the resources to add, is empty
+     * @throws DifferentStorageException if you select an ExtraStorageLeaderCard of another type of the resource to add
+     * @throws ResourceAlreadyPlacedException if you place in WarehouseDepots a type of resource you yet placed in another shelf
+     * @throws DifferentResourceInThisShelfException if you place in WarehouseDepots the resource in a shelf where there is yet another resource of another type
+     * @throws UnexpectedWhiteMarbleException if it's unexpectly found you are going to place a faith marble
+     * @throws IndexOutOfWarehouseDepotsException if you are out of bounds of the WarehouseDepots
+     */
+    private void continueExecute(Game game, PrintWriter out, String currentPlayer, Resource whichResourceToAdd) throws OccupiedSlotExtraStorageLeaderCardException, PositionAlreadyOccupiedException, UnexpectedFaithMarbleException, ActionNotAllowedException, NoResourceToAddException, DifferentStorageException, ResourceAlreadyPlacedException, DifferentResourceInThisShelfException, UnexpectedWhiteMarbleException, IndexOutOfWarehouseDepotsException {
+        Message.sendMessage(out, new ConfirmedActionMessage());
+        System.out.println(identifier);
+        switch (leaderWarehouse){
+            case DISCARD:
+                forwardAll(game, new AdvanceFaithTrackForwardMessage(currentPlayer));
+                break;
+            default: game.getTurn().addResource(leaderWarehouse, place);
+                forwardAll(game, new AddedResourceToForwardMessage(currentPlayer, leaderWarehouse, whichResourceToAdd, place));
+                break;
+        }
+    }
+
+    /**
+     * This method represents the sending of a correct message
      * @param game game instance
      * @param out sends message to socket
      */
@@ -52,15 +82,8 @@ public class AddResourceToGameMessage extends GameMessage {
             }
             if(leaderWarehouse == LeaderWarehouse.DISCARD){
                 game.getTurn().addResource(LeaderWarehouse.DISCARD);
-                Message.sendMessage(out, new ConfirmedActionMessage());
-                System.out.println(identifier);
-                forwardAll(game, new AdvanceFaithTrackForwardMessage(currentPlayer));
-            } else {
-                game.getTurn().addResource(leaderWarehouse, place);
-                Message.sendMessage(out, new ConfirmedActionMessage());
-                System.out.println(identifier);
-                forwardAll(game, new AddedResourceToForwardMessage(currentPlayer, leaderWarehouse, whichResourceToAdd, place));
             }
+            continueExecute(game, out, currentPlayer, whichResourceToAdd);
         } catch (NoResourceToAddException e) {
             Message.sendMessage(out, new NoResourceAErrorMessage());
         } catch (DifferentStorageException e) {
@@ -91,7 +114,7 @@ public class AddResourceToGameMessage extends GameMessage {
     public String toString(){
         if(leaderWarehouse == LeaderWarehouse.DISCARD){
             return identifier + " " + leaderWarehouse;
-        }else{
+        } else {
             return identifier + " " + leaderWarehouse + " " + place;
         }
     }

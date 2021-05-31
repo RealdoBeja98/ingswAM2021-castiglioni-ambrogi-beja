@@ -3,6 +3,7 @@ import it.polimi.ingsw.Enums.LeaderCardType;
 import it.polimi.ingsw.Exceptions.EmptySlotExtraStorageLeaderCardException;
 import it.polimi.ingsw.Exceptions.OccupiedSlotExtraStorageLeaderCardException;
 import it.polimi.ingsw.Enums.Resource;
+import it.polimi.ingsw.Utilities.ImportExport;
 
 /**
  * This Class represents the leader card that give extra storage
@@ -96,36 +97,8 @@ public class ExtraStorageLeaderCard extends LeaderCard {
     public String export() {
         String result = "E";
         String fromVictoryPoints = String.valueOf(victoryPoints);
-        String fromCostOfLeaderCard = "";
-        switch (costOfLeaderCard){
-            case FAITH: fromCostOfLeaderCard = "0";
-                break;
-            case COIN: fromCostOfLeaderCard = "1";
-                break;
-            case STONE: fromCostOfLeaderCard = "2";
-                break;
-            case SERVANT: fromCostOfLeaderCard = "3";
-                break;
-            case SHIELD: fromCostOfLeaderCard = "4";
-                break;
-            case WHITE: fromCostOfLeaderCard = "5";
-                break;
-        }
-        String fromStorageType = "";
-        switch (storageType){
-            case FAITH: fromStorageType = "0";
-                break;
-            case COIN: fromStorageType = "1";
-                break;
-            case STONE: fromStorageType = "2";
-                break;
-            case SERVANT: fromStorageType = "3";
-                break;
-            case SHIELD: fromStorageType = "4";
-                break;
-            case WHITE: fromStorageType = "5";
-                break;
-        }
+        String fromCostOfLeaderCard = ImportExport.exportResource(costOfLeaderCard);
+        String fromStorageType = ImportExport.exportResource(storageType);
         result = new StringBuilder().append(result).append(fromVictoryPoints).append(fromCostOfLeaderCard).append(fromStorageType).toString();
         return result;
     }
@@ -138,33 +111,9 @@ public class ExtraStorageLeaderCard extends LeaderCard {
         this.whatIAm = LeaderCardType.STORAGE;
         victoryPoints = Integer.parseInt(importedString.substring(1, 2));
         String toAddCostOfLeaderCard = importedString.substring(2, 3);
-        if(toAddCostOfLeaderCard.equals("0")){
-            costOfLeaderCard = Resource.FAITH;
-        } else if(toAddCostOfLeaderCard.equals("1")){
-            costOfLeaderCard = Resource.COIN;
-        } else if(toAddCostOfLeaderCard.equals("2")){
-            costOfLeaderCard = Resource.STONE;
-        } else if(toAddCostOfLeaderCard.equals("3")){
-            costOfLeaderCard = Resource.SERVANT;
-        } else if(toAddCostOfLeaderCard.equals("4")){
-            costOfLeaderCard = Resource.SHIELD;
-        } else {
-            costOfLeaderCard = Resource.WHITE;
-        }
+        costOfLeaderCard = ImportExport.importResource(toAddCostOfLeaderCard);
         String toAddStorageType = importedString.substring(3, 4);
-        if(toAddStorageType.equals("0")){
-            storageType = Resource.FAITH;
-        } else if(toAddStorageType.equals("1")){
-            storageType = Resource.COIN;
-        } else if(toAddStorageType.equals("2")){
-            storageType = Resource.STONE;
-        } else if(toAddStorageType.equals("3")){
-            storageType = Resource.SERVANT;
-        } else if(toAddStorageType.equals("4")){
-            storageType = Resource.SHIELD;
-        } else {
-            storageType = Resource.WHITE;
-        }
+        storageType = ImportExport.importResource(toAddStorageType);
     }
 
 }
