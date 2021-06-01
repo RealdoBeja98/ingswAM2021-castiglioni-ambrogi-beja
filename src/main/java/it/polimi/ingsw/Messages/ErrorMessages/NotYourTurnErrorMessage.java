@@ -6,6 +6,7 @@ import it.polimi.ingsw.Messages.ErrorMessage;
  * Class of an error message
  */
 public class NotYourTurnErrorMessage extends ErrorMessage {
+
     /**
      * constructor of class
      */

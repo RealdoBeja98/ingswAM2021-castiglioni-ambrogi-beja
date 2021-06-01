@@ -1,16 +1,8 @@
 package it.polimi.ingsw.Messages.GameMessages;
 
-import it.polimi.ingsw.Exceptions.ActionNotAllowedException;
-import it.polimi.ingsw.Exceptions.GameEndedException;
-import it.polimi.ingsw.Exceptions.NotSatisfiedRequirementsForThisLeaderCardException;
-import it.polimi.ingsw.Exceptions.PositionInvalidException;
+import it.polimi.ingsw.Exceptions.*;
 import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Messages.ConfirmedActionMessage;
-import it.polimi.ingsw.Messages.ErrorMessages.GameEndedErrorMessage;
-import it.polimi.ingsw.Messages.ErrorMessages.InvalidActionErrorMessage;
-import it.polimi.ingsw.Messages.ErrorMessages.InvalidPositionErrorMessage;
-import it.polimi.ingsw.Messages.ErrorMessages.RequirementsErrorMessage;
-import it.polimi.ingsw.Messages.ForwardMessages.DiscardedLeaderCardForwardMessage;
 import it.polimi.ingsw.Messages.ForwardMessages.PlayedLeaderCardForwardMessage;
 import it.polimi.ingsw.Messages.GameMessage;
 import it.polimi.ingsw.Messages.Message;
@@ -46,14 +38,8 @@ public class PlayLeaderCardGameMessage extends GameMessage {
             Message.sendMessage(out, new ConfirmedActionMessage());
             System.out.println(identifier);
             forwardAll(game, new PlayedLeaderCardForwardMessage(currentPlayer, leaderCardToPlay));
-        } catch (NotSatisfiedRequirementsForThisLeaderCardException e) {
-            Message.sendMessage(out, new RequirementsErrorMessage());
-        } catch (ActionNotAllowedException e) {
-            Message.sendMessage(out, new InvalidActionErrorMessage());
-        } catch (GameEndedException e) {
-            Message.sendMessage(out, new GameEndedErrorMessage());
-        } catch (PositionInvalidException e) {
-            Message.sendMessage(out, new InvalidPositionErrorMessage());
+        } catch (MessageException e) {
+            Message.sendMessage(out, e.getErrorMessage());
         }
     }
 

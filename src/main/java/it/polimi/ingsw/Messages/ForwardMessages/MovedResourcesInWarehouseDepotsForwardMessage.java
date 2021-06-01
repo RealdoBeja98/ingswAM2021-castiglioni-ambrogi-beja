@@ -5,8 +5,8 @@ import it.polimi.ingsw.Mains.ClientMain;
 import it.polimi.ingsw.Messages.ForwardMessage;
 import it.polimi.ingsw.View.Cli;
 import it.polimi.ingsw.View.View;
-
 import java.io.PrintWriter;
+
 /**
  * Class of a forward message
  */

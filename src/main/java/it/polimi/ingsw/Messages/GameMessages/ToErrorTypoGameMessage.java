@@ -1,7 +1,6 @@
 package it.polimi.ingsw.Messages.GameMessages;
 
 import it.polimi.ingsw.Game.Game;
-import it.polimi.ingsw.Messages.ConfirmedActionMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.TypoErrorMessage;
 import it.polimi.ingsw.Messages.GameMessage;
 import it.polimi.ingsw.Messages.Message;

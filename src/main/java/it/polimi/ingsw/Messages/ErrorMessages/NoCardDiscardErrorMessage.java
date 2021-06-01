@@ -6,6 +6,7 @@ import it.polimi.ingsw.Messages.ErrorMessage;
  * Class of an error message
  */
 public class NoCardDiscardErrorMessage extends ErrorMessage {
+
     /**
      * constructor of class
      */

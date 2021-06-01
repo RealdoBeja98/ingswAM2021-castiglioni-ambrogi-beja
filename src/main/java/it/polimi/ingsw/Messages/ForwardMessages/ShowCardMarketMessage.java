@@ -5,8 +5,8 @@ import it.polimi.ingsw.Messages.ForwardMessage;
 import it.polimi.ingsw.Messages.ServiceMessage;
 import it.polimi.ingsw.View.Cli;
 import it.polimi.ingsw.View.View;
-
 import java.io.PrintWriter;
+
 /**
  * Class of a forward message
  */
@@ -37,4 +37,5 @@ public class ShowCardMarketMessage extends ForwardMessage {
     public String toString(){
         return identifier;
     }
+
 }

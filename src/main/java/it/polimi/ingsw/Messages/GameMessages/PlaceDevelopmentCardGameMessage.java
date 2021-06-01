@@ -3,11 +3,6 @@ package it.polimi.ingsw.Messages.GameMessages;
 import it.polimi.ingsw.Exceptions.*;
 import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Messages.ConfirmedActionMessage;
-import it.polimi.ingsw.Messages.ErrorMessages.GameEndedErrorMessage;
-import it.polimi.ingsw.Messages.ErrorMessages.InvalidActionErrorMessage;
-import it.polimi.ingsw.Messages.ErrorMessages.InvalidPositionErrorMessage;
-import it.polimi.ingsw.Messages.ErrorMessages.NoCardObtainableErrorMessage;
-import it.polimi.ingsw.Messages.ForwardMessages.AddedResourceToForwardMessage;
 import it.polimi.ingsw.Messages.ForwardMessages.PlacedDevelopmentCardForwardMessage;
 import it.polimi.ingsw.Messages.GameMessage;
 import it.polimi.ingsw.Messages.Message;
@@ -45,16 +40,8 @@ public class PlaceDevelopmentCardGameMessage extends GameMessage {
             Message.sendMessage(out, new ConfirmedActionMessage());
             System.out.println(identifier);
             forwardAll(game, new PlacedDevelopmentCardForwardMessage(currentPlayer, position, obtainedDevelopmentCard.export()));
-        } catch (NoDevelopmentCardToObtainException e) {
-            Message.sendMessage(out, new NoCardObtainableErrorMessage());
-        } catch (PositionInvalidException e) {
-            Message.sendMessage(out, new InvalidPositionErrorMessage());
-        } catch (GameEndedException e) {
-            Message.sendMessage(out, new GameEndedErrorMessage());
-        } catch (ActionNotAllowedException e) {
-            Message.sendMessage(out, new InvalidActionErrorMessage());
-        } catch (IndexOutOfSlotDevelopmentCardsException e) {
-            Message.sendMessage(out, new InvalidPositionErrorMessage());
+        } catch (MessageException e) {
+            Message.sendMessage(out, e.getErrorMessage());
         }
     }
 

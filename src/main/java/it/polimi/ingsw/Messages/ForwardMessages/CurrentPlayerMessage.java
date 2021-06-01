@@ -4,6 +4,7 @@ import it.polimi.ingsw.Mains.ClientMain;
 import it.polimi.ingsw.Messages.ForwardMessage;
 import it.polimi.ingsw.Messages.ServiceMessage;
 import java.io.PrintWriter;
+
 /**
  * Class of a forward message
  */
@@ -36,4 +37,5 @@ public class CurrentPlayerMessage extends ForwardMessage {
     public String toString(){
         return identifier + " " + currentP;
     }
+
 }

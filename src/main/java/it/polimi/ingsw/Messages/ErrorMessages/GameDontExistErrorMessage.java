@@ -5,6 +5,7 @@ import it.polimi.ingsw.Messages.ErrorMessage;
  * Class of an error message
  */
 public class GameDontExistErrorMessage extends ErrorMessage {
+
     /**
      * constructor of class
      */

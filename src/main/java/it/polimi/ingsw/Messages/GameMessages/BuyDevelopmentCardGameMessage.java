@@ -3,7 +3,6 @@ package it.polimi.ingsw.Messages.GameMessages;
 import it.polimi.ingsw.Exceptions.*;
 import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Messages.ConfirmedActionMessage;
-import it.polimi.ingsw.Messages.ErrorMessages.*;
 import it.polimi.ingsw.Messages.ForwardMessages.UpdateDevelopmentCardForwardMessage;
 import it.polimi.ingsw.Messages.GameMessage;
 import it.polimi.ingsw.Messages.Message;
@@ -22,7 +21,6 @@ public class BuyDevelopmentCardGameMessage extends GameMessage {
      * Constructor of class game message
      * @param x coordinate
      * @param y coordinate
-     *
      */
     public BuyDevelopmentCardGameMessage(int x, int y){
         identifier = "BUY_DEVELOPMENT_CARD";
@@ -42,20 +40,8 @@ public class BuyDevelopmentCardGameMessage extends GameMessage {
             Message.sendMessage(out, new ConfirmedActionMessage());
             System.out.println(identifier);
             forwardAll(game, new UpdateDevelopmentCardForwardMessage(x, y));
-        } catch (ActionNotAllowedException e) {
-            Message.sendMessage(out, new InvalidPositionErrorMessage());
-        } catch (SelectedADevelopmentCardYetException e) {
-            Message.sendMessage(out, new AlreadySelectedSomethingErrorMessage());
-        } catch (NotAbleToBuyThisDevelopmentCardException e) {
-            Message.sendMessage(out, new NotEnoughResourcesErrorMessage());
-        } catch (DrawnFromEmptyDeckException e) {
-            Message.sendMessage(out, new EmptyDeckErrorMessage());
-        } catch (PositionInvalidException e) {
-            Message.sendMessage(out, new InvalidPositionErrorMessage());
-        } catch (NotAbleToPlaceThisDevelopmentCardException e) {
-            Message.sendMessage(out, new InvalidSelectionErrorMessage());
-        } catch (IndexOutOfDevelopmentDeckException e) {
-            Message.sendMessage(out, new InvalidPositionErrorMessage());
+        } catch (MessageException e) {
+            Message.sendMessage(out, e.getErrorMessage());
         }
     }
 

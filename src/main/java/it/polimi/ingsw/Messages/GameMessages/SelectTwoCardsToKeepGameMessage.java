@@ -1,13 +1,8 @@
 package it.polimi.ingsw.Messages.GameMessages;
 
-import it.polimi.ingsw.Exceptions.ActionNotAllowedException;
-import it.polimi.ingsw.Exceptions.GameEndedException;
-import it.polimi.ingsw.Exceptions.PositionInvalidException;
+import it.polimi.ingsw.Exceptions.MessageException;
 import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Messages.ConfirmedActionMessage;
-import it.polimi.ingsw.Messages.ErrorMessages.GameEndedErrorMessage;
-import it.polimi.ingsw.Messages.ErrorMessages.InvalidActionErrorMessage;
-import it.polimi.ingsw.Messages.ErrorMessages.InvalidPositionErrorMessage;
 import it.polimi.ingsw.Messages.ForwardMessages.SelectedTwoCardsToKeepForwardMessage;
 import it.polimi.ingsw.Messages.GameMessage;
 import it.polimi.ingsw.Messages.Message;
@@ -46,12 +41,8 @@ public class SelectTwoCardsToKeepGameMessage extends GameMessage {
             game.getTurn().selectThoCardsToKeep(card1, card2);
             Message.sendMessage(out, new ConfirmedActionMessage());
             System.out.println(identifier);
-        } catch (ActionNotAllowedException e) {
-            Message.sendMessage(out, new InvalidActionErrorMessage());
-        } catch (PositionInvalidException e) {
-            Message.sendMessage(out, new InvalidPositionErrorMessage());
-        } catch (GameEndedException e) {
-            Message.sendMessage(out, new GameEndedErrorMessage());
+        } catch (MessageException e) {
+            Message.sendMessage(out, e.getErrorMessage());
         }
     }
 

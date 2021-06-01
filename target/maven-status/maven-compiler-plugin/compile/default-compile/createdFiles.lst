@@ -2,4 +2,5 @@ it/polimi/ingsw/Utilities/ImportExport$1.class
 it/polimi/ingsw/Utilities/ImportExport.class
 it/polimi/ingsw/Messages/GameMessages/AddResourceToGameMessage$1.class
 it/polimi/ingsw/Utilities/MyInt.class
+it/polimi/ingsw/Exceptions/MessageException.class
 it/polimi/ingsw/Table/Market/Marbles/BaseMarble.class

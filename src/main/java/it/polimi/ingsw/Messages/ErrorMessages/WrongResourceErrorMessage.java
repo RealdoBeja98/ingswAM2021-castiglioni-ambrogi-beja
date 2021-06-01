@@ -6,6 +6,7 @@ import it.polimi.ingsw.Messages.ErrorMessage;
  * Class of an error message
  */
 public class WrongResourceErrorMessage extends ErrorMessage {
+
     /**
      * constructor of class
      */

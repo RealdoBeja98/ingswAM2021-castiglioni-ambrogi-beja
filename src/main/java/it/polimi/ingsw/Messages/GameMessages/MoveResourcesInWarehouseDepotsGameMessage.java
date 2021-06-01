@@ -1,12 +1,8 @@
 package it.polimi.ingsw.Messages.GameMessages;
 
-import it.polimi.ingsw.Exceptions.ActionNotAllowedException;
-import it.polimi.ingsw.Exceptions.IndexOutOfWarehouseDepotsException;
-import it.polimi.ingsw.Exceptions.NotAdmittedMovementException;
+import it.polimi.ingsw.Exceptions.MessageException;
 import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Messages.ConfirmedActionMessage;
-import it.polimi.ingsw.Messages.ErrorMessages.InvalidActionErrorMessage;
-import it.polimi.ingsw.Messages.ErrorMessages.InvalidMovementErrorMessage;
 import it.polimi.ingsw.Messages.ForwardMessages.MovedResourcesInWarehouseDepotsForwardMessage;
 import it.polimi.ingsw.Messages.GameMessage;
 import it.polimi.ingsw.Messages.Message;
@@ -43,12 +39,8 @@ public class MoveResourcesInWarehouseDepotsGameMessage extends GameMessage {
             Message.sendMessage(out, new ConfirmedActionMessage());
             System.out.println(identifier);
             forwardAll(game, new MovedResourcesInWarehouseDepotsForwardMessage(currentPlayer, position, otherPosition));
-        } catch (NotAdmittedMovementException e) {
-            Message.sendMessage(out, new InvalidMovementErrorMessage());
-        } catch (IndexOutOfWarehouseDepotsException e){
-            Message.sendMessage(out, new InvalidMovementErrorMessage());
-        } catch (ActionNotAllowedException e) {
-            Message.sendMessage(out, new InvalidActionErrorMessage());
+        } catch (MessageException e) {
+            Message.sendMessage(out, e.getErrorMessage());
         }
     }
 

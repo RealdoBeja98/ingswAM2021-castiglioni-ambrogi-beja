@@ -1,9 +1,7 @@
 package it.polimi.ingsw.Messages.GameMessages;
 
-import it.polimi.ingsw.Exceptions.ActionNotAllowedException;
+import it.polimi.ingsw.Exceptions.MessageException;
 import it.polimi.ingsw.Game.Game;
-import it.polimi.ingsw.Messages.ConfirmedActionMessage;
-import it.polimi.ingsw.Messages.ErrorMessages.InvalidActionErrorMessage;
 import it.polimi.ingsw.Messages.GameMessage;
 import it.polimi.ingsw.Messages.Message;
 import it.polimi.ingsw.Messages.UpdateSoloActionTokenMessage;
@@ -34,8 +32,8 @@ public class DrawSoloActionTokenGameMessage extends GameMessage {
             ActionToken actionToken = game.getTurn().drawSoloActionToken();
             out.println(new UpdateSoloActionTokenMessage(actionToken));
             System.out.println(identifier);
-        } catch (ActionNotAllowedException e) {
-            Message.sendMessage(out, new InvalidActionErrorMessage());
+        } catch (MessageException e) {
+            Message.sendMessage(out, e.getErrorMessage());
         }
     }
 

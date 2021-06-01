@@ -1,13 +1,8 @@
 package it.polimi.ingsw.Messages.GameMessages;
 
-import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Exceptions.*;
 import it.polimi.ingsw.Game.Game;
-import it.polimi.ingsw.Messages.ConfirmedActionMessage;
-import it.polimi.ingsw.Messages.ErrorMessages.*;
 import it.polimi.ingsw.Messages.ForwardMessages.PayedWithWarehouseDepotsForwardMessage;
-import it.polimi.ingsw.Messages.ForwardMessages.UpdateObtainedMultipleResourceForwardMessage;
-import it.polimi.ingsw.Messages.GameMessage;
 import it.polimi.ingsw.Messages.Message;
 
 import java.io.PrintWriter;
@@ -40,16 +35,8 @@ public class PayWithWarehouseDepotsGameMessage extends PayWithSomethingGameMessa
             super.execute(game, out);
             game.getTurn().payWithWarehouseDepots(position);//
             forwardAll(game, new PayedWithWarehouseDepotsForwardMessage(currentPlayer, position));//
-        } catch (WrongPaymentException e) {
-            Message.sendMessage(out, new WrongResourceErrorMessage());
-        } catch (EmptySlotYetException e) {
-            Message.sendMessage(out, new AlreadyEmptyErrorMessage());
-        } catch (NoResourceToPayException e) {
-            Message.sendMessage(out, new NoResourcePErrorMessage());
-        } catch (ActionNotAllowedException e) {
-            Message.sendMessage(out, new InvalidActionErrorMessage());
-        } catch (GameEndedException e) {
-            Message.sendMessage(out, new GameEndedErrorMessage());
+        } catch (MessageException e) {
+            Message.sendMessage(out, e.getErrorMessage());
         }
     }
 

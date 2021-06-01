@@ -3,7 +3,6 @@ package it.polimi.ingsw.Messages.GameMessages;
 import it.polimi.ingsw.Exceptions.*;
 import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Messages.ConfirmedActionMessage;
-import it.polimi.ingsw.Messages.ErrorMessages.*;
 import it.polimi.ingsw.Messages.ForwardMessages.MovedResourcesWarehouseToESLCForwardMessage;
 import it.polimi.ingsw.Messages.GameMessage;
 import it.polimi.ingsw.Messages.Message;
@@ -40,18 +39,8 @@ public class MoveResourcesWarehouseToESLCGameMessage extends GameMessage {
             Message.sendMessage(out, new ConfirmedActionMessage());
             System.out.println(identifier);
             forwardAll(game, new MovedResourcesWarehouseToESLCForwardMessage(currentPlayer, leaderCardPosition, warehousePosition));
-        } catch (PositionInvalidException e) {
-            Message.sendMessage(out, new InvalidPositionErrorMessage());
-        } catch (NotAnExtraStorageLeaderCardException e) {
-            Message.sendMessage(out, new NotEsErrorMessage());
-        } catch (EmptySlotYetException e) {
-            Message.sendMessage(out, new AlreadyEmptyErrorMessage());
-        } catch (OccupiedSlotExtraStorageLeaderCardException e) {
-            Message.sendMessage(out, new OccupiedSlotLCErrorMessage());
-        } catch (DifferentStorageException e) {
-            Message.sendMessage(out, new DifferentStorageTypeErrorMessage());
-        } catch (ActionNotAllowedException e) {
-            Message.sendMessage(out, new InvalidActionErrorMessage());
+        } catch (MessageException e) {
+            Message.sendMessage(out, e.getErrorMessage());
         }
     }
 
