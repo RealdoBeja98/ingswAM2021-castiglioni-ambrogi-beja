@@ -1,9 +1,8 @@
 package it.polimi.ingsw.Mains;
 import it.polimi.ingsw.Enums.*;
-import it.polimi.ingsw.Game.PlayerGame;
+import it.polimi.ingsw.Messages.GameMessage;
 import it.polimi.ingsw.Messages.GameMessages.*;
 import it.polimi.ingsw.Messages.Message;
-import it.polimi.ingsw.Table.Decks.Leader.LeaderCard;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -14,12 +13,11 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.TilePane;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 
 import java.io.PrintWriter;
-
-//<--FIXME--> mettiamo bottone per il debug
+import java.util.ArrayList;
 
 /**
  * Class of gui thread
@@ -31,20 +29,8 @@ public class GuiThread extends Application implements Runnable{
     private int[] val = {0,0};
     private LeaderCardState leaderCardState = null;
     private static boolean cardPrinted = false;
-    private static GuiThread instance;
     private final static Object lock = new Object();
     private static boolean isSetBackground = false;
-
-    public static boolean getIsSetBackground(){
-        return GuiThread.isSetBackground;
-    }
-
-    /**
-     * Constructor of the class
-     */
-    public GuiThread(){
-        instance = this;
-    }
 
     /**
      * Prints the card
@@ -69,14 +55,7 @@ public class GuiThread extends Application implements Runnable{
      */
     @Override
     public void run(){
-
-        //try{/////
-            launch();
-            return;
-        //} catch (Exception e){/////
-            //e.printStackTrace();/////
-        //}/////
-
+        launch();
     }
 
     /**
@@ -85,35 +64,29 @@ public class GuiThread extends Application implements Runnable{
      */
     @Override
     public void start(Stage stage) throws Exception {
-
-        //try{/////
-            stage.setTitle("Masters of Renaissance" + " - " + ClientMain.getClientNick());
-            Group root = new Group();
-            Canvas canvas = new Canvas(1995, 1025);
-            GraphicsContext gc = canvas.getGraphicsContext2D();
-            Image img = new Image("Misc/BackGround.png");
-            ClientMain.setCanvas(canvas);
-            synchronized (GuiThread.lock){
-                while(out == null){
-                    GuiThread.lock.wait();
-                }
+        stage.setTitle("Masters of Renaissance" + " - " + ClientMain.getClientNick());
+        Group root = new Group();
+        Canvas canvas = new Canvas(1995, 1025);
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        Image img = new Image("Misc/BackGround.png");
+        ClientMain.setCanvas(canvas);
+        synchronized (GuiThread.lock){
+            while(out == null){
+                GuiThread.lock.wait();
             }
-            gc.drawImage(img, 0, 0, 1995, 1025);
-            //System.out.println("STATO APPENA SETTATO LO SFONDO");
-            GuiThread.isSetBackground = true;
-            ClientMain.notifyClientMain();
-
-            root.getChildren().add(canvas);
-            buttonTurn(root, stage);
-            popper(root, img, gc);
-            Scene scene = new Scene(root, 1995, 1025);
-            stage.setScene(scene);
-            stage.show();
-        //} catch (Exception e){/////
-            //e.printStackTrace();/////
-        //}/////
-
+        }
+        gc.drawImage(img, 0, 0, 1995, 1025);
+        GuiThread.isSetBackground = true;
+        ClientMain.notifyClientMain();
+        root.getChildren().add(canvas);
+        buttonTurn(root, stage);
+        popper(root, img, gc);
+        Scene scene = new Scene(root, 1995, 1025);
+        stage.setScene(scene);
+        stage.show();
     }
+
+    //<--FIXME--> i valori
 
     /**
      * This methods creates the buttons for the turn
@@ -121,6 +94,8 @@ public class GuiThread extends Application implements Runnable{
      * @param stage stage
      */
     private void buttonTurn(Group root, Stage stage){
+        //addButton(root, "!", 0, 0, new SelectTwoCardsToKeepGameMessage(1, 2));
+
         addButton(root, "_SEL_NO_A_LC", 615, 0, new ChooseNoActionLeaderCardGameMessage());
         addButton(root, "_SEL_DISC_LC", 615, 35, new ChooseDiscardLeaderCardGameMessage());
         addButton(root, "_SEL_PLAY_LC", 615, 70, new ChoosePlayLeaderCardGameMessage());
@@ -150,7 +125,6 @@ public class GuiThread extends Application implements Runnable{
         addStateButton(root, "_SEL_PPPS", 615, 803, 10);
         addStateButton(root, "_PLACE_DC", 615, 833, 11);
 
-
         addButton(root, "_START_PAY", 615, 873, new StartPaymentGameMessage());
 
         addButton(root, "_DRAW_SOLO", 615, 918, new DrawSoloActionTokenGameMessage());
@@ -163,8 +137,6 @@ public class GuiThread extends Application implements Runnable{
         addButton(root, "_OG", 819, 407, new ObtainGenericResourceGameMessage(Resource.SERVANT));
         addButton(root, "_P", 791, 435, new PayWithStrongboxGameMessage(Resource.SHIELD));
         addButton(root, "_OG", 819, 435, new ObtainGenericResourceGameMessage(Resource.SHIELD));
-
-
 
         addWhereButton(root, "_W0", 777, 190, 0);
         addWhereButton(root, "_W1", 740, 255, 1);
@@ -218,11 +190,9 @@ public class GuiThread extends Application implements Runnable{
                 out.println(message);
             }
         };
-
         b.setOnAction(event);
         b.setLayoutX(x);
         b.setLayoutY(y);
-
         root.getChildren().add(b);
     }
 
@@ -244,11 +214,9 @@ public class GuiThread extends Application implements Runnable{
                 stage.close();
             }
         };
-
         b.setOnAction(event);
         b.setLayoutX(x);
         b.setLayoutY(y);
-
         TilePane r = new TilePane();
         root.getChildren().add(b);
     }
@@ -269,11 +237,9 @@ public class GuiThread extends Application implements Runnable{
                 state = n;
             }
         };
-
         b.setOnAction(event);
         b.setLayoutX(x);
         b.setLayoutY(y);
-
         root.getChildren().add(b);
     }
     /**
@@ -298,11 +264,9 @@ public class GuiThread extends Application implements Runnable{
                 }
             }
         };
-
         b.setOnAction(event);
         b.setLayoutX(x);
         b.setLayoutY(y);
-
         root.getChildren().add(b);
     }
 
@@ -317,28 +281,30 @@ public class GuiThread extends Application implements Runnable{
     private void addWhereButton(Group root, String buttonName, int x, int y, int pos){
         Button b = new Button(buttonName);
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e)
-            {
-                if(state == 1){
-                    out.println(new AddResourceToGameMessage(LeaderWarehouse.WAREHOUSEDEPOTS, pos));
-                    state = 0;
-                }else if(state == 2){
-                    out.println(new SelectAWarehouseDepotsSlotGameMessage(pos));
-                    state = 0;
-                }else if(state == 3){
-                    out.println(new MoveResourcesInWarehouseDepotsGameMessage(pos));
-                    state = 0;
-                }else if(state == 6){
-                    out.println(new PayWithWarehouseDepotsGameMessage(pos));
-                    state = 0;
+            public void handle(ActionEvent e){
+                switch (state){
+                    case 1:
+                        out.println(new AddResourceToGameMessage(LeaderWarehouse.WAREHOUSEDEPOTS, pos));
+                        state = 0;
+                        break;
+                    case 2:
+                        out.println(new SelectAWarehouseDepotsSlotGameMessage(pos));
+                        state = 0;
+                        break;
+                    case 3:
+                        out.println(new MoveResourcesInWarehouseDepotsGameMessage(pos));
+                        state = 0;
+                        break;
+                    case 6:
+                        out.println(new PayWithWarehouseDepotsGameMessage(pos));
+                        state = 0;
+                        break;
                 }
             }
         };
-
         b.setOnAction(event);
         b.setLayoutX(x);
         b.setLayoutY(y);
-
         root.getChildren().add(b);
     }
 
@@ -358,11 +324,9 @@ public class GuiThread extends Application implements Runnable{
                 leaderCardState = n;
             }
         };
-
         b.setOnAction(event);
         b.setLayoutX(x);
         b.setLayoutY(y);
-
         root.getChildren().add(b);
     }
 
@@ -383,46 +347,50 @@ public class GuiThread extends Application implements Runnable{
                     switch (leaderCardState){
                         case DISCARD_LEADER_CARD:
                             out.println(new DiscardLeaderCardGameMessage(pos));
-                            leaderCardState = null;
                             break;
                         case PLAY_LEADER_CARD:
                             out.println(new PlayLeaderCardGameMessage(pos));
-                            leaderCardState = null;
                             break;
                         case ADD_RESOURCE_TO_LEADER_CARD:
                             out.println(new AddResourceToGameMessage(LeaderWarehouse.LEADERCARD, pos));
-                            leaderCardState = null;
                             break;
                         case CHANGE_WHITE_MARBLE_WITH:
                             out.println(new ChangeWhiteMarbleWithGameMessage(pos));
-                            leaderCardState = null;
                             break;
                         case PAY_WITH_EXTRA_STORAGE_LEADER_CARD:
                             out.println(new PayWithExtraStorageLeaderCardGameMessage(pos));
-                            leaderCardState = null;
                             break;
                         case SELECT_PRODUCTION_POWER_LEADER_CARD:
                             out.println(new SelectProductionPowerLeaderCardGameMessage(pos));
-                            leaderCardState = null;
                             break;
                         case MOVE_RESOURCES_WAREHOUSE_TO_ES_LC:
                             out.println(new MoveResourcesWarehouseToESLCGameMessage(pos));
-                            leaderCardState = null;
                             break;
                         case MOVE_RESOURCE_ES_LC_TO_WAREHOUSE:
                             out.println(new MoveResourceESLCToWEarehouseGameMessage(pos));
-                            leaderCardState = null;
                             break;
                     }
+                    leaderCardState = null;
                 }
             }
         };
-
         b.setOnAction(event);
         b.setLayoutX(x);
         b.setLayoutY(y);
-
         root.getChildren().add(b);
+    }
+
+    private void setEvent(Button c1, Button c2, Button c3, Button c4, Button visibilityButton, int whichCard){
+        if (val[0] == 0 && cardPrinted) {
+            val[0] = whichCard;
+            visibilityButton.setVisible(false);
+        } else if (val[1] == 0 && cardPrinted) {
+            val[1] = whichCard;
+            c1.setVisible(false);
+            c2.setVisible(false);
+            c3.setVisible(false);
+            c4.setVisible(false);
+        }
     }
 
     /**
@@ -439,73 +407,34 @@ public class GuiThread extends Application implements Runnable{
 
         EventHandler<ActionEvent> ec1 = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
-                if (val[0] == 0 && cardPrinted) {
-                    val[0] = 1;
-                    c1.setVisible(false);
-                } else if (val[1] == 0 && cardPrinted) {
-                    val[1] = 1;
-                    c1.setVisible(false);
-                    c2.setVisible(false);
-                    c3.setVisible(false);
-                    c4.setVisible(false);
-                }
+                setEvent(c1, c2, c3, c4, c1, 1);
             }
         };
         c1.setOnAction(ec1);
         c1.setLayoutX(1060);
         c1.setLayoutY(850);
 
-
         EventHandler<ActionEvent> ec2 = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
-                if (val[0] == 0 && cardPrinted) {
-                    val[0] = 2;
-                    c2.setVisible(false);
-                } else if (val[1] == 0 && cardPrinted) {
-                    val[1] = 2;
-                    c1.setVisible(false);
-                    c2.setVisible(false);
-                    c3.setVisible(false);
-                    c4.setVisible(false);
-                }
+                setEvent(c1, c2, c3, c4, c2, 2);
             }
         };
         c2.setOnAction(ec2);
         c2.setLayoutX(1230);
         c2.setLayoutY(850);
 
-
         EventHandler<ActionEvent> ec3 = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
-                if (val[0] == 0 && cardPrinted) {
-                    val[0] = 3;
-                    c3.setVisible(false);
-                } else if (val[1] == 0 && cardPrinted) {
-                    val[1] = 3;
-                    c1.setVisible(false);
-                    c2.setVisible(false);
-                    c3.setVisible(false);
-                    c4.setVisible(false);
-                }
+                setEvent(c1, c2, c3, c4, c3, 3);
             }
         };
         c3.setOnAction(ec3);
         c3.setLayoutX(1400);
         c3.setLayoutY(850);
 
-
         EventHandler<ActionEvent> ec4 = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
-                if (val[0] == 0 && cardPrinted) {
-                    val[0] = 4;
-                    c4.setVisible(false);
-                } else if (val[1] == 0 && cardPrinted) {
-                    val[1] = 4;
-                    c1.setVisible(false);
-                    c2.setVisible(false);
-                    c3.setVisible(false);
-                    c4.setVisible(false);
-                }
+                setEvent(c1, c2, c3, c4, c4, 4);
             }
         };
         c4.setOnAction(ec4);

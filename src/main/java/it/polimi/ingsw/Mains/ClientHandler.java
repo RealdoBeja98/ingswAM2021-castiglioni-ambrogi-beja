@@ -32,15 +32,119 @@ public class ClientHandler implements Runnable {
         this.socket = socket;
     }
 
+    private boolean createNewGame(String line, BufferedReader in, PrintWriter out){
+        boolean create = false;
+        try {
+            create = creatingGame(line, in, out);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return create;
+    }
+
+    private boolean joinExistingGame(String line, BufferedReader in, PrintWriter out){
+        boolean old = false;
+        try {
+            old = joiningGame(line, in, out);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return old;
+    }
+
+    private boolean waitUntilStartingGame(BufferedReader in, PrintWriter out){
+        if (!game.getStarted()) {
+            WakeUpThread wut = new WakeUpThread(in, out);
+            Thread t = new Thread(wut);
+            t.start();
+            try {
+                t.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            if (wut.getReturnValue() == 1) {
+                CloseCommunicationChannel.f(in, out, nickname, game, socket);
+                try {
+                    game.removePlayer(nickname);
+                } catch (GameEndedException e) {
+                    e.printStackTrace();
+                }
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void sendStartingMessages(PrintWriter out){
+        out.println(new GameStartServiceMessage(game));
+        out.println(new CurrentPlayerMessage(game.getTurn().getCurrentPlayer().getNickname()));
+    }
+
+    private PingPong launchPingPong(BufferedReader in, PrintWriter out){
+        PingPong pingPong = new PingPong(in, out, game, socket, nickname);
+        Thread pingPongThread = new Thread(pingPong);
+        pingPongThread.start();
+        return pingPong;
+    }
+
+    private boolean scanf(BufferedReader in, PrintWriter out, PingPong pingPong) throws IOException {
+        String line = in.readLine();
+        if(line == null){
+            String whoQuited = nickname;
+            forward(whoQuited + " quit", out);
+            pingPong.stop();
+            return false;
+        }
+
+        switch (line){
+            case "quit":
+                out.println("quit");
+                try {
+                    game.removePlayer(nickname);
+                } catch (GameEndedException e) {
+                    e.printStackTrace();
+                }
+                forward(nickname + " quit", out);
+                CloseCommunicationChannel.f(in, out, nickname, game, socket);
+                pingPong.stop();
+                return false;
+            case "GAME_ENDED":
+                CloseCommunicationChannel.f(in, out, nickname, game, socket);
+                pingPong.stop();
+                return false;
+            case "NOTIFY_PB_ALL":
+                Message.sendMessage(out, new ShowCurrentBoardMessage());
+                break;
+            case "pong":
+                pingPong.update();
+                break;
+            default:
+                if (!game.getTurn().getCurrentPlayer().getNickname().equals(nickname)) {
+                    Message.sendMessage(out, new NotYourTurnErrorMessage());
+                } else {
+                    Message message = Message.fromString(line);
+                    message.execute(game, out);
+                }
+                break;
+        }
+        return true;
+    }
+
+    private void informPlayerCrashed(PrintWriter out){
+        forward(nickname + " crashed", out);
+        try {
+            game.removePlayer(nickname);
+        } catch (GameEndedException gameEndedException) {
+            gameEndedException.printStackTrace();
+        }
+    }
+
     /**
      * This method sets all the parameters that a player needs
      * to type to enter a specific game
      */
     public void run() {
-
-        //////////
         try {
-            //////////
 
             BufferedReader in = null;
             try {
@@ -60,113 +164,39 @@ public class ClientHandler implements Runnable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            if (line.equals("-n")) {
-                boolean create = false;
-                try {
-                    create = creatingGame(line, in, out);
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                if (!create) {
+            if(line.equals("-n")) {
+                if(!createNewGame(line, in, out)){
                     return;
                 }
             }
-            if (line.equals("-o")) {
-                boolean old = false;
-                try {
-                    old = joiningGame(line, in, out);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                if (!old) {
+            if(line.equals("-o")) {
+                if(!joinExistingGame(line, in, out)){
                     return;
                 }
             }
-            if (!game.getStarted()) {
-                WakeUpThread wut = new WakeUpThread(in, out);
-                Thread t = new Thread(wut);
-                t.start();
-
-                try {
-                    t.join();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                if (wut.getReturnValue() == 1) {
-                    CloseCommunicationChannel.f(in, out, nickname, game, socket);
-                    try {
-                        game.removePlayer(nickname);
-                    } catch (GameEndedException e) {
-                        e.printStackTrace();
-                    }
-                    return;
-                }
+            if(!waitUntilStartingGame(in, out)){
+                return;
             }
 
-
-            out.println(new GameStartServiceMessage(game));
-            out.println(new CurrentPlayerMessage(game.getTurn().getCurrentPlayer().getNickname()));
-
-            PingPong pingPong = new PingPong(in, out, game, socket, nickname);
-            Thread pingPongThread = new Thread(pingPong);
-            pingPongThread.start();
+            sendStartingMessages(out);
+            PingPong pingPong = launchPingPong(in, out);
 
             while (true) {
                 try {
-                    line = in.readLine();
-                    if(line == null){
-                        String whoQuited = nickname;
-                        forward(whoQuited + " quit", out);
-                        pingPong.stop();
+                    if(!scanf(in, out, pingPong)){
                         return;
-                    }
-                    if (line.equals("quit")) {
-                        out.println("quit");
-                        try {
-                            game.removePlayer(nickname);
-                        } catch (GameEndedException e) {
-                            e.printStackTrace();
-                        }
-                        forward(nickname + " quit", out);
-                        CloseCommunicationChannel.f(in, out, nickname, game, socket);
-                        pingPong.stop();
-                        return;
-                    } else if (line.equals("GAME_ENDED")) {
-                        CloseCommunicationChannel.f(in, out, nickname, game, socket);
-                        pingPong.stop();
-                        return;
-                    } else if (line.equals("NOTIFY_PB_ALL")) {
-                        Message.sendMessage(out, new ShowCurrentBoardMessage());
-                    } else if (line.equals("pong")) {
-                        pingPong.update();
-                    } else if (!game.getTurn().getCurrentPlayer().getNickname().equals(nickname)) {
-                        Message.sendMessage(out, new NotYourTurnErrorMessage());
-                    } else {
-                        Message message = Message.fromString(line);
-                        message.execute(game, out);
                     }
                 } catch (IOException e) {
-                    forward(nickname + " crashed", out);
-                    try {
-                        game.removePlayer(nickname);
-                    } catch (GameEndedException gameEndedException) {
-                        gameEndedException.printStackTrace();
-                    }
+                    informPlayerCrashed(out);
                     break;
                 }
             }
             CloseCommunicationChannel.f(in, out, nickname, game, socket);
-
             pingPong.stop();
 
-            //////////
         } catch (Exception e){
-            System.out.println("questo è un gravissimo problema!!! !!! !!! !!!!!!");
-            e.printStackTrace();
+            System.out.println("Unexpected problem");
         }
-        //////////
-
     }
 
     /**
