@@ -24,7 +24,7 @@ class PlayerTest {
         try {
             game.addPlayer("Carlo");
         } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
-            e.printStackTrace();
+            fail();
         }
         Player player = game.getPlayers().get(0);
         player.setInkwell();
@@ -40,7 +40,7 @@ class PlayerTest {
         try {
             game.addPlayer("Carlo");
         } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
-            e.printStackTrace();
+            fail();
         }
         Player player = game.getPlayers().get(0);
         assertEquals("Carlo", player.getNickname());
@@ -55,7 +55,7 @@ class PlayerTest {
         try {
             game.addPlayer("Carlo");
         } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
-            e.printStackTrace();
+            fail();
         }
         Player player = game.getPlayers().get(0);
         int numDiscounts = 0;
@@ -79,18 +79,18 @@ class PlayerTest {
         try {
             game.addPlayer("Carlo");
         } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
-            e.printStackTrace();
+            fail();
         }
         Player player = game.getPlayers().get(0);
         try {
             player.selectThoCardsToKeep(1,2);
         } catch (PositionInvalidException | ActionNotAllowedException e) {
-            e.printStackTrace();
+            fail();
         }
         try {
             player.discardLeaderCard(2);
         } catch (AlreadyDiscardedThisLeaderCardException | PositionInvalidException e) {
-            e.printStackTrace();
+            fail();
         }
         assertSame(1, player.getPersonalBoard().getFaithTrack().getFaithMarker());
         assertNull(player.getCardsInHand()[1]);
@@ -105,7 +105,7 @@ class PlayerTest {
         try {
             game.addPlayer("Carlo");
         } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
-            e.printStackTrace();
+            fail();
         }
         Player player = game.getPlayers().get(0);
         assertFalse(player.canYouPlayAtLeastALeaderCard());
@@ -115,7 +115,7 @@ class PlayerTest {
             player.getPersonalBoard().getStrongBox().add(Resource.SHIELD,100);
             player.getPersonalBoard().getStrongBox().add(Resource.STONE,100);
         } catch (NotAResourceForStrongBoxException e) {
-            e.printStackTrace();
+            fail();
         }
         player.getCardsInHand()[0] = new ExtraStorageLeaderCard(3, Resource.COIN, Resource.SERVANT);
         player.getCardsInHand()[1] = new ExtraStorageLeaderCard(3, Resource.COIN, Resource.SERVANT);
@@ -131,7 +131,7 @@ class PlayerTest {
         try {
             game.addPlayer("Carlo");
         } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
-            e.printStackTrace();
+            fail();
         }
         Player player = game.getPlayers().get(0);
         try {
@@ -140,14 +140,14 @@ class PlayerTest {
             player.getPersonalBoard().getStrongBox().add(Resource.SHIELD,100);
             player.getPersonalBoard().getStrongBox().add(Resource.STONE,100);
         } catch (NotAResourceForStrongBoxException e) {
-            e.printStackTrace();
+            fail();
         }
         LeaderCard leaderCard = new ExtraStorageLeaderCard(3, Resource.COIN, Resource.SERVANT);
         player.getCardsInHand()[0] = leaderCard;
         try {
             player.playLeaderCard(1);
         } catch (NotSatisfiedRequirementsForThisLeaderCardException | PositionInvalidException e) {
-            e.printStackTrace();
+            fail();
         }
         assertSame(leaderCard, player.getCardsOnTable()[0]);
     }
@@ -161,7 +161,7 @@ class PlayerTest {
         try {
             game.addPlayer("Andrea");
         } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
-            e.printStackTrace();
+            fail();
         }
         Player player = game.getPlayers().get(0);
         Type[] cost = {Type.PURPLE, Type.BLUE};
@@ -170,7 +170,7 @@ class PlayerTest {
         try {
             player.takeResourcesFromTheMarket(RowColumn.ROW, 2);
         } catch (PositionInvalidException | NullEnumException e) {
-            e.printStackTrace();
+            fail();
         }
         assertTrue(player.resourceToAdd());
     }
@@ -184,31 +184,31 @@ class PlayerTest {
         try {
             game.addPlayer("Aldo");
         } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
-            e.printStackTrace();
+            fail();
         }
         Player player = game.getPlayers().get(0);
         try {
             player.getPersonalBoard().getWarehouseDepots().addResource(Resource.COIN, 0);
             player.getPersonalBoard().getWarehouseDepots().addResource(Resource.SERVANT, 1);
         } catch (PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException | IndexOutOfWarehouseDepotsException e) {
-            e.printStackTrace();
+            fail();
         }
         try {
             player.selectAWarehouseDepotsSlot(0);
         } catch (PositionInvalidException e) {
-            e.printStackTrace();
+            fail();
         }
         try {
             player.moveResourcesInWarehouseDepots(1);
         } catch (NotAdmittedMovementException | IndexOutOfWarehouseDepotsException e) {
-            e.printStackTrace();
+            fail();
         }
         assertSame(player.getPersonalBoard().getWarehouseDepots().getResource()[0], Resource.SERVANT);
         assertSame(player.getPersonalBoard().getWarehouseDepots().getResource()[1], Resource.COIN);
         try {
             player.moveResourcesInWarehouseDepots(5);
         } catch (NotAdmittedMovementException | IndexOutOfWarehouseDepotsException e) {
-            e.printStackTrace();
+            fail();
         }
         assertSame(player.getPersonalBoard().getWarehouseDepots().getResource()[5], Resource.SERVANT);
         assertNull(player.getPersonalBoard().getWarehouseDepots().getResource()[0]);
@@ -223,24 +223,24 @@ class PlayerTest {
         try {
             game.addPlayer("Aldo");
         } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
-            e.printStackTrace();
+            fail();
         }
         Player player = game.getPlayers().get(0);
         try {
             player.getPersonalBoard().getWarehouseDepots().addResource(Resource.COIN, 0);
         } catch (PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException | IndexOutOfWarehouseDepotsException e) {
-            e.printStackTrace();
+            fail();
         }
         try {
             player.selectAWarehouseDepotsSlot(0);
         } catch (PositionInvalidException e) {
-            e.printStackTrace();
+           fail();
         }
         player.getCardsOnTable()[0] = new ExtraStorageLeaderCard(3, Resource.COIN, Resource.COIN);
         try {
             player.moveResourcesFromWarehouseDepotsToExtraStorageLeaderCard(1);
         } catch (PositionInvalidException | NotAnExtraStorageLeaderCardException | EmptySlotYetException | OccupiedSlotExtraStorageLeaderCardException | DifferentStorageException e) {
-            e.printStackTrace();
+           fail();
         }
         assertNull(player.getPersonalBoard().getWarehouseDepots().getResource()[0]);
         assertSame(1, ((ExtraStorageLeaderCard)(player.getCardsOnTable()[0])).occupiedResources());
@@ -255,25 +255,25 @@ class PlayerTest {
         try {
             game.addPlayer("Aldo");
         } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
-            e.printStackTrace();
+           fail();
         }
         Player player = game.getPlayers().get(0);
         try {
             player.selectAWarehouseDepotsSlot(0);
         } catch (PositionInvalidException e) {
-            e.printStackTrace();
+           fail();
         }
         ExtraStorageLeaderCard extraStorageLeaderCard = new ExtraStorageLeaderCard(3, Resource.COIN, Resource.COIN);
         try {
             extraStorageLeaderCard.addResource();
         } catch (OccupiedSlotExtraStorageLeaderCardException e) {
-            e.printStackTrace();
+           fail();
         }
         player.getCardsOnTable()[0] = extraStorageLeaderCard;
         try {
             player.moveResourcesToWarehouseDepotsFromExtraStorageLeaderCard(1);
         } catch (PositionInvalidException | NotAnExtraStorageLeaderCardException | PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException | EmptySlotExtraStorageLeaderCardException | IndexOutOfWarehouseDepotsException e) {
-            e.printStackTrace();
+           fail();
         }
         assertSame(0, ((ExtraStorageLeaderCard)(player.getCardsOnTable()[0])).occupiedResources());
         assertSame(Resource.COIN, player.getPersonalBoard().getWarehouseDepots().getResource()[0]);
@@ -288,14 +288,14 @@ class PlayerTest {
         try {
             game.addPlayer("Carlo");
         } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
-            e.printStackTrace();
+           fail();
         }
         Player player = game.getPlayers().get(0);
         assertFalse(player.resourceToAdd());
         try {
             player.takeResourcesFromTheMarket(RowColumn.ROW, 1);
         } catch (PositionInvalidException | NullEnumException e) {
-            e.printStackTrace();
+           fail();
         }
         assertTrue(player.resourceToAdd());
     }
@@ -309,41 +309,41 @@ class PlayerTest {
         try {
             game.addPlayer("Carlo");
         } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
-            e.printStackTrace();
+           fail();
         }
         Player player = game.getPlayers().get(0);
         Marble marble = game.getTable().getMarket().getMarketTray()[0][0];
         try {
             player.takeResourcesFromTheMarket(RowColumn.ROW, 1);
         } catch (PositionInvalidException | NullEnumException e) {
-            e.printStackTrace();
+           fail();
         }
         if(marble instanceof Coin){
             try {
                 assertSame(marble, player.whichResourceToAdd());
             } catch (NoMarbleToAddFromTheMarketException e) {
-                e.printStackTrace();
+               fail();
             }
         }
         if(marble instanceof Servant){
             try {
                 assertSame(marble, player.whichResourceToAdd());
             } catch (NoMarbleToAddFromTheMarketException e) {
-                e.printStackTrace();
+               fail();
             }
         }
         if(marble instanceof Shield){
             try {
                 assertSame(marble, player.whichResourceToAdd());
             } catch (NoMarbleToAddFromTheMarketException e) {
-                e.printStackTrace();
+               fail();
             }
         }
         if(marble instanceof Stone){
             try {
                 assertSame(marble, player.whichResourceToAdd());
             } catch (NoMarbleToAddFromTheMarketException e) {
-                e.printStackTrace();
+               fail();
             }
         }
     }
@@ -357,18 +357,18 @@ class PlayerTest {
         try {
             game.addPlayer("Carlo");
         } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
-            e.printStackTrace();
+           fail();
         }
         Player player = game.getPlayers().get(0);
         try {
             player.takeResourcesFromTheMarket(RowColumn.ROW, 1);
         } catch (PositionInvalidException | NullEnumException e) {
-            e.printStackTrace();
+           fail();
         }
         try {
             player.addResource(LeaderWarehouse.WAREHOUSEDEPOTS, 0);
         } catch (NoResourceToAddException | DifferentStorageException | OccupiedSlotExtraStorageLeaderCardException | PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException | UnexpectedWhiteMarbleException | UnexpectedFaithMarbleException | IndexOutOfWarehouseDepotsException e) {
-            e.printStackTrace();
+           fail();
         }
         assertNotNull(player.getPersonalBoard().getWarehouseDepots().getResource()[0]);
     }
@@ -382,7 +382,7 @@ class PlayerTest {
         try {
             game.addPlayer("Carlo");
         } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
-            e.printStackTrace();
+           fail();
         }
         Player player = game.getPlayers().get(0);
         int rowWithWhiteMarble = 0;
@@ -407,13 +407,13 @@ class PlayerTest {
         try {
             player.takeResourcesFromTheMarket(RowColumn.ROW, rowWithWhiteMarble+1);
         } catch (PositionInvalidException | NullEnumException e) {
-            e.printStackTrace();
+           fail();
         }
         while(true){
             try {
                 if (player.whichResourceToAdd() instanceof White) break;
             } catch (NoMarbleToAddFromTheMarketException e) {
-                e.printStackTrace();
+               fail();
             }
             Resource correspondent = Resource.COIN;
             try {
@@ -427,29 +427,29 @@ class PlayerTest {
                     correspondent = Resource.STONE;
                 }
             } catch (NoMarbleToAddFromTheMarketException e) {
-                e.printStackTrace();
+               fail();
             }
             player.getCardsOnTable()[0] = new ExtraStorageLeaderCard(3, Resource.COIN, correspondent);
             try {
                 player.addResource(LeaderWarehouse.LEADERCARD,1);
             } catch (NoResourceToAddException | DifferentStorageException | OccupiedSlotExtraStorageLeaderCardException | PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException | UnexpectedWhiteMarbleException | UnexpectedFaithMarbleException | IndexOutOfWarehouseDepotsException e) {
-                e.printStackTrace();
+               fail();
             }
         }
         try {
             assertTrue(player.whichResourceToAdd() instanceof White);
         } catch (NoMarbleToAddFromTheMarketException e) {
-            e.printStackTrace();
+           fail();
         }
         try {
             player.changeWhiteMarbleWith(2);
         } catch (NoWhiteMarbleException | NoWhiteMarbleLeaderCardException | PositionInvalidException e) {
-            e.printStackTrace();
+           fail();
         }
         try {
             assertTrue(player.whichResourceToAdd() instanceof Servant);
         } catch (NoMarbleToAddFromTheMarketException e) {
-            e.printStackTrace();
+           fail();
         }
     }
 
@@ -462,14 +462,14 @@ class PlayerTest {
         try {
             game.addPlayer("Carlo");
         } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
-            e.printStackTrace();
+           fail();
         }
         Player player = game.getPlayers().get(0);
         assertFalse(player.canYouActivateAPowerProduction());
         try {
             player.getPersonalBoard().getStrongBox().add(Resource.COIN, 2);
         } catch (NotAResourceForStrongBoxException e) {
-            e.printStackTrace();
+           fail();
         }
         assertTrue(player.canYouActivateAPowerProduction());
     }
@@ -483,39 +483,39 @@ class PlayerTest {
         try {
             game.addPlayer("Aldo");
         } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
-            e.printStackTrace();
+           fail();
         }
         Player player = game.getPlayers().get(0);
         try {
             player.getPersonalBoard().getWarehouseDepots().addResource(Resource.COIN, 0);
         } catch (PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException | IndexOutOfWarehouseDepotsException e) {
-            e.printStackTrace();
+           fail();
         }
         try {
             player.getPersonalBoard().getStrongBox().add(Resource.SHIELD, 1);
         } catch (NotAResourceForStrongBoxException e) {
-            e.printStackTrace();
+           fail();
         }
         player.selectDefaultProductionPower();
         try {
             player.startPayment();
         } catch (NotEnoughResourcesException | YouHaveNotSelectedAnyProductionException e) {
-            e.printStackTrace();
+           fail();
         }
         try {
             player.payWithWarehouseDepots(0);
         } catch (WrongPaymentException | EmptySlotYetException | NoResourceToPayException e) {
-            e.printStackTrace();
+           fail();
         }
         try {
             player.payWithStrongBox(Resource.SHIELD);
         } catch (WrongPaymentException | NotAResourceForStrongBoxException | NegativeResourceException | NoResourceToPayException e) {
-            e.printStackTrace();
+           fail();
         }
         try {
             player.obtainGenericResource(Resource.SERVANT);
         } catch (NoGenericResourceToObtainException | NotAResourceForStrongBoxException e) {
-            e.printStackTrace();
+           fail();
         }
         assertNull(player.getPersonalBoard().getWarehouseDepots().getResource()[0]);
         assertSame(player.getPersonalBoard().getStrongBox().getServant(), 1);
@@ -546,18 +546,18 @@ class PlayerTest {
         try {
             game.addPlayer("Aldo");
         } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
-            e.printStackTrace();
+           fail();
         }
         Player player = game.getPlayers().get(0);
         try {
             player.getPersonalBoard().getSlotsDevelopmentCards().addDevelopmentCard(1, exampleDevelopmentCard(1));
         } catch (PositionInvalidException | IndexOutOfSlotDevelopmentCardsException e) {
-            e.printStackTrace();
+           fail();
         }
         try {
             player.selectProductionDevelopmentCard(1);
         } catch (PositionInvalidException | NoDevelopmentCardInThisPositionException e) {
-            e.printStackTrace();
+           fail();
         }
         assertThrows(NotEnoughResourcesException.class, player::startPayment);
         try {
@@ -566,12 +566,12 @@ class PlayerTest {
             player.getPersonalBoard().getStrongBox().add(Resource.STONE, 100);
             player.getPersonalBoard().getStrongBox().add(Resource.SERVANT, 100);
         } catch (NotAResourceForStrongBoxException e) {
-            e.printStackTrace();
+           fail();
         }
         try {
             player.startPayment();
         } catch (NotEnoughResourcesException | YouHaveNotSelectedAnyProductionException e) {
-            e.printStackTrace();
+           fail();
         }
     }
 
@@ -584,14 +584,14 @@ class PlayerTest {
         try {
             game.addPlayer("Aldo");
         } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
-            e.printStackTrace();
+           fail();
         }
         Player player = game.getPlayers().get(0);
         player.getCardsOnTable()[0] = new ProductionPowerLeaderCard(3, Type.BLUE, Resource.COIN);
         try {
             player.selectProductionPowerLeaderCard(1);
         } catch (NoProductionLeaderCardException | PositionInvalidException e) {
-            e.printStackTrace();
+           fail();
         }
         try {
             player.getPersonalBoard().getStrongBox().add(Resource.COIN, 100);
@@ -599,12 +599,12 @@ class PlayerTest {
             player.getPersonalBoard().getStrongBox().add(Resource.STONE, 100);
             player.getPersonalBoard().getStrongBox().add(Resource.SERVANT, 100);
         } catch (NotAResourceForStrongBoxException e) {
-            e.printStackTrace();
+           fail();
         }
         try {
             player.startPayment();
         } catch (NotEnoughResourcesException | YouHaveNotSelectedAnyProductionException e) {
-            e.printStackTrace();
+           fail();
         }
     }
 
@@ -617,14 +617,14 @@ class PlayerTest {
         try {
             game.addPlayer("Aldo");
         } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
-            e.printStackTrace();
+           fail();
         }
         Player player = game.getPlayers().get(0);
         player.getCardsOnTable()[1] = new ProductionPowerLeaderCard(3, Type.BLUE, Resource.COIN);
         try {
             player.selectProductionPowerLeaderCard(2);
         } catch (NoProductionLeaderCardException | PositionInvalidException e) {
-            e.printStackTrace();
+           fail();
         }
         try {
             player.getPersonalBoard().getStrongBox().add(Resource.COIN, 100);
@@ -632,25 +632,25 @@ class PlayerTest {
             player.getPersonalBoard().getStrongBox().add(Resource.STONE, 100);
             player.getPersonalBoard().getStrongBox().add(Resource.SERVANT, 100);
         } catch (NotAResourceForStrongBoxException e) {
-            e.printStackTrace();
+           fail();
         }
         while(player.somethingToPay()){
             ExtraStorageLeaderCard extraStorageLeaderCard = null;
             try {
                 extraStorageLeaderCard = new ExtraStorageLeaderCard(3, player.nextToPay(), player.nextToPay());
             } catch (NoResourceToPayException e) {
-                e.printStackTrace();
+               fail();
             }
             player.getCardsOnTable()[0] = extraStorageLeaderCard;
             try {
                 extraStorageLeaderCard.addResource();
             } catch (OccupiedSlotExtraStorageLeaderCardException e) {
-                e.printStackTrace();
+               fail();
             }
             try {
                 player.payWithExtraStorageLeaderCard(1);
             } catch (NotAnExtraStorageLeaderCardException | WrongPaymentException | EmptySlotExtraStorageLeaderCardException | NoResourceToPayException | PositionInvalidException e) {
-                e.printStackTrace();
+               fail();
             }
         }
     }
@@ -664,7 +664,7 @@ class PlayerTest {
         try {
             game.addPlayer("Aldo");
         } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
-            e.printStackTrace();
+           fail();
         }
         Player player = game.getPlayers().get(0);
         try {
@@ -673,19 +673,19 @@ class PlayerTest {
             player.getPersonalBoard().getStrongBox().add(Resource.STONE, 100);
             player.getPersonalBoard().getStrongBox().add(Resource.SERVANT, 100);
         } catch (NotAResourceForStrongBoxException e) {
-            e.printStackTrace();
+           fail();
         }
         ProductionPowerLeaderCard productionPowerLeaderCard = new ProductionPowerLeaderCard(3, Type.BLUE, Resource.COIN);
         player.getCardsOnTable()[0] = productionPowerLeaderCard;
         try {
             player.selectProductionPowerLeaderCard(1);
         } catch (NoProductionLeaderCardException | PositionInvalidException e) {
-            e.printStackTrace();
+           fail();
         }
         try {
             player.startPayment();
         } catch (NotEnoughResourcesException | YouHaveNotSelectedAnyProductionException e) {
-            e.printStackTrace();
+           fail();
         }
         assertTrue(player.genericResourcesToObtain());
     }
@@ -699,7 +699,7 @@ class PlayerTest {
         try {
             game.addPlayer("Aldo");
         } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
-            e.printStackTrace();
+           fail();
         }
         Player player = game.getPlayers().get(0);
         try {
@@ -708,32 +708,32 @@ class PlayerTest {
             player.getPersonalBoard().getStrongBox().add(Resource.STONE, 100);
             player.getPersonalBoard().getStrongBox().add(Resource.SERVANT, 100);
         } catch (NotAResourceForStrongBoxException e) {
-            e.printStackTrace();
+           fail();
         }
         ProductionPowerLeaderCard productionPowerLeaderCard = new ProductionPowerLeaderCard(3, Type.BLUE, Resource.COIN);
         player.getCardsOnTable()[0] = productionPowerLeaderCard;
         try {
             player.selectProductionPowerLeaderCard(1);
         } catch (NoProductionLeaderCardException | PositionInvalidException e) {
-            e.printStackTrace();
+           fail();
         }
         try {
             player.startPayment();
         } catch (NotEnoughResourcesException | YouHaveNotSelectedAnyProductionException e) {
-            e.printStackTrace();
+           fail();
         }
         while(player.somethingToPay()){
             try {
                 player.payWithStrongBox(player.nextToPay());
             } catch (WrongPaymentException | NegativeResourceException | NotAResourceForStrongBoxException | NoResourceToPayException e) {
-                e.printStackTrace();
+               fail();
             }
         }
         while(player.genericResourcesToObtain()){
             try {
                 player.obtainGenericResource(Resource.COIN);
             } catch (NoGenericResourceToObtainException | NotAResourceForStrongBoxException e) {
-                e.printStackTrace();
+               fail();
             }
         }
     }
@@ -747,7 +747,7 @@ class PlayerTest {
         try {
             game.addPlayer("Aldo");
         } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
-            e.printStackTrace();
+           fail();
         }
         Player player = game.getPlayers().get(0);
         try {
@@ -756,7 +756,7 @@ class PlayerTest {
             player.getPersonalBoard().getStrongBox().add(Resource.STONE, 100);
             player.getPersonalBoard().getStrongBox().add(Resource.SERVANT, 100);
         } catch (NotAResourceForStrongBoxException e) {
-            e.printStackTrace();
+           fail();
         }
         assertTrue(player.canYouBuyADevelopmentCard());
     }
@@ -770,7 +770,7 @@ class PlayerTest {
         try {
             game.addPlayer("Aldo");
         } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
-            e.printStackTrace();
+           fail();
         }
         Player player = game.getPlayers().get(0);
         assertFalse(player.developmentCardToObtain());
@@ -780,12 +780,12 @@ class PlayerTest {
             player.getPersonalBoard().getStrongBox().add(Resource.STONE, 100);
             player.getPersonalBoard().getStrongBox().add(Resource.SERVANT, 100);
         } catch (NotAResourceForStrongBoxException e) {
-            e.printStackTrace();
+           fail();
         }
         try {
             player.buyADevelopmentCard(3,1);
         } catch (PositionInvalidException | NotAbleToBuyThisDevelopmentCardException | NotAbleToPlaceThisDevelopmentCardException | DrawnFromEmptyDeckException | SelectedADevelopmentCardYetException | IndexOutOfDevelopmentDeckException e) {
-            e.printStackTrace();
+           fail();
         }
         assertTrue(player.developmentCardToObtain());
     }
@@ -799,7 +799,7 @@ class PlayerTest {
         try {
             game.addPlayer("Carlo");
         } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
-            e.printStackTrace();
+           fail();
         }
         Player player = game.getPlayers().get(0);
         try {
@@ -808,25 +808,25 @@ class PlayerTest {
             player.getPersonalBoard().getStrongBox().add(Resource.SHIELD,100);
             player.getPersonalBoard().getStrongBox().add(Resource.STONE,100);
         } catch (NotAResourceForStrongBoxException e) {
-            e.printStackTrace();
+           fail();
         }
         DevelopmentCard developmentCard = game.getTable().getDevelopmentDeck().visualize()[2][0];
         try {
             player.buyADevelopmentCard(3,1);
         } catch (PositionInvalidException | NotAbleToBuyThisDevelopmentCardException | NotAbleToPlaceThisDevelopmentCardException | DrawnFromEmptyDeckException | SelectedADevelopmentCardYetException | IndexOutOfDevelopmentDeckException e) {
-            e.printStackTrace();
+           fail();
         }
         while(player.somethingToPay()){
             try {
                 player.payWithStrongBox(player.nextToPay());
             } catch (WrongPaymentException | NegativeResourceException | NotAResourceForStrongBoxException | NoResourceToPayException e) {
-                e.printStackTrace();
+               fail();
             }
         }
         try {
             player.placeDevelopmentCard(1);
         } catch (NoDevelopmentCardToObtainException | PositionInvalidException | IndexOutOfSlotDevelopmentCardsException e) {
-            e.printStackTrace();
+           fail();
         }
         assertSame(developmentCard, player.getPersonalBoard().getSlotsDevelopmentCards().getActiveCards()[0]);
     }
@@ -840,7 +840,7 @@ class PlayerTest {
         try {
             game.addPlayer("Carlo");
         } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
-            e.printStackTrace();
+           fail();
         }
         Player player = game.getPlayers().get(0);
         player.isSinglePlayer();
@@ -856,7 +856,7 @@ class PlayerTest {
         try {
             game.addPlayer("Carlo");
         } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
-            e.printStackTrace();
+           fail();
         }
         Player player = game.getPlayers().get(0);
         player.isSinglePlayer();
@@ -872,13 +872,13 @@ class PlayerTest {
         try {
             game.addPlayer("Carlo");
         } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
-            e.printStackTrace();
+           fail();
         }
         Player player = game.getPlayers().get(0);
         try {
             player.selectThoCardsToKeep(1,2);
         } catch (PositionInvalidException | ActionNotAllowedException e) {
-            e.printStackTrace();
+           fail();
         }
         assertSame(2, player.countLeaderCardInHand());
         player.getCardsInHand()[0] = null;
@@ -896,7 +896,7 @@ class PlayerTest {
         try {
             game.addPlayer("Carlo");
         } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
-            e.printStackTrace();
+           fail();
         }
         Player player = game.getPlayers().get(0);
         assertSame(0, player.calculateVictoryPoints());
@@ -906,7 +906,7 @@ class PlayerTest {
             player.getPersonalBoard().getStrongBox().add(Resource.SHIELD,100);
             player.getPersonalBoard().getStrongBox().add(Resource.STONE,100);
         } catch (NotAResourceForStrongBoxException e) {
-            e.printStackTrace();
+           fail();
         }
         assertSame(80, player.calculateVictoryPoints());
         player.getCardsOnTable()[0] = new ExtraStorageLeaderCard(3, Resource.COIN, Resource.COIN);
@@ -922,13 +922,13 @@ class PlayerTest {
         try {
             player.getPersonalBoard().getSlotsDevelopmentCards().addDevelopmentCard(3, exampleDevelopmentCard(1));
         } catch (PositionInvalidException | IndexOutOfSlotDevelopmentCardsException e) {
-            e.printStackTrace();
+           fail();
         }
         assertSame(90, player.calculateVictoryPoints());
         try {
             player.getPersonalBoard().getSlotsDevelopmentCards().addDevelopmentCard(3, exampleDevelopmentCard(2));
         } catch (PositionInvalidException | IndexOutOfSlotDevelopmentCardsException e) {
-            e.printStackTrace();
+           fail();
         }
         assertSame(93, player.calculateVictoryPoints());
     }

@@ -12,6 +12,9 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class TurnTest {
 
+    /**
+     * Creates a game with 4 players
+     */
     private int crateGame(){
         Game game = new Game(4);
         try {
@@ -19,6 +22,19 @@ public class TurnTest {
             game.addPlayer("b");
             game.addPlayer("c");
             game.addPlayer("d");
+        } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
+            e.printStackTrace();
+        }
+        return game.getGameIndex();
+    }
+
+    /**
+     * Creates a solo player game
+     */
+    private int crateSoloGame(){
+        Game game = new Game(1);
+        try {
+            game.addPlayer("a");
         } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
             e.printStackTrace();
         }
@@ -89,6 +105,59 @@ public class TurnTest {
             } catch (ActionNotAllowedException e){}
             assertThrows(ActionNotAllowedException.class, () -> turn.chooseDiscardLeaderCard());
             turn.chooseNoActionLeaderCard();
+            turn.endTurn();
+        } catch (Exception e){
+            fail();
+        }
+    }
+
+    /**
+     * This method tests discarding a leader card
+     */
+    @Test
+    void discardLeaderCard2Test(){
+        try{
+            Turn turn = new Turn(crateGame());
+            doFirstTurn(turn);
+            turn.chooseDiscardLeaderCard();
+            turn.discardLeaderCard(2);
+            turn.chooseNoActionLeaderCard();
+            turn.selectNormalAction(NormalAction.TAKE_RESOURCES_FROM_THE_MARKET);
+            turn.takeResourcesFromTheMarket(RowColumn.ROW, 1);
+            try{
+                for(int i = 0; i < 4; i++){
+                    turn.addResource(LeaderWarehouse.DISCARD);
+                }
+            } catch (ActionNotAllowedException e){}
+            assertThrows(ActionNotAllowedException.class, () -> turn.chooseDiscardLeaderCard());
+            turn.chooseNoActionLeaderCard();
+            turn.endTurn();
+        } catch (Exception e){
+            fail();
+        }
+    }
+
+    /**
+     * This method tests drawing an action token in a single player
+     */
+    @Test
+    void drawSoloActionTokenTest(){
+        try{
+            Turn turn = new Turn(crateSoloGame());
+            turn.selectThoCardsToKeep(1,2);
+            turn.chooseDiscardLeaderCard();
+            turn.discardLeaderCard(1);
+            turn.chooseNoActionLeaderCard();
+            turn.selectNormalAction(NormalAction.TAKE_RESOURCES_FROM_THE_MARKET);
+            turn.takeResourcesFromTheMarket(RowColumn.ROW, 1);
+            try{
+                for(int i = 0; i < 4; i++){
+                    turn.addResource(LeaderWarehouse.DISCARD);
+                }
+            } catch (ActionNotAllowedException e){}
+            assertThrows(ActionNotAllowedException.class, () -> turn.chooseDiscardLeaderCard());
+            turn.chooseNoActionLeaderCard();
+            turn.drawSoloActionToken();
             turn.endTurn();
         } catch (Exception e){
             fail();

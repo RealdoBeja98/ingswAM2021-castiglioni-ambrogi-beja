@@ -44,7 +44,7 @@ public class SlotsDevelopmentCardsTest {
         try {
             slots.addDevelopmentCard(1, card1);
         } catch (IndexOutOfSlotDevelopmentCardsException e) {
-            e.printStackTrace();
+            fail();
         }
         assertSame(card1, slots.getActiveCards()[0]);
         assertSame(card1,slots.getSlot()[2][0]);
@@ -56,7 +56,7 @@ public class SlotsDevelopmentCardsTest {
             slots.addDevelopmentCard(3, card5);
             slots.addDevelopmentCard(2, card6);
         } catch (IndexOutOfSlotDevelopmentCardsException e) {
-            e.printStackTrace();
+            fail();
         }
         assertSame(card1, slots.getActiveCards()[0]);
         assertSame(card6, slots.getActiveCards()[1]);
@@ -84,21 +84,21 @@ public class SlotsDevelopmentCardsTest {
         try {
             slots.addDevelopmentCard(1,card1);
         } catch (IndexOutOfSlotDevelopmentCardsException e) {
-            e.printStackTrace();
+            fail();
         }
         assertThrows(PositionInvalidException.class, () -> slots.addDevelopmentCard(1,card2));
         try {
             slots.addDevelopmentCard(2,card2);
             slots.addDevelopmentCard(2,card3);
         } catch (IndexOutOfSlotDevelopmentCardsException e) {
-            e.printStackTrace();
+            fail();
         }
         assertThrows(PositionInvalidException.class, () -> slots.addDevelopmentCard(3,card4));
         assertThrows(PositionInvalidException.class, () -> slots.addDevelopmentCard(1,card4));
         try {
             slots.addDevelopmentCard(2,card4);
         } catch (IndexOutOfSlotDevelopmentCardsException e) {
-            e.printStackTrace();
+            fail();
         }
         assertThrows(PositionInvalidException.class, () -> slots.addDevelopmentCard(3,card5));
     }
