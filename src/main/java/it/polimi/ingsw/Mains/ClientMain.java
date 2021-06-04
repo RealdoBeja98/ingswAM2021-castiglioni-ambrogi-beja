@@ -28,53 +28,98 @@ public class ClientMain {
     private static ClientMain instance;
     private final static Object lock = new Object();
 
+    /**
+     * Getter of object getLock
+     */
     public static Object getLock(){
         return ClientMain.lock;
     }
 
+
+    /**
+     * Getter of clientMain getInstance
+     */
     public static ClientMain getInstance(){
         return ClientMain.instance;
     }
 
+    /**
+     * Setter of setCanvas
+     * @param canvas canvas
+     */
     public static void setCanvas(Canvas canvas) {
         ClientMain.canvas = canvas;
         ClientMain.notifyClientMain();
     }
 
+    /**
+     * This method notifies all the sockets of client main
+     */
     public static void notifyClientMain(){
         synchronized (ClientMain.lock){
             ClientMain.lock.notifyAll();
         }
     }
 
+    /**
+     * Getter of Canvas
+     * @return canvas
+     */
     public static Canvas getCanvas() {
         return canvas;
     }
 
+    /**
+     * Getter of list of players in the game
+     * @return number of players
+     */
     public static PlayerGame getPlayerGame(){
         return playerGame;
     }
 
+    /**
+     * Setter of the settPlayers
+     * @param playerGame instance of playerGame
+     */
     public static void setPlayerGame(PlayerGame playerGame){
         ClientMain.playerGame = playerGame;
     }
 
+    /**
+     * Setter for the current player
+     * @param currentP returns the curren player
+     */
     public static void setCurrentP(String currentP) {
         ClientMain.currentP = currentP;
     }
 
+    /**
+     * Getter of the current player
+     * @return returns the current player
+     */
     public static String getCurrentP() {
         return currentP;
     }
 
+    /**
+     * Getter of nickname of the player
+     * @return string of the name
+     */
     public static String getClientNick() {
         return clientNick;
     }
 
+    /**
+     * Setter of the Gui
+     * @return Gui
+     */
     public static boolean getGuiSet(){
         return guiSet;
     }
 
+    /**
+     * This method initializes the gui ready for the game
+     */
     private void initializeGui() throws InterruptedException {
         ClientMain.guiSet = true;
         GuiThread guiThread = new GuiThread();
@@ -87,6 +132,12 @@ public class ClientMain {
         }
     }
 
+    /**
+     * This methods print the message of the joining game number after the player
+     * writes the right parameters  to join in
+     * @param in reads message coming from the socket
+     * @throws IOException error message
+     */
     private void joiningGame(BufferedReader in) throws IOException {
         String line = in.readLine();
         Message lineMessage = Message.fromString(line);
@@ -98,6 +149,12 @@ public class ClientMain {
         }
     }
 
+    /**
+     * This method checks if the player has a name which is already taken by
+     * another player
+     * @param in reads message send by the socket
+     * @throws IOException error message
+     */
     private void setNameInTheServer(BufferedReader in) throws IOException {
         String line = in.readLine();
         Message lineMessage = Message.fromString(line);
@@ -116,6 +173,9 @@ public class ClientMain {
         }
     }
 
+    /**
+     * This method updates the cli of the game
+     */
     private void cliGameUpdate(){
         View w = new Cli();
         w.showMarket();
@@ -146,6 +206,12 @@ public class ClientMain {
         }
     }
 
+    /**
+     * This is the main method which allows the player
+     * to choose between cli or gui version
+     * @param args arguments
+     * @throws IOException error message
+     */
     public void main(String[] args) throws IOException {
 
         ClientMain.instance = this;

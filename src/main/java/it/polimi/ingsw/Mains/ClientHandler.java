@@ -42,6 +42,14 @@ public class ClientHandler implements Runnable {
         return create;
     }
 
+    /**
+     * This method lets a player who left the game earlier and want to rejoin
+     * the same game
+     * @param line sting
+     * @param in reads message coming from the socket
+     * @param out sends message to the socket
+     * @return true or false if it is coorect
+     */
     private boolean joinExistingGame(String line, BufferedReader in, PrintWriter out){
         boolean old = false;
         try {
@@ -52,6 +60,13 @@ public class ClientHandler implements Runnable {
         return old;
     }
 
+    /**
+     * This method lets the other players waiting in the lobby
+     * till the game starts
+     * @param in reads the message coming from the socket
+     * @param out sends the message to the socket
+     * @return
+     */
     private boolean waitUntilStartingGame(BufferedReader in, PrintWriter out){
         if (!game.getStarted()) {
             WakeUpThread wut = new WakeUpThread(in, out);
@@ -75,11 +90,21 @@ public class ClientHandler implements Runnable {
         return true;
     }
 
+    /**
+     * This method sends the starting message to other players
+     * @param out sends message to the socket
+     */
     private void sendStartingMessages(PrintWriter out){
         out.println(new GameStartServiceMessage(game));
         out.println(new CurrentPlayerMessage(game.getTurn().getCurrentPlayer().getNickname()));
     }
 
+    /**
+     * This method launches the thread which duty is to launch ping pong
+     * @param in reads message coming from the socket
+     * @param out sends message to the socket
+     * @return returns the pingpong thread
+     */
     private PingPong launchPingPong(BufferedReader in, PrintWriter out){
         PingPong pingPong = new PingPong(in, out, game, socket, nickname);
         Thread pingPongThread = new Thread(pingPong);
@@ -87,6 +112,14 @@ public class ClientHandler implements Runnable {
         return pingPong;
     }
 
+    /**
+     * This methods executes the commands coming from the stdin
+     * @param in reads message coming from the socket
+     * @param out sends message to the socket
+     * @param pingPong ping pong instance
+     * @return true or false
+     * @throws IOException error message
+     */
     private boolean scanf(BufferedReader in, PrintWriter out, PingPong pingPong) throws IOException {
         String line = in.readLine();
         if(line == null){
@@ -130,6 +163,10 @@ public class ClientHandler implements Runnable {
         return true;
     }
 
+    /**
+     * This method informs that a player has crashed to the other players
+     * @param out sends message to a socket
+     */
     private void informPlayerCrashed(PrintWriter out){
         forward(nickname + " crashed", out);
         try {

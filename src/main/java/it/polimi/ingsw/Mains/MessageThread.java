@@ -10,23 +10,39 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+/**
+ * Class of Message Thread
+ */
 public class MessageThread implements Runnable{
 
     private PrintWriter out;
     private BufferedReader in;
     private final static String constQuit = "quit";
 
+    /**
+     * Constructor of the class
+     * @param out sends message to the sockect
+     * @param in reads message from the socket
+     */
     public MessageThread(PrintWriter out, BufferedReader in){
         this.out = out;
         this.in = in;
     }
 
+    /**
+     * This method notifies other players if a player has quited the game
+     * @param messageServerMessage server message
+     */
     private void anotherPlayerQuit(Message messageServerMessage){
         String whoQuited = messageServerMessage.toString().substring(0, messageServerMessage.toString().length() - 5);
         ClientMain.getPlayerGame().quitAPlayer(whoQuited);
         View.printMessage(messageServerMessage);
     }
 
+    /**
+     * This method is occupied to send the messages to the threads
+     * @throws IOException error message
+     */
     private void mainLoop() throws IOException {
         String serverMessage;
         while ((serverMessage = in.readLine()) != null) {
@@ -58,6 +74,9 @@ public class MessageThread implements Runnable{
         }
     }
 
+    /**
+     * Overrides the method run
+     */
     @Override
     public void run() {
         try {

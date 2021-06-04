@@ -380,6 +380,15 @@ public class GuiThread extends Application implements Runnable{
         root.getChildren().add(b);
     }
 
+    /**
+     * Event setter
+     * @param c1 button
+     * @param c2 button
+     * @param c3 button
+     * @param c4 button
+     * @param visibilityButton
+     * @param whichCard cads chosen
+     */
     private void setEvent(Button c1, Button c2, Button c3, Button c4, Button visibilityButton, int whichCard){
         if (val[0] == 0 && cardPrinted) {
             val[0] = whichCard;
