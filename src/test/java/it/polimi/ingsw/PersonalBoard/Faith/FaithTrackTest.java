@@ -22,7 +22,7 @@ public class FaithTrackTest {
         try {
             game.addPlayer("Andrea");
         } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
-            e.printStackTrace();
+            fail();
         }
         Player test = game.getPlayers().get(0);
         test.getPersonalBoard().getFaithTrack().goOn(1);
@@ -40,7 +40,7 @@ public class FaithTrackTest {
             game.addPlayer("Andrea");
             game.addPlayer("Realdo");
         } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
-            e.printStackTrace();
+            fail();
         }
         game.getPlayers().get(0).getPersonalBoard().getFaithTrack().goOn(7);
         game.getPlayers().get(1).getPersonalBoard().getFaithTrack().goOn(7);
@@ -89,7 +89,7 @@ public class FaithTrackTest {
             game.addPlayer("Carlo");
             game.addPlayer("Andrea");
         } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
-            e.printStackTrace();
+            fail();
         }
         FaithTrack faithTrack = game.getPlayers().get(0).getPersonalBoard().getFaithTrack();
         FavorTiles[] test = game.getPlayers().get(0).getPersonalBoard().getFaithTrack().getFavorTiles();

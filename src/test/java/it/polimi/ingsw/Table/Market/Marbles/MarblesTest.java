@@ -5,8 +5,8 @@ import it.polimi.ingsw.PersonalBoard.Faith.FaithTrack;
 import it.polimi.ingsw.PersonalBoard.Warehouse.WarehouseDepots;
 import it.polimi.ingsw.Table.Decks.Leader.ExtraStorageLeaderCard;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Test class for the class: Coin, Servant, Stone and Shield
@@ -33,7 +33,7 @@ public class MarblesTest {
         try {
             servant.putResource(warehouseDepots, 1);
         } catch (PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException | IndexOutOfWarehouseDepotsException e) {
-            e.printStackTrace();
+            fail();
         }
         assertThrows(DifferentResourceInThisShelfException.class, () -> shield.putResource(warehouseDepots,2));
         assertThrows(ResourceAlreadyPlacedException.class, () -> coin.putResource(warehouseDepots,2));
@@ -49,7 +49,7 @@ public class MarblesTest {
         try {
             coin.putResource(extraStorage);
         } catch (DifferentStorageException | OccupiedSlotExtraStorageLeaderCardException e) {
-            e.printStackTrace();
+            fail();
         }
         assertSame(extraStorage.occupiedResources(), 1);
         Shield shield = new Shield();
@@ -57,7 +57,7 @@ public class MarblesTest {
         try {
             coin.putResource(extraStorage);
         } catch (DifferentStorageException | OccupiedSlotExtraStorageLeaderCardException e) {
-            e.printStackTrace();
+            fail();
         }
         assertSame(extraStorage.occupiedResources(), 2);
         assertThrows(OccupiedSlotExtraStorageLeaderCardException.class, () -> coin.putResource(extraStorage));

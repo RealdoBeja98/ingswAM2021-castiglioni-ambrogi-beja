@@ -49,7 +49,7 @@ class DevelopmentDeckTest {
             deck.draw(3,1);
             assertTrue(deck.allCardOfATypeFinished());
         } catch (DrawnFromEmptyDeckException | IndexOutOfDevelopmentDeckException e) {
-            fail();//<--FIXME--> mettere i fail nei catch dei test (dove c'è e.printStackTrace())
+            fail();
         }
     }
 

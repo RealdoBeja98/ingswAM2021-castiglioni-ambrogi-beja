@@ -3,8 +3,8 @@ import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Exceptions.EmptySlotExtraStorageLeaderCardException;
 import it.polimi.ingsw.Exceptions.OccupiedSlotExtraStorageLeaderCardException;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Test class for the class: ExtraStorageLeaderCard
@@ -25,20 +25,20 @@ public class ExtraStorageLeaderCardTest {
         try {
             extraStorageLeaderCard.addResource();
         } catch (OccupiedSlotExtraStorageLeaderCardException e) {
-            e.printStackTrace();
+            fail();
         }
         assertSame(extraStorageLeaderCard.occupiedResources(), 1);
         try {
             extraStorageLeaderCard.addResource();
         } catch (OccupiedSlotExtraStorageLeaderCardException e) {
-            e.printStackTrace();
+           fail();
         }
         assertSame(extraStorageLeaderCard.occupiedResources(), 2);
         assertThrows(OccupiedSlotExtraStorageLeaderCardException.class, extraStorageLeaderCard::addResource);
         try {
             extraStorageLeaderCard.removeResource();
         } catch (EmptySlotExtraStorageLeaderCardException e) {
-            e.printStackTrace();
+          fail();
         }
         assertSame(extraStorageLeaderCard.occupiedResources(), 1);
     }

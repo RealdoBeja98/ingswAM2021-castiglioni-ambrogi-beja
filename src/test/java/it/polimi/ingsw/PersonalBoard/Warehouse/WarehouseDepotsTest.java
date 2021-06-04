@@ -18,7 +18,7 @@ public class WarehouseDepotsTest {
         try {
             warehouseDepots.addResource(Resource.COIN,2);
         } catch (PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException | IndexOutOfWarehouseDepotsException e) {
-            e.printStackTrace();
+            fail();
         }
         assertSame(warehouseDepots.getResource()[2], Resource.COIN);
     }
@@ -37,7 +37,7 @@ public class WarehouseDepotsTest {
             warehouseDepots.addResource(Resource.SHIELD,4);
             warehouseDepots.addResource(Resource.SHIELD,5);
         } catch (PositionAlreadyOccupiedException | DifferentResourceInThisShelfException | ResourceAlreadyPlacedException | IndexOutOfWarehouseDepotsException e) {
-            e.printStackTrace();
+            fail();
         }
         assertSame(warehouseDepots.getResource()[0], Resource.COIN);
         assertSame(warehouseDepots.getResource()[1], Resource.SERVANT);
@@ -56,7 +56,7 @@ public class WarehouseDepotsTest {
         try {
             warehouseDepots.addResource(Resource.COIN,2);
         } catch (PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException | IndexOutOfWarehouseDepotsException e) {
-            e.printStackTrace();
+            fail();
         }
         assertThrows(PositionAlreadyOccupiedException.class, () -> warehouseDepots.addResource(Resource.COIN,2));
     }
@@ -70,7 +70,7 @@ public class WarehouseDepotsTest {
         try {
             warehouseDepots.addResource(Resource.COIN,2);
         } catch (PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException | IndexOutOfWarehouseDepotsException e) {
-            e.printStackTrace();
+            fail();
         }
         assertThrows(ResourceAlreadyPlacedException.class, () -> warehouseDepots.addResource(Resource.COIN,5));
     }
@@ -84,7 +84,7 @@ public class WarehouseDepotsTest {
         try {
             warehouseDepots.addResource(Resource.COIN,2);
         } catch (PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException | IndexOutOfWarehouseDepotsException e) {
-            e.printStackTrace();
+            fail();
         }
         assertThrows(DifferentResourceInThisShelfException.class, () -> warehouseDepots.addResource(Resource.SERVANT,1));
     }
@@ -98,7 +98,7 @@ public class WarehouseDepotsTest {
         try {
             warehouseDepots.addResource(Resource.COIN,3);
         } catch (PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException | IndexOutOfWarehouseDepotsException e) {
-            e.printStackTrace();
+            fail();
         }
         assertThrows(DifferentResourceInThisShelfException.class, () -> warehouseDepots.addResource(Resource.SERVANT,4));
     }
@@ -112,12 +112,12 @@ public class WarehouseDepotsTest {
         try {
             warehouseDepots.addResource(Resource.COIN,2);
         } catch (PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException | IndexOutOfWarehouseDepotsException e) {
-            e.printStackTrace();
+            fail();
         }
         try {
             warehouseDepots.removeResource(2);
         } catch (EmptySlotYetException e) {
-            e.printStackTrace();
+            fail();
         }
         assertNull(warehouseDepots.getResource()[2]);
     }
@@ -132,12 +132,12 @@ public class WarehouseDepotsTest {
             warehouseDepots.addResource(Resource.COIN,1);
             warehouseDepots.addResource(Resource.SERVANT,4);
         } catch (PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException | IndexOutOfWarehouseDepotsException e) {
-            e.printStackTrace();
+            fail();
         }
         try {
             warehouseDepots.moveResource(1,4);
         } catch (NotAdmittedMovementException | IndexOutOfWarehouseDepotsException e) {
-            e.printStackTrace();
+            fail();
         }
         assertSame(warehouseDepots.getResource()[1], Resource.SERVANT);
         assertSame(warehouseDepots.getResource()[4], Resource.COIN);
@@ -152,12 +152,12 @@ public class WarehouseDepotsTest {
         try {
             warehouseDepots.addResource(Resource.COIN,1);
         } catch (PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException | IndexOutOfWarehouseDepotsException e) {
-            e.printStackTrace();
+            fail();
         }
         try {
             warehouseDepots.moveResource(1,2);
         } catch (NotAdmittedMovementException | IndexOutOfWarehouseDepotsException e) {
-            e.printStackTrace();
+            fail();
         }
         assertNull(warehouseDepots.getResource()[1]);
         assertSame(warehouseDepots.getResource()[2], Resource.COIN);
@@ -172,7 +172,7 @@ public class WarehouseDepotsTest {
         try {
             warehouseDepots.addResource(Resource.COIN,1);
         } catch (PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException | IndexOutOfWarehouseDepotsException e) {
-            e.printStackTrace();
+            fail();
         }
         assertThrows(IndexOutOfWarehouseDepotsException.class, () -> warehouseDepots.moveResource(1,6));
     }
@@ -187,7 +187,7 @@ public class WarehouseDepotsTest {
             warehouseDepots.addResource(Resource.COIN,0);
             warehouseDepots.addResource(Resource.SERVANT,3);
         } catch (PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException | IndexOutOfWarehouseDepotsException e) {
-            e.printStackTrace();
+            fail();
         }
         assertThrows(NotAdmittedMovementException.class, () -> warehouseDepots.moveResource(0,4));
     }
@@ -201,7 +201,7 @@ public class WarehouseDepotsTest {
         try {
             warehouseDepots.addResource(Resource.COIN,0);
         } catch (PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException | IndexOutOfWarehouseDepotsException e) {
-            e.printStackTrace();
+            fail();
         }
         Resource[] test = warehouseDepots.getResource();
         assertSame(warehouseDepots.getResource()[0], Resource.COIN);
@@ -211,7 +211,7 @@ public class WarehouseDepotsTest {
         try {
             warehouseDepots.moveResource(0,1);
         } catch (NotAdmittedMovementException | IndexOutOfWarehouseDepotsException e) {
-            e.printStackTrace();
+            fail();
         }
         assertSame(warehouseDepots.getResource()[1], Resource.COIN);
         test = warehouseDepots.getResource();
