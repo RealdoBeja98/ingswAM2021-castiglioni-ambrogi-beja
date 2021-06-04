@@ -19,6 +19,13 @@ import java.util.Collections;
  */
 public class DevelopmentDeck{
 
+    private static final int lev = 3;
+    private static final int line = 4;
+    private static final int deep = 4;
+    private static final int greenNum = 0;
+    private static final int blueNum = 1;
+    private static final int yellowNum = 2;
+    private static final int purpleNum = 3;
     private final DevelopmentCard[][][] deck;
     private final int gameIndex;
 
@@ -27,7 +34,7 @@ public class DevelopmentDeck{
      */
     public DevelopmentDeck(int gameIndex){
         this.gameIndex = gameIndex;
-        deck = new DevelopmentCard[3][4][4];
+        deck = new DevelopmentCard[lev][line][deep];
         addCard();
     }
 
@@ -36,10 +43,10 @@ public class DevelopmentDeck{
      * @return a matrix of the top card, of type DevelopmentCard[][]
      */
     public DevelopmentCard[][] visualize(){
-        DevelopmentCard[][] view = new DevelopmentCard[3][4];
-        for(int i = 0 ; i < 3; i++){
-            for(int j = 0; j < 4; j++){
-                for(int z = 0; z < 4; z++){
+        DevelopmentCard[][] view = new DevelopmentCard[lev][line];
+        for(int i = 0 ; i < lev; i++){
+            for(int j = 0; j < line; j++){
+                for(int z = 0; z < deep; z++){
                     if(deck[i][j][z] != null){
                         view[i][j] = deck[i][j][z];
                         break;
@@ -55,15 +62,11 @@ public class DevelopmentDeck{
      * @return a matrix of number, of type int[][]
      */
     private int[][] numbersOfCardsLeft(){
-        int[][] cardsLeft = new int[3][4];
-        for(int i = 0 ; i < 3; i++) {
-            for (int j = 0; j < 4; j++) {
+        int[][] cardsLeft = new int[lev][line];
+        for(int i = 0 ; i < lev; i++){
+            for(int j = 0; j < line; j++){
                 cardsLeft[i][j] = 0;
-            }
-        }
-        for(int i = 0 ; i < 3; i++){
-            for(int j = 0; j < 4; j++){
-                for(int z = 0; z < 4; z++){
+                for(int z = 0; z < deep; z++){
                     if(deck[i][j][z] != null){
                         cardsLeft[i][j] += 1;
                     }
@@ -79,9 +82,9 @@ public class DevelopmentDeck{
      */
     public boolean allCardOfATypeFinished(){
         int[][] decksTrack = numbersOfCardsLeft();
-        for(int j = 0; j < 4; j++){
+        for(int j = 0; j < line; j++){
             boolean result = true;
-            for(int i = 0; i < 3; i++){
+            for(int i = 0; i < lev; i++){
                 if(decksTrack[i][j] > 0){
                     result = false;
                 }
@@ -103,7 +106,7 @@ public class DevelopmentDeck{
      * @throws IndexOutOfDevelopmentDeckException if you are out of bound of DevelopmentDeck
      */
     public DevelopmentCard draw(int x, int y) throws DrawnFromEmptyDeckException, IndexOutOfDevelopmentDeckException {
-        if(x < 1 || x > 3 || y < 1 || y > 4){
+        if(x < 1 || x > lev || y < 1 || y > line){
             throw new IndexOutOfDevelopmentDeckException();
         }
         int z = numbersOfCardsLeft()[x-1][y-1];
@@ -111,7 +114,7 @@ public class DevelopmentDeck{
             throw new DrawnFromEmptyDeckException();
         }
         DevelopmentCard drawnCard = visualize()[x-1][y-1];
-        deck[x - 1][y - 1][4 - z] = null;
+        deck[x - 1][y - 1][deep - z] = null;
         if(Game.get(gameIndex) != null && Game.get(gameIndex).getNumberOfPlayer() == 1){
             if(allCardOfATypeFinished()){
                 Game.get(gameIndex).endGame();
@@ -127,18 +130,19 @@ public class DevelopmentDeck{
     public void discard(Type type){
         int numCol;
         switch (type){
-            case GREEN: numCol = 0;
+            case GREEN: numCol = greenNum;
                 break;
-            case BLUE: numCol = 1;
+            case BLUE: numCol = blueNum;
                 break;
-            case YELLOW: numCol = 2;
+            case YELLOW: numCol = yellowNum;
                 break;
-            case PURPLE: numCol = 3;
+            case PURPLE: numCol = purpleNum;
                 break;
             default: throw new RuntimeException();
         }
-        discardFromColumn(numCol);
-        discardFromColumn(numCol);
+        for(int i = 0; i < 2; i++){
+            discardFromColumn(numCol);
+        }
     }
 
     /**
@@ -148,26 +152,21 @@ public class DevelopmentDeck{
     private void discardFromColumn(int column) {
         int[][] decksTrack = numbersOfCardsLeft();
         int row = 2;
-
         if(decksTrack[row][column] != 0){
-            deck[row][column][4 - decksTrack[row][column]] = null;
+            deck[row][column][deep - decksTrack[row][column]] = null;
             return;
-        }
-        else{
-            row--;
-        }
-
-        if(decksTrack[row][column] != 0){
-            deck[row][column][4 - decksTrack[row][column]] = null;
-            return;
-        }
-        else{
+        } else {
             row--;
         }
         if(decksTrack[row][column] != 0){
-            deck[row][column][4 - decksTrack[row][column]] = null;
+            deck[row][column][deep - decksTrack[row][column]] = null;
+            return;
+        } else {
+            row--;
         }
-        else{
+        if(decksTrack[row][column] != 0){
+            deck[row][column][deep - decksTrack[row][column]] = null;
+        } else {
             Game.get(gameIndex).endGame();
         }
     }
@@ -274,30 +273,18 @@ public class DevelopmentDeck{
             Object obj = jsonParser.parse(reader);
             JSONArray json = (JSONArray) obj;
             for(Object i : json) {
-
                 Resource[] cost = addCost(i);
-
                 int[] costNumber = addCostNumber(i);
-
                 Type type = Type.valueOf((String)((JSONObject) i).get("type"));
-
                 int level = (int)((Long) ((JSONObject) i).get("level")).longValue();
-
                 Resource[] requirements = addRequirements(i);
-
                 int[] costRequirements = addCostRequirements(i);
-
                 Resource[] products = addProducts(i);
-
                 int[] costProducts = addCostProducts(i);
-
                 int victoryPoints = (int)((Long) ((JSONObject) i).get("victoryPoints")).longValue();
-
                 DevelopmentCard developmentCard = new DevelopmentCard(cost, costNumber, type, level, requirements, costRequirements, products, costProducts, victoryPoints);
-
                 developmentCardsToAdd.add(developmentCard);
             }
-
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
@@ -311,25 +298,37 @@ public class DevelopmentDeck{
      * @param column: the number of the column
      */
     private void fillDevelopmentDeck(int level, ArrayList<DevelopmentCard> color, int column){
-        for(int ii = 0; ii < 4; ii++){
+        for(int ii = 0; ii < deep; ii++){
             deck[level][column][ii] = color.get(ii);
         }
+    }
+
+    /**
+     * this method shuffle four decks of DevelopmentCard
+     * @param green: the first deck
+     * @param purple: the second deck
+     * @param blue: the third deck
+     * @param yellow: the fourth deck
+     */
+    private void shuffleFourDecks(ArrayList<DevelopmentCard> green, ArrayList<DevelopmentCard> purple, ArrayList<DevelopmentCard> blue, ArrayList<DevelopmentCard> yellow){
+        Collections.shuffle(green);
+        Collections.shuffle(blue);
+        Collections.shuffle(yellow);
+        Collections.shuffle(purple);
     }
 
     /**
      * This method fills all the decks with cards
      */
     private void addCard(){
-
         ArrayList<DevelopmentCard> developmentCardsToAdd = obtainDevelopmentCardsToAdd();
-
-        int level = 2;
+        int level = lev-1;
         while(level >= 0){
             ArrayList<DevelopmentCard> green = new ArrayList<>();
             ArrayList<DevelopmentCard> purple = new ArrayList<>();
             ArrayList<DevelopmentCard> blue = new ArrayList<>();
             ArrayList<DevelopmentCard> yellow = new ArrayList<>();
-            for(int i = 0; i < 16; i++){
+            for(int i = 0; i < line*deep; i++){
                 DevelopmentCard developmentCard = developmentCardsToAdd.remove(0);
                 switch (developmentCard.getType()){
                     case GREEN:
@@ -348,16 +347,11 @@ public class DevelopmentDeck{
                         break;
                 }
             }
-            Collections.shuffle(green);
-            Collections.shuffle(blue);
-            Collections.shuffle(yellow);
-            Collections.shuffle(purple);
-
-            fillDevelopmentDeck(level, green, 0);
-            fillDevelopmentDeck(level, blue, 1);
-            fillDevelopmentDeck(level, yellow, 2);
-            fillDevelopmentDeck(level, purple, 3);
-
+            shuffleFourDecks(green, purple, blue, yellow);
+            fillDevelopmentDeck(level, green, greenNum);
+            fillDevelopmentDeck(level, blue, blueNum);
+            fillDevelopmentDeck(level, yellow, yellowNum);
+            fillDevelopmentDeck(level, purple, purpleNum);
             level = level - 1;
         }
     }
@@ -367,16 +361,16 @@ public class DevelopmentDeck{
      * @return a string with all the deck data, of type String
      */
     public String export(){
-        String result = "";
-        for(int i = 0; i < 3; i++){
-            for(int j = 0; j < 4; j++){
-                for(int k = 0; k < 4; k++){
-                    result = new StringBuilder().append(result).append(deck[i][j][k].export() + "/").toString();
+        StringBuilder result = new StringBuilder();
+        for(int i = 0; i < lev; i++){
+            for(int j = 0; j < line; j++){
+                for(int k = 0; k < deep; k++){
+                    result.append(deck[i][j][k].export()).append("/");
                 }
             }
         }
-        result = new StringBuilder().append(result).append(gameIndex).toString();
-        return result;
+        result = new StringBuilder(String.valueOf(result) + gameIndex);
+        return result.toString();
     }
 
     /**
@@ -385,11 +379,11 @@ public class DevelopmentDeck{
      */
     public DevelopmentDeck(String importedString){
         String[] strings = importedString.split("/");
-        deck = new DevelopmentCard[3][4][4];
+        deck = new DevelopmentCard[lev][line][deep];
         int x = 0;
-        for(int i = 0; i < 3; i++){
-            for(int j = 0; j < 4; j++){
-                for(int k = 0; k < 4; k++){
+        for(int i = 0; i < lev; i++){
+            for(int j = 0; j < line; j++){
+                for(int k = 0; k < deep; k++){
                     deck[i][j][k] = new DevelopmentCard(strings[x]);
                     x++;
                 }

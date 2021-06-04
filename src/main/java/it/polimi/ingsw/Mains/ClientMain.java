@@ -3,16 +3,11 @@ import it.polimi.ingsw.Game.PlayerGame;
 import it.polimi.ingsw.Messages.ErrorMessages.GameDontExistErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.GameStartedErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.NameTakenErrorMessage;
-import it.polimi.ingsw.Messages.ForwardMessage;
 import it.polimi.ingsw.Messages.Message;
-import it.polimi.ingsw.Messages.ServiceMessage;
-import it.polimi.ingsw.Messages.UpdateSoloActionTokenMessage;
 import it.polimi.ingsw.PersonalBoard.Faith.FaithTrackSP;
 import it.polimi.ingsw.View.Cli;
 import it.polimi.ingsw.View.View;
-import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
-import javafx.stage.Stage;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -100,7 +95,7 @@ public class ClientMain {
             }
 
             String hostName = args[0];
-            int portNumber = atoi(args[1]);
+            int portNumber = integerToAscii(args[1]);
             clientNick = args[4];
 
             if(args[5].equals("-GUI")){
@@ -225,11 +220,10 @@ public class ClientMain {
      * @param str string
      * @return
      */
-    private static int atoi(String str)
-    {
+    private static int integerToAscii(String str){
         try{
             return Integer.parseInt(str);
-        }catch(NumberFormatException ex){
+        } catch (NumberFormatException ex){
             return -1;
         }
     }

@@ -29,57 +29,58 @@ public class LeaderDeck {
     }
 
     /**
+     * this method add a leader card
+     * @param i: an Object of the JSONArray
+     * @param victoryPoints: the number of victory points
+     */
+    private void putACard(Object i, int victoryPoints){
+        switch ((String)(((JSONObject) i).get("whatIAm"))){
+            case "DISCOUNT":
+                JSONArray temp1 = (JSONArray) ((JSONObject) i).get("costOfLeaderCard");
+                Type[] temp2 = {Type.valueOf((String)temp1.get(0)), Type.valueOf((String)temp1.get(1))};
+                deck.add(new DiscountLeaderCard(victoryPoints, Resource.valueOf((String)((JSONObject) i).get("discount")), temp2));
+                break;
+            case "WHITE":
+                JSONArray temp3 = (JSONArray) ((JSONObject) i).get("costOfLeaderCard");
+                Type[] temp4 = {Type.valueOf((String)temp3.get(0)), Type.valueOf((String)temp3.get(1))};
+                switch ((String)(((JSONObject) i).get("whiteMarble"))){
+                    case "Servant":
+                        deck.add(new WhiteMarbleLeaderCard(victoryPoints, temp4, new Servant()));
+                        break;
+                    case "Shield":
+                        deck.add(new WhiteMarbleLeaderCard(victoryPoints, temp4, new Shield()));
+                        break;
+                    case "Stone":
+                        deck.add(new WhiteMarbleLeaderCard(victoryPoints, temp4, new Stone()));
+                        break;
+                    case "Coin":
+                        deck.add(new WhiteMarbleLeaderCard(victoryPoints, temp4, new Coin()));
+                        break;
+                    default: break;
+                }
+                break;
+            case "STORAGE":
+                deck.add(new ExtraStorageLeaderCard(victoryPoints, Resource.valueOf((String)((JSONObject) i).get("costOfLeaderCard")), Resource.valueOf((String)((JSONObject) i).get("storageType"))));
+                break;
+            case "PRODUCTIONPOWER":
+                deck.add(new ProductionPowerLeaderCard(victoryPoints, Type.valueOf((String)((JSONObject) i).get("costOfLeaderCard")), Resource.valueOf((String)((JSONObject) i).get("requirement"))));
+                break;
+        }
+    }
+
+    /**
      * This method receives an ArrayList as parameter and fills it with new leader cards
      * @param deck: an ArrayList where the cards are stored
      */
     private void putCards(ArrayList<LeaderCard> deck){
-
         JSONParser jsonParser = new JSONParser();
-        try (FileReader reader = new FileReader("src/main/resources/LeaderCardsList.json"))
-        {
+        try(FileReader reader = new FileReader("src/main/resources/LeaderCardsList.json")){
             Object obj = jsonParser.parse(reader);
             JSONArray json = (JSONArray) obj;
             for(Object i : json) {
-                int n = (int)((Long) ((JSONObject) i).get("victoryPoints")).longValue();
-
-                switch ((String)(((JSONObject) i).get("whatIAm"))){
-                    case "DISCOUNT":
-                        JSONArray temp1 = (JSONArray) ((JSONObject) i).get("costOfLeaderCard");
-                        Type[] temp2 = {Type.valueOf((String)temp1.get(0)), Type.valueOf((String)temp1.get(1))};
-                        deck.add(new DiscountLeaderCard(n, Resource.valueOf((String)((JSONObject) i).get("discount")), temp2));
-                        break;
-                    case "WHITE":
-
-                        JSONArray temp3 = (JSONArray) ((JSONObject) i).get("costOfLeaderCard");
-                        Type[] temp4 = {Type.valueOf((String)temp3.get(0)), Type.valueOf((String)temp3.get(1))};
-
-                        switch ((String)(((JSONObject) i).get("whiteMarble"))){
-                            case "Servant":
-                                deck.add(new WhiteMarbleLeaderCard(n, temp4, new Servant()));
-                                break;
-                            case "Shield":
-                                deck.add(new WhiteMarbleLeaderCard(n, temp4, new Shield()));
-                                break;
-                            case "Stone":
-                                deck.add(new WhiteMarbleLeaderCard(n, temp4, new Stone()));
-                                break;
-                            case "Coin":
-                                deck.add(new WhiteMarbleLeaderCard(n, temp4, new Coin()));
-                                break;
-                            default: break;
-                        }
-                        break;
-                    case "STORAGE":
-                        deck.add(new ExtraStorageLeaderCard(n, Resource.valueOf((String)((JSONObject) i).get("costOfLeaderCard")), Resource.valueOf((String)((JSONObject) i).get("storageType"))));
-                        break;
-                    case "PRODUCTIONPOWER":
-                        deck.add(new ProductionPowerLeaderCard(n, Type.valueOf((String)((JSONObject) i).get("costOfLeaderCard")), Resource.valueOf((String)((JSONObject) i).get("requirement"))));
-                        break;
-                    default: break;
-                }
+                int victoryPoints = (int)((Long) ((JSONObject) i).get("victoryPoints")).longValue();
+                putACard(i, victoryPoints);
             }
-
-
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }

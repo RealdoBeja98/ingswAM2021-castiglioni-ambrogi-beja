@@ -9,6 +9,8 @@ import java.util.*;
  */
 public class Market {
 
+    private final static int row = 3;
+    private final static int column = 4;
     private final Marble[][]  marketTray;
     private Marble extraMarble;
 
@@ -16,7 +18,7 @@ public class Market {
      * Constructor method of this class
      */
     public Market() {
-        marketTray = new Marble[3][4];
+        marketTray = new Marble[row][column];
         ArrayList<Marble> temp = new ArrayList<>();
         putMarbles(temp);
         Collections.shuffle(temp);
@@ -49,8 +51,8 @@ public class Market {
      */
     private void listToMarket(ArrayList<Marble> temp){
         int k = 0;
-        for(int i = 0; i < 3; i++){
-            for(int j = 0; j < 4; j++){
+        for(int i = 0; i < row; i++){
+            for(int j = 0; j < column; j++){
                marketTray[i][j] = temp.get(k);
                k++;
             }
@@ -84,8 +86,8 @@ public class Market {
      * @return the copied row, of type Marble[]
      */
     public Marble[] chooseRow(int n){
-        Marble[] marblesInRow = new Marble[4];
-        for(int i = 0; i < 4; i++){
+        Marble[] marblesInRow = new Marble[column];
+        for(int i = 0; i < column; i++){
             marblesInRow[i] = marketTray[n][i];
         }
         shiftRow(n);
@@ -99,8 +101,8 @@ public class Market {
      * @return the copied column, of type Marble[]
      */
     public Marble[] chooseColumn(int n){
-        Marble[] marblesInColumn = new Marble[3];
-        for(int i = 0; i < 3; i++){
+        Marble[] marblesInColumn = new Marble[row];
+        for(int i = 0; i < row; i++){
             marblesInColumn[i] = marketTray[i][n];
         }
         shiftColumn(n);
@@ -114,10 +116,10 @@ public class Market {
      */
     private void shiftRow(int n){
         Marble extra = marketTray[n][0];
-        for(int i = 1; i < 4; i++){
+        for(int i = 1; i < column; i++){
             marketTray[n][i-1] = marketTray[n][i];
         }
-        marketTray[n][3] = extraMarble;
+        marketTray[n][column-1] = extraMarble;
         extraMarble = extra;
     }
 
@@ -127,10 +129,10 @@ public class Market {
      */
     private void shiftColumn(int n){
         Marble extra = marketTray[0][n];
-        for(int i = 1; i < 3; i++){
+        for(int i = 1; i < row; i++){
             marketTray[i-1][n] = marketTray[i][n];
         }
-        marketTray[2][n] = extraMarble;
+        marketTray[row-1][n] = extraMarble;
         extraMarble = extra;
     }
 
@@ -140,8 +142,8 @@ public class Market {
      */
     public String export(){
         String result = "";
-        for(int i = 0; i < 3; i++){
-            for(int j = 0; j < 4; j++){
+        for(int i = 0; i < row; i++){
+            for(int j = 0; j < column; j++){
                 String toAdd = ImportExport.exportResource(marketTray[i][j].getWhatIAm());
                 result = new StringBuilder().append(result).append(toAdd).toString();
             }
@@ -156,10 +158,10 @@ public class Market {
      * @param importedString: the string to import
      */
     public Market(String importedString){
-        marketTray = new Marble[3][4];
+        marketTray = new Marble[row][column];
         int x = 0;
-        for(int i = 0; i < 3; i++) {
-            for (int j = 0; j < 4; j++) {
+        for(int i = 0; i < row; i++) {
+            for (int j = 0; j < column; j++) {
                 String toAdd = importedString.substring(x, x+1);
                 marketTray[i][j] = ImportExport.importMarble(toAdd);
                 x++;

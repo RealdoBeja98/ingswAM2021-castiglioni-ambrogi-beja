@@ -9,6 +9,9 @@ import it.polimi.ingsw.Messages.ForwardMessages.ShowCurrentBoardMessage;
 import it.polimi.ingsw.Messages.Message;
 import it.polimi.ingsw.Messages.ForwardMessages.CurrentPlayerMessage;
 import it.polimi.ingsw.Messages.ServiceMessages.GameStartServiceMessage;
+import it.polimi.ingsw.Utilities.CloseCommunicationChannel;
+import it.polimi.ingsw.Utilities.IntegerToString;
+
 import java.io.*;
 import java.net.Socket;
 
@@ -91,7 +94,7 @@ public class ClientHandler implements Runnable {
                     e.printStackTrace();
                 }
                 if (wut.getReturnValue() == 1) {
-                    closeCommunicationChannel(in, out);
+                    CloseCommunicationChannel.f(in, out, nickname, game, socket);
                     try {
                         game.removePlayer(nickname);
                     } catch (GameEndedException e) {
@@ -126,11 +129,11 @@ public class ClientHandler implements Runnable {
                             e.printStackTrace();
                         }
                         forward(nickname + " quit", out);
-                        closeCommunicationChannel(in, out);
+                        CloseCommunicationChannel.f(in, out, nickname, game, socket);
                         pingPong.stop();
                         return;
                     } else if (line.equals("GAME_ENDED")) {
-                        closeCommunicationChannel(in, out);
+                        CloseCommunicationChannel.f(in, out, nickname, game, socket);
                         pingPong.stop();
                         return;
                     } else if (line.equals("NOTIFY_PB_ALL")) {
@@ -153,7 +156,7 @@ public class ClientHandler implements Runnable {
                     break;
                 }
             }
-            closeCommunicationChannel(in, out);
+            CloseCommunicationChannel.f(in, out, nickname, game, socket);
 
             pingPong.stop();
 
@@ -167,40 +170,6 @@ public class ClientHandler implements Runnable {
     }
 
     /**
-     * This method represent the moment when a player quits his game and notifying all other
-     * @param in reads the message which comes from the socket
-     * @param out sends message to a socket
-     */
-    private void closeCommunicationChannel(BufferedReader in, PrintWriter out) {
-        try {
-            in.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        out.close();
-        try {
-            socket.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println("Player: " + nickname + " quit game " + game.getGameIndex());
-    }
-
-    /**
-     * This message does the atoi to a coming string
-     * @param str string
-     * @return
-     */
-    private int atoi(String str)
-    {
-        try{
-            return Integer.parseInt(str);
-        }catch(NumberFormatException ex){
-            throw new IllegalArgumentException();
-        }
-    }
-
-    /**
      * This method does the creating of a game with the parameters that the player has given, and
      * prints it to the console
      * @param in reads the message which comes from the socket
@@ -211,7 +180,7 @@ public class ClientHandler implements Runnable {
     private boolean creatingGame(String line, BufferedReader in, PrintWriter out) throws IOException {
         System.out.println("Creating a new game...");
         line = in.readLine();
-        int numPL = atoi(line);
+        int numPL = IntegerToString.f(line);
         game = new Game(numPL);
         System.out.println("Created game number: " + game.getGameIndex());
         return addingPlayer(in, out);
@@ -227,7 +196,7 @@ public class ClientHandler implements Runnable {
      */
     private boolean joiningGame(String line, BufferedReader in, PrintWriter out) throws IOException {
         line = in.readLine();
-        int numGM = atoi(line);
+        int numGM = IntegerToString.f(line);
         System.out.println("Joining a game...");
         game = Game.get(numGM);
         try{

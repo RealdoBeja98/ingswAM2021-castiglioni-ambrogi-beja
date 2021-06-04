@@ -1,9 +1,9 @@
 package it.polimi.ingsw.Mains;
 
 import it.polimi.ingsw.Game.Game;
+import it.polimi.ingsw.Utilities.CloseCommunicationChannel;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.sql.Timestamp;
@@ -14,6 +14,8 @@ import java.sql.Timestamp;
  */
 public class PingPong implements Runnable{
 
+    private static final long timeToWaitBetweenTwoPingPong = 2000;
+    private static final long timeToWaitBeforeClosingCommunicationChannel = 7000;
     private BufferedReader in;
     private PrintWriter out;
     private Game game;
@@ -58,42 +60,22 @@ public class PingPong implements Runnable{
         while(true){
             try {
                 //<-FIXME--> usare define
-                Thread.sleep(2000);
+                Thread.sleep(timeToWaitBetweenTwoPingPong);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            if(exist == false){
+            if(!exist){
                 return;
             }
             //System.out.println("I exist");
             out.println("ping");
             long now = (new Timestamp(System.currentTimeMillis())).getTime();
-            if(now - lastUpdate > 7000){
+            if(now - lastUpdate > timeToWaitBeforeClosingCommunicationChannel){
                 forward(nickname + " crashed", out);
-                closeCommunicationChannel(in, out);
+                CloseCommunicationChannel.f(in, out, nickname, game, socket);
                 stop();
             }
         }
-    }
-
-    /**
-     * This method closes the communication for player whose not in the game
-     * @param in reads the message coming from socket
-     * @param out sends message to socket
-     */
-    private void closeCommunicationChannel(BufferedReader in, PrintWriter out) {
-        try {
-            in.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        out.close();
-        try {
-            socket.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println("Player: " + nickname + " quit game " + game.getGameIndex());
     }
 
     /**

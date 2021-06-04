@@ -49,27 +49,21 @@ public class ProductionPowerLeaderCard extends LeaderCard implements Production 
         int costServant = 0;
         int costShield = 0;
         int costStone = 0;
-
         switch (requirement) {
             case COIN:
                 costCoin = 1;
                 break;
-
             case SERVANT:
                 costServant = 1;
                 break;
-
             case SHIELD:
                 costShield = 1;
                 break;
-
             case STONE:
                 costStone = 1;
                 break;
-
             default:
                 break;
-
         }
         return new ResourceProduction(costCoin, costServant, costShield, costStone, 0, 0,
                 0, 0, 0, 1, 1);
