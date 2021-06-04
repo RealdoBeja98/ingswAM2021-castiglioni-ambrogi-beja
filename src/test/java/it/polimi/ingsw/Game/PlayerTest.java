@@ -19,7 +19,7 @@ class PlayerTest {
      * This method tests setting the inkwell on a player
      */
     @Test
-    void setInkwell() {
+    void setInkwell(){
         Game game = new Game(1);
         try {
             game.addPlayer("Carlo");
@@ -35,7 +35,7 @@ class PlayerTest {
      * This method tests the getter of the parameter nickname
      */
     @Test
-    void getNickname() {
+    void getNickname(){
         Game game = new Game(1);
         try {
             game.addPlayer("Carlo");
@@ -50,7 +50,7 @@ class PlayerTest {
      * This method tests getting what discount is active
      */
     @Test
-    void getActiveDiscount() {
+    void getActiveDiscount(){
         Game game = new Game(1);
         try {
             game.addPlayer("Carlo");
@@ -74,7 +74,7 @@ class PlayerTest {
      * This method tests discarding a leader card
      */
     @Test
-    void testDiscardLeaderCard() {
+    void testDiscardLeaderCard(){
         Game game = new Game(1);
         try {
             game.addPlayer("Carlo");
@@ -100,7 +100,7 @@ class PlayerTest {
      * This method tests if you can play a leader card
      */
     @Test
-    void canYouPlayAtLeastALeaderCard() {
+    void canYouPlayAtLeastALeaderCard(){
         Game game = new Game(1);
         try {
             game.addPlayer("Carlo");
@@ -126,7 +126,7 @@ class PlayerTest {
      * This method tests playing a leader card
      */
     @Test
-    void playLeaderCard() {
+    void playLeaderCard(){
         Game game = new Game(1);
         try {
             game.addPlayer("Carlo");
@@ -156,7 +156,7 @@ class PlayerTest {
      * This method tests taking resources from the market
      */
     @Test
-    void testTakeResourcesFromTheMarket() {
+    void testTakeResourcesFromTheMarket(){
         Game game = new Game(1);
         try {
             game.addPlayer("Andrea");
@@ -179,7 +179,7 @@ class PlayerTest {
      * This method tests moving resources in the warehouse depots
      */
     @Test
-    void testMoveResourcesInWarehouseDepots() {
+    void testMoveResourcesInWarehouseDepots(){
         Game game = new Game(1);
         try {
             game.addPlayer("Aldo");
@@ -218,7 +218,7 @@ class PlayerTest {
      * This method tests moving resources from WarehouseDepots to ExtraStorageLeaderCard
      */
     @Test
-    void moveResourcesFromWarehouseDepotsToExtraStorageLeaderCard() {
+    void moveResourcesFromWarehouseDepotsToExtraStorageLeaderCard(){
         Game game = new Game(1);
         try {
             game.addPlayer("Aldo");

@@ -57,33 +57,19 @@ public abstract class Message {
     public static Message fromString(String string){
         //<--FIXME--> mettere una mappa
 
-        if(string.equals("ERROR_NO_CARDS_DISCARD")){
-            return new NoCardDiscardErrorMessage();
+        switch(string){
+            case "ERROR_NO_CARDS_DISCARD": return new NoCardDiscardErrorMessage();
+            case "ERROR_NOT_YOUR_TURN": return new NotYourTurnErrorMessage();
+            case "ERROR_INVALID_ACTION": return new InvalidActionErrorMessage();
+            case "ERROR_ALREADY_DISCARDED_POSITION": return new AlreadyDiscardedPositionErrorMessage();
+            case "ERROR_GAME_ENDED": return new GameEndedErrorMessage();
+            case "ERROR_INVALID_POSITION": return new InvalidPositionErrorMessage();
+            case "ERROR_TYPO": return new TypoErrorMessage();
+            case "ERROR_NO_CARDS_PLAY": return new NoCardsPlayErrorMessage();
+            case "ERROR_REQUIREMENTS": return new RequirementsErrorMessage();
         }
-        if(string.equals("ERROR_NOT_YOUR_TURN")){
-            return new NotYourTurnErrorMessage();
-        }
-        if(string.equals("ERROR_INVALID_ACTION")){
-            return new InvalidActionErrorMessage();
-        }
-        if(string.equals("ERROR_ALREADY_DISCARDED_POSITION")){
-            return new AlreadyDiscardedPositionErrorMessage();
-        }
-        if(string.equals("ERROR_GAME_ENDED")){
-            return new GameEndedErrorMessage();
-        }
-        if(string.equals("ERROR_INVALID_POSITION")){
-            return new InvalidPositionErrorMessage();
-        }
-        if(string.equals("ERROR_TYPO")){
-            return new TypoErrorMessage();
-        }
-        if(string.equals("ERROR_NO_CARDS_PLAY")){
-            return new NoCardsPlayErrorMessage();
-        }
-        if(string.equals("ERROR_REQUIREMENTS")){
-            return new RequirementsErrorMessage();
-        }
+
+
         if(string.equals("ERROR_INVALID_ENUM")){
             return new InvalidEnumErrorMessage();
         }

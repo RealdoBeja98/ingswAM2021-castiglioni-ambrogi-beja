@@ -48,10 +48,8 @@ class DevelopmentDeckTest {
             assertFalse(deck.allCardOfATypeFinished());
             deck.draw(3,1);
             assertTrue(deck.allCardOfATypeFinished());
-        } catch (DrawnFromEmptyDeckException e) {
-            e.printStackTrace();
-        } catch (IndexOutOfDevelopmentDeckException e) {
-            e.printStackTrace();
+        } catch (DrawnFromEmptyDeckException | IndexOutOfDevelopmentDeckException e) {
+            fail();//<--FIXME--> mettere i fail nei catch dei test (dove c'è e.printStackTrace())
         }
     }
 
@@ -66,24 +64,24 @@ class DevelopmentDeckTest {
         try {
             cardP = deck.draw(1, 1);
         } catch (DrawnFromEmptyDeckException | IndexOutOfDevelopmentDeckException e) {
-            e.printStackTrace();
+            fail();
         }
         assertSame(card, cardP);
         assertThrows(IndexOutOfDevelopmentDeckException.class, () -> deck.draw(5, 1));
         try {
             cardP = deck.draw(1, 1);
         } catch (DrawnFromEmptyDeckException | IndexOutOfDevelopmentDeckException e) {
-            e.printStackTrace();
+            fail();
         }
         try {
             cardP = deck.draw(1, 1);
         } catch (DrawnFromEmptyDeckException | IndexOutOfDevelopmentDeckException e) {
-            e.printStackTrace();
+            fail();
         }
         try {
             cardP = deck.draw(1, 1);
         } catch (DrawnFromEmptyDeckException | IndexOutOfDevelopmentDeckException e) {
-            e.printStackTrace();
+            fail();
         }
         assertThrows(DrawnFromEmptyDeckException.class, () -> deck.draw(1, 1));
     }

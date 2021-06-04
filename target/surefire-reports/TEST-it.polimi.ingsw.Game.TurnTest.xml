@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="it.polimi.ingsw.Table.Decks.Leader.DiscountLeaderCardTest" time="0.004" tests="2" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="it.polimi.ingsw.Game.TurnTest" time="0.028" tests="3" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="15"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -54,6 +54,7 @@
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.class.version" value="59.0"/>
   </properties>
-  <testcase name="testExportDiscountLeaderCard" classname="it.polimi.ingsw.Table.Decks.Leader.DiscountLeaderCardTest" time="0.001"/>
-  <testcase name="integrityTest" classname="it.polimi.ingsw.Table.Decks.Leader.DiscountLeaderCardTest" time="0"/>
+  <testcase name="exampleTurnTest" classname="it.polimi.ingsw.Game.TurnTest" time="0.015"/>
+  <testcase name="discardLeaderCardTest" classname="it.polimi.ingsw.Game.TurnTest" time="0.006"/>
+  <testcase name="actionNotAllowedTest" classname="it.polimi.ingsw.Game.TurnTest" time="0.005"/>
 </testsuite>

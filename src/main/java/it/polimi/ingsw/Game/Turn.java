@@ -8,8 +8,6 @@ import it.polimi.ingsw.Table.Decks.Token.ActionToken;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
-//<--FIXME--> bisogna fare i test della classe turn
-
 /**
  * This Class represents the turn
  */
@@ -716,9 +714,14 @@ public class Turn {
      */
     private void finalPartOfEndTurn(int n) throws GameEndedException {
         for(PrintWriter pw : Game.get(gameIndex).getPrintWriterList()){
-            pw.println(new CurrentPlayerMessage(currentPlayer.getNickname()));
+            if(pw != null){
+                pw.println(new CurrentPlayerMessage(currentPlayer.getNickname()));
+            }
         }
-        Game.get(gameIndex).getPrintWriterList().get(n).println("It's your turn!");
+        PrintWriter itSYourTurn = Game.get(gameIndex).getPrintWriterList().get(n);
+        if(itSYourTurn != null){
+            itSYourTurn.println("It's your turn!");
+        }
         if(currentPlayer.isInkwell() && gameEnded){
             Game.get(gameIndex).notifyScore();
             for(PrintWriter ii : Game.get(gameIndex).getPrintWriterList()){
@@ -730,7 +733,9 @@ public class Turn {
         if(!(currentPlayer.isHimFirstTurn()) && !transitionFromFirstTurnToNormalTurnsDone){
             transitionFromFirstTurnToNormalTurnsDone = true;
             for(PrintWriter pw : Game.get(gameIndex).getPrintWriterList()){
-                pw.println(new TransitionForwardMessage());
+                if(pw != null){
+                    pw.println(new TransitionForwardMessage());
+                }
             }
         }
     }
