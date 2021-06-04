@@ -20,17 +20,15 @@ public class ServerMain {
     static int portNumber;
 
     /**
-     * main
-     * @param args: args[0] is the ip, args[1] is the port
+     * this method sets ip and port using command line parameters or, on their missing, by default ip and port
+     * @param args args[0] is the ip, args[1] is the port
      */
-    public static void main( String[] args ) {
-
+    private static void setHostAndPort(String[] args){
         if(args.length==2){
             hostName = args[0];
             System.out.println(hostName);
             portNumber = Integer.parseInt(args[1]);
-
-        }else {
+        } else {
             JSONParser jsonParser = new JSONParser();
             try (FileReader reader = new FileReader("src/main/resources/ServerInit.json")) {
                 Object obj = jsonParser.parse(reader);
@@ -50,7 +48,14 @@ public class ServerMain {
                 return;
             }
         }
+    }
 
+    /**
+     * main
+     * @param args: args[0] is the ip, args[1] is the port
+     */
+    public static void main(String[] args) {
+        setHostAndPort(args);
         ExecutorService executor = Executors.newCachedThreadPool();
         ServerSocket serverSocket;
         try {

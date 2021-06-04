@@ -33,7 +33,7 @@ public class WakeUpThread implements Runnable {
             while ((serverMessage = in.readLine()) != null) {
                 if (serverMessage.equals("wakeup")) {
                     return;
-                }else if (serverMessage.equals("quit")){
+                } else if (serverMessage.equals("quit")){
                     out.println("quit");
                     returnValue = 1;
                     return;
@@ -51,4 +51,5 @@ public class WakeUpThread implements Runnable {
     public int getReturnValue(){
         return returnValue;
     }
+
 }
