@@ -13,6 +13,7 @@ public class SlotsDevelopmentCards {
 
     private static final int unusefulGameIndex = -1;
 
+
     private DevelopmentCard[][] slot;
     private DevelopmentCard[] activeCards;
     private final int gameIndex;

@@ -19,7 +19,7 @@ import java.util.Collections;
  */
 public class DevelopmentDeck{
 
-    private static final int lev = 3;
+    private static final int maxLevels = 3;
     private static final int line = 4;
     private static final int deep = 4;
     private static final int greenNum = 0;
@@ -34,7 +34,7 @@ public class DevelopmentDeck{
      */
     public DevelopmentDeck(int gameIndex){
         this.gameIndex = gameIndex;
-        deck = new DevelopmentCard[lev][line][deep];
+        deck = new DevelopmentCard[maxLevels][line][deep];
         addCard();
     }
 
@@ -43,8 +43,8 @@ public class DevelopmentDeck{
      * @return a matrix of the top card, of type DevelopmentCard[][]
      */
     public DevelopmentCard[][] visualize(){
-        DevelopmentCard[][] view = new DevelopmentCard[lev][line];
-        for(int i = 0 ; i < lev; i++){
+        DevelopmentCard[][] view = new DevelopmentCard[maxLevels][line];
+        for(int i = 0; i < maxLevels; i++){
             for(int j = 0; j < line; j++){
                 for(int z = 0; z < deep; z++){
                     if(deck[i][j][z] != null){
@@ -62,8 +62,8 @@ public class DevelopmentDeck{
      * @return a matrix of number, of type int[][]
      */
     private int[][] numbersOfCardsLeft(){
-        int[][] cardsLeft = new int[lev][line];
-        for(int i = 0 ; i < lev; i++){
+        int[][] cardsLeft = new int[maxLevels][line];
+        for(int i = 0; i < maxLevels; i++){
             for(int j = 0; j < line; j++){
                 cardsLeft[i][j] = 0;
                 for(int z = 0; z < deep; z++){
@@ -84,7 +84,7 @@ public class DevelopmentDeck{
         int[][] decksTrack = numbersOfCardsLeft();
         for(int j = 0; j < line; j++){
             boolean result = true;
-            for(int i = 0; i < lev; i++){
+            for(int i = 0; i < maxLevels; i++){
                 if(decksTrack[i][j] > 0){
                     result = false;
                 }
@@ -106,7 +106,7 @@ public class DevelopmentDeck{
      * @throws IndexOutOfDevelopmentDeckException if you are out of bound of DevelopmentDeck
      */
     public DevelopmentCard draw(int x, int y) throws DrawnFromEmptyDeckException, IndexOutOfDevelopmentDeckException {
-        if(x < 1 || x > lev || y < 1 || y > line){
+        if(x < 1 || x > maxLevels || y < 1 || y > line){
             throw new IndexOutOfDevelopmentDeckException();
         }
         int z = numbersOfCardsLeft()[x-1][y-1];
@@ -322,7 +322,7 @@ public class DevelopmentDeck{
      */
     private void addCard(){
         ArrayList<DevelopmentCard> developmentCardsToAdd = obtainDevelopmentCardsToAdd();
-        int level = lev-1;
+        int level = DevelopmentDeck.maxLevels -1;
         while(level >= 0){
             ArrayList<DevelopmentCard> green = new ArrayList<>();
             ArrayList<DevelopmentCard> purple = new ArrayList<>();
@@ -362,7 +362,7 @@ public class DevelopmentDeck{
      */
     public String export(){
         StringBuilder result = new StringBuilder();
-        for(int i = 0; i < lev; i++){
+        for(int i = 0; i < maxLevels; i++){
             for(int j = 0; j < line; j++){
                 for(int k = 0; k < deep; k++){
                     result.append(deck[i][j][k].export()).append("/");
@@ -379,9 +379,9 @@ public class DevelopmentDeck{
      */
     public DevelopmentDeck(String importedString){
         String[] strings = importedString.split("/");
-        deck = new DevelopmentCard[lev][line][deep];
+        deck = new DevelopmentCard[maxLevels][line][deep];
         int x = 0;
-        for(int i = 0; i < lev; i++){
+        for(int i = 0; i < maxLevels; i++){
             for(int j = 0; j < line; j++){
                 for(int k = 0; k < deep; k++){
                     deck[i][j][k] = new DevelopmentCard(strings[x]);

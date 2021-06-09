@@ -285,21 +285,18 @@ public class GuiThread extends Application implements Runnable{
                 switch (state){
                     case 1:
                         out.println(new AddResourceToGameMessage(LeaderWarehouse.WAREHOUSEDEPOTS, pos));
-                        state = 0;
                         break;
                     case 2:
                         out.println(new SelectAWarehouseDepotsSlotGameMessage(pos));
-                        state = 0;
                         break;
                     case 3:
                         out.println(new MoveResourcesInWarehouseDepotsGameMessage(pos));
-                        state = 0;
                         break;
                     case 6:
                         out.println(new PayWithWarehouseDepotsGameMessage(pos));
-                        state = 0;
                         break;
                 }
+                state = 0;
             }
         };
         b.setOnAction(event);
