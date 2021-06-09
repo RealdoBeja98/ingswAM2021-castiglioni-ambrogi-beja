@@ -475,8 +475,7 @@ public class Player {//<--FIXME check javadoc from here-->
             throw new NotAnExtraStorageLeaderCardException();
         }
         Resource movedResource = personalBoard.getWarehouseDepots().getResource()[selectedWarehouseDepotsSlot];
-        if(movedResource == null)
-        if(movedResource != ((ExtraStorageLeaderCard)cardsOnTable[pos-1]).getStorageType()){
+        if(movedResource == null || movedResource != ((ExtraStorageLeaderCard)cardsOnTable[pos-1]).getStorageType()){
             throw new DifferentStorageException();
         }
         personalBoard.getWarehouseDepots().removeResource(selectedWarehouseDepotsSlot);
@@ -548,44 +547,39 @@ public class Player {//<--FIXME check javadoc from here-->
      * @throws IndexOutOfWarehouseDepotsException: if you are out of bounds of the WarehouseDepots
      */
     public void addResource(LeaderWarehouse where, int pos) throws NoResourceToAddException, DifferentStorageException, OccupiedSlotExtraStorageLeaderCardException, PositionAlreadyOccupiedException, ResourceAlreadyPlacedException, DifferentResourceInThisShelfException, UnexpectedWhiteMarbleException, UnexpectedFaithMarbleException, IndexOutOfWarehouseDepotsException {
-        if(marblesFromTheMarket.size() == 0) {
+        if(marblesFromTheMarket.isEmpty()) {
             throw new NoResourceToAddException();
-        }
-        if(marblesFromTheMarket.get(0) instanceof White){
+        } else if(marblesFromTheMarket.get(0) instanceof White){
             throw new UnexpectedWhiteMarbleException();
-        }
-        if(marblesFromTheMarket.get(0) instanceof Faith){
+        } else if(marblesFromTheMarket.get(0) instanceof Faith){
             throw new UnexpectedFaithMarbleException();
         }
-        if(where == LeaderWarehouse.LEADERCARD){
-            marblesFromTheMarket.get(0).putResource((ExtraStorageLeaderCard) cardsOnTable[pos-1]);
-        }
-        if(where == LeaderWarehouse.WAREHOUSEDEPOTS){
-            marblesFromTheMarket.get(0).putResource(personalBoard.getWarehouseDepots(), pos);
-        }
-        if(where == LeaderWarehouse.DISCARD){
-            throw new IllegalArgumentException();
+        switch (where){
+            case LEADERCARD:
+                marblesFromTheMarket.get(0).putResource((ExtraStorageLeaderCard) cardsOnTable[pos-1]);
+                break;
+            case WAREHOUSEDEPOTS:
+                marblesFromTheMarket.get(0).putResource(personalBoard.getWarehouseDepots(), pos);
+                break;
+            case DISCARD:
+                throw new IllegalArgumentException();
         }
         marblesFromTheMarket.remove(0);
     }
 
+    //<--FIXME--> do javaDock
     public void addResource(LeaderWarehouse where) throws NoResourceToAddException, UnexpectedWhiteMarbleException, UnexpectedFaithMarbleException {
-        if(marblesFromTheMarket.size() == 0) {
+        if(marblesFromTheMarket.isEmpty()) {
             throw new NoResourceToAddException();
-        }
-        if(marblesFromTheMarket.get(0) instanceof White){
+        } else if(marblesFromTheMarket.get(0) instanceof White){
             throw new UnexpectedWhiteMarbleException();
-        }
-        if(marblesFromTheMarket.get(0) instanceof Faith){
+        } else if(marblesFromTheMarket.get(0) instanceof Faith){
             throw new UnexpectedFaithMarbleException();
-        }
-        if(where != LeaderWarehouse.DISCARD){
+        } else if(where != LeaderWarehouse.DISCARD){
             throw new IllegalArgumentException();
-        }
-        else if(Game.get(gameIndex).getNumberOfPlayer() != 1 && Game.get(gameIndex).getPlayers().size() == 1){
+        } else if(Game.get(gameIndex).getNumberOfPlayer() != 1 && Game.get(gameIndex).getPlayers().size() == 1){
             marblesFromTheMarket.remove(0);
-        }
-        else{
+        } else {
             personalBoard.getFaithTrack().allOtherPlayersGoOn(this);
             marblesFromTheMarket.remove(0);
         }
@@ -630,22 +624,38 @@ public class Player {//<--FIXME check javadoc from here-->
     public void changeWhiteMarbleWith(int pos) throws NoWhiteMarbleLeaderCardException, NoWhiteMarbleException, PositionInvalidException {
         if(pos <= 0 || pos > 2){
             throw new PositionInvalidException();
-        }
-        else{
+        } else {
             if(!(cardsOnTable[pos-1] instanceof WhiteMarbleLeaderCard)){
                 throw new NoWhiteMarbleLeaderCardException();
             }
             WhiteMarbleLeaderCard selected = (WhiteMarbleLeaderCard)cardsOnTable[pos-1];
             if(selected == null){
                 throw new NoWhiteMarbleLeaderCardException();
-            }
-            if(marblesFromTheMarket.get(0) instanceof White){
+            } else if(marblesFromTheMarket.get(0) instanceof White){
                 marblesFromTheMarket.set(0, selected.getWhiteMarble());
-            }
-            else{
+            } else {
                 throw new NoWhiteMarbleException();
             }
         }
+    }
+
+    /**
+     * This method return a list of ResourceProduction of the player (ProductionPowerLeaderCard and DevelopmentCard)
+     * @return the list of ResourceProduction of the player; of type ArrayList<ResourceProduction>
+     */
+    private ArrayList<ResourceProduction> obtainYourResourceProduction(){
+        ArrayList<ResourceProduction> toCheckCombination = new ArrayList<>();
+        for(DevelopmentCard i : personalBoard.getSlotsDevelopmentCards().getActiveCards()){
+            if(i != null){
+                toCheckCombination.add(i.resourceProduction());
+            }
+        }
+        for(LeaderCard i : cardsOnTable){
+            if(i != null && i instanceof ProductionPowerLeaderCard){
+                toCheckCombination.add(((ProductionPowerLeaderCard)i).resourceProduction());
+            }
+        }
+        return toCheckCombination;
     }
 
     /**
@@ -662,26 +672,12 @@ public class Player {//<--FIXME check javadoc from here-->
         if(sum >= 2){
             return true;
         }
-        ArrayList<ResourceProduction> toCheckCombination = new ArrayList<>();
-        for(DevelopmentCard i : personalBoard.getSlotsDevelopmentCards().getActiveCards()){
-            if(i != null){
-                toCheckCombination.add(i.resourceProduction());
-            }
-        }
-        for(LeaderCard i : cardsOnTable){
-            if(i != null && i instanceof ProductionPowerLeaderCard){
-                toCheckCombination.add(((ProductionPowerLeaderCard)i).resourceProduction());
-            }
-        }
+        ArrayList<ResourceProduction> toCheckCombination = obtainYourResourceProduction();
         for(ResourceProduction i : toCheckCombination){
-            int tryCoin = coin;
-            int tryServant = servant;
-            int tryShield = shield;
-            int tryStone = stone;
-            tryCoin -= i.getRequiredCoin();
-            tryServant -= i.getRequiredServant();
-            tryShield -= i.getRequiredShield();
-            tryStone -= i.getRequiredStone();
+            int tryCoin = coin - i.getRequiredCoin();
+            int tryServant = servant - i.getRequiredServant();
+            int tryShield = shield - i.getRequiredShield();
+            int tryStone = stone - i.getRequiredStone();
             if(tryCoin >= 0 && tryServant >= 0 && tryShield >= 0 && tryStone >= 0){
                 int trySum = tryCoin + tryServant + tryShield + tryStone;
                 if(trySum >= i.getProductionGeneric()){
@@ -705,8 +701,7 @@ public class Player {//<--FIXME check javadoc from here-->
         DevelopmentCard selected = personalBoard.getSlotsDevelopmentCards().getActiveCards()[pos - 1];
         if(selected == null){
             throw new NoDevelopmentCardInThisPositionException();
-        }
-        if(selectedProduction.contains(selected)){
+        } else if(selectedProduction.contains(selected)){
             selectedProduction.remove(selected);
         } else {
             selectedProduction.add(selected);
@@ -726,11 +721,9 @@ public class Player {//<--FIXME check javadoc from here-->
         LeaderCard selected = cardsOnTable[pos-1];
         if(selected == null){
             throw new NoProductionLeaderCardException();
-        }
-        if(!(selected instanceof ProductionPowerLeaderCard)){
+        } else if(!(selected instanceof ProductionPowerLeaderCard)){
             throw new NoProductionLeaderCardException();
-        }
-        if(selectedProduction.contains(selected)){
+        } else if(selectedProduction.contains(selected)){
             selectedProduction.remove(selected);
         } else {
             selectedProduction.add((Production)selected);
@@ -745,58 +738,47 @@ public class Player {//<--FIXME check javadoc from here-->
     }
 
     /**
-     * This method let you start the payment of the selected production power
+     * This method check if we are to pay production power you selected
+     * @param production represents the production powers you have selected
      * @throws NotEnoughResourcesException if you aren't able to pay all production power
-     * @throws YouHaveNotSelectedAnyProductionException if you haven't selected any production power
      */
-    public void startPayment() throws NotEnoughResourcesException, YouHaveNotSelectedAnyProductionException {
-        if(selectedProduction.size() == 0 && selectedDefaultProductionPower == false){
-            throw new YouHaveNotSelectedAnyProductionException();
-        }
-        ResourceProduction production = new ResourceProduction(0, 0, 0, 0,
-                0, 0, 0, 0,
-                0, 0, 0);
-        for (Production i : selectedProduction) {
-            production = production.sum(i.resourceProduction());
-        }
-        if (selectedDefaultProductionPower) {
-            production = production.sum(new ResourceProduction(0, 0, 0,
-                    0, 2, 0, 0, 0,
-                    0, 1, 0));
-        }
+    private void checkWeAre(ResourceProduction production) throws NotEnoughResourcesException {
         TotalResourcesPlayer totalResourcesPlayer = new TotalResourcesPlayer();
         int coin = totalResourcesPlayer.coin;
         int servant = totalResourcesPlayer.servant;
         int shield = totalResourcesPlayer.shield;
         int stone = totalResourcesPlayer.stone;
         int advance = 0;
-        boolean weAre = true;
         if (coin < production.getRequiredCoin()) {
-            weAre = false;
+            throw new NotEnoughResourcesException();
         } else {
             advance += coin - production.getRequiredCoin();
         }
         if (servant < production.getRequiredServant()) {
-            weAre = false;
+            throw new NotEnoughResourcesException();
         } else {
             advance += servant - production.getRequiredServant();
         }
         if (shield < production.getRequiredShield()) {
-            weAre = false;
+            throw new NotEnoughResourcesException();
         } else {
             advance += shield - production.getRequiredShield();
         }
         if (stone < production.getRequiredStone()) {
-            weAre = false;
+            throw new NotEnoughResourcesException();
         } else {
             advance += stone - production.getRequiredStone();
         }
         if (advance < production.getRequiredGeneric()) {
-            weAre = false;
-        }
-        if(weAre == false){
             throw new NotEnoughResourcesException();
         }
+    }
+
+    /**
+     * This method add the resources you are going to pay
+     * @param production represents the production powers you have selected
+     */
+    private void addResourcesToPay(ResourceProduction production){
         for(int i = 0; i < production.getRequiredCoin(); i++){
             payingResources.add(Resource.COIN);
         }
@@ -812,6 +794,35 @@ public class Player {//<--FIXME check javadoc from here-->
         for(int i = 0; i < production.getRequiredGeneric(); i++){
             payingResources.add(Resource.WHITE);
         }
+    }
+
+    /**
+     * this method return a ResourceProduction production power you selected
+     * @return a ResourceProduction production power you selected; of type ResourceProduction
+     */
+    private ResourceProduction obtainResourceProductionOfWhatYouSelected(){
+        ResourceProduction production = ResourceProduction.newEmptyResourceProduction();
+        for(Production i : selectedProduction){
+            production = production.sum(i.resourceProduction());
+        }
+        if (selectedDefaultProductionPower){
+            production = production.sum(ResourceProduction.newDefaultProductionPowerResourceProduction());
+        }
+        return production;
+    }
+
+    /**
+     * This method let you start the payment of the selected production power
+     * @throws NotEnoughResourcesException if you aren't able to pay all production power
+     * @throws YouHaveNotSelectedAnyProductionException if you haven't selected any production power
+     */
+    public void startPayment() throws NotEnoughResourcesException, YouHaveNotSelectedAnyProductionException {
+        if(selectedProduction.size() == 0 && selectedDefaultProductionPower == false){
+            throw new YouHaveNotSelectedAnyProductionException();
+        }
+        ResourceProduction production = obtainResourceProductionOfWhatYouSelected();
+        checkWeAre(production);
+        addResourcesToPay(production);
         obtainedGeneric = production.getProductionGeneric();
     }
 
@@ -900,7 +911,7 @@ public class Player {//<--FIXME check javadoc from here-->
         if(payingResources.isEmpty()){
             throw new NoResourceToPayException();
         }
-        if(pos <= 1 || pos > 2){
+        if(pos < 1 || pos > 2){
             throw new PositionInvalidException();
         }
         LeaderCard selected = cardsOnTable[pos - 1];
@@ -918,22 +929,23 @@ public class Player {//<--FIXME check javadoc from here-->
     }
 
     /**
+     * This method reinitialize values if you obtained all generic resource you have to obtain
+     */
+    private void reinitializeValuesIfObtainedGenerics(){
+        if(obtainedGeneric <= 0){
+            selectedProduction = new ArrayList<>();
+            selectedDefaultProductionPower = false;
+            payingResources = new ArrayList<>();
+        }
+    }
+
+    /**
      * This methods lets you receive your paid resources, but first checking
      * if you really do have enough resources to do the buying process
      */
     private void obtainResourcesIfAllResourcesPayed(){
         if(payingResources.isEmpty()){
-            ResourceProduction production = new ResourceProduction(0, 0, 0, 0,
-                    0, 0, 0, 0,
-                    0, 0, 0);
-            for (Production i : selectedProduction) {
-                production = production.sum(i.resourceProduction());
-            }
-            if (selectedDefaultProductionPower) {
-                production = production.sum(new ResourceProduction(0, 0, 0,
-                        0, 2, 0, 0, 0,
-                        0, 1, 0));
-            }
+            ResourceProduction production = obtainResourceProductionOfWhatYouSelected();
             try {
                 personalBoard.getStrongBox().add(Resource.COIN, production.getProductionCoin());
                 personalBoard.getStrongBox().add(Resource.SERVANT, production.getProductionServant());
@@ -943,11 +955,7 @@ public class Player {//<--FIXME check javadoc from here-->
                 e.printStackTrace();
             }
             personalBoard.getFaithTrack().goOn(production.getProductionFaith());
-            if(obtainedGeneric <= 0){
-                selectedProduction = new ArrayList<>();
-                selectedDefaultProductionPower = false;
-                payingResources = new ArrayList<>();
-            }
+            reinitializeValuesIfObtainedGenerics();
         }
     }
 
@@ -960,38 +968,21 @@ public class Player {//<--FIXME check javadoc from here-->
      */
     public int obtainingResourcesAfterPaying(Resource resource){
         if(payingResources.size() == 1){
-            int faith = 0;
-            int coin = 0;
-            int servant = 0;
-            int shield = 0;
-            int stone = 0;
-            ResourceProduction production = new ResourceProduction(0, 0, 0, 0,
-                    0, 0, 0, 0,
-                    0, 0, 0);
-            for (Production i : selectedProduction) {
-                production = production.sum(i.resourceProduction());
-            }
-            if (selectedDefaultProductionPower) {
-                production = production.sum(new ResourceProduction(0, 0, 0,
-                        0, 2, 0, 0, 0,
-                        0, 1, 0));
-            }
-            faith += production.getProductionFaith();
-            coin += production.getProductionCoin();
-            servant += production.getProductionServant();
-            shield += production.getProductionShield();
-            stone += production.getProductionStone();
+            ResourceProduction production = obtainResourceProductionOfWhatYouSelected();
+            int faith = production.getProductionFaith();
+            int coin = production.getProductionCoin();
+            int servant = production.getProductionServant();
+            int shield = production.getProductionShield();
+            int stone = production.getProductionStone();
             switch (resource){
                 case FAITH: return faith;
                 case COIN: return coin;
                 case SERVANT: return servant;
                 case SHIELD: return shield;
                 case STONE: return stone;
-                default: return 0;
             }
-        } else {
-            return 0;
         }
+        return 0;
     }
 
     /**
@@ -1018,11 +1009,100 @@ public class Player {//<--FIXME check javadoc from here-->
         }
         personalBoard.getStrongBox().add(resource, 1);
         obtainedGeneric = obtainedGeneric - 1;
-        if(obtainedGeneric <= 0){
-            selectedProduction = new ArrayList<>();
-            selectedDefaultProductionPower = false;
-            payingResources = new ArrayList<>();
+        reinitializeValuesIfObtainedGenerics();
+    }
+
+    /**
+     * This method sum DevelopmentCard cost of a certain DevelopmentCard
+     * @param costCoin the cost coin
+     * @param costServant the cost servant
+     * @param costShield the cost shield
+     * @param costStone the cost stone
+     * @param developmentCard the DevelopmentCard in question
+     */
+    private void sumDevelopmentCardCost(MyInt costCoin, MyInt costServant, MyInt costShield, MyInt costStone, DevelopmentCard developmentCard){
+        for(int i = 0; i < developmentCard.getCost().length; i++){
+            switch (developmentCard.getCost()[i]){
+                case COIN: costCoin.n += developmentCard.getCostNumber()[i];
+                    break;
+                case SERVANT: costServant.n += developmentCard.getCostNumber()[i];
+                    break;
+                case SHIELD: costShield.n += developmentCard.getCostNumber()[i];
+                    break;
+                case STONE: costStone.n += developmentCard.getCostNumber()[i];
+                    break;
+                default: break;
+            }
         }
+    }
+
+    /**
+     * This method update costs whit active discounts
+     * @param costCoin the cost coin
+     * @param costServant the cost servant
+     * @param costShield the cost shield
+     * @param costStone the cost stone
+     * @param activeDiscounts the list of discount
+     */
+    private void subActiveDiscounts(MyInt costCoin, MyInt costServant, MyInt costShield, MyInt costStone, Resource[] activeDiscounts){
+        for(Resource i : activeDiscounts){
+            if(i != null){
+                switch (i){
+                    case COIN: costCoin.n--;
+                        break;
+                    case SERVANT: costServant.n--;
+                        break;
+                    case SHIELD: costShield.n--;
+                        break;
+                    case STONE: costStone.n--;
+                        break;
+                    default: break;
+                }
+            }
+        }
+        compactCosts(costCoin, costServant, costShield, costStone);
+    }
+
+    /**
+     * This method compacts cost to 0 if they are minor
+     * @param costCoin the cost coin
+     * @param costServant the cost servant
+     * @param costShield the cost shield
+     * @param costStone the cost stone
+     */
+    private void compactCosts(MyInt costCoin, MyInt costServant, MyInt costShield, MyInt costStone){
+        if(costCoin.n < 0){
+            costCoin.n = 0;
+        }
+        if(costServant.n < 0){
+            costServant.n = 0;
+        }
+        if(costShield.n < 0){
+            costShield.n = 0;
+        }
+        if(costStone.n < 0){
+            costStone.n = 0;
+        }
+    }
+
+    /**
+     * this method tell you if you can buy a certain DevelopmentCard
+     * @param developmentCard: the DevelopmentCard in question
+     * @param costCoin: only optional return argument
+     * @param costServant: only optional return argument
+     * @param costShield: only optional return argument
+     * @param costStone: only optional return argument
+     * @return if you can buy this DevelopmentCard or not
+     */
+    private boolean canYouBuyThisDevelopmentCard(DevelopmentCard developmentCard, MyInt costCoin, MyInt costServant, MyInt costShield, MyInt costStone){
+        TotalResourcesPlayer totalResourcesPlayer = new TotalResourcesPlayer();
+        Resource[] activeDiscounts = getActiveDiscount();
+        sumDevelopmentCardCost(costCoin, costServant, costShield, costStone, developmentCard);
+        subActiveDiscounts(costCoin, costServant, costShield, costStone, activeDiscounts);
+        if(!(totalResourcesPlayer.coin < costCoin.n || totalResourcesPlayer.servant < costServant.n || totalResourcesPlayer.shield < costShield.n || totalResourcesPlayer.stone < costStone.n)){
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -1032,71 +1112,42 @@ public class Player {//<--FIXME check javadoc from here-->
      * @return true or false by all the checkings done as mention before
      */
     public boolean canYouBuyADevelopmentCard(){
-        boolean result = false;
         for(DevelopmentCard[] k : Game.get(gameIndex).getTable().getDevelopmentDeck().visualize()){
             for(DevelopmentCard j : k){
                 if(j != null){
-                    TotalResourcesPlayer totalResourcesPlayer = new TotalResourcesPlayer();
-                    int coin = totalResourcesPlayer.coin;
-                    int servant = totalResourcesPlayer.servant;
-                    int stone = totalResourcesPlayer.stone;
-                    int shield = totalResourcesPlayer.shield;
-                    Resource[] activeDiscounts = getActiveDiscount();
-                    int costCoin = 0;
-                    int costServant = 0;
-                    int costShield = 0;
-                    int costStone = 0;
-                    for(int i = 0; i < j.getCost().length; i++){
-                        switch (j.getCost()[i]){
-                            case COIN: costCoin += j.getCostNumber()[i];
-                                break;
-                            case SERVANT: costServant += j.getCostNumber()[i];
-                                break;
-                            case SHIELD: costShield += j.getCostNumber()[i];
-                                break;
-                            case STONE: costStone += j.getCostNumber()[i];
-                                break;
-                            default: break;
-                        }
-                    }
-                    for(Resource i : activeDiscounts){
-                        if(i != null){
-                            switch (i){
-                                case COIN: costCoin--;
-                                    break;
-                                case SERVANT: costServant--;
-                                    break;
-                                case SHIELD: costShield--;
-                                    break;
-                                case STONE: costStone--;
-                                    break;
-                                default: break;
-                            }
-                        }
-                    }
-                    if(costCoin < 0){
-                        costCoin = 0;
-                    }
-                    if(costServant < 0){
-                        costServant = 0;
-                    }
-                    if(costShield < 0){
-                        costShield = 0;
-                    }
-                    if(costStone < 0){
-                        costStone = 0;
-                    }
-                    coin -= costCoin;
-                    servant -= costServant;
-                    shield -= costShield;
-                    stone -= costStone;
-                    if(!(coin < 0 || servant < 0 || shield < 0 || stone < 0)){
-                        result = true;
+                    MyInt costCoin = new MyInt();
+                    MyInt costServant = new MyInt();
+                    MyInt costShield = new MyInt();
+                    MyInt costStone = new MyInt();
+                    if(canYouBuyThisDevelopmentCard(j, costCoin, costServant, costShield, costStone)){
+                        return true;
                     }
                 }
             }
         }
-        return result;
+        return false;
+    }
+
+    /**
+     * This method add paying resources when you buy a DevelopmentCard
+     * @param costCoin cost coin
+     * @param costServant cost servant
+     * @param costShield cost shield
+     * @param costStone cost stone
+     */
+    private void addPayingResources(MyInt costCoin, MyInt costServant, MyInt costShield, MyInt costStone){
+        for(int i = 0; i < costCoin.n; i++){
+            payingResources.add(Resource.COIN);
+        }
+        for(int i = 0; i < costServant.n; i++){
+            payingResources.add(Resource.SERVANT);
+        }
+        for(int i = 0; i < costShield.n; i++){
+            payingResources.add(Resource.SHIELD);
+        }
+        for(int i = 0; i < costStone.n; i++){
+            payingResources.add(Resource.STONE);
+        }
     }
 
     /**
@@ -1124,61 +1175,11 @@ public class Player {//<--FIXME check javadoc from here-->
         if(selectedDevelopmentCard == null){
             throw new DrawnFromEmptyDeckException();
         }
-        TotalResourcesPlayer totalResourcesPlayer = new TotalResourcesPlayer();
-        int coin = totalResourcesPlayer.coin;
-        int servant = totalResourcesPlayer.servant;
-        int stone = totalResourcesPlayer.stone;
-        int shield = totalResourcesPlayer.shield;
-        Resource[] activeDiscounts = getActiveDiscount();
-        int costCoin = 0;
-        int costServant = 0;
-        int costShield = 0;
-        int costStone = 0;
-        for(int i = 0; i < selectedDevelopmentCard.getCost().length; i++){
-            switch (selectedDevelopmentCard.getCost()[i]){
-                case COIN: costCoin += selectedDevelopmentCard.getCostNumber()[i];
-                    break;
-                case SERVANT: costServant += selectedDevelopmentCard.getCostNumber()[i];
-                    break;
-                case SHIELD: costShield += selectedDevelopmentCard.getCostNumber()[i];
-                    break;
-                case STONE: costStone += selectedDevelopmentCard.getCostNumber()[i];
-                    break;
-                default: break;
-            }
-        }
-        for(Resource i : activeDiscounts){
-            if(i != null){
-                switch (i){
-                    case COIN: costCoin--;
-                        break;
-                    case SERVANT: costServant--;
-                        break;
-                    case SHIELD: costShield--;
-                        break;
-                    case STONE: costStone--;
-                        break;
-                    default: break;
-                }
-            }
-        }
-        if(costCoin < 0){
-            costCoin = 0;
-        }
-        if(costServant < 0){
-            costServant = 0;
-        }
-        if(costShield < 0){
-            costShield = 0;
-        }
-        if(costStone < 0){
-            costStone = 0;
-        }
-        coin -= costCoin;
-        servant -= costServant;
-        shield -= costShield;
-        stone -= costStone;
-        if(coin < 0 || servant < 0 || shield < 0 || stone < 0){
+        MyInt costCoin = new MyInt();
+        MyInt costServant = new MyInt();
+        MyInt costShield = new MyInt();
+        MyInt costStone = new MyInt();
+        if(!canYouBuyThisDevelopmentCard(selectedDevelopmentCard, costCoin, costServant, costShield, costStone)){
             throw new NotAbleToBuyThisDevelopmentCardException();
         }
         if(!personalBoard.getSlotsDevelopmentCards().checkAbleToAddThisDevelopmentCard(selectedDevelopmentCard)){
@@ -1186,18 +1187,7 @@ public class Player {//<--FIXME check javadoc from here-->
         }
         obtainedDevelopmentCard = selectedDevelopmentCard;
         Game.get(gameIndex).getTable().getDevelopmentDeck().draw(xx,yy);
-        for(int i = 0; i < costCoin; i++){
-            payingResources.add(Resource.COIN);
-        }
-        for(int i = 0; i < costServant; i++){
-            payingResources.add(Resource.SERVANT);
-        }
-        for(int i = 0; i < costShield; i++){
-            payingResources.add(Resource.SHIELD);
-        }
-        for(int i = 0; i < costStone; i++){
-            payingResources.add(Resource.STONE);
-        }
+        addPayingResources(costCoin, costServant, costShield, costStone);
     }
 
     /**
@@ -1276,6 +1266,31 @@ public class Player {//<--FIXME check javadoc from here-->
     }
 
     /**
+     * This method add the bonus victoryPoints for resources you have
+     * @return the bonus victoryPoints for resources; of type int
+     */
+    private int addBonusResourcesToVictoryPoints(){
+        int numTotResources = 0;
+        numTotResources += getPersonalBoard().getStrongBox().getCoin();
+        numTotResources += getPersonalBoard().getStrongBox().getServant();
+        numTotResources += getPersonalBoard().getStrongBox().getStone();
+        numTotResources += getPersonalBoard().getStrongBox().getShield();
+        for(Resource i : getPersonalBoard().getWarehouseDepots().getResource()){
+            if(i != null){
+                numTotResources++;
+            }
+        }
+        for(LeaderCard i : cardsOnTable){
+            if(i != null && i.getWhatIAm() == LeaderCardType.STORAGE){
+                numTotResources += ((ExtraStorageLeaderCard)i).occupiedResources();
+            }
+        }
+        int rest = numTotResources % 5;
+        int dividend = numTotResources - rest;
+        return dividend / 5;
+    }
+
+    /**
      * this method return victory points of the player
      * @return victory points of the player
      */
@@ -1294,25 +1309,7 @@ public class Player {//<--FIXME check javadoc from here-->
                 result += i.getVictoryPoints();
             }
         }
-        int numTotResources = 0;
-        numTotResources += getPersonalBoard().getStrongBox().getCoin();
-        numTotResources += getPersonalBoard().getStrongBox().getServant();
-        numTotResources += getPersonalBoard().getStrongBox().getStone();
-        numTotResources += getPersonalBoard().getStrongBox().getShield();
-        for(Resource i : getPersonalBoard().getWarehouseDepots().getResource()){
-            if(i != null){
-                numTotResources++;
-            }
-        }
-        for(LeaderCard i : cardsOnTable){
-            if(i != null && i.getWhatIAm() == LeaderCardType.STORAGE){
-                numTotResources += ((ExtraStorageLeaderCard)i).occupiedResources();
-            }
-        }
-        int rest = numTotResources % 5;
-        int dividend = numTotResources - rest;
-        int bonusResources = dividend / 5;
-        result += bonusResources;
+        result += addBonusResourcesToVictoryPoints();
         return result;
     }
 

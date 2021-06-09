@@ -15,7 +15,6 @@ import it.polimi.ingsw.Table.Decks.Leader.ExtraStorageLeaderCard;
 import it.polimi.ingsw.Table.Decks.Leader.LeaderCard;
 import it.polimi.ingsw.Table.Market.Marbles.Marble;
 import it.polimi.ingsw.Table.Market.Market;
-
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
@@ -118,7 +117,11 @@ public class PlayerGame {
     private static ArrayList<FaithTrack> allFaithTrack = new ArrayList<>();
     private ArrayList<PlayerPlayer> players;
     private Market market;
+    private PrintWriter out;
 
+    /**
+     * Getter of this class
+     */
     public static ArrayList<FaithTrack> getAllFaithTrack(){
         return allFaithTrack;
     }
@@ -130,16 +133,12 @@ public class PlayerGame {
         return (ArrayList<PlayerPlayer>) players.clone();
     }
 
-
-
     /**
      * Getter of this class
      */
     public Market getMarket() {
         return market;
     }
-
-
 
     /**
      * Getter of this class
@@ -165,8 +164,6 @@ public class PlayerGame {
     public void setOut(PrintWriter out) {
         this.out = out;
     }
-
-    private PrintWriter out;
 
     /**
      * Constructor of this class

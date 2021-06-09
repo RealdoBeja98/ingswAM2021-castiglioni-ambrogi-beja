@@ -37,6 +37,26 @@ public class ResourceProduction {
     }
 
     /**
+     * This method return a new empty ResourceProduction
+     * @return a new empty ResourceProduction; of type ResourceProduction
+     */
+    public static ResourceProduction newEmptyResourceProduction(){
+        return new ResourceProduction(0, 0, 0, 0,
+                0, 0, 0, 0,
+                0, 0, 0);
+    }
+
+    /**
+     * This method return a new ResourceProduction representing the default production power
+     * @return a new ResourceProduction representing the default production power; of type ResourceProduction
+     */
+    public static ResourceProduction newDefaultProductionPowerResourceProduction(){
+        return new ResourceProduction(0, 0, 0,
+                0, 2, 0, 0, 0,
+                0, 1, 0);
+    }
+
+    /**
      * This method receives another ResourceProduction class and adds it to the current one, then create a new ResourceProduction with the newly generated parameter
      * @param summing: tells the method which ResourceProduction to add to the current class
      * @return a new class that has as attribute the sum of two ResourceProduction classes' attributes, of type ResourceProduction
@@ -142,4 +162,5 @@ public class ResourceProduction {
     public int getProductionFaith() {
         return productionFaith;
     }
+
 }
