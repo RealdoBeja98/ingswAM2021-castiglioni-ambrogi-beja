@@ -190,6 +190,7 @@ public class GuiThread extends Application implements Runnable{
                 out.println(message);
             }
         };
+        //<--FIXME--> Queste 4 righe che seguono si ripetono molte volte
         b.setOnAction(event);
         b.setLayoutX(x);
         b.setLayoutY(y);

@@ -99,22 +99,32 @@ public class WarehouseDepots {
     }
 
     /**
+     * This method return the first element not null of the array or return null if all elements of the array are null
+     * @param array: the array
+     * @param start: the first index to consider of the array
+     * @param finish: the index then the last index to consider of the array
+     * @return the first element not null of the array or null
+     */
+    private Resource firstNotNull(Resource[] array, int start, int finish){
+        Resource result;
+        for(int i = start; i < finish; i++){
+            result = array[i];
+            if(result != null){
+                return result;
+            }
+        }
+        return null;
+    }
+
+    /**
      * This method checks if the copied array, which has the element already swapped, respects all the rules
      * @return true if all the condition are verified, of type Boolean
      */
     private Boolean isCorrect(){
-        if(resource[1] != resource[2]){
-            if(resource[1] != null && resource[2] != null){
-                return false;
-            }
+        if(resource[1] != resource[2] && resource[1] != null && resource[2] != null){
+            return false;
         }
-        Resource thirdShelf = resource[3];
-        if(thirdShelf == null){
-            thirdShelf = resource[4];
-        }
-        if(thirdShelf == null){
-            thirdShelf = resource[5];
-        }
+        Resource thirdShelf = firstNotNull(resource, 3, 6);
         if(thirdShelf == null){
             return true;
         }

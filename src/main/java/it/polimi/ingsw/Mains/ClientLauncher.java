@@ -34,6 +34,8 @@ public class ClientLauncher {
     private static String[] arguments;
 
     public static void main(String[] args) {
+        //<--FIXME--> Fare i controlli dei parametri
+        //<--FIXME--> in base ai parametri il launcher decide se inizializzare un server o un main
         ClientLauncher.arguments = args;
         (new Thread() {
             @Override

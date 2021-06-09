@@ -193,7 +193,6 @@ public class PlayerGame {
             playerPlayer.slotsDevelopmentCards = new SlotsDevelopmentCards();
             players.add(playerPlayer);
         }
-
         if(playersAndCardsInHand.size() == 1){
             lorenzoTrack = new FaithTrackSP();
             allFaithTrack.add(lorenzoTrack);
@@ -366,14 +365,15 @@ public class PlayerGame {
      * @param warehousePosition destination
      */
     public void moveResourcesToWarehouseDepotsFromExtraStorageLeaderCard(String nickname, int leaderCardPosition, int warehousePosition){
+        PlayerPlayer playerPlayer = getPlayerPlayerFromNickname(nickname);
         try {
-            ((ExtraStorageLeaderCard)getPlayerPlayerFromNickname(nickname).cardsOnTable[leaderCardPosition-1]).removeResource();
+            ((ExtraStorageLeaderCard)playerPlayer.cardsOnTable[leaderCardPosition-1]).removeResource();
         } catch (EmptySlotExtraStorageLeaderCardException e) {
             e.printStackTrace();
         }
-        Resource resource = ((ExtraStorageLeaderCard)getPlayerPlayerFromNickname(nickname).cardsOnTable[leaderCardPosition-1]).getStorageType();
+        Resource resource = ((ExtraStorageLeaderCard)playerPlayer.cardsOnTable[leaderCardPosition-1]).getStorageType();
         try {
-            getPlayerPlayerFromNickname(nickname).warehouseDepots.addResource(resource, warehousePosition);
+            playerPlayer.warehouseDepots.addResource(resource, warehousePosition);
         } catch (PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException | IndexOutOfWarehouseDepotsException e) {
             e.printStackTrace();
         }
@@ -469,7 +469,6 @@ public class PlayerGame {
      * @param nickname name of the player
      */
     public void quitAPlayer(String nickname){
-        //System.out.println("The excluded player is: " + nickname);///////////////////
         for(int i = 0; i < players.size(); i++){
             if(players.get(i).nickname.equals(nickname)){
                 players.remove(i);

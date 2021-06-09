@@ -4,7 +4,6 @@ import it.polimi.ingsw.Exceptions.*;
 import it.polimi.ingsw.Messages.ForwardMessages.CurrentPlayerMessage;
 import it.polimi.ingsw.Messages.ForwardMessages.TransitionForwardMessage;
 import it.polimi.ingsw.Table.Decks.Token.ActionToken;
-
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
@@ -39,7 +38,6 @@ public class Turn {
             }
             n++;
         }
-
     }
 
     /**
@@ -194,13 +192,11 @@ public class Turn {
             throw new ActionNotAllowedException();
         }
         currentPlayer.playLeaderCard(pos);
-        //if(!currentPlayer.somethingToPay()){//this doesn't happen any more: no payment is required!
         if(currentPlayerState == InWhichStatePlayer.PLAY_LEADER_CARD1){
             currentPlayerState = InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT1;
         } else if(currentPlayerState == InWhichStatePlayer.PLAY_LEADER_CARD2){
             currentPlayerState = InWhichStatePlayer.CHOSE_ACTION_LEADER_OR_NOT2;
         }
-        //}//this doesn't happen any more: no payment is required!
     }
 
     /**
@@ -729,7 +725,7 @@ public class Turn {
                 ii.println("GAME_ENDED");
             }
             System.out.println("Game " + gameIndex + " ended!");
-            //throw new GameEndedException(); //commentato
+            //throw new GameEndedException(); //commented
         }
         if(!(currentPlayer.isHimFirstTurn()) && !transitionFromFirstTurnToNormalTurnsDone){
             transitionFromFirstTurnToNormalTurnsDone = true;

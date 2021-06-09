@@ -4,6 +4,7 @@ import it.polimi.ingsw.Enums.Type;
 import it.polimi.ingsw.Table.Decks.Card;
 import it.polimi.ingsw.Table.Decks.Production;
 import it.polimi.ingsw.Table.Decks.ResourceProduction;
+import it.polimi.ingsw.Utilities.ImportExport;
 import it.polimi.ingsw.Utilities.MyInt;
 
 /**
@@ -169,21 +170,7 @@ public class DevelopmentCard extends Card implements Production {
     public String export(){
         String result = "";
         for(Resource i: cost){
-            String toAdd = "";
-            switch (i){
-                case FAITH: toAdd = "0";
-                    break;
-                case COIN: toAdd = "1";
-                    break;
-                case STONE: toAdd = "2";
-                    break;
-                case SERVANT: toAdd = "3";
-                    break;
-                case SHIELD: toAdd = "4";
-                    break;
-                case WHITE: toAdd = "5";
-                    break;
-            }
+            String toAdd = ImportExport.exportResource(i);
             result = new StringBuilder().append(result).append(toAdd).toString();
         }
         result = new StringBuilder().append(result).append("!").toString();
@@ -191,37 +178,9 @@ public class DevelopmentCard extends Card implements Production {
             String toAdd = String.valueOf(i);
             result = new StringBuilder().append(result).append(toAdd).toString();
         }
-        result = new StringBuilder().append(result).append("!").toString();
-        switch (type){
-            case GREEN: result = new StringBuilder().append(result).append("g").toString();
-                break;
-            case BLUE: result = new StringBuilder().append(result).append("b").toString();
-                break;
-            case YELLOW: result = new StringBuilder().append(result).append("y").toString();
-                break;
-            case PURPLE: result = new StringBuilder().append(result).append("p").toString();
-                break;
-            default: break;
-        }
-        result = new StringBuilder().append(result).append("!").toString();
-        result = new StringBuilder().append(result).append(level).toString();
-        result = new StringBuilder().append(result).append("!").toString();
+        result = new StringBuilder().append(result).append("!").append(ImportExport.exportType(type)).append("!").append(level).append("!").toString();
         for(Resource i: requirements){
-            String toAdd = "";
-            switch (i){
-                case FAITH: toAdd = "0";
-                    break;
-                case COIN: toAdd = "1";
-                    break;
-                case STONE: toAdd = "2";
-                    break;
-                case SERVANT: toAdd = "3";
-                    break;
-                case SHIELD: toAdd = "4";
-                    break;
-                case WHITE: toAdd = "5";
-                    break;
-            }
+            String toAdd = ImportExport.exportResource(i);
             result = new StringBuilder().append(result).append(toAdd).toString();
         }
         result = new StringBuilder().append(result).append("!").toString();
@@ -231,21 +190,7 @@ public class DevelopmentCard extends Card implements Production {
         }
         result = new StringBuilder().append(result).append("!").toString();
         for(Resource i: products){
-            String toAdd = "";
-            switch (i){
-                case FAITH: toAdd = "0";
-                    break;
-                case COIN: toAdd = "1";
-                    break;
-                case STONE: toAdd = "2";
-                    break;
-                case SERVANT: toAdd = "3";
-                    break;
-                case SHIELD: toAdd = "4";
-                    break;
-                case WHITE: toAdd = "5";
-                    break;
-            }
+            String toAdd = ImportExport.exportResource(i);
             result = new StringBuilder().append(result).append(toAdd).toString();
         }
         result = new StringBuilder().append(result).append("!").toString();
@@ -253,8 +198,7 @@ public class DevelopmentCard extends Card implements Production {
             String toAdd = String.valueOf(i);
             result = new StringBuilder().append(result).append(toAdd).toString();
         }
-        result = new StringBuilder().append(result).append("!").toString();
-        result = new StringBuilder().append(result).append(victoryPoints).toString();
+        result = new StringBuilder().append(result).append("!").append(victoryPoints).toString();
         return result;
     }
 
@@ -267,51 +211,19 @@ public class DevelopmentCard extends Card implements Production {
         cost = new Resource[strings[0].length()];
         for(int i = 0; i < strings[0].length(); i++){
             String toAdd = strings[0].substring(i, i+1);
-            if(toAdd.equals("0")){
-                cost[i] = Resource.FAITH;
-            } else if(toAdd.equals("1")){
-                cost[i] = Resource.COIN;
-            } else if(toAdd.equals("2")){
-                cost[i] = Resource.STONE;
-            } else if(toAdd.equals("3")){
-                cost[i] = Resource.SERVANT;
-            } else if(toAdd.equals("4")){
-                cost[i] = Resource.SHIELD;
-            } else if(toAdd.equals("5")){
-                cost[i] = Resource.WHITE;
-            }
+            cost[i] = ImportExport.importResource(toAdd);
         }
         costNumber = new int[strings[1].length()];
         for(int i = 0; i < strings[1].length(); i++){
             String toAdd = strings[1].substring(i, i+1);
             costNumber[i] = Integer.parseInt(toAdd);
         }
-        if(strings[2].equals("g")){
-            type = Type.GREEN;
-        } else if(strings[2].equals("b")){
-            type = Type.BLUE;
-        } else if(strings[2].equals("y")){
-            type = Type.YELLOW;
-        } else {
-            type = Type.PURPLE;
-        }
+        type = ImportExport.importType(strings[2]);
         level = Integer.parseInt(strings[3]);
         requirements = new Resource[strings[4].length()];
         for(int i = 0; i < strings[4].length(); i++){
             String toAdd = strings[4].substring(i, i+1);
-            if(toAdd.equals("0")){
-                requirements[i] = Resource.FAITH;
-            } else if(toAdd.equals("1")){
-                requirements[i] = Resource.COIN;
-            } else if(toAdd.equals("2")){
-                requirements[i] = Resource.STONE;
-            } else if(toAdd.equals("3")){
-                requirements[i] = Resource.SERVANT;
-            } else if(toAdd.equals("4")){
-                requirements[i] = Resource.SHIELD;
-            } else if(toAdd.equals("5")){
-                requirements[i] = Resource.WHITE;
-            }
+            requirements[i] = ImportExport.importResource(toAdd);
         }
         costRequirements = new int[strings[5].length()];
         for(int i = 0; i < strings[5].length(); i++){
@@ -321,19 +233,7 @@ public class DevelopmentCard extends Card implements Production {
         products = new Resource[strings[6].length()];
         for(int i = 0; i < strings[6].length(); i++){
             String toAdd = strings[6].substring(i, i+1);
-            if(toAdd.equals("0")){
-                products[i] = Resource.FAITH;
-            } else if(toAdd.equals("1")){
-                products[i] = Resource.COIN;
-            } else if(toAdd.equals("2")){
-                products[i] = Resource.STONE;
-            } else if(toAdd.equals("3")){
-                products[i] = Resource.SERVANT;
-            } else if(toAdd.equals("4")){
-                products[i] = Resource.SHIELD;
-            } else if(toAdd.equals("5")){
-                products[i] = Resource.WHITE;
-            }
+            products[i] = ImportExport.importResource(toAdd);
         }
         costProducts = new int[strings[7].length()];
         for(int i = 0; i < strings[7].length(); i++){

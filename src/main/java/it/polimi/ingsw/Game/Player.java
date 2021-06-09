@@ -10,10 +10,11 @@ import it.polimi.ingsw.Table.Market.Marbles.Faith;
 import it.polimi.ingsw.Table.Market.Marbles.Marble;
 import it.polimi.ingsw.Table.Market.Marbles.White;
 import it.polimi.ingsw.Utilities.MyInt;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+//<--FIXME--> non mettere l'else se fa return o throw (controllare un po' tutti i metodi di questa classe)
 
 /**
  * This Class represents the player
@@ -308,6 +309,7 @@ public class Player {//<--FIXME check javadoc from here-->
      * This method tell if the player is able to pay at least a leader card in his hand
      * @return if the player the player is able to pay at least a leader card in his hand
      */
+    //<--FIXME--> Controllare questo metodo se può essere migliorato
     public boolean canYouPlayAtLeastALeaderCard(){
         boolean result = false;
         for(LeaderCard i : cardsInHand){
@@ -350,6 +352,7 @@ public class Player {//<--FIXME check javadoc from here-->
      * @throws PositionInvalidException if the position isn't 1 or 2
      * @throws NotSatisfiedRequirementsForThisLeaderCardException if the player isn't able to play the card
      */
+    //<--FIXME--> Controllare questo metodo se può essere migliorato
     public void playLeaderCard(int pos) throws NotSatisfiedRequirementsForThisLeaderCardException, PositionInvalidException {
         if(pos < 1 || pos > 2){
             throw new PositionInvalidException();

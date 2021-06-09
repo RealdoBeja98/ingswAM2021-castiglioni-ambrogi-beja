@@ -5,6 +5,7 @@ import it.polimi.ingsw.Exceptions.DrawnFromEmptyDeckException;
 import it.polimi.ingsw.Exceptions.IndexOutOfDevelopmentDeckException;
 import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Table.Decks.Development.DevelopmentCard;
+import it.polimi.ingsw.Utilities.ObtainIntValueFromLong;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -152,23 +153,14 @@ public class DevelopmentDeck{
     private void discardFromColumn(int column) {
         int[][] decksTrack = numbersOfCardsLeft();
         int row = 2;
-        if(decksTrack[row][column] != 0){
-            deck[row][column][deep - decksTrack[row][column]] = null;
-            return;
-        } else {
+        for(int i = 0; i < 3; i++){
+            if(decksTrack[row][column] != 0){
+                deck[row][column][deep - decksTrack[row][column]] = null;
+                return;
+            }
             row--;
         }
-        if(decksTrack[row][column] != 0){
-            deck[row][column][deep - decksTrack[row][column]] = null;
-            return;
-        } else {
-            row--;
-        }
-        if(decksTrack[row][column] != 0){
-            deck[row][column][deep - decksTrack[row][column]] = null;
-        } else {
-            Game.get(gameIndex).endGame();
-        }
+        Game.get(gameIndex).endGame();
     }
 
     /**
@@ -276,12 +268,12 @@ public class DevelopmentDeck{
                 Resource[] cost = addCost(i);
                 int[] costNumber = addCostNumber(i);
                 Type type = Type.valueOf((String)((JSONObject) i).get("type"));
-                int level = (int)((Long) ((JSONObject) i).get("level")).longValue();
+                int level = ObtainIntValueFromLong.f((Long) ((JSONObject) i).get("level"));
                 Resource[] requirements = addRequirements(i);
                 int[] costRequirements = addCostRequirements(i);
                 Resource[] products = addProducts(i);
                 int[] costProducts = addCostProducts(i);
-                int victoryPoints = (int)((Long) ((JSONObject) i).get("victoryPoints")).longValue();
+                int victoryPoints = ObtainIntValueFromLong.f((Long) ((JSONObject) i).get("victoryPoints"));
                 DevelopmentCard developmentCard = new DevelopmentCard(cost, costNumber, type, level, requirements, costRequirements, products, costProducts, victoryPoints);
                 developmentCardsToAdd.add(developmentCard);
             }

@@ -9,6 +9,7 @@ import it.polimi.ingsw.Mains.ClientMain;
 public class FaithTrackSP extends FaithTrack{
 
     private static boolean isSetForClient = false;
+    private final static int faithTrackCells = 24;
 
     public static void setForClient(){
         FaithTrackSP.isSetForClient = true;
@@ -35,11 +36,11 @@ public class FaithTrackSP extends FaithTrack{
     @Override
     public void goOn(int n){
         if(!FaithTrackSP.isSetForClient){
-            if(!(Game.get(gameIndex).getPlayers().get(0).getPersonalBoard().getFaithTrack().getFaithMarker() == 24)){
+            if(!(Game.get(gameIndex).getPlayers().get(0).getPersonalBoard().getFaithTrack().getFaithMarker() == faithTrackCells)){
                 super.goOn(n);
             }
         } else {
-            if(!(ClientMain.getPlayerGame().getPlayers().get(0).getFaithTrack().getFaithMarker() == 24)){
+            if(!(ClientMain.getPlayerGame().getPlayers().get(0).getFaithTrack().getFaithMarker() == faithTrackCells)){
                 super.goOn(n);
             }
         }

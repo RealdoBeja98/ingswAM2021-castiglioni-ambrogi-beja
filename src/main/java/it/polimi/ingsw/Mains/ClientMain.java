@@ -206,6 +206,16 @@ public class ClientMain {
         }
     }
 
+    private void passArgsToServer(String[] args, PrintWriter out){
+        int i = 2;
+        String init;
+        while (i <= 4) {
+            init = args[i];
+            out.println(init);
+            i++;
+        }
+    }
+
     /**
      * This is the main method which allows the player
      * to choose between cli or gui version
@@ -216,61 +226,54 @@ public class ClientMain {
 
         ClientMain.instance = this;
 
-        try {
+        String hostName = args[0];
+        int portNumber = integerToAscii(args[1]);
+        clientNick = args[4];
 
-            String hostName = args[0];
-            int portNumber = integerToAscii(args[1]);
-            clientNick = args[4];
-
-            if(args[5].equals("-GUI")){
+        if (args[5].equals("-GUI")) {
+            try {
                 initializeGui();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
+        }
 
-            try (
-                    Socket echoSocket = new Socket(hostName, portNumber); //creo socket e mi connetto alla .accept
-                    PrintWriter out = new PrintWriter(echoSocket.getOutputStream(), true);//scrive sul canale main
-                    BufferedReader in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream())); // legge dal canale sopra
-                    BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in)) //scanf
-            ) {
-                GuiThread.setOut(out);
+        try (
+                Socket echoSocket = new Socket(hostName, portNumber); //creo socket e mi connetto alla .accept
+                PrintWriter out = new PrintWriter(echoSocket.getOutputStream(), true);//scrive sul canale main
+                BufferedReader in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream())); // legge dal canale sopra
+                BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in)) //scanf
+        ) {
+            GuiThread.setOut(out);
 
-                //<--FIXME--> questa parte non può essere spostata nel ClientLauncher
-                //
-                int i = 2;
-                String init;
-                while (i <= 4) {
-                    init = args[i];
-                    out.println(init);
-                    i++;
-                }
-                //
+            passArgsToServer(args, out);
 
-                joiningGame(in);
+            joiningGame(in);
 
-                setNameInTheServer(in);
+            setNameInTheServer(in);
 
-                MessageThread messageThread = new MessageThread(out, in);
-                Thread mt = new Thread(messageThread);
-                mt.start();
+            MessageThread messageThread = new MessageThread(out, in);
+            Thread mt = new Thread(messageThread);
+            mt.start();
 
-                if(guiSet){
+            if (guiSet) {
+                try {
                     mt.join();
-                    return;
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-
-                scanf(stdIn, out);
-
-            } catch (UnknownHostException e) {
-                System.err.println("Don't know about host " + hostName);
-                System.exit(1);
-            } catch (IOException e) {
-                System.err.println("Couldn't get I/O for the connection to " +
-                        hostName);
-                System.exit(2);
+                return;
             }
 
-        } catch (Exception e){
-            System.out.println("Unexpected problem");
+            scanf(stdIn, out);
+
+        } catch (UnknownHostException e) {
+            System.err.println("Don't know about host " + hostName);
+            System.exit(1);
+        } catch (IOException e) {
+            System.err.println("Couldn't get I/O for the connection to " +
+                    hostName);
+            System.exit(2);
         }
 
     }

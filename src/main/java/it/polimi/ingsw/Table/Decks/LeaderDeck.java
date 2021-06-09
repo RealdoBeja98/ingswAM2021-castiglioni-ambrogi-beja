@@ -28,7 +28,16 @@ public class LeaderDeck {
         Collections.shuffle(deck);
     }
 
-
+    /**
+     * This method let to obtain the cost of leader card to add
+     * @param i: an Object of the JSONArray
+     * @return the obtained cost of LeaderCard; of type Type[]
+     */
+    private Type[] obtainCostOfLeaderCard(Object i){
+        JSONArray temp = (JSONArray) ((JSONObject) i).get("costOfLeaderCard");
+        Type[] obtainedCostOfLeaderCard = {Type.valueOf((String)temp.get(0)), Type.valueOf((String)temp.get(1))};
+        return obtainedCostOfLeaderCard;
+    }
 
     /**
      * this method add a leader card
@@ -36,27 +45,26 @@ public class LeaderDeck {
      * @param victoryPoints: the number of victory points
      */
     private void putACard(Object i, int victoryPoints){
+        Type[] obtainedCostOfLeaderCard;
         switch ((String)(((JSONObject) i).get("whatIAm"))){
             case "DISCOUNT":
-                JSONArray temp1 = (JSONArray) ((JSONObject) i).get("costOfLeaderCard");
-                Type[] temp2 = {Type.valueOf((String)temp1.get(0)), Type.valueOf((String)temp1.get(1))};
-                deck.add(new DiscountLeaderCard(victoryPoints, Resource.valueOf((String)((JSONObject) i).get("discount")), temp2));
+                obtainedCostOfLeaderCard = obtainCostOfLeaderCard(i);
+                deck.add(new DiscountLeaderCard(victoryPoints, Resource.valueOf((String)((JSONObject) i).get("discount")), obtainedCostOfLeaderCard));
                 break;
             case "WHITE":
-                JSONArray temp3 = (JSONArray) ((JSONObject) i).get("costOfLeaderCard");
-                Type[] temp4 = {Type.valueOf((String)temp3.get(0)), Type.valueOf((String)temp3.get(1))};
+                obtainedCostOfLeaderCard = obtainCostOfLeaderCard(i);
                 switch ((String)(((JSONObject) i).get("whiteMarble"))){
                     case "Servant":
-                        deck.add(new WhiteMarbleLeaderCard(victoryPoints, temp4, new Servant()));
+                        deck.add(new WhiteMarbleLeaderCard(victoryPoints, obtainedCostOfLeaderCard, new Servant()));
                         break;
                     case "Shield":
-                        deck.add(new WhiteMarbleLeaderCard(victoryPoints, temp4, new Shield()));
+                        deck.add(new WhiteMarbleLeaderCard(victoryPoints, obtainedCostOfLeaderCard, new Shield()));
                         break;
                     case "Stone":
-                        deck.add(new WhiteMarbleLeaderCard(victoryPoints, temp4, new Stone()));
+                        deck.add(new WhiteMarbleLeaderCard(victoryPoints, obtainedCostOfLeaderCard, new Stone()));
                         break;
                     case "Coin":
-                        deck.add(new WhiteMarbleLeaderCard(victoryPoints, temp4, new Coin()));
+                        deck.add(new WhiteMarbleLeaderCard(victoryPoints, obtainedCostOfLeaderCard, new Coin()));
                         break;
                     default: break;
                 }

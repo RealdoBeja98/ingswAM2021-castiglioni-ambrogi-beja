@@ -12,19 +12,20 @@ import it.polimi.ingsw.Utilities.MyInt;
 public class SlotsDevelopmentCards {
 
     private static final int unusefulGameIndex = -1;
-
-
     private DevelopmentCard[][] slot;
     private DevelopmentCard[] activeCards;
     private final int gameIndex;
+    private final int numberOfSlots = 3;
+    private final int maxCardsPerSlot = 3;
+    private final int maxLevel = 3;
 
     /**
      * Constructor method of this class
      */
     public SlotsDevelopmentCards(int gameIndex){
         this.gameIndex = gameIndex;
-        activeCards = new DevelopmentCard[3];
-        slot = new DevelopmentCard[3][3];
+        activeCards = new DevelopmentCard[numberOfSlots];
+        slot = new DevelopmentCard[numberOfSlots][maxCardsPerSlot];
         for(int i = 0; i < 3; i++){
             for(int j = 0; j < 3; j++){
                 slot[i][j] = null;
@@ -37,10 +38,10 @@ public class SlotsDevelopmentCards {
      */
     public SlotsDevelopmentCards(){
         this.gameIndex = unusefulGameIndex;
-        activeCards = new DevelopmentCard[3];
-        slot = new DevelopmentCard[3][3];
-        for(int i = 0; i < 3; i++){
-            for(int j = 0; j < 3; j++){
+        activeCards = new DevelopmentCard[numberOfSlots];
+        slot = new DevelopmentCard[numberOfSlots][maxCardsPerSlot];
+        for(int i = 0; i < numberOfSlots; i++){
+            for(int j = 0; j < maxCardsPerSlot; j++){
                 slot[i][j] = null;
             }
         }
@@ -71,8 +72,8 @@ public class SlotsDevelopmentCards {
      */
     private void seventhSlotOccupied() {
         int count = 0;
-        for(int i = 0; i < 3; i++){
-            for(int j = 0; j < 3; j++){
+        for(int i = 0; i < numberOfSlots; i++){
+            for(int j = 0; j < maxCardsPerSlot; j++){
                 if(slot[i][j] != null){
                     count++;
                 }
@@ -111,8 +112,8 @@ public class SlotsDevelopmentCards {
     public void viewActiveCards(){
         int col = 0;
         int rig = 0;
-        while(col < 3){
-            while(rig < 3 && slot[rig][col] == null){
+        while(col < numberOfSlots){
+            while(rig < maxCardsPerSlot && slot[rig][col] == null){
                 rig++;
             }
             if(rig >=3){
@@ -132,8 +133,8 @@ public class SlotsDevelopmentCards {
      */
     public int victoryPoints(){
         int victoryPoints = 0;
-        for(int i = 0; i < 3; i++){
-            for(int j = 0; j < 3; j++){
+        for(int i = 0; i < numberOfSlots; i++){
+            for(int j = 0; j < maxCardsPerSlot; j++){
                 if(slot[i][j] != null){
                     victoryPoints += slot[i][j].getVictoryPoints();
                 }
@@ -180,14 +181,14 @@ public class SlotsDevelopmentCards {
      */
     public boolean checkAbleToAddThisDevelopmentCard(DevelopmentCard developmentCard){
         int level = developmentCard.getLevel();
-        int antiLevel = 3 - level;
-        for(int i = 0; i < 3; i++){
+        int antiLevel = maxLevel - level;
+        for(int i = 0; i < numberOfSlots; i++){
             if(slot[antiLevel][i] == null){
                 if(level == 1){
                     return true;
                 } else {
                     int previousLevel = level - 1;
-                    int previousAntiLevel = 3 - previousLevel;
+                    int previousAntiLevel = maxLevel - previousLevel;
                     if(slot[previousAntiLevel][i] != null){
                         return true;
                     }
