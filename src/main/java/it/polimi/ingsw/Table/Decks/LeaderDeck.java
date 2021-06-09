@@ -28,6 +28,8 @@ public class LeaderDeck {
         Collections.shuffle(deck);
     }
 
+
+
     /**
      * this method add a leader card
      * @param i: an Object of the JSONArray

@@ -23,7 +23,7 @@ while (i <= 4) {
 
  */
 
-//<--FIXME--> Fare il controllo dei parametri -- Atenzione che c'è una parte che non può essere spostata qui: vedi il FIXME in ClientMain
+//<--FIXME fare un parser che vede che modalità, porta e ip
 
 /**
  * Is the main of client
