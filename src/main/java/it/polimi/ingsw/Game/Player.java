@@ -1,7 +1,6 @@
 package it.polimi.ingsw.Game;
 import it.polimi.ingsw.Enums.*;
 import it.polimi.ingsw.Exceptions.*;
-import it.polimi.ingsw.Messages.ForwardMessages.ShowCurrentBoardMessage;
 import it.polimi.ingsw.Table.Decks.*;
 import it.polimi.ingsw.PersonalBoard.PersonalBoard;
 import it.polimi.ingsw.Table.Decks.Development.DevelopmentCard;
@@ -10,8 +9,8 @@ import it.polimi.ingsw.Table.Decks.Token.ActionToken;
 import it.polimi.ingsw.Table.Market.Marbles.Faith;
 import it.polimi.ingsw.Table.Market.Marbles.Marble;
 import it.polimi.ingsw.Table.Market.Marbles.White;
+import it.polimi.ingsw.Utilities.MyInt;
 
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -174,58 +173,95 @@ public class Player {//<--FIXME check javadoc from here-->
         private final int stone;
 
         /**
-         * Constructor method of this class
+         * this method add to the total your resource from the Strongbox
+         * @param coin: number of coin
+         * @param servant: number of servant
+         * @param shield: number of shield
+         * @param stone: number of stone
          */
-        private TotalResourcesPlayer(){
-            int coin = personalBoard.getStrongBox().getCoin();
-            int servant = personalBoard.getStrongBox().getServant();
-            int shield = personalBoard.getStrongBox().getShield();
-            int stone = personalBoard.getStrongBox().getStone();
+        private void addStrongboxToTotal(MyInt coin, MyInt servant, MyInt shield, MyInt stone){
+            coin.n = personalBoard.getStrongBox().getCoin();
+            servant.n = personalBoard.getStrongBox().getServant();
+            shield.n = personalBoard.getStrongBox().getShield();
+            stone.n = personalBoard.getStrongBox().getStone();
+        }
+
+        /**
+         * this method add to the total your resource from the WarehouseDepots
+         * @param coin: number of coin
+         * @param servant: number of servant
+         * @param shield: number of shield
+         * @param stone: number of stone
+         */
+        private void addWarehouseDepotsToTotal(MyInt coin, MyInt servant, MyInt shield, MyInt stone){
             Resource[] warehouseDepots = personalBoard.getWarehouseDepots().getResource();
             for (Resource i : warehouseDepots) {
                 if(i != null){
                     switch (i) {
                         case COIN:
-                            coin++;
+                            coin.n++;
                             break;
                         case SERVANT:
-                            servant++;
+                            servant.n++;
                             break;
                         case SHIELD:
-                            shield++;
+                            shield.n++;
                             break;
                         case STONE:
-                            stone++;
+                            stone.n++;
                             break;
                         default:
                             break;
                     }
                 }
             }
+        }
+
+        /**
+         * this method add to the total your resource from the leader card that you have
+         * @param coin: number of coin
+         * @param servant: number of servant
+         * @param shield: number of shield
+         * @param stone: number of stone
+         */
+        private void addExtraStorageLeaderCardToTotal(MyInt coin, MyInt servant, MyInt shield, MyInt stone){
             for (LeaderCard i : cardsOnTable) {
                 if (i != null && i instanceof ExtraStorageLeaderCard) {
                     switch (((ExtraStorageLeaderCard) i).getStorageType()) {
                         case COIN:
-                            coin += ((ExtraStorageLeaderCard) i).occupiedResources();
+                            coin.n += ((ExtraStorageLeaderCard) i).occupiedResources();
                             break;
                         case SERVANT:
-                            servant += ((ExtraStorageLeaderCard) i).occupiedResources();
+                            servant.n += ((ExtraStorageLeaderCard) i).occupiedResources();
                             break;
                         case SHIELD:
-                            shield += ((ExtraStorageLeaderCard) i).occupiedResources();
+                            shield.n += ((ExtraStorageLeaderCard) i).occupiedResources();
                             break;
                         case STONE:
-                            stone += ((ExtraStorageLeaderCard) i).occupiedResources();
+                            stone.n += ((ExtraStorageLeaderCard) i).occupiedResources();
                             break;
                         default:
                             break;
                     }
                 }
             }
-            this.coin = coin;
-            this.servant = servant;
-            this.shield = shield;
-            this.stone = stone;
+        }
+
+        /**
+         * Constructor method of this class
+         */
+        private TotalResourcesPlayer(){
+            MyInt coin = new MyInt();
+            MyInt servant = new MyInt();
+            MyInt shield = new MyInt();
+            MyInt stone = new MyInt();
+            addStrongboxToTotal(coin, servant, shield, stone);
+            addWarehouseDepotsToTotal(coin, servant, shield, stone);
+            addExtraStorageLeaderCardToTotal(coin, servant, shield, stone);
+            this.coin = coin.n;
+            this.servant = servant.n;
+            this.shield = shield.n;
+            this.stone = stone.n;
         }
 
     }
@@ -241,33 +277,31 @@ public class Player {//<--FIXME check javadoc from here-->
         int servant = totalResourcesPlayer.servant;
         int stone = totalResourcesPlayer.stone;
         int shield = totalResourcesPlayer.shield;
+        boolean youHaveAtLeastTheRequiredResources = false;
         switch (resource){
             case COIN:
                 if(coin >= 5){
-                    return true;
-                } else {
-                    return false;
+                    youHaveAtLeastTheRequiredResources = true;
                 }
+                break;
             case SERVANT:
                 if(servant >= 5){
-                    return true;
-                } else {
-                    return false;
+                    youHaveAtLeastTheRequiredResources = true;
                 }
+                break;
             case STONE:
                 if(stone >= 5){
-                    return true;
-                } else {
-                    return false;
+                    youHaveAtLeastTheRequiredResources = true;
                 }
+                break;
             case SHIELD:
                 if(shield >= 5){
-                    return true;
-                } else {
-                    return false;
+                    youHaveAtLeastTheRequiredResources = true;
                 }
+                break;
             default: return false;
         }
+        return youHaveAtLeastTheRequiredResources;
     }
 
     /**
@@ -303,8 +337,7 @@ public class Player {//<--FIXME check javadoc from here-->
                             result = true;
                         }
                         break;
-                    default:
-                        throw new RuntimeException();
+                    default: throw new RuntimeException();
                 }
             }
         }
@@ -313,7 +346,6 @@ public class Player {//<--FIXME check javadoc from here-->
 
     /**
      * This method let the player to put on the table a leader card that was in his hand
-     * in case the player select a StorageLeaderCard, the list payingResources --is not any more-- updated with the resources the player has to pay (there isn't any payment)
      * @param pos: number 1 or 2 to determinate the position of the leader card in hand to play
      * @throws PositionInvalidException if the position isn't 1 or 2
      * @throws NotSatisfiedRequirementsForThisLeaderCardException if the player isn't able to play the card
@@ -321,8 +353,7 @@ public class Player {//<--FIXME check javadoc from here-->
     public void playLeaderCard(int pos) throws NotSatisfiedRequirementsForThisLeaderCardException, PositionInvalidException {
         if(pos < 1 || pos > 2){
             throw new PositionInvalidException();
-        }
-        else{
+        } else {
             switch(cardsInHand[pos-1].getWhatIAm()) {
                 case DISCOUNT:
                     if(!personalBoard.getSlotsDevelopmentCards().checkHaveTypes(((DiscountLeaderCard)cardsInHand[pos-1]).getCostOfLeaderCard())){
@@ -332,9 +363,6 @@ public class Player {//<--FIXME check javadoc from here-->
                 case STORAGE:
                     if(!checkToHaveAtLeastFiveOfThisResource(((ExtraStorageLeaderCard)cardsInHand[pos-1]).getCostOfLeaderCard())){
                         throw new NotSatisfiedRequirementsForThisLeaderCardException();
-                    }
-                    for(int i = 0; i < 5; i++){
-                        //payingResources.add(((ExtraStorageLeaderCard)cardsInHand[pos-1]).getCostOfLeaderCard());//this doesn't happen any more: no payment is required!
                     }
                     break;
                 case PRODUCTIONPOWER:
@@ -351,8 +379,7 @@ public class Player {//<--FIXME check javadoc from here-->
                         throw new NotSatisfiedRequirementsForThisLeaderCardException();
                     }
                     break;
-                default:
-                    throw new RuntimeException();
+                default: throw new RuntimeException();
             }
             cardsOnTable[pos-1] = cardsInHand[pos-1];
             cardsInHand[pos-1] = null;
@@ -368,43 +395,29 @@ public class Player {//<--FIXME check javadoc from here-->
      * @param pos: to choose the position of the row or of the column
      * @throws PositionInvalidException if the selected row or column is invalid
      * @throws NullEnumException if you pass a null pointer instead of selecting row or column
+     * @throws NoWhiteMarbleLeaderCardException if an unexpectedly it fails to obtain the WhiteMarbleLeaderCard
      */
-    public void takeResourcesFromTheMarket(RowColumn rowColumn, int pos) throws PositionInvalidException, NullEnumException {
+    public void takeResourcesFromTheMarket(RowColumn rowColumn, int pos) throws PositionInvalidException, NullEnumException, NoWhiteMarbleLeaderCardException {
         List<Marble> obtainedMarbles;
-        if (rowColumn == RowColumn.COLUMN){
-            if(pos < 1 || pos > 4){
-                throw new PositionInvalidException();
-            }
-            else{
+        switch (rowColumn){
+            case COLUMN:
                 obtainedMarbles = Arrays.asList(Game.get(gameIndex).getTable().getMarket().chooseColumn(pos-1));
-            }
-        }
-        else if(rowColumn == RowColumn.ROW){
-            if(pos < 1 || pos > 3){
-                throw new PositionInvalidException();
-            }else{
+                break;
+            case ROW:
                 obtainedMarbles = Arrays.asList(Game.get(gameIndex).getTable().getMarket().chooseRow(pos-1));
-            }
-        } else {
-            throw new NullEnumException();
+                break;
+            default: throw new NullEnumException();
         }
         for(Marble i : obtainedMarbles){
             if(i instanceof Faith){
                 i.putResource(personalBoard.getFaithTrack());
-            }
-            else if(i instanceof White){
+            } else if(i instanceof White){
                 if(numberOfWhiteMarbleLeaderCard() == 1){
-                    try {
-                        marblesFromTheMarket.add(getWhiteMarbleLeaderCard().getWhiteMarble());
-                    } catch (NoWhiteMarbleLeaderCardException e) {
-                        e.printStackTrace();
-                    }
-                }
-                else if(numberOfWhiteMarbleLeaderCard() >= 2){
+                    marblesFromTheMarket.add(getWhiteMarbleLeaderCard().getWhiteMarble());
+                } else if(numberOfWhiteMarbleLeaderCard() >= 2){
                     marblesFromTheMarket.add(i);
                 }
-            }
-            else{
+            } else {
                 marblesFromTheMarket.add(i);
             }
         }

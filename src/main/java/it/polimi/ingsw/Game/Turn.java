@@ -244,8 +244,9 @@ public class Turn {
      * @throws ActionNotAllowedException if this action isn't allowed in this moment
      * @throws PositionInvalidException if the selected row or column is invalid
      * @throws NullEnumException if there is a null pointer instead of a row or column
+     * @throws NoWhiteMarbleLeaderCardException if an unexpectedly it fails to obtain the WhiteMarbleLeaderCard
      */
-    public void takeResourcesFromTheMarket(RowColumn rowColumn, int pos) throws ActionNotAllowedException, PositionInvalidException, NullEnumException {
+    public void takeResourcesFromTheMarket(RowColumn rowColumn, int pos) throws ActionNotAllowedException, PositionInvalidException, NullEnumException, NoWhiteMarbleLeaderCardException {
         if(currentPlayer.isHimFirstTurn()){
             throw new ActionNotAllowedException();
         }

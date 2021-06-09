@@ -1,5 +1,7 @@
 package it.polimi.ingsw.Table.Market;
 import static org.junit.jupiter.api.Assertions.*;
+
+import it.polimi.ingsw.Exceptions.PositionInvalidException;
 import it.polimi.ingsw.Table.Market.Marbles.Marble;
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +18,12 @@ public class MarketTest {
         Market market = new Market();
         Marble[][] oldMarketTray = market.getMarketTray();
         Marble oldExtraMarble = market.getExtraMarble();
-        Marble[] chosenMarbles = market.chooseColumn(1);
+        Marble[] chosenMarbles = new Marble[0];
+        try {
+            chosenMarbles = market.chooseColumn(1);
+        } catch (PositionInvalidException e) {
+            fail();
+        }
         assertSame(chosenMarbles[0], oldMarketTray[0][1]);
         assertSame(chosenMarbles[1], oldMarketTray[1][1]);
         assertSame(chosenMarbles[2], oldMarketTray[2][1]);
@@ -35,7 +42,12 @@ public class MarketTest {
         Market market = new Market();
         Marble[][] oldMarketTray = market.getMarketTray();
         Marble oldExtraMarble = market.getExtraMarble();
-        Marble[] chosenMarbles = market.chooseRow(2);
+        Marble[] chosenMarbles = new Marble[0];
+        try {
+            chosenMarbles = market.chooseRow(2);
+        } catch (PositionInvalidException e) {
+            fail();
+        }
         assertSame(chosenMarbles[0], oldMarketTray[2][0]);
         assertSame(chosenMarbles[1], oldMarketTray[2][1]);
         assertSame(chosenMarbles[2], oldMarketTray[2][2]);
@@ -56,8 +68,12 @@ public class MarketTest {
         Market market = new Market();
         Marble[][] oldMarketTray = market.getMarketTray();
         Marble oldExtraMarble = market.getExtraMarble();
-        market.chooseRow(1);
-        market.chooseColumn(2);
+        try {
+            market.chooseRow(1);
+            market.chooseColumn(2);
+        } catch (PositionInvalidException e) {
+            fail();
+        }
         Marble[][] newMarketTray = market.getMarketTray();
         Marble newExtraMarble = market.getExtraMarble();
         assertSame(newMarketTray[0][0], oldMarketTray[0][0]);

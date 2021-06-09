@@ -222,11 +222,17 @@ public class PlayerGame {
      */
     public void updateMarket(String nickname, RowColumn rowColumn, int n){
         Marble[] obtained = new Marble[0];
-        if(rowColumn == RowColumn.ROW){
-            obtained = market.chooseRow(n-1);
-        }
-        if(rowColumn == RowColumn.COLUMN){
-            obtained = market.chooseColumn(n-1);
+        try{
+            switch (rowColumn){
+                case ROW:
+                    obtained = market.chooseRow(n-1);
+                    break;
+                case COLUMN:
+                    obtained = market.chooseColumn(n-1);
+                    break;
+            }
+        } catch (PositionInvalidException e) {
+            e.printStackTrace();
         }
         int numberOfFaithMarbles = 0;
         for(Marble i : obtained){

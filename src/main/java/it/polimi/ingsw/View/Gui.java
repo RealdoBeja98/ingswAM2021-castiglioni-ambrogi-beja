@@ -4,6 +4,7 @@ import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Game.PlayerGame;
 import it.polimi.ingsw.Mains.ClientMain;
 import it.polimi.ingsw.Mains.GuiThread;
+import it.polimi.ingsw.PersonalBoard.Faith.FaithTrackSP;
 import it.polimi.ingsw.Table.Decks.Development.DevelopmentCard;
 import it.polimi.ingsw.Table.Decks.Leader.ExtraStorageLeaderCard;
 import it.polimi.ingsw.Table.Decks.Leader.LeaderCard;
@@ -129,7 +130,9 @@ public class Gui extends View{
                 navigatorBoard++;
             }
         }
-
+        if(ClientMain.getPlayerGame().getLorenzoTrack() != null){
+            printLorenzoFaithTrack(gc);
+        }
     }
 
     //<--FIXME--> sitemare costanti e switch
@@ -173,6 +176,13 @@ public class Gui extends View{
                 navigatorBoard++;
             }
         }
+        if(ClientMain.getPlayerGame().getLorenzoTrack() != null){
+            printLorenzoFaithTrack(gc);
+        }
+    }
+
+    private void printLorenzoFaithTrack(GraphicsContext gc){
+        drawLorenzoBoard(gc, 1360, 0);
     }
 
     private void drawCards(GraphicsContext gc, int x, int y, String name, int l1, int l2) {
@@ -254,9 +264,31 @@ public class Gui extends View{
         drawStrongbox(n, gc, x, y);
     }
 
-    //<--FIXME--> fare json per caricare questi valori
+    private void drawLorenzoBoard(GraphicsContext gc, int x, int y){
+        Image pb = new Image("Misc/PersonalBoard.png");
+        gc.drawImage(pb, x, y, 560, 490);
+        Image noInkwell = new Image("Misc/NoInkwell.png");
+        gc.drawImage(noInkwell, x, y, 20, 20);
+        Image whiteBackGround = new Image("Misc/WhiteBackGround.png");
+        gc.drawImage(whiteBackGround, x+20, y, 110, 20);
+        String nickname = "Lorenzo";
+        gc.fillText(nickname, x+20, y+14);
+        drawLorenzoFaith(gc, x, y, ClientMain.getPlayerGame().getLorenzoTrack().getFaithMarker());
+    }
+
     private void drawFaith(GraphicsContext gc, int x, int y, int faithNumber){
-        Image faith = new Image("Misc/FaithMarker.png");
+        drawFaithMarker("Misc/FaithMarker.png", gc, x, y, faithNumber);
+    }
+
+    private void drawLorenzoFaith(GraphicsContext gc, int x, int y, int faithNumber){
+        drawFaithMarker("Misc/BlackCrossToken.png", gc, x, y, faithNumber);
+        Image cross = new Image("Misc/cross.png");
+        gc.drawImage(cross, x+10, y+168, 540, 310);
+    }
+
+    //<--FIXME--> fare json per caricare questi valori
+    private void drawFaithMarker(String image, GraphicsContext gc, int x, int y, int faithNumber){
+        Image faith = new Image(image);
         if(faithNumber == 0){
             gc.drawImage(faith, x+25, y+100, 17, 24);
         }if(faithNumber == 1){

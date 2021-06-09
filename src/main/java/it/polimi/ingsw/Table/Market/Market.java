@@ -1,4 +1,5 @@
 package it.polimi.ingsw.Table.Market;
+import it.polimi.ingsw.Exceptions.PositionInvalidException;
 import it.polimi.ingsw.Utilities.ImportExport;
 import it.polimi.ingsw.Table.Market.Marbles.*;
 import java.util.ArrayList;
@@ -84,14 +85,18 @@ public class Market {
      * This method makes a copy of the chosen row, then shifts it
      * @param n: the number of the chosen row
      * @return the copied row, of type Marble[]
+     * @throws PositionInvalidException if the chosen row is invalid
      */
-    public Marble[] chooseRow(int n){
+    public Marble[] chooseRow(int n) throws PositionInvalidException {
         Marble[] marblesInRow = new Marble[column];
         for(int i = 0; i < column; i++){
-            marblesInRow[i] = marketTray[n][i];
+            try{
+                marblesInRow[i] = marketTray[n][i];
+            } catch (IndexOutOfBoundsException e){
+                throw new PositionInvalidException();
+            }
         }
         shiftRow(n);
-
         return marblesInRow;
     }
 
@@ -99,14 +104,18 @@ public class Market {
      * This method makes a copy of the chosen column, then shifts it
      * @param n: the number of the chosen column
      * @return the copied column, of type Marble[]
+     * @throws PositionInvalidException if the chosen column is invalid
      */
-    public Marble[] chooseColumn(int n){
+    public Marble[] chooseColumn(int n) throws PositionInvalidException {
         Marble[] marblesInColumn = new Marble[row];
         for(int i = 0; i < row; i++){
-            marblesInColumn[i] = marketTray[i][n];
+            try{
+                marblesInColumn[i] = marketTray[i][n];
+            } catch (IndexOutOfBoundsException e){
+                throw new PositionInvalidException();
+            }
         }
         shiftColumn(n);
-
         return marblesInColumn;
     }
 

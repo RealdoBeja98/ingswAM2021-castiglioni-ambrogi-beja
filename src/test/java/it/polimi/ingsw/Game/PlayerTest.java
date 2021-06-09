@@ -169,7 +169,7 @@ class PlayerTest {
         assertFalse(player.resourceToAdd());
         try {
             player.takeResourcesFromTheMarket(RowColumn.ROW, 2);
-        } catch (PositionInvalidException | NullEnumException e) {
+        } catch (PositionInvalidException | NullEnumException | NoWhiteMarbleLeaderCardException e) {
             fail();
         }
         assertTrue(player.resourceToAdd());
@@ -294,7 +294,7 @@ class PlayerTest {
         assertFalse(player.resourceToAdd());
         try {
             player.takeResourcesFromTheMarket(RowColumn.ROW, 1);
-        } catch (PositionInvalidException | NullEnumException e) {
+        } catch (PositionInvalidException | NullEnumException | NoWhiteMarbleLeaderCardException e) {
            fail();
         }
         assertTrue(player.resourceToAdd());
@@ -315,7 +315,7 @@ class PlayerTest {
         Marble marble = game.getTable().getMarket().getMarketTray()[0][0];
         try {
             player.takeResourcesFromTheMarket(RowColumn.ROW, 1);
-        } catch (PositionInvalidException | NullEnumException e) {
+        } catch (PositionInvalidException | NullEnumException | NoWhiteMarbleLeaderCardException e) {
            fail();
         }
         if(marble instanceof Coin){
@@ -362,7 +362,7 @@ class PlayerTest {
         Player player = game.getPlayers().get(0);
         try {
             player.takeResourcesFromTheMarket(RowColumn.ROW, 1);
-        } catch (PositionInvalidException | NullEnumException e) {
+        } catch (PositionInvalidException | NullEnumException | NoWhiteMarbleLeaderCardException e) {
            fail();
         }
         try {
@@ -406,7 +406,7 @@ class PlayerTest {
         player.getCardsOnTable()[1] = new WhiteMarbleLeaderCard(3, cost, new Servant());
         try {
             player.takeResourcesFromTheMarket(RowColumn.ROW, rowWithWhiteMarble+1);
-        } catch (PositionInvalidException | NullEnumException e) {
+        } catch (PositionInvalidException | NullEnumException | NoWhiteMarbleLeaderCardException e) {
            fail();
         }
         while(true){

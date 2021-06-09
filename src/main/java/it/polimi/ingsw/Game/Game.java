@@ -98,6 +98,8 @@ public class Game {
         started = true;
         System.out.println("Game: " + gameIndex + " started!");
         //
+        //This second part is only for developing tests
+        //
 /*
         for(int wp =0; wp<players.size();wp++){
             try {
@@ -193,6 +195,38 @@ public class Game {
     }
 
     /**
+     * This method remove the player that chose to quit the game
+     * @param i: the position of the ArrayList of players
+     * @param nickname: the name of the player that quit
+     * @param toEndGame: if the game is to end in case the number of players reduce itself to 1
+     * @param gameStarted: if the game is started or not
+     * @throws GameEndedException if the game was already ended
+     */
+    private boolean removingAPlayer(int i, String nickname, boolean toEndGame, boolean gameStarted) throws GameEndedException {
+        if(players.get(i).getNickname().equals(nickname)){
+            if(gameStarted){
+                if(players.get(i).getNickname().equals(Game.get(gameIndex).getTurn().getCurrentPlayer().getNickname())){
+                    Game.get(gameIndex).getTurn().endTurn();
+                }
+                if(players.get(i).isInkwell()){
+                    if(i+1 >= players.size()){
+                        players.get(0).setInkwell();
+                    } else {
+                        players.get(i+1).setInkwell();
+                    }
+                }
+            }
+            players.remove(i);
+            printWriterList.remove(i);
+            return true;
+        }
+        if(toEndGame){
+            endGame();
+        }
+        return false;
+    }
+
+    /**
      * This method remove a player that chose to quit the game
      * @param nickname: the name of the player that quit
      * @throws GameEndedException if the game was already ended
@@ -200,47 +234,38 @@ public class Game {
     public void removePlayer(String nickname) throws GameEndedException {
         for(int i = 0; i < players.size(); i++){
             if(!started){
-                if(players.get(i).getNickname().equals(nickname)){
-                    players.remove(i);
-                    printWriterList.remove(i);
+                if(removingAPlayer(i, nickname, false, false)){
                     return;
                 }
-            }
-            else{
+            } else {
                 if((players.size() -1) < 2){
-                    if(players.get(i).getNickname().equals(nickname)){
-                        if(players.get(i).getNickname().equals(Game.get(gameIndex).getTurn().getCurrentPlayer().getNickname())){
-                            Game.get(gameIndex).getTurn().endTurn();
-                        }
-                        if(players.get(i).isInkwell()){
-                            if(i+1 >= players.size()){
-                                players.get(0).setInkwell();
-                            } else {
-                                players.get(i+1).setInkwell();
-                            }
-                        }
-                        players.remove(i);
-                        printWriterList.remove(i);
+                    if(removingAPlayer(i, nickname, true, true)){
                         return;
                     }
-                    endGame();
-                }else{
-                    if(players.get(i).getNickname().equals(nickname)){
-                        if(players.get(i).getNickname().equals(Game.get(gameIndex).getTurn().getCurrentPlayer().getNickname())){
-                            Game.get(gameIndex).getTurn().endTurn();
-                        }
-                        if(players.get(i).isInkwell()){
-                            if(i+1 >= players.size()){
-                                players.get(0).setInkwell();
-                            } else {
-                                players.get(i+1).setInkwell();
-                            }
-                        }
-                        players.remove(i);
-                        printWriterList.remove(i);
+                } else {
+                    if(removingAPlayer(i, nickname, false, true)){
                         return;
                     }
                 }
+            }
+        }
+    }
+
+    /**
+     * This method notifies to the player if he won or not in a single player game
+     */
+    private void notifyScoreSinglePlayer(){
+        if(Game.get(gameIndex).getTable().getDevelopmentDeck().allCardOfATypeFinished()){
+            for(int o = 0; o < printWriterList.size(); o++){
+                printWriterList.get(o).println("You have lost because there is enough a type of DevelopmentCard finished in the DevelopmentDeck");
+            }
+        } else if(Game.get(gameIndex).getPlayers().get(0).getPersonalBoard().getLorenzoTrack().getFaithMarker() == 24){
+            for(int o = 0; o < printWriterList.size(); o++){
+                printWriterList.get(o).println("You have lost because Lorenzo has reached the last place of faithTrack!");
+            }
+        } else {
+            for(int o = 0; o < printWriterList.size(); o++){
+                printWriterList.get(o).println("Victory!!!");
             }
         }
     }
@@ -267,19 +292,7 @@ public class Game {
             }
         }
         if(Game.get(gameIndex).getNumberOfPlayer() == 1){
-            if(Game.get(gameIndex).getTable().getDevelopmentDeck().allCardOfATypeFinished()){
-                for(int o = 0; o < printWriterList.size(); o++){
-                    printWriterList.get(o).println("You have lost because there is enough a type of DevelopmentCard finished in the DevelopmentDeck");
-                }
-            } else if(Game.get(gameIndex).getPlayers().get(0).getPersonalBoard().getLorenzoTrack().getFaithMarker() == 24){
-                for(int o = 0; o < printWriterList.size(); o++){
-                    printWriterList.get(o).println("You have lost because Lorenzo has reached the last place of faithTrack!");
-                }
-            } else {
-                for(int o = 0; o < printWriterList.size(); o++){
-                    printWriterList.get(o).println("Victory!!!");
-                }
-            }
+            notifyScoreSinglePlayer();
         } else {
             for(int o = 0; o < printWriterList.size(); o++){
                 printWriterList.get(o).println("The winner is: " + players.get(winner).getNickname());
