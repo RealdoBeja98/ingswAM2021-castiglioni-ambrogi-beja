@@ -19,10 +19,18 @@ public abstract class View {
         }
     }
 
+    /**
+     * This message prints the message in view
+     * @param message message to print
+     */
     public static void printMessage(Message message){
         printMessage(message.toString());
     }
 
+    /**
+     * This method prints the string
+     * @param string string to print
+     */
     public static void printMessage(String string){
         System.out.println(string);
         View view = View.get();
@@ -38,6 +46,9 @@ public abstract class View {
         }
     }
 
+    /**
+     *abstract method: see implementation in son classes for the details
+     */
     public abstract void showStartingLC();
 
     /**
@@ -55,10 +66,15 @@ public abstract class View {
      */
     public abstract void showPersonalBoard();
 
+    /**
+     *abstract method: see implementation in son classes for the details
+     */
     public abstract void showPBCurrent();
 
+    /**
+     *abstract method: see implementation in son classes for the details
+     */
     public abstract void showSoloActionToken(ActionToken actionToken);
 
-    //<--FIXME--> fineire javadock
 
 }

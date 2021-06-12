@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * This Class represents the player
  */
-public class Player {//<--FIXME check javadoc from here-->
+public class Player {
 
     private String nickname;
     private PersonalBoard personalBoard;
@@ -570,7 +570,13 @@ public class Player {//<--FIXME check javadoc from here-->
         marblesFromTheMarket.remove(0);
     }
 
-    //<--FIXME--> do javaDock
+    /**
+     * This method adds the resources for the current player
+      * @param where position
+     * @throws NoResourceToAddException no resources to add
+     * @throws UnexpectedWhiteMarbleException unexpected white marble
+     * @throws UnexpectedFaithMarbleException unexpected faith marble
+     */
     public void addResource(LeaderWarehouse where) throws NoResourceToAddException, UnexpectedWhiteMarbleException, UnexpectedFaithMarbleException {
         if(marblesFromTheMarket.isEmpty()) {
             throw new NoResourceToAddException();
@@ -1316,10 +1322,18 @@ public class Player {//<--FIXME check javadoc from here-->
         return result;
     }
 
+    /**
+     * Getter of the marbles from the market
+     * @return list of marbles
+     */
     public List<Marble> getMarblesFromTheMarket() {
         return marblesFromTheMarket;
     }
 
+    /**
+     * Returns a string with the cards in hand
+     * @return string of cards
+     */
     public String exportForPlayersAndCardsInHandFirst(){
         String s1 = cardsInHandFirst[0].export();
         String s2 = cardsInHandFirst[1].export();

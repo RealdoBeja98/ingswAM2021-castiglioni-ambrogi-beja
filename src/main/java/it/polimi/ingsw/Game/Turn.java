@@ -287,7 +287,21 @@ public class Turn {
         }
     }
 
-    //<--FIXME check javadoc from here-->
+
+
+    /**
+     * This method adds resources for the current player
+     * @param where position
+     * @throws NoResourceToAddException no resources  to add
+     * @throws DifferentStorageException different storage type
+     * @throws OccupiedSlotExtraStorageLeaderCardException
+     * @throws PositionAlreadyOccupiedException if the position isn't 1 or 2
+     * @throws ResourceAlreadyPlacedException resource already placed
+     * @throws DifferentResourceInThisShelfException different resource already placed here
+     * @throws UnexpectedWhiteMarbleException unexpected white marble
+     * @throws UnexpectedFaithMarbleException unexpected faith marble
+     * @throws ActionNotAllowedException if this action isn't allowed in this momentn
+     */
     public void addResource(LeaderWarehouse where) throws NoResourceToAddException, DifferentStorageException, OccupiedSlotExtraStorageLeaderCardException, PositionAlreadyOccupiedException, ResourceAlreadyPlacedException, DifferentResourceInThisShelfException, UnexpectedWhiteMarbleException, UnexpectedFaithMarbleException, ActionNotAllowedException {
         if(currentPlayer.isHimFirstTurn()){
             throw new ActionNotAllowedException();
