@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="it.polimi.ingsw.Messages.MessagesTest" time="0.205" tests="80" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="it.polimi.ingsw.Messages.MessagesTest" time="0.271" tests="80" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="15"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -12,7 +12,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="IT"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk-15.0.2.jdk/Contents/Home/lib"/>
-    <property name="sun.java.command" value="/Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/target/surefire/surefirebooter15888860710940252436.jar /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/target/surefire 2021-06-09T19-43-18_396-jvmRun1 surefire5754875481047424313tmp surefire_016565765325159685269tmp"/>
+    <property name="sun.java.command" value="/Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/target/surefire/surefirebooter15194676920371957479.jar /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/target/surefire 2021-06-12T19-25-02_348-jvmRun1 surefire10463455533952997336tmp surefire_09345598245563455933tmp"/>
     <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/target/test-classes:/Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/target/classes:/Users/carloambrogi/.m2/repository/org/junit/jupiter/junit-jupiter/5.8.0-M1/junit-jupiter-5.8.0-M1.jar:/Users/carloambrogi/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.8.0-M1/junit-jupiter-api-5.8.0-M1.jar:/Users/carloambrogi/.m2/repository/org/apiguardian/apiguardian-api/1.1.1/apiguardian-api-1.1.1.jar:/Users/carloambrogi/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/Users/carloambrogi/.m2/repository/org/junit/platform/junit-platform-commons/1.8.0-M1/junit-platform-commons-1.8.0-M1.jar:/Users/carloambrogi/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.8.0-M1/junit-jupiter-params-5.8.0-M1.jar:/Users/carloambrogi/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.8.0-M1/junit-jupiter-engine-5.8.0-M1.jar:/Users/carloambrogi/.m2/repository/org/junit/platform/junit-platform-engine/1.8.0-M1/junit-platform-engine-1.8.0-M1.jar:/Users/carloambrogi/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib-jdk8/1.4.20/kotlin-stdlib-jdk8-1.4.20.jar:/Users/carloambrogi/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib/1.4.20/kotlin-stdlib-1.4.20.jar:/Users/carloambrogi/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib-common/1.4.20/kotlin-stdlib-common-1.4.20.jar:/Users/carloambrogi/.m2/repository/org/jetbrains/annotations/13.0/annotations-13.0.jar:/Users/carloambrogi/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib-jdk7/1.4.20/kotlin-stdlib-jdk7-1.4.20.jar:/Users/carloambrogi/.m2/repository/org/openjfx/javafx-controls/15.0.1/javafx-controls-15.0.1.jar:/Users/carloambrogi/.m2/repository/org/openjfx/javafx-controls/15.0.1/javafx-controls-15.0.1-mac.jar:/Users/carloambrogi/.m2/repository/org/openjfx/javafx-graphics/15.0.1/javafx-graphics-15.0.1.jar:/Users/carloambrogi/.m2/repository/org/openjfx/javafx-graphics/15.0.1/javafx-graphics-15.0.1-mac.jar:/Users/carloambrogi/.m2/repository/org/openjfx/javafx-base/15.0.1/javafx-base-15.0.1.jar:/Users/carloambrogi/.m2/repository/org/openjfx/javafx-base/15.0.1/javafx-base-15.0.1-mac.jar:/Users/carloambrogi/.m2/repository/com/googlecode/json-simple/json-simple/1.1.1/json-simple-1.1.1.jar:/Users/carloambrogi/.m2/repository/junit/junit/4.10/junit-4.10.jar:/Users/carloambrogi/.m2/repository/org/hamcrest/hamcrest-core/1.1/hamcrest-core-1.1.jar:/Users/carloambrogi/.m2/repository/org/apache/maven/plugins/maven-compiler-plugin/3.8.1/maven-compiler-plugin-3.8.1.jar:/Users/carloambrogi/.m2/repository/org/apache/maven/maven-plugin-api/3.0/maven-plugin-api-3.0.jar:/Users/carloambrogi/.m2/repository/org/apache/maven/maven-model/3.0/maven-model-3.0.jar:/Users/carloambrogi/.m2/repository/org/sonatype/sisu/sisu-inject-plexus/1.4.2/sisu-inject-plexus-1.4.2.jar:/Users/carloambrogi/.m2/repository/org/sonatype/sisu/sisu-inject-bean/1.4.2/sisu-inject-bean-1.4.2.jar:/Users/carloambrogi/.m2/repository/org/sonatype/sisu/sisu-guice/2.1.7/sisu-guice-2.1.7-noaop.jar:/Users/carloambrogi/.m2/repository/org/apache/maven/maven-artifact/3.0/maven-artifact-3.0.jar:/Users/carloambrogi/.m2/repository/org/codehaus/plexus/plexus-utils/2.0.4/plexus-utils-2.0.4.jar:/Users/carloambrogi/.m2/repository/org/apache/maven/maven-core/3.0/maven-core-3.0.jar:/Users/carloambrogi/.m2/repository/org/apache/maven/maven-settings/3.0/maven-settings-3.0.jar:/Users/carloambrogi/.m2/repository/org/apache/maven/maven-settings-builder/3.0/maven-settings-builder-3.0.jar:/Users/carloambrogi/.m2/repository/org/apache/maven/maven-repository-metadata/3.0/maven-repository-metadata-3.0.jar:/Users/carloambrogi/.m2/repository/org/apache/maven/maven-model-builder/3.0/maven-model-builder-3.0.jar:/Users/carloambrogi/.m2/repository/org/apache/maven/maven-aether-provider/3.0/maven-aether-provider-3.0.jar:/Users/carloambrogi/.m2/repository/org/sonatype/aether/aether-impl/1.7/aether-impl-1.7.jar:/Users/carloambrogi/.m2/repository/org/sonatype/aether/aether-spi/1.7/aether-spi-1.7.jar:/Users/carloambrogi/.m2/repository/org/sonatype/aether/aether-api/1.7/aether-api-1.7.jar:/Users/carloambrogi/.m2/repository/org/sonatype/aether/aether-util/1.7/aether-util-1.7.jar:/Users/carloambrogi/.m2/repository/org/codehaus/plexus/plexus-interpolation/1.14/plexus-interpolation-1.14.jar:/Users/carloambrogi/.m2/repository/org/codehaus/plexus/plexus-classworlds/2.2.3/plexus-classworlds-2.2.3.jar:/Users/carloambrogi/.m2/repository/org/codehaus/plexus/plexus-component-annotations/1.5.5/plexus-component-annotations-1.5.5.jar:/Users/carloambrogi/.m2/repository/org/sonatype/plexus/plexus-sec-dispatcher/1.3/plexus-sec-dispatcher-1.3.jar:/Users/carloambrogi/.m2/repository/org/sonatype/plexus/plexus-cipher/1.4/plexus-cipher-1.4.jar:/Users/carloambrogi/.m2/repository/org/apache/maven/shared/maven-shared-utils/3.2.1/maven-shared-utils-3.2.1.jar:/Users/carloambrogi/.m2/repository/commons-io/commons-io/2.5/commons-io-2.5.jar:/Users/carloambrogi/.m2/repository/org/apache/maven/shared/maven-shared-incremental/1.1/maven-shared-incremental-1.1.jar:/Users/carloambrogi/.m2/repository/org/codehaus/plexus/plexus-java/0.9.10/plexus-java-0.9.10.jar:/Users/carloambrogi/.m2/repository/org/ow2/asm/asm/6.2/asm-6.2.jar:/Users/carloambrogi/.m2/repository/com/thoughtworks/qdox/qdox/2.0-M8/qdox-2.0-M8.jar:/Users/carloambrogi/.m2/repository/org/codehaus/plexus/plexus-compiler-api/2.8.4/plexus-compiler-api-2.8.4.jar:/Users/carloambrogi/.m2/repository/org/codehaus/plexus/plexus-compiler-manager/2.8.4/plexus-compiler-manager-2.8.4.jar:/Users/carloambrogi/.m2/repository/org/codehaus/plexus/plexus-compiler-javac/2.8.4/plexus-compiler-javac-2.8.4.jar:"/>
@@ -28,7 +28,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
-    <property name="surefire.real.class.path" value="/Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/target/surefire/surefirebooter15888860710940252436.jar"/>
+    <property name="surefire.real.class.path" value="/Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/target/surefire/surefirebooter15194676920371957479.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.runtime.version" value="15.0.2+7-27"/>
@@ -54,84 +54,84 @@
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.class.version" value="59.0"/>
   </properties>
-  <testcase name="DifferentResourceAlreadyPresentErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.049"/>
+  <testcase name="DifferentResourceAlreadyPresentErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.08"/>
   <testcase name="NoCardDiscardErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.001"/>
   <testcase name="MoveResourceESLCToWarehouseGameMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.009"/>
-  <testcase name="TransitionForwardMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.001"/>
-  <testcase name="ChooseNoActionLeaderCardGameMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
-  <testcase name="GameEndedErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
-  <testcase name="NoResourceAErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
+  <testcase name="TransitionForwardMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
+  <testcase name="ChooseNoActionLeaderCardGameMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.001"/>
+  <testcase name="GameEndedErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.001"/>
+  <testcase name="NoResourceAErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.003"/>
   <testcase name="DiscardLeaderCardGameMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.001"/>
-  <testcase name="EndTurnGameMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.001"/>
-  <testcase name="TypoErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.002"/>
+  <testcase name="EndTurnGameMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
+  <testcase name="TypoErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.001"/>
   <testcase name="PlaceDevelopmentCardGameMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.001"/>
   <testcase name="NotYourTurnErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.001"/>
-  <testcase name="UpdateMarketForwardMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.011"/>
+  <testcase name="UpdateMarketForwardMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.013"/>
   <testcase name="BuyDevelopmentCardGameMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.006"/>
   <testcase name="NotEnoughResourcesErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
-  <testcase name="WrongResourceErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
+  <testcase name="WrongResourceErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.001"/>
   <testcase name="ShowCurrentBoardMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
   <testcase name="MoveResourcesWarehouseToESLCGameMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
   <testcase name="NoCardObtainableErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
   <testcase name="InvalidSelectionErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
-  <testcase name="NoCardsPlayErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
-  <testcase name="SelectNormalActionGameMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.007"/>
-  <testcase name="SelectAWarehouseDepotsSlotGameMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
-  <testcase name="UpdateObtainedMultipleResourceForwardMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.016"/>
+  <testcase name="NoCardsPlayErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.001"/>
+  <testcase name="SelectNormalActionGameMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.009"/>
+  <testcase name="SelectAWarehouseDepotsSlotGameMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.001"/>
+  <testcase name="UpdateObtainedMultipleResourceForwardMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.013"/>
   <testcase name="UpdateSoloActionTokenMessage" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.002"/>
-  <testcase name="MovedResourceESLCToWarehouseForwardMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.007"/>
+  <testcase name="MovedResourceESLCToWarehouseForwardMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.005"/>
   <testcase name="NoSelectedPowersErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
   <testcase name="GenericResourceErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
-  <testcase name="SelectProductionPowerLeaderCardGameMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
-  <testcase name="AlreadyDiscardedPositionErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.001"/>
-  <testcase name="PayWithWarehouseDepotsGameMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
-  <testcase name="StartPaymentGameMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
-  <testcase name="AddedResourceToForwardMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.008"/>
-  <testcase name="DiscardedLeaderCardForwardMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.005"/>
-  <testcase name="PlacedDevelopmentCardForwardMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.008"/>
-  <testcase name="GameStartServiceMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
-  <testcase name="ConfirmedActionMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
-  <testcase name="AlreadyEmptyErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.002"/>
-  <testcase name="UpdateDevelopmentCardForwardMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
+  <testcase name="SelectProductionPowerLeaderCardGameMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.001"/>
+  <testcase name="AlreadyDiscardedPositionErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
+  <testcase name="PayWithWarehouseDepotsGameMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.001"/>
+  <testcase name="StartPaymentGameMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.001"/>
+  <testcase name="AddedResourceToForwardMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.009"/>
+  <testcase name="DiscardedLeaderCardForwardMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.012"/>
+  <testcase name="PlacedDevelopmentCardForwardMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.013"/>
+  <testcase name="GameStartServiceMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.001"/>
+  <testcase name="ConfirmedActionMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.001"/>
+  <testcase name="AlreadyEmptyErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.001"/>
+  <testcase name="UpdateDevelopmentCardForwardMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.001"/>
   <testcase name="MoveResourcesInWarehouseDepotsGameMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.001"/>
-  <testcase name="PayedWithWarehouseDepotsForwardMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
-  <testcase name="NotEnoughRErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
-  <testcase name="CurrentPlayerMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
-  <testcase name="NotEsErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
-  <testcase name="SelectedTwoCardsToKeepForwardMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
-  <testcase name="PayedWithStrongboxForwardMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.002"/>
+  <testcase name="PayedWithWarehouseDepotsForwardMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.001"/>
+  <testcase name="NotEnoughRErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.001"/>
+  <testcase name="CurrentPlayerMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.002"/>
+  <testcase name="NotEsErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.001"/>
+  <testcase name="SelectedTwoCardsToKeepForwardMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.001"/>
+  <testcase name="PayedWithStrongboxForwardMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.006"/>
   <testcase name="EmptyDeckErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
-  <testcase name="PayWithExtraStorageLeaderCardGameMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.001"/>
-  <testcase name="InvalidActionErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.002"/>
-  <testcase name="OccupiedSlotWDErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
-  <testcase name="ChooseDiscardLeaderCardGameMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
-  <testcase name="PlayLeaderCardGameMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.002"/>
+  <testcase name="PayWithExtraStorageLeaderCardGameMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
+  <testcase name="InvalidActionErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
+  <testcase name="OccupiedSlotWDErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.001"/>
+  <testcase name="ChooseDiscardLeaderCardGameMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.001"/>
+  <testcase name="PlayLeaderCardGameMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.001"/>
   <testcase name="NoDevelopmentCardErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
   <testcase name="ChoosePlayLeaderCardGameMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
-  <testcase name="WhiteMarbleErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
+  <testcase name="WhiteMarbleErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.001"/>
   <testcase name="NoWhiteMarbleErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
   <testcase name="FaithMarbleErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
   <testcase name="AdvanceFaithTrackForwardMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.001"/>
-  <testcase name="ObtainedGenericResourceForwardMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.002"/>
-  <testcase name="PayedWithExtraStorageLeaderCardForwardMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.001"/>
-  <testcase name="InvalidPositionErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
+  <testcase name="ObtainedGenericResourceForwardMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
+  <testcase name="PayedWithExtraStorageLeaderCardForwardMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
+  <testcase name="InvalidPositionErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.001"/>
   <testcase name="InvalidMovementErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
   <testcase name="NotStrongboxErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
   <testcase name="ShowCardMarketMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
   <testcase name="RequirementsErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
-  <testcase name="SelectProductionDevelopmentCardGameMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
-  <testcase name="DifferentStorageTypeErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
-  <testcase name="InvalidEnumErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.002"/>
+  <testcase name="SelectProductionDevelopmentCardGameMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.001"/>
+  <testcase name="DifferentStorageTypeErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.001"/>
+  <testcase name="InvalidEnumErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.001"/>
   <testcase name="PlayedLeaderCardForwardMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.001"/>
   <testcase name="OccupiedSlotLCErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.001"/>
-  <testcase name="MissingResourceErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.002"/>
-  <testcase name="SelectTwoCardsToKeepGameMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.002"/>
+  <testcase name="MissingResourceErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.001"/>
+  <testcase name="SelectTwoCardsToKeepGameMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
   <testcase name="PayWithStrongboxGameMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.001"/>
   <testcase name="NoPLCErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
-  <testcase name="ChangeWhiteMarbleWithGameMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
-  <testcase name="ObtainGenericResourceGameMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.001"/>
+  <testcase name="ChangeWhiteMarbleWithGameMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.001"/>
+  <testcase name="ObtainGenericResourceGameMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
   <testcase name="AlreadySelectedSomethingErrorMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0"/>
-  <testcase name="TakeResourcesFromTheMarketGameMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.001"/>
+  <testcase name="TakeResourcesFromTheMarketGameMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.002"/>
   <testcase name="MovedResourcesInWarehouseDepotsForwardMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.001"/>
   <testcase name="DrawSoloActionTokenGameMessageTest" classname="it.polimi.ingsw.Messages.MessagesTest" time="0.001"/>
 </testsuite>

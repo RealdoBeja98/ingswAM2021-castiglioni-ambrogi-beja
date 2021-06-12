@@ -25,7 +25,7 @@ public class Game {
     /**
      * Constructor method of this class
      */
-    public Game(int numberOfPlayer) {
+    public Game(int numberOfPlayer){
         this.numberOfPlayer = numberOfPlayer;
         this.gameIndex = numberOfGames;
         numberOfGames = numberOfGames + 1;
@@ -137,10 +137,22 @@ public class Game {
     }
 
     /**
+     * This method terminates the game immediately (without waiting finishing current turn)
+     * It's used in single player mode in witch there are some case in witch the game could terminate immediately
+     */
+    public void endGameImmediately(){
+        notifyScore();
+        for(PrintWriter ii : printWriterList){
+            ii.println("GAME_ENDED");
+        }
+        System.out.println("Game " + gameIndex + " ended!");
+    }
+
+    /**
      * Getter of the parameter table
      * @return the table, of type Table
      */
-    public Table getTable() {
+    public Table getTable(){
         return table;
     }
 
@@ -148,7 +160,7 @@ public class Game {
      * Getter of the parameter players
      * @return a copy of the player list, of type ArrayList of Player
      */
-    public ArrayList<Player> getPlayers() {
+    public ArrayList<Player> getPlayers(){
         return (ArrayList<Player>) players.clone();
     }
 
@@ -156,7 +168,7 @@ public class Game {
      * Getter of the parameter gameIndex
      * @return the number of the current game, of type int
      */
-    public int getGameIndex() {
+    public int getGameIndex(){
         return gameIndex;
     }
 
@@ -164,7 +176,7 @@ public class Game {
      * Getter of the parameter turn
      * @return the turn of the current game, of type Turn
      */
-    public Turn getTurn() {
+    public Turn getTurn(){
         return turn;
     }
 
@@ -182,7 +194,7 @@ public class Game {
      * Getter of the parameter printWriterList
      * @return the communication channels to the players, of type ArrayList of PrintWriter
      */
-    public ArrayList<PrintWriter> getPrintWriterList() {
+    public ArrayList<PrintWriter> getPrintWriterList(){
         return printWriterList;
     }
 
@@ -303,7 +315,7 @@ public class Game {
     /**
      * This method gets number of player
      */
-    public int getNumberOfPlayer() {
+    public int getNumberOfPlayer(){
         return numberOfPlayer;
     }
 

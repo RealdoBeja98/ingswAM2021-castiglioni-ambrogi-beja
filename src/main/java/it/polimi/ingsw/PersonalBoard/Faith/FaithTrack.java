@@ -116,15 +116,16 @@ public class FaithTrack {
         if (faithMarker >= popstate[0] && favorTiles[0] == FavorTiles.COVERED){
             popeState(0);
         }
-
         if (faithMarker >= popstate[1] && favorTiles[1] == FavorTiles.COVERED) {
             popeState(1);
         }
-
         if (faithMarker >= popstate[2] && favorTiles[2] == FavorTiles.COVERED) {
             popeState(2);
             if(gameIndex != unusefulGameIndex){
                 Game.get(gameIndex).endGame();
+                if(Game.get(gameIndex).getNumberOfPlayer() == 1){
+                    Game.get(gameIndex).endGameImmediately();
+                }
             }
         }
     }
@@ -143,12 +144,9 @@ public class FaithTrack {
         }
         for(FaithTrack i : faithTrackOfAllPlayers()){
             if(i.faithMarker >= threshold){
-                i.favorTiles[n] =
-                        FavorTiles.TURNED;
-            }
-            else{
-                i.favorTiles[n] =
-                        FavorTiles.DITCH;
+                i.favorTiles[n] = FavorTiles.TURNED;
+            } else{
+                i.favorTiles[n] = FavorTiles.DITCH;
             }
         }
     }

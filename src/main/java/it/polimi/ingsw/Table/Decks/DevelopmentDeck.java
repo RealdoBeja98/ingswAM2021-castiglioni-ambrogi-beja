@@ -160,7 +160,10 @@ public class DevelopmentDeck{
             }
             row--;
         }
-        Game.get(gameIndex).endGame();
+        Game game = Game.get(gameIndex);
+        if(game != null){
+            game.endGameImmediately();
+        }
     }
 
     /**

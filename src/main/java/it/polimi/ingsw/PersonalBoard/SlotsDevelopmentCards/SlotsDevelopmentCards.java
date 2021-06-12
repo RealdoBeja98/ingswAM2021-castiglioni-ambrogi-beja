@@ -82,6 +82,9 @@ public class SlotsDevelopmentCards {
         if(count >= 7){
             if(gameIndex != unusefulGameIndex){
                 Game.get(gameIndex).endGame();
+                if(Game.get(gameIndex).getNumberOfPlayer() == 1){
+                    Game.get(gameIndex).endGameImmediately();
+                }
             }
         }
     }

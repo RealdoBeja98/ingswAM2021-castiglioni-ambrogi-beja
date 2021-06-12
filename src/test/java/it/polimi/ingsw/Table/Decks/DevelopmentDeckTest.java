@@ -92,15 +92,18 @@ class DevelopmentDeckTest {
     @Test
     void discard() {
         DevelopmentDeck deck = new DevelopmentDeck(999);
-        DevelopmentCard card = deck.visualize()[2][0];
+        DevelopmentCard card1 = deck.visualize()[2][0];
         Type type = Type.GREEN;
         deck.discard(type);
-        DevelopmentCard cardP = deck.visualize()[2][0];
-        assertNotSame(card, cardP);
+        DevelopmentCard card2 = deck.visualize()[2][0];
+        assertNotNull(card1);
+        assertNotNull(card2);
+        assertNotSame(card1, card2);
         for(int i = 0; i < 5; i++){
             deck.discard(type);
         }
-        assertThrows(RuntimeException.class, () -> deck.discard(type));
+        DevelopmentCard card3 = deck.visualize()[2][0];
+        assertNull(card3);
     }
 
     /**
