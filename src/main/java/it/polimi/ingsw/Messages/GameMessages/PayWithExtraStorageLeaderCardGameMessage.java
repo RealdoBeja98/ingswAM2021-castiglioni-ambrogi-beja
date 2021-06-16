@@ -2,6 +2,7 @@ package it.polimi.ingsw.Messages.GameMessages;
 
 import it.polimi.ingsw.Exceptions.*;
 import it.polimi.ingsw.Game.Game;
+import it.polimi.ingsw.Messages.ConfirmedActionMessage;
 import it.polimi.ingsw.Messages.ForwardMessages.PayedWithExtraStorageLeaderCardForwardMessage;
 import it.polimi.ingsw.Messages.Message;
 
@@ -35,6 +36,8 @@ public class PayWithExtraStorageLeaderCardGameMessage extends PayWithSomethingGa
             super.execute(game, out);
             game.getTurn().payWithExtraStorageLeaderCard(leaderCardPosition);//
             forwardAll(game, new PayedWithExtraStorageLeaderCardForwardMessage(currentPlayer, leaderCardPosition));//
+            Message.sendMessage(out, new ConfirmedActionMessage());
+            sendNextResourceToPay(game, out);
         } catch (MessageException e) {
             Message.sendMessage(out, e.getErrorMessage());
         }

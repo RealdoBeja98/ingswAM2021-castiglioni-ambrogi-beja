@@ -3,6 +3,7 @@ package it.polimi.ingsw.Messages.GameMessages;
 import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Exceptions.*;
 import it.polimi.ingsw.Game.Game;
+import it.polimi.ingsw.Messages.ConfirmedActionMessage;
 import it.polimi.ingsw.Messages.ForwardMessages.PayedWithStrongboxForwardMessage;
 import it.polimi.ingsw.Messages.Message;
 
@@ -36,6 +37,8 @@ public class PayWithStrongboxGameMessage extends PayWithSomethingGameMessage {
             super.execute(game, out);
             game.getTurn().payWithStrongBox(resource);//
             forwardAll(game, new PayedWithStrongboxForwardMessage(currentPlayer, resource));//
+            Message.sendMessage(out, new ConfirmedActionMessage());
+            sendNextResourceToPay(game, out);
         } catch (MessageException e) {
             Message.sendMessage(out, e.getErrorMessage());
         }

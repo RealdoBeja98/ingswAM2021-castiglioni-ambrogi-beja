@@ -1,7 +1,6 @@
 package it.polimi.ingsw.Messages;
 
 import it.polimi.ingsw.Game.Game;
-
 import java.io.PrintWriter;
 
 /**

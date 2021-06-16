@@ -1,15 +1,32 @@
 package it.polimi.ingsw.Messages.GameMessages;
 
 import it.polimi.ingsw.Enums.Resource;
+import it.polimi.ingsw.Exceptions.NoResourceToPayException;
 import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Messages.ConfirmedActionMessage;
 import it.polimi.ingsw.Messages.ForwardMessages.UpdateObtainedMultipleResourceForwardMessage;
 import it.polimi.ingsw.Messages.GameMessage;
 import it.polimi.ingsw.Messages.Message;
-
 import java.io.PrintWriter;
 
 public abstract class PayWithSomethingGameMessage extends GameMessage {
+
+    /**
+     * This method is to send to the player a message with the next resources to pay
+     * @param game: game instance
+     * @param out: sends message to socket
+     */
+    protected void sendNextResourceToPay(Game game, PrintWriter out){
+        if(game.getTurn().getCurrentPlayer().somethingToPay()){
+            try {
+                out.println("Next to pay: " + game.getTurn().getCurrentPlayer().nextToPay().toString());
+            } catch (NoResourceToPayException e) {
+                e.printStackTrace();
+            }
+        } else if(game.getTurn().getCurrentPlayer().genericResourcesToObtain()){
+            out.println("Generic resource to obtain");
+        }
+    }
 
     /**
      * This method represents the sending of a  correct message
@@ -27,7 +44,6 @@ public abstract class PayWithSomethingGameMessage extends GameMessage {
         //before game.getTurn().payWithStrongBox(resource); was here
         //before game.getTurn().payWithWarehouseDepots(position); was here
         //before game.getTurn().payWithExtraStorageLeaderCard(leaderCardPosition); was here
-        Message.sendMessage(out, new ConfirmedActionMessage());
         System.out.println(identifier);
         forwardAll(game, new UpdateObtainedMultipleResourceForwardMessage(currentPlayer, faith, coin, servant, shield, stone));
     }

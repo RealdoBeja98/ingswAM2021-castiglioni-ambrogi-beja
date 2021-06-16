@@ -4,7 +4,6 @@ import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Game.Player;
 import it.polimi.ingsw.Game.PlayerGame;
 import javafx.util.Pair;
-
 import java.util.ArrayList;
 
 /**

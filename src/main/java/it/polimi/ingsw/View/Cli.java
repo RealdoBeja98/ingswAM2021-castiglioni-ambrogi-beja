@@ -222,7 +222,16 @@ public class Cli extends View{
         System.out.println("║║");
         System.out.println("║╚══════════════════════════════════════════════════════════════════════════════════════════════════════════╝║");
         System.out.println("║╔══════════════════════════════════════════════════════════════════════════════════════════════════════════╗║");
-        System.out.println("║║ Faith Track                                                                                              ║║");
+
+        System.out.print("║║ Faith Track                                             (Actual score victory points: ");
+        int actualScoreVictoryPoints = n.calculateVictoryPoints();
+        String actualScoreVictoryPointsString = new String(String.valueOf(actualScoreVictoryPoints));
+        System.out.print(actualScoreVictoryPoints);
+        for(int i = 0; i < 18 - actualScoreVictoryPointsString.length(); i++){
+            System.out.print(" ");
+        }
+        System.out.println(")║║");
+
         System.out.println("║╚══════════════════════════════════════════════════════════════════════════════════════════════════════════╝║");
         System.out.println("║╔══════════════════════════════════════════════════════════════════════════════════════════════════════════╗║");
         int f = n.getFaithTrack().getFaithMarker();

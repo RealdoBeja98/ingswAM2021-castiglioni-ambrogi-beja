@@ -30,7 +30,7 @@ public class TakeResourcesFromTheMarketGameMessage extends GameMessage {
     }
 
     /**
-     * This method is to send other players messages with resources just took
+     * This method is to send to the player messages with resources just took
      * @param game: game instance
      * @param out: sends message to socket
      */
@@ -38,6 +38,18 @@ public class TakeResourcesFromTheMarketGameMessage extends GameMessage {
         int size = game.getTurn().getCurrentPlayer().getMarblesFromTheMarket().size();
         for (int i = 0; i < size; i++) {
             out.println(game.getTurn().getCurrentPlayer().getMarblesFromTheMarket().get(i));
+        }
+    }
+
+    /**
+     * This method is to send to the player a message with the first resources just took
+     * @param game: game instance
+     * @param out: sends message to socket
+     */
+    private void sendFirstMarbleFromTheMarket(Game game, PrintWriter out){
+        int size = game.getTurn().getCurrentPlayer().getMarblesFromTheMarket().size();
+        if(size >= 1){
+            out.println("Marble from the market to add: " + game.getTurn().getCurrentPlayer().getMarblesFromTheMarket().get(0));
         }
     }
 
@@ -54,6 +66,7 @@ public class TakeResourcesFromTheMarketGameMessage extends GameMessage {
             Message.sendMessage(out, new ConfirmedActionMessage());
             System.out.println(this);
             sendMarblesFromTheMarket(game, out);
+            sendFirstMarbleFromTheMarket(game, out);
             forwardAll(game, new UpdateMarketForwardMessage(currentPlayer, rowColumn, place));
         } catch (MessageException e) {
             Message.sendMessage(out, e.getErrorMessage());

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.Game;
 
+import it.polimi.ingsw.Enums.LeaderCardType;
 import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Enums.RowColumn;
 import it.polimi.ingsw.Enums.Type;
@@ -27,6 +28,7 @@ public class PlayerGame {
 
         private String nickname;
         private LeaderCard[] cardsInHandFirst;
+        private boolean selectedHisTwoFirstCards = false;
         private LeaderCard[] cardsInHand;
         private LeaderCard[] cardsOnTable;
         private FaithTrack faithTrack;
@@ -96,6 +98,54 @@ public class PlayerGame {
          */
         public boolean getInkwell(){
             return  inkwell;
+        }
+
+        /**
+         * This method add the bonus victoryPoints for resources you have
+         * @return the bonus victoryPoints for resources; of type int
+         */
+        private int addBonusResourcesToVictoryPoints(){
+            int numTotResources = 0;
+            numTotResources += strongBox.getCoin();
+            numTotResources += strongBox.getServant();
+            numTotResources += strongBox.getStone();
+            numTotResources += strongBox.getShield();
+            for(Resource i : warehouseDepots.getResource()){
+                if(i != null){
+                    numTotResources++;
+                }
+            }
+            for(LeaderCard i : cardsOnTable){
+                if(i != null && i.getWhatIAm() == LeaderCardType.STORAGE){
+                    numTotResources += ((ExtraStorageLeaderCard)i).occupiedResources();
+                }
+            }
+            int rest = numTotResources % 5;
+            int dividend = numTotResources - rest;
+            return dividend / 5;
+        }
+
+        /**
+         * this method return victory points of the player
+         * @return victory points of the player; of type int
+         */
+        public int calculateVictoryPoints(){
+            int result = 0;
+            for(DevelopmentCard[] i : slotsDevelopmentCards.getSlot()){
+                for(DevelopmentCard j : i){
+                    if(j != null){
+                        result += j.getVictoryPoints();
+                    }
+                }
+            }
+            result += faithTrack.victoryPoints();
+            for(LeaderCard i : cardsOnTable){
+                if(i != null){
+                    result += i.getVictoryPoints();
+                }
+            }
+            result += addBonusResourcesToVictoryPoints();
+            return result;
         }
 
     }
@@ -208,6 +258,20 @@ public class PlayerGame {
     public void updateTwoCardToKeepSelected(String nickname, int card1, int card2){
         getPlayerPlayerFromNickname(nickname).cardsInHand[0] = getPlayerPlayerFromNickname(nickname).cardsInHandFirst[card1-1];
         getPlayerPlayerFromNickname(nickname).cardsInHand[1] = getPlayerPlayerFromNickname(nickname).cardsInHandFirst[card2-1];
+        getPlayerPlayerFromNickname(nickname).selectedHisTwoFirstCards = true;
+    }
+
+    /**
+     * this method tell us if all player has selected their two starting cards to keep
+     * @return if the game has really started or not; of type boolean
+     */
+    public boolean gameReallyStarted(){
+        for(PlayerPlayer i : players){
+            if(!i.selectedHisTwoFirstCards){
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -428,8 +492,6 @@ public class PlayerGame {
      */
     public void addDevelopmentCard(String nickname, int pos, String developmentCard){
         try {
-            //System.out.println("Questa è la developmentCard: " + developmentCard);///////////////////////
-
             getPlayerPlayerFromNickname(nickname).slotsDevelopmentCards.addDevelopmentCard(pos, new DevelopmentCard(developmentCard));
         } catch (PositionInvalidException | IndexOutOfSlotDevelopmentCardsException e) {
             e.printStackTrace();

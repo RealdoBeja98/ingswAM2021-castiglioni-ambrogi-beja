@@ -32,6 +32,18 @@ public class AddResourceToGameMessage extends GameMessage {
     }
 
     /**
+     * This method is to send to the player a message with the next resources from the market
+     * @param game: game instance
+     * @param out: sends message to socket
+     */
+    private void sendNextMarbleFromTheMarket(Game game, PrintWriter out){
+        int size = game.getTurn().getCurrentPlayer().getMarblesFromTheMarket().size();
+        if(size >= 1){
+            out.println("Marble from the market to add: " + game.getTurn().getCurrentPlayer().getMarblesFromTheMarket().get(0));
+        }
+    }
+
+    /**
      * This method is the second part of the method execute
      * @param game game instance
      * @param out sends message to socket
@@ -59,6 +71,7 @@ public class AddResourceToGameMessage extends GameMessage {
                 forwardAll(game, new AddedResourceToForwardMessage(currentPlayer, leaderWarehouse, whichResourceToAdd, place));
                 break;
         }
+        sendNextMarbleFromTheMarket(game, out);
     }
 
     /**

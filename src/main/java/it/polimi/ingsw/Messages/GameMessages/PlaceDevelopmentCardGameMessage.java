@@ -26,6 +26,18 @@ public class PlaceDevelopmentCardGameMessage extends GameMessage {
         this.position = position;
     }
 
+    private void sendNextResourceToPay(Game game, PrintWriter out){
+        if(game.getTurn().getCurrentPlayer().somethingToPay()){
+            try {
+                out.println("Next to pay: " + game.getTurn().getCurrentPlayer().nextToPay().toString());
+            } catch (NoResourceToPayException e) {
+                e.printStackTrace();
+            }
+        } else if(game.getTurn().getCurrentPlayer().genericResourcesToObtain()){
+            out.println("Generic resource to obtain");
+        }
+    }
+
     /**
      * This method represents the sending of a  correct message
      * @param game game instance
@@ -40,6 +52,7 @@ public class PlaceDevelopmentCardGameMessage extends GameMessage {
             Message.sendMessage(out, new ConfirmedActionMessage());
             System.out.println(identifier);
             forwardAll(game, new PlacedDevelopmentCardForwardMessage(currentPlayer, position, obtainedDevelopmentCard.export()));
+            sendNextResourceToPay(game, out);
         } catch (MessageException e) {
             Message.sendMessage(out, e.getErrorMessage());
         }

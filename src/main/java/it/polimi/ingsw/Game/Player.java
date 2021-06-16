@@ -14,8 +14,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-//<--FIXME--> non mettere l'else se fa return o throw (controllare un po' tutti i metodi di questa classe)
-
 /**
  * This Class represents the player
  */
@@ -59,9 +57,8 @@ public class Player {
     public boolean isHimFirstTurn(){
         if(cardsInHandFirst == null){
             return false;
-        } else {
-            return true;
         }
+        return true;
     }
 
     /**
@@ -154,13 +151,11 @@ public class Player {
         if(pos < 1 || pos > 2){
             throw new PositionInvalidException();
         }
-        else{
-            if(cardsInHand[pos-1] == null){
-                throw new AlreadyDiscardedThisLeaderCardException();
-            }
-            cardsInHand[pos-1] = null;
-            personalBoard.getFaithTrack().goOn(1);
+        if(cardsInHand[pos-1] == null){
+            throw new AlreadyDiscardedThisLeaderCardException();
         }
+        cardsInHand[pos-1] = null;
+        personalBoard.getFaithTrack().goOn(1);
     }
 
     /**
@@ -309,25 +304,23 @@ public class Player {
      * This method tell if the player is able to pay at least a leader card in his hand
      * @return if the player the player is able to pay at least a leader card in his hand
      */
-    //<--FIXME--> Controllare questo metodo se può essere migliorato
     public boolean canYouPlayAtLeastALeaderCard(){
-        boolean result = false;
         for(LeaderCard i : cardsInHand){
             if(i != null){
                 switch (i.getWhatIAm()){
                     case DISCOUNT:
                         if(personalBoard.getSlotsDevelopmentCards().checkHaveTypes(((DiscountLeaderCard)i).getCostOfLeaderCard())){
-                            result = true;
+                            return true;
                         }
                         break;
                     case STORAGE:
                         if(checkToHaveAtLeastFiveOfThisResource(((ExtraStorageLeaderCard)i).getCostOfLeaderCard())){
-                            result = true;
+                            return true;
                         }
                         break;
                     case PRODUCTIONPOWER:
                         if(personalBoard.getSlotsDevelopmentCards().checkHaveTypeAtLevelTwo(((ProductionPowerLeaderCard)i).getCostOfLeaderCard())){
-                            result = true;
+                            return true;
                         }
                         break;
                     case WHITE:
@@ -336,14 +329,13 @@ public class Player {
                         price[1] = price[0];
                         price[2] = ((WhiteMarbleLeaderCard)i).getCostOfLeaderCard()[1];
                         if(personalBoard.getSlotsDevelopmentCards().checkHaveTypes(price)){
-                            result = true;
+                            return true;
                         }
                         break;
-                    default: throw new RuntimeException();
                 }
             }
         }
-        return result;
+        return false;
     }
 
     /**
@@ -352,41 +344,38 @@ public class Player {
      * @throws PositionInvalidException if the position isn't 1 or 2
      * @throws NotSatisfiedRequirementsForThisLeaderCardException if the player isn't able to play the card
      */
-    //<--FIXME--> Controllare questo metodo se può essere migliorato
     public void playLeaderCard(int pos) throws NotSatisfiedRequirementsForThisLeaderCardException, PositionInvalidException {
         if(pos < 1 || pos > 2){
             throw new PositionInvalidException();
-        } else {
-            switch(cardsInHand[pos-1].getWhatIAm()) {
-                case DISCOUNT:
-                    if(!personalBoard.getSlotsDevelopmentCards().checkHaveTypes(((DiscountLeaderCard)cardsInHand[pos-1]).getCostOfLeaderCard())){
-                        throw new NotSatisfiedRequirementsForThisLeaderCardException();
-                    }
-                    break;
-                case STORAGE:
-                    if(!checkToHaveAtLeastFiveOfThisResource(((ExtraStorageLeaderCard)cardsInHand[pos-1]).getCostOfLeaderCard())){
-                        throw new NotSatisfiedRequirementsForThisLeaderCardException();
-                    }
-                    break;
-                case PRODUCTIONPOWER:
-                    if(!personalBoard.getSlotsDevelopmentCards().checkHaveTypeAtLevelTwo(((ProductionPowerLeaderCard)cardsInHand[pos-1]).getCostOfLeaderCard())){
-                        throw new NotSatisfiedRequirementsForThisLeaderCardException();
-                    }
-                    break;
-                case WHITE:
-                    Type[] price = new Type[3];
-                    price[0] = ((WhiteMarbleLeaderCard)cardsInHand[pos-1]).getCostOfLeaderCard()[0];
-                    price[1] = price[0];
-                    price[2] = ((WhiteMarbleLeaderCard)cardsInHand[pos-1]).getCostOfLeaderCard()[1];
-                    if(!personalBoard.getSlotsDevelopmentCards().checkHaveTypes(price)){
-                        throw new NotSatisfiedRequirementsForThisLeaderCardException();
-                    }
-                    break;
-                default: throw new RuntimeException();
-            }
-            cardsOnTable[pos-1] = cardsInHand[pos-1];
-            cardsInHand[pos-1] = null;
         }
+        switch(cardsInHand[pos-1].getWhatIAm()) {
+            case DISCOUNT:
+                if(!personalBoard.getSlotsDevelopmentCards().checkHaveTypes(((DiscountLeaderCard)cardsInHand[pos-1]).getCostOfLeaderCard())){
+                    throw new NotSatisfiedRequirementsForThisLeaderCardException();
+                }
+                break;
+            case STORAGE:
+                if(!checkToHaveAtLeastFiveOfThisResource(((ExtraStorageLeaderCard)cardsInHand[pos-1]).getCostOfLeaderCard())){
+                    throw new NotSatisfiedRequirementsForThisLeaderCardException();
+                }
+                break;
+            case PRODUCTIONPOWER:
+                if(!personalBoard.getSlotsDevelopmentCards().checkHaveTypeAtLevelTwo(((ProductionPowerLeaderCard)cardsInHand[pos-1]).getCostOfLeaderCard())){
+                    throw new NotSatisfiedRequirementsForThisLeaderCardException();
+                }
+                break;
+            case WHITE:
+                Type[] price = new Type[3];
+                price[0] = ((WhiteMarbleLeaderCard)cardsInHand[pos-1]).getCostOfLeaderCard()[0];
+                price[1] = price[0];
+                price[2] = ((WhiteMarbleLeaderCard)cardsInHand[pos-1]).getCostOfLeaderCard()[1];
+                if(!personalBoard.getSlotsDevelopmentCards().checkHaveTypes(price)){
+                    throw new NotSatisfiedRequirementsForThisLeaderCardException();
+                }
+                break;
+        }
+        cardsOnTable[pos-1] = cardsInHand[pos-1];
+        cardsInHand[pos-1] = null;
     }
 
     /**
@@ -552,9 +541,11 @@ public class Player {
     public void addResource(LeaderWarehouse where, int pos) throws NoResourceToAddException, DifferentStorageException, OccupiedSlotExtraStorageLeaderCardException, PositionAlreadyOccupiedException, ResourceAlreadyPlacedException, DifferentResourceInThisShelfException, UnexpectedWhiteMarbleException, UnexpectedFaithMarbleException, IndexOutOfWarehouseDepotsException {
         if(marblesFromTheMarket.isEmpty()) {
             throw new NoResourceToAddException();
-        } else if(marblesFromTheMarket.get(0) instanceof White){
+        }
+        if(marblesFromTheMarket.get(0) instanceof White){
             throw new UnexpectedWhiteMarbleException();
-        } else if(marblesFromTheMarket.get(0) instanceof Faith){
+        }
+        if(marblesFromTheMarket.get(0) instanceof Faith){
             throw new UnexpectedFaithMarbleException();
         }
         switch (where){
@@ -580,13 +571,17 @@ public class Player {
     public void addResource(LeaderWarehouse where) throws NoResourceToAddException, UnexpectedWhiteMarbleException, UnexpectedFaithMarbleException {
         if(marblesFromTheMarket.isEmpty()) {
             throw new NoResourceToAddException();
-        } else if(marblesFromTheMarket.get(0) instanceof White){
+        }
+        if(marblesFromTheMarket.get(0) instanceof White){
             throw new UnexpectedWhiteMarbleException();
-        } else if(marblesFromTheMarket.get(0) instanceof Faith){
+        }
+        if(marblesFromTheMarket.get(0) instanceof Faith){
             throw new UnexpectedFaithMarbleException();
-        } else if(where != LeaderWarehouse.DISCARD){
+        }
+        if(where != LeaderWarehouse.DISCARD){
             throw new IllegalArgumentException();
-        } else if(Game.get(gameIndex).getNumberOfPlayer() != 1 && Game.get(gameIndex).getPlayers().size() == 1){
+        }
+        if(Game.get(gameIndex).getNumberOfPlayer() != 1 && Game.get(gameIndex).getPlayers().size() == 1){
             marblesFromTheMarket.remove(0);
         } else {
             personalBoard.getFaithTrack().allOtherPlayersGoOn(this);
@@ -633,18 +628,18 @@ public class Player {
     public void changeWhiteMarbleWith(int pos) throws NoWhiteMarbleLeaderCardException, NoWhiteMarbleException, PositionInvalidException {
         if(pos <= 0 || pos > 2){
             throw new PositionInvalidException();
+        }
+        if(!(cardsOnTable[pos-1] instanceof WhiteMarbleLeaderCard)){
+            throw new NoWhiteMarbleLeaderCardException();
+        }
+        WhiteMarbleLeaderCard selected = (WhiteMarbleLeaderCard)cardsOnTable[pos-1];
+        if(selected == null){
+            throw new NoWhiteMarbleLeaderCardException();
+        }
+        if(marblesFromTheMarket.get(0) instanceof White){
+            marblesFromTheMarket.set(0, selected.getWhiteMarble());
         } else {
-            if(!(cardsOnTable[pos-1] instanceof WhiteMarbleLeaderCard)){
-                throw new NoWhiteMarbleLeaderCardException();
-            }
-            WhiteMarbleLeaderCard selected = (WhiteMarbleLeaderCard)cardsOnTable[pos-1];
-            if(selected == null){
-                throw new NoWhiteMarbleLeaderCardException();
-            } else if(marblesFromTheMarket.get(0) instanceof White){
-                marblesFromTheMarket.set(0, selected.getWhiteMarble());
-            } else {
-                throw new NoWhiteMarbleException();
-            }
+            throw new NoWhiteMarbleException();
         }
     }
 
@@ -710,7 +705,8 @@ public class Player {
         DevelopmentCard selected = personalBoard.getSlotsDevelopmentCards().getActiveCards()[pos - 1];
         if(selected == null){
             throw new NoDevelopmentCardInThisPositionException();
-        } else if(selectedProduction.contains(selected)){
+        }
+        if(selectedProduction.contains(selected)){
             selectedProduction.remove(selected);
         } else {
             selectedProduction.add(selected);
@@ -730,9 +726,11 @@ public class Player {
         LeaderCard selected = cardsOnTable[pos-1];
         if(selected == null){
             throw new NoProductionLeaderCardException();
-        } else if(!(selected instanceof ProductionPowerLeaderCard)){
+        }
+        if(!(selected instanceof ProductionPowerLeaderCard)){
             throw new NoProductionLeaderCardException();
-        } else if(selectedProduction.contains(selected)){
+        }
+        if(selectedProduction.contains(selected)){
             selectedProduction.remove(selected);
         } else {
             selectedProduction.add((Production)selected);
@@ -1301,7 +1299,7 @@ public class Player {
 
     /**
      * this method return victory points of the player
-     * @return victory points of the player
+     * @return victory points of the player; of type int
      */
     public int calculateVictoryPoints(){
         int result = 0;

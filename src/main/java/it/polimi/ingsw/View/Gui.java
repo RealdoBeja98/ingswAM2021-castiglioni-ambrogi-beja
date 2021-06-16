@@ -4,7 +4,6 @@ import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Game.PlayerGame;
 import it.polimi.ingsw.Mains.ClientMain;
 import it.polimi.ingsw.Mains.GuiThread;
-import it.polimi.ingsw.PersonalBoard.Faith.FaithTrackSP;
 import it.polimi.ingsw.Table.Decks.Development.DevelopmentCard;
 import it.polimi.ingsw.Table.Decks.Leader.ExtraStorageLeaderCard;
 import it.polimi.ingsw.Table.Decks.Leader.LeaderCard;
@@ -14,6 +13,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.application.Platform;
 import java.util.ArrayList;
+
+//<--FIXME--> Fare il javadock di questa classe
 
 public class Gui extends View{
 
@@ -262,6 +263,7 @@ public class Gui extends View{
         drawCardsOnTable(n, gc, x, y);
         drawCardsInHand(n, gc, x, y);
         drawStrongbox(n, gc, x, y);
+        drawActualScoreVictoryPointsString(n, gc, x, y);
     }
 
     private void drawLorenzoBoard(GraphicsContext gc, int x, int y){
@@ -530,6 +532,11 @@ public class Gui extends View{
         drawNumber(gc, x+35, y+440, shield);
     }
 
+    private void drawActualScoreVictoryPointsString(PlayerGame.PlayerPlayer n, GraphicsContext gc, int x, int y){
+        int actualScoreVictoryPoints = n.calculateVictoryPoints();
+        drawNumber(gc, x+520, y+470, actualScoreVictoryPoints);
+    }
+
     private void drawNumber(GraphicsContext gc, int x, int y, int number){
         int c2 = number % 10;
         int c1 = number / 10;
@@ -573,6 +580,23 @@ public class Gui extends View{
         }
         String fullName = "SoloActionToken/" + name + ".png";
         drawLittleSquare(gc, 320, 955, fullName,40, 40);
+    }
+
+    public void reloadView(){
+        if(!ClientMain.getPlayerGame().gameReallyStarted()){
+            return;
+        }
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        Image img = new Image("Misc/SemiBackGround.png");
+        gc.drawImage(img, 610, 0, 1995, 1025);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                _showDevCard();
+                _showMarket();
+                _showPersonalBoard();
+            }
+        }     );
     }
 
 }

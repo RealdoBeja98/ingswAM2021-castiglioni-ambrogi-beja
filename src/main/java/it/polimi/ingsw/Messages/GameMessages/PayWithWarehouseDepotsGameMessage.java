@@ -2,6 +2,7 @@ package it.polimi.ingsw.Messages.GameMessages;
 
 import it.polimi.ingsw.Exceptions.*;
 import it.polimi.ingsw.Game.Game;
+import it.polimi.ingsw.Messages.ConfirmedActionMessage;
 import it.polimi.ingsw.Messages.ForwardMessages.PayedWithWarehouseDepotsForwardMessage;
 import it.polimi.ingsw.Messages.Message;
 
@@ -35,6 +36,8 @@ public class PayWithWarehouseDepotsGameMessage extends PayWithSomethingGameMessa
             super.execute(game, out);
             game.getTurn().payWithWarehouseDepots(position);//
             forwardAll(game, new PayedWithWarehouseDepotsForwardMessage(currentPlayer, position));//
+            Message.sendMessage(out, new ConfirmedActionMessage());
+            sendNextResourceToPay(game, out);
         } catch (MessageException e) {
             Message.sendMessage(out, e.getErrorMessage());
         }

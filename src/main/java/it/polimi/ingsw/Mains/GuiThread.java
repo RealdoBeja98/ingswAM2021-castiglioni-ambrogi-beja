@@ -1,6 +1,5 @@
 package it.polimi.ingsw.Mains;
 import it.polimi.ingsw.Enums.*;
-import it.polimi.ingsw.Messages.GameMessage;
 import it.polimi.ingsw.Messages.GameMessages.*;
 import it.polimi.ingsw.Messages.Message;
 import javafx.application.Application;
@@ -14,10 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
-import javafx.util.Pair;
-
 import java.io.PrintWriter;
-import java.util.ArrayList;
 
 /**
  * Class of gui thread
@@ -46,8 +42,24 @@ public class GuiThread extends Application implements Runnable{
     public static void setOut(PrintWriter out) {
         GuiThread.out = out;
         synchronized (GuiThread.lock){
+            System.out.println("GuiThread notifyAll");//
             GuiThread.lock.notifyAll();
         }
+        //start added piece
+        if(!ClientMain.getGuiSet()){
+            return;
+        }
+        synchronized (ClientMain.lock){
+            System.out.println("ClientMain wait");//
+            while (!GuiThread.isSetBackground){
+                try {
+                    ClientMain.lock.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        //finish added piece
     }
 
     /**
@@ -71,12 +83,15 @@ public class GuiThread extends Application implements Runnable{
         Image img = new Image("Misc/BackGround.png");
         ClientMain.setCanvas(canvas);
         synchronized (GuiThread.lock){
+            System.out.println("Guitherad wait");//
             while(out == null){
                 GuiThread.lock.wait();
             }
         }
         gc.drawImage(img, 0, 0, 1995, 1025);
+        System.out.println("Background set");//
         GuiThread.isSetBackground = true;
+        System.out.println("I go to notify ClientMain now that I've set background");//
         ClientMain.notifyClientMain();
         root.getChildren().add(canvas);
         buttonTurn(root, stage);
@@ -175,6 +190,19 @@ public class GuiThread extends Application implements Runnable{
     }
 
     /**
+     * This method is to set a botton with its event and its coordinates x and y
+     * @param b
+     * @param event
+     * @param x
+     * @param y
+     */
+    private void setButton(Button b, EventHandler<ActionEvent> event, int x, int y){
+        b.setOnAction(event);
+        b.setLayoutX(x);
+        b.setLayoutY(y);
+    }
+
+    /**
      * This method creates and adds the button
      * @param root group root
      * @param buttonName name of the button
@@ -190,10 +218,7 @@ public class GuiThread extends Application implements Runnable{
                 out.println(message);
             }
         };
-        //<--FIXME--> Queste 4 righe che seguono si ripetono molte volte
-        b.setOnAction(event);
-        b.setLayoutX(x);
-        b.setLayoutY(y);
+        setButton(b, event, x, y);
         root.getChildren().add(b);
     }
 
@@ -215,9 +240,7 @@ public class GuiThread extends Application implements Runnable{
                 stage.close();
             }
         };
-        b.setOnAction(event);
-        b.setLayoutX(x);
-        b.setLayoutY(y);
+        setButton(b, event, x, y);
         TilePane r = new TilePane();
         root.getChildren().add(b);
     }
@@ -238,9 +261,7 @@ public class GuiThread extends Application implements Runnable{
                 state = n;
             }
         };
-        b.setOnAction(event);
-        b.setLayoutX(x);
-        b.setLayoutY(y);
+        setButton(b, event, x, y);
         root.getChildren().add(b);
     }
     /**
@@ -265,9 +286,7 @@ public class GuiThread extends Application implements Runnable{
                 }
             }
         };
-        b.setOnAction(event);
-        b.setLayoutX(x);
-        b.setLayoutY(y);
+        setButton(b, event, x, y);
         root.getChildren().add(b);
     }
 
@@ -300,9 +319,7 @@ public class GuiThread extends Application implements Runnable{
                 state = 0;
             }
         };
-        b.setOnAction(event);
-        b.setLayoutX(x);
-        b.setLayoutY(y);
+        setButton(b, event, x, y);
         root.getChildren().add(b);
     }
 
@@ -322,9 +339,7 @@ public class GuiThread extends Application implements Runnable{
                 leaderCardState = n;
             }
         };
-        b.setOnAction(event);
-        b.setLayoutX(x);
-        b.setLayoutY(y);
+        setButton(b, event, x, y);
         root.getChildren().add(b);
     }
 
@@ -372,9 +387,7 @@ public class GuiThread extends Application implements Runnable{
                 }
             }
         };
-        b.setOnAction(event);
-        b.setLayoutX(x);
-        b.setLayoutY(y);
+        setButton(b, event, x, y);
         root.getChildren().add(b);
     }
 
@@ -417,36 +430,28 @@ public class GuiThread extends Application implements Runnable{
                 setEvent(c1, c2, c3, c4, c1, 1);
             }
         };
-        c1.setOnAction(ec1);
-        c1.setLayoutX(1060);
-        c1.setLayoutY(850);
+        setButton(c1, ec1, 1060, 850);
 
         EventHandler<ActionEvent> ec2 = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
                 setEvent(c1, c2, c3, c4, c2, 2);
             }
         };
-        c2.setOnAction(ec2);
-        c2.setLayoutX(1230);
-        c2.setLayoutY(850);
+        setButton(c2, ec2, 1230, 850);
 
         EventHandler<ActionEvent> ec3 = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
                 setEvent(c1, c2, c3, c4, c3, 3);
             }
         };
-        c3.setOnAction(ec3);
-        c3.setLayoutX(1400);
-        c3.setLayoutY(850);
+        setButton(c3, ec3, 1400, 850);
 
         EventHandler<ActionEvent> ec4 = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
                 setEvent(c1, c2, c3, c4, c4, 4);
             }
         };
-        c4.setOnAction(ec4);
-        c4.setLayoutX(1570);
-        c4.setLayoutY(850);
+        setButton(c4, ec4, 1570, 850);
 
         Button ok = new Button("OK");
         EventHandler<ActionEvent> finalEvent = new EventHandler<ActionEvent>() {
@@ -458,9 +463,7 @@ public class GuiThread extends Application implements Runnable{
                 }
             }
         };
-        ok.setOnAction(finalEvent);
-        ok.setLayoutX(1310);
-        ok.setLayoutY(950);
+        setButton(ok, finalEvent, 1310, 950);
 
         root.getChildren().add(c1);
         root.getChildren().add(c2);

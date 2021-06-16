@@ -7,7 +7,6 @@ import it.polimi.ingsw.Messages.Message;
 import it.polimi.ingsw.View.Cli;
 import it.polimi.ingsw.View.View;
 import javafx.scene.canvas.Canvas;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -26,7 +25,7 @@ public class ClientMain {
     private static boolean guiSet = false;
     private static Canvas canvas = null;
     private static ClientMain instance;
-    private final static Object lock = new Object();
+    public final static Object lock = new Object();//temporaneamente pubblico: sost con referential getter o con private
 
     /**
      * Getter of object getLock
@@ -34,7 +33,6 @@ public class ClientMain {
     public static Object getLock(){
         return ClientMain.lock;
     }
-
 
     /**
      * Getter of clientMain getInstance
@@ -49,6 +47,7 @@ public class ClientMain {
      */
     public static void setCanvas(Canvas canvas) {
         ClientMain.canvas = canvas;
+        System.out.println("I go to notify ClientMain now that I've set the canvas");//
         ClientMain.notifyClientMain();
     }
 
@@ -57,6 +56,7 @@ public class ClientMain {
      */
     public static void notifyClientMain(){
         synchronized (ClientMain.lock){
+            System.out.println("ClientMain notifyAll");//
             ClientMain.lock.notifyAll();
         }
     }
@@ -126,6 +126,7 @@ public class ClientMain {
         Thread guiThreadThread = new Thread(guiThread);
         guiThreadThread.start();
         synchronized (ClientMain.lock){
+            System.out.println("ClientMain wait");//
             while (ClientMain.canvas == null){
                 ClientMain.lock.wait();
             }
