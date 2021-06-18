@@ -79,7 +79,7 @@ public class ClientHandler implements Runnable {
             if (wut.getReturnValue() == 1) {
                 CloseCommunicationChannel.f(in, out, nickname, game, socket);
                 try {
-                    game.removePlayer(nickname);
+                    game.removePlayer(nickname);//player is also removed from the game
                 } catch (GameEndedException e) {
                     e.printStackTrace();
                 }
@@ -123,8 +123,17 @@ public class ClientHandler implements Runnable {
         String line = in.readLine();
         if(line == null){
             String whoQuited = nickname;
+            //
+            //Commentare temporaneamente queste righe per testare il PingPong
             forward(whoQuited + " quit", out);
             pingPong.stop();
+            try {
+                game.removePlayer(nickname);//player is also removed from the game
+            } catch (GameEndedException e) {
+                e.printStackTrace();
+            }
+            //Fine di Commentare temporaneamente queste righe per testare il PingPong
+            //
             return false;
         }
 
@@ -132,7 +141,7 @@ public class ClientHandler implements Runnable {
             case "quit":
                 out.println("quit");
                 try {
-                    game.removePlayer(nickname);
+                    game.removePlayer(nickname);//player is also removed from the game
                 } catch (GameEndedException e) {
                     e.printStackTrace();
                 }
@@ -167,9 +176,9 @@ public class ClientHandler implements Runnable {
      * @param out sends message to a socket
      */
     private void informPlayerCrashed(PrintWriter out){
-        forward(nickname + " crashed", out);
+        forward(nickname + " quit", out);//modified "crashed" in "quit"!!!
         try {
-            game.removePlayer(nickname);
+            game.removePlayer(nickname);//player is also removed from the game
         } catch (GameEndedException gameEndedException) {
             gameEndedException.printStackTrace();
         }

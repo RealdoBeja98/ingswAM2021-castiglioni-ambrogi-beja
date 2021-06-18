@@ -47,7 +47,7 @@ public class ClientMain {
      */
     public static void setCanvas(Canvas canvas) {
         ClientMain.canvas = canvas;
-        System.out.println("I go to notify ClientMain now that I've set the canvas");//
+        //System.out.println("I go to notify ClientMain now that I've set the canvas");
         ClientMain.notifyClientMain();
     }
 
@@ -56,7 +56,7 @@ public class ClientMain {
      */
     public static void notifyClientMain(){
         synchronized (ClientMain.lock){
-            System.out.println("ClientMain notifyAll");//
+            //System.out.println("ClientMain notifyAll");
             ClientMain.lock.notifyAll();
         }
     }
@@ -126,7 +126,7 @@ public class ClientMain {
         Thread guiThreadThread = new Thread(guiThread);
         guiThreadThread.start();
         synchronized (ClientMain.lock){
-            System.out.println("ClientMain wait");//
+            //System.out.println("ClientMain wait");
             while (ClientMain.canvas == null){
                 ClientMain.lock.wait();
             }

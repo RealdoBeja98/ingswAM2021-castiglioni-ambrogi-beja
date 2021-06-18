@@ -42,7 +42,7 @@ public class GuiThread extends Application implements Runnable{
     public static void setOut(PrintWriter out) {
         GuiThread.out = out;
         synchronized (GuiThread.lock){
-            System.out.println("GuiThread notifyAll");//
+            //System.out.println("GuiThread notifyAll");
             GuiThread.lock.notifyAll();
         }
         //start added piece
@@ -50,7 +50,7 @@ public class GuiThread extends Application implements Runnable{
             return;
         }
         synchronized (ClientMain.lock){
-            System.out.println("ClientMain wait");//
+            //System.out.println("ClientMain wait");
             while (!GuiThread.isSetBackground){
                 try {
                     ClientMain.lock.wait();
@@ -83,15 +83,15 @@ public class GuiThread extends Application implements Runnable{
         Image img = new Image("Misc/BackGround.png");
         ClientMain.setCanvas(canvas);
         synchronized (GuiThread.lock){
-            System.out.println("Guitherad wait");//
+            //System.out.println("Guitherad wait");
             while(out == null){
                 GuiThread.lock.wait();
             }
         }
         gc.drawImage(img, 0, 0, 1995, 1025);
-        System.out.println("Background set");//
+        //System.out.println("Background set");
         GuiThread.isSetBackground = true;
-        System.out.println("I go to notify ClientMain now that I've set background");//
+        //System.out.println("I go to notify ClientMain now that I've set background");
         ClientMain.notifyClientMain();
         root.getChildren().add(canvas);
         buttonTurn(root, stage);

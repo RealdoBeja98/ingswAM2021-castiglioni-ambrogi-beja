@@ -114,6 +114,7 @@ it/polimi/ingsw/Messages/GameMessages/SelectProductionDevelopmentCardGameMessage
 it/polimi/ingsw/Messages/ErrorMessages/InvalidPositionErrorMessage.class
 it/polimi/ingsw/Table/Decks/Leader/ProductionPowerLeaderCard$1.class
 it/polimi/ingsw/Table/Decks/Token/ActionToken.class
+it/polimi/ingsw/View/Gui$8.class
 it/polimi/ingsw/Messages/GameMessages/StartPaymentGameMessage.class
 it/polimi/ingsw/View/View.class
 it/polimi/ingsw/Mains/GuiThread$12.class

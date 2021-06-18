@@ -1,8 +1,8 @@
 package it.polimi.ingsw.Mains;
 
+import it.polimi.ingsw.Exceptions.GameEndedException;
 import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Utilities.CloseCommunicationChannel;
-
 import java.io.BufferedReader;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -66,11 +66,18 @@ public class PingPong implements Runnable{
             if(!exist){
                 return;
             }
-            //System.out.println("I exist");
+            //System.out.println("I exist: " + nickname);
             out.println("ping");
             long now = (new Timestamp(System.currentTimeMillis())).getTime();
+            //System.out.println("nickname: " + nickname + " lastUpdate: " + lastUpdate + " now: " + now);
             if(now - lastUpdate > timeToWaitBeforeClosingCommunicationChannel){
-                forward(nickname + " crashed", out);
+                //<--FIXME--> mi disconnetto qui
+                try {
+                    game.removePlayer(nickname);//player is also removed from the game
+                } catch (GameEndedException e) {
+                    e.printStackTrace();
+                }
+                forward(nickname + " quit", out);//modified "crashed" in "quit"!!!
                 CloseCommunicationChannel.f(in, out, nickname, game, socket);
                 stop();
             }

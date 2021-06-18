@@ -5,7 +5,6 @@ import it.polimi.ingsw.Messages.Message;
 import it.polimi.ingsw.Messages.ServiceMessage;
 import it.polimi.ingsw.Messages.UpdateSoloActionTokenMessage;
 import it.polimi.ingsw.View.View;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -55,6 +54,7 @@ public class MessageThread implements Runnable{
                     out.println("GAME_ENDED");
                     return;
                 case "ping":
+                    //System.out.println("Now I send a pong!");
                     out.println("pong");
                     break;
                 default:
