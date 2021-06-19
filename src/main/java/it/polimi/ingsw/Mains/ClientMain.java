@@ -228,7 +228,7 @@ public class ClientMain {
         ClientMain.instance = this;
 
         String hostName = args[0];
-        int portNumber = integerToAscii(args[1]);
+        int portNumber = Integer.parseInt(args[1]);
         clientNick = args[4];
 
         if (args[5].equals("-GUI")) {
@@ -279,17 +279,6 @@ public class ClientMain {
 
     }
 
-    /**
-     * This message does the atoi to a coming string
-     * @param str string
-     * @return
-     */
-    private static int integerToAscii(String str){
-        try{
-            return Integer.parseInt(str);
-        } catch (NumberFormatException ex){
-            return -1;
-        }
-    }
+
 
 }

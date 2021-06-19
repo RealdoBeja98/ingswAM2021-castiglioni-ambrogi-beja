@@ -321,4 +321,17 @@ public class Game {
         return numberOfPlayer;
     }
 
+
+    public void clientDisconnected(Player player, boolean gameStarted) {
+        if (gameStarted) {
+            if (player.getNickname().equals(Game.get(gameIndex).getTurn().getCurrentPlayer().getNickname())) {
+                try {
+                    Game.get(gameIndex).getTurn().endTurn();
+                } catch (GameEndedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
 }

@@ -122,18 +122,6 @@ public class ClientHandler implements Runnable {
     private boolean scanf(BufferedReader in, PrintWriter out, PingPong pingPong) throws IOException {
         String line = in.readLine();
         if(line == null){
-            String whoQuited = nickname;
-            //
-            //Commentare temporaneamente queste righe per testare il PingPong
-            forward(whoQuited + " quit", out);
-            pingPong.stop();
-            try {
-                game.removePlayer(nickname);//player is also removed from the game
-            } catch (GameEndedException e) {
-                e.printStackTrace();
-            }
-            //Fine di Commentare temporaneamente queste righe per testare il PingPong
-            //
             return false;
         }
 
@@ -190,7 +178,6 @@ public class ClientHandler implements Runnable {
      */
     public void run() {
         try {
-
             BufferedReader in = null;
             try {
                 in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -236,8 +223,9 @@ public class ClientHandler implements Runnable {
                     break;
                 }
             }
-            CloseCommunicationChannel.f(in, out, nickname, game, socket);
+
             pingPong.stop();
+            CloseCommunicationChannel.f(in, out, nickname, game, socket);
 
         } catch (Exception e){
             System.out.println("Unexpected problem");

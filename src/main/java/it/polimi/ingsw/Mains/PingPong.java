@@ -2,11 +2,13 @@ package it.polimi.ingsw.Mains;
 
 import it.polimi.ingsw.Exceptions.GameEndedException;
 import it.polimi.ingsw.Game.Game;
+import it.polimi.ingsw.Game.Player;
 import it.polimi.ingsw.Utilities.CloseCommunicationChannel;
 import java.io.BufferedReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 /**
  * This class represent the handshake and the action of
@@ -70,14 +72,19 @@ public class PingPong implements Runnable{
             out.println("ping");
             long now = (new Timestamp(System.currentTimeMillis())).getTime();
             //System.out.println("nickname: " + nickname + " lastUpdate: " + lastUpdate + " now: " + now);
-            if(now - lastUpdate > timeToWaitBeforeClosingCommunicationChannel){
+            if (now - lastUpdate > timeToWaitBeforeClosingCommunicationChannel) {
                 //<--FIXME--> mi disconnetto qui
-                try {
-                    game.removePlayer(nickname);//player is also removed from the game
-                } catch (GameEndedException e) {
-                    e.printStackTrace();
+                //game.removePlayer(nickname);//player is also removed from the game
+                ArrayList<Player> players = game.getPlayers();
+
+                for (int i = 0; i < players.size(); i++) {
+                    if (players.get(i).getNickname().equals(nickname)) {
+                        players.get(i).setDisconnected();
+                        game.clientDisconnected(players.get(i), game.getStarted());
+                    }
                 }
-                forward(nickname + " quit", out);//modified "crashed" in "quit"!!!
+
+                forward(nickname + " disconnected", out);//modified "crashed" in "quit"!!! ho messo disconnected
                 CloseCommunicationChannel.f(in, out, nickname, game, socket);
                 stop();
             }

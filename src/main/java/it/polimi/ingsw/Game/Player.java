@@ -33,6 +33,7 @@ public class Player {
     private DevelopmentCard obtainedDevelopmentCard;
     private int selectedWarehouseDepotsSlot = 0;
     private int gameIndex;
+    private boolean disconnected = false;
 
     /**
      * Constructor method of this class
@@ -156,6 +157,21 @@ public class Player {
         }
         cardsInHand[pos-1] = null;
         personalBoard.getFaithTrack().goOn(1);
+    }
+
+    /**
+     * This method sets the parameter disconnected to true
+     */
+    public void setDisconnected() {
+        disconnected = true;
+    }
+
+    /**
+     * Getter of the parameter disconnected
+     * @return true if the player is disconnected, of type boolean
+     */
+    public boolean getDisconnected(){
+        return disconnected;
     }
 
     /**

@@ -692,7 +692,7 @@ public class Turn {
 
     /**
      * This method signalize end of a player turn, by ending an action leader and restarting to
-     * a new chose action leader. At the end of the methods it cheks por the next player
+     * a new chose action leader. At the end of the methods it checks por the next player
      * @throws GameEndedException if the game is finished and it's time to show final points
      */
     public void endTurn() throws GameEndedException {
@@ -724,6 +724,11 @@ public class Turn {
      * @throws GameEndedException if the game is finished and it's time to show final points
      */
     private void finalPartOfEndTurn(int n) throws GameEndedException {
+        if(currentPlayer.getDisconnected()){
+            endTurn();
+            return;
+        }
+
         for(PrintWriter pw : Game.get(gameIndex).getPrintWriterList()){
             if(pw != null){
                 pw.println(new CurrentPlayerMessage(currentPlayer.getNickname()));
