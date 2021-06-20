@@ -1,6 +1,6 @@
 package it.polimi.ingsw.Utilities;
 
-public class IntegerToString {
+public class IntegerFromString {
 
     /**
      * This method is to transform a string in a integer

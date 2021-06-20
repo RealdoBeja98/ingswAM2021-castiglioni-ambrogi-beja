@@ -1,6 +1,7 @@
 package it.polimi.ingsw.Mains;
 import it.polimi.ingsw.Exceptions.*;
 import it.polimi.ingsw.Game.Game;
+import it.polimi.ingsw.Game.Player;
 import it.polimi.ingsw.Messages.ErrorMessages.GameDontExistErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.GameStartedErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.NameTakenErrorMessage;
@@ -10,9 +11,10 @@ import it.polimi.ingsw.Messages.Message;
 import it.polimi.ingsw.Messages.ForwardMessages.CurrentPlayerMessage;
 import it.polimi.ingsw.Messages.ServiceMessages.GameStartServiceMessage;
 import it.polimi.ingsw.Utilities.CloseCommunicationChannel;
-import it.polimi.ingsw.Utilities.IntegerToString;
+import it.polimi.ingsw.Utilities.IntegerFromString;
 import java.io.*;
 import java.net.Socket;
+import java.util.ArrayList;
 
 /**
  * Class of client handle
@@ -206,6 +208,12 @@ public class ClientHandler implements Runnable {
                     return;
                 }
             }
+            if(line.equals("-r")) {
+                if(!reconnecting(line, in, out)){
+                    return;
+                }
+            }
+
             if(!waitUntilStartingGame(in, out)){
                 return;
             }
@@ -241,9 +249,9 @@ public class ClientHandler implements Runnable {
      * @throws IOException
      */
     private boolean creatingGame(String line, BufferedReader in, PrintWriter out) throws IOException {
-        System.out.println("Creating a new game...");
         line = in.readLine();
-        int numPL = IntegerToString.f(line);
+        System.out.println("Creating a new game...");
+        int numPL = IntegerFromString.f(line);
         game = new Game(numPL);
         System.out.println("Created game number: " + game.getGameIndex());
         return addingPlayer(in, out);
@@ -259,7 +267,7 @@ public class ClientHandler implements Runnable {
      */
     private boolean joiningGame(String line, BufferedReader in, PrintWriter out) throws IOException {
         line = in.readLine();
-        int numGM = IntegerToString.f(line);
+        int numGM = IntegerFromString.f(line);
         System.out.println("Joining a game...");
         game = Game.get(numGM);
         try{
@@ -270,6 +278,39 @@ public class ClientHandler implements Runnable {
             return false;
         }
         return addingPlayer(in, out);
+    }
+
+
+    private boolean reconnecting(String line, BufferedReader in, PrintWriter out) throws IOException {
+        line = in.readLine();
+        int numGM = IntegerFromString.f(line);
+        System.out.println("Reconnecting a player...");
+        out.println(numGM);
+        game = Game.get(numGM);
+        try{
+            System.out.println("Someone reconnected to game number: " + game.getGameIndex());
+        }catch(NullPointerException e){
+            System.out.println("Game doesn't exist, rejecting the player");
+            Message.sendMessage(out, new GameDontExistErrorMessage());
+            return false;
+        }
+
+        line = in.readLine();
+        out.println("Reconnecting");
+
+        ArrayList<Player> players = game.getPlayers();
+        for (int i = 0; i < players.size(); i++) {
+            if (players.get(i).getNickname().equals(line) && players.get(i).getDisconnected()) {
+                players.get(i).setDisconnected(false);
+                game.getPrintWriterList().set(i, out);
+
+                sendStartingMessages(out);
+                return true;
+            }
+        }
+        System.out.println("Player doesn't exist or didn't disconnect, rejecting the player");
+        Message.sendMessage(out, new GameDontExistErrorMessage()); //FIXME change this error message with a  new one
+        return false;
     }
 
     /**

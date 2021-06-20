@@ -39,9 +39,13 @@ public class Launcher {
             System.out.println("Invalid number of parameter!");
             return true;
         }
-        if(strToInt(args[2]) == -1){
-            System.out.println("Invalid port number!");
-            return true;
+        try {
+            if (strToInt(args[2]) == -1) {
+                System.out.println("Invalid port number!");
+                return true;
+            }
+        }catch(ArrayIndexOutOfBoundsException e){
+            System.out.println("Starting server with default ip and port!");
         }
         return false;
     }
@@ -67,7 +71,7 @@ public class Launcher {
             System.out.println("Invalid nickname, too long!");
             return true;
         }
-        if(!args[2].equals("-GUI") && !args[2].equals("-CLI")){
+        if(!args[5].equals("-GUI") && !args[5].equals("-CLI")){
             System.out.println("Invalid interface!");
             return true;
         }

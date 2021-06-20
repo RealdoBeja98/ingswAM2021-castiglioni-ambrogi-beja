@@ -79,7 +79,7 @@ public class PingPong implements Runnable{
 
                 for (int i = 0; i < players.size(); i++) {
                     if (players.get(i).getNickname().equals(nickname)) {
-                        players.get(i).setDisconnected();
+                        players.get(i).setDisconnected(true);
                         game.clientDisconnected(players.get(i), game.getStarted());
                     }
                 }

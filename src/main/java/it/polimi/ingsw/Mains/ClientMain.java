@@ -162,16 +162,22 @@ public class ClientMain {
         if (lineMessage.isEqual(new NameTakenErrorMessage())) {
             (new NameTakenErrorMessage()).execute();
             return;
-        } else if (lineMessage.isEqual(new GameStartedErrorMessage())) {
+        }
+        if (lineMessage.isEqual(new GameStartedErrorMessage())) {
             (new GameStartedErrorMessage()).execute();
             return;
-        } else if (line.equals("You have the inkwell!")) {
+        }
+        if (line.equals("You have the inkwell!")) {
             View.printMessage("Joined the game!");
             View.printMessage("You have the inkwell!");
             line = in.readLine();
-        } else {
-            View.printMessage("Joined the game!");
+            return;
         }
+        if (line.equals("Reconnecting")) {
+            View.printMessage("Reconnecting!");
+            return;
+        }
+        View.printMessage("Joined the game!");
     }
 
     /**

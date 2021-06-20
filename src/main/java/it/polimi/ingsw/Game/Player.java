@@ -160,10 +160,11 @@ public class Player {
     }
 
     /**
-     * This method sets the parameter disconnected to true
+     * This method sets the parameter disconnected
+     * @param what: the value of the boolean
      */
-    public void setDisconnected() {
-        disconnected = true;
+    public void setDisconnected(boolean what) {
+        disconnected = what;
     }
 
     /**

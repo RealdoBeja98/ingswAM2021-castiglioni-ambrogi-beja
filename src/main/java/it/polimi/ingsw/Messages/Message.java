@@ -9,7 +9,7 @@ import it.polimi.ingsw.Messages.ForwardMessages.*;
 import it.polimi.ingsw.Messages.GameMessages.*;
 import it.polimi.ingsw.Messages.ServiceMessages.*;
 import it.polimi.ingsw.Table.Decks.Token.ActionToken;
-import it.polimi.ingsw.Utilities.IntegerToString;
+import it.polimi.ingsw.Utilities.IntegerFromString;
 
 import java.io.PrintWriter;
 
@@ -102,10 +102,10 @@ public abstract class Message {
         switch (message[0]){
             case "UPDATE_MARKET":
                 checkLength(message, 4);
-                return new UpdateMarketForwardMessage(message[1], RowColumn.valueOf(message[2]), IntegerToString.f(message[3]));
+                return new UpdateMarketForwardMessage(message[1], RowColumn.valueOf(message[2]), IntegerFromString.f(message[3]));
             case "UPDATE_DEVELOPMENT_CARD":
                 checkLength(message, 3);
-                return new UpdateDevelopmentCardForwardMessage(IntegerToString.f(message[1]), IntegerToString.f(message[2]));
+                return new UpdateDevelopmentCardForwardMessage(IntegerFromString.f(message[1]), IntegerFromString.f(message[2]));
             case "UPDATE_SOLO_ACTION_TOKEN":
                 checkLength(message, 2);
                 return new UpdateSoloActionTokenMessage(ActionToken.valueOf(message[1]));
@@ -120,55 +120,55 @@ public abstract class Message {
                 return new AdvanceFaithTrackForwardMessage(message[1]);
             case "DISCARDED_LEADER_CARD":
                 checkLength(message, 3);
-                return new DiscardedLeaderCardForwardMessage(message[1], IntegerToString.f(message[2]));
+                return new DiscardedLeaderCardForwardMessage(message[1], IntegerFromString.f(message[2]));
             case "PLAYED_LEADER_CARD":
                 checkLength(message, 3);
-                return new PlayedLeaderCardForwardMessage(message[1], IntegerToString.f(message[2]));
+                return new PlayedLeaderCardForwardMessage(message[1], IntegerFromString.f(message[2]));
             case "ADDED_RESOURCE_TO":
                 checkLength(message, 5);
-                return new AddedResourceToForwardMessage(message[1], LeaderWarehouse.valueOf(message[2]), Resource.valueOf(message[3]), IntegerToString.f(message[4]));
+                return new AddedResourceToForwardMessage(message[1], LeaderWarehouse.valueOf(message[2]), Resource.valueOf(message[3]), IntegerFromString.f(message[4]));
             case "PLACED_DEVELOPMENT_CARD":
                 checkLength(message, 4);
-                return new PlacedDevelopmentCardForwardMessage(message[1], IntegerToString.f(message[2]), message[3]);
+                return new PlacedDevelopmentCardForwardMessage(message[1], IntegerFromString.f(message[2]), message[3]);
             case "UPDATE_MULTIPLE_RESOURCES":
                 checkLength(message, 7);
-                return new UpdateObtainedMultipleResourceForwardMessage(message[1], IntegerToString.f(message[2]), IntegerToString.f(message[3]), IntegerToString.f(message[4]), IntegerToString.f(message[5]), IntegerToString.f(message[6]));
+                return new UpdateObtainedMultipleResourceForwardMessage(message[1], IntegerFromString.f(message[2]), IntegerFromString.f(message[3]), IntegerFromString.f(message[4]), IntegerFromString.f(message[5]), IntegerFromString.f(message[6]));
             case "OBTAINED_GENERIC_RESOURCE":
                 checkLength(message, 3);
                 return new ObtainedGenericResourceForwardMessage(message[1], Resource.valueOf(message[2]));
             case "PAYED_WITH_EXTRA_STORAGE_LEADER_CARD":
                 checkLength(message, 3);
-                return new PayedWithExtraStorageLeaderCardForwardMessage(message[1], IntegerToString.f(message[2]));
+                return new PayedWithExtraStorageLeaderCardForwardMessage(message[1], IntegerFromString.f(message[2]));
             case "PAYED_WITH_STRONGBOX":
                 checkLength(message, 3);
                 return new PayedWithStrongboxForwardMessage(message[1], Resource.valueOf(message[2]));
             case "PAYED_WITH_WAREHOUSE_DEPOTS":
                 checkLength(message, 3);
-                return new PayedWithWarehouseDepotsForwardMessage(message[1], IntegerToString.f(message[2]));
+                return new PayedWithWarehouseDepotsForwardMessage(message[1], IntegerFromString.f(message[2]));
             case "MOVED_RESOURCES_IN_WAREHOUSE_DEPOTS":
                 checkLength(message, 4);
-                return new MovedResourcesInWarehouseDepotsForwardMessage(message[1], IntegerToString.f(message[2]), IntegerToString.f(message[3]));
+                return new MovedResourcesInWarehouseDepotsForwardMessage(message[1], IntegerFromString.f(message[2]), IntegerFromString.f(message[3]));
             case "MOVED_RESOURCES_WAREHOUSE_TO_ES_LC":
                 checkLength(message, 4);
-                return new MovedResourcesWarehouseToESLCForwardMessage(message[1], IntegerToString.f(message[2]), IntegerToString.f(message[3]));
+                return new MovedResourcesWarehouseToESLCForwardMessage(message[1], IntegerFromString.f(message[2]), IntegerFromString.f(message[3]));
             case "MOVED_RESOURCE_ES_LC_TO_WAREHOUSE":
                 checkLength(message, 4);
-                return new MovedResourceESLCToWarehouseForwardMessage(message[1], IntegerToString.f(message[2]), IntegerToString.f(message[3]));
+                return new MovedResourceESLCToWarehouseForwardMessage(message[1], IntegerFromString.f(message[2]), IntegerFromString.f(message[3]));
             case "SELECTED_TWO_CARDS_TO_KEEP":
                 checkLength(message, 4);
-                return new SelectedTwoCardsToKeepForwardMessage(message[1], IntegerToString.f(message[2]), IntegerToString.f(message[3]));
+                return new SelectedTwoCardsToKeepForwardMessage(message[1], IntegerFromString.f(message[2]), IntegerFromString.f(message[3]));
             case "CHOOSE_DISCARD_LEADER_CARD":
                 checkLength(message, 1);
                 return new ChooseDiscardLeaderCardGameMessage();
             case "DISCARD_LEADER_CARD":
                 checkLength(message, 2);
-                return new DiscardLeaderCardGameMessage(IntegerToString.f(message[1]));
+                return new DiscardLeaderCardGameMessage(IntegerFromString.f(message[1]));
             case "CHOOSE_PLAY_LEADER_CARD":
                 checkLength(message, 1);
                 return new ChoosePlayLeaderCardGameMessage();
             case "PLAY_LEADER_CARD":
                 checkLength(message, 2);
-                return new PlayLeaderCardGameMessage(IntegerToString.f(message[1]));
+                return new PlayLeaderCardGameMessage(IntegerFromString.f(message[1]));
             case "CHOOSE_NO_ACTION_LEADER_CARD":
                 checkLength(message, 1);
                 return new ChooseNoActionLeaderCardGameMessage();
@@ -180,7 +180,7 @@ public abstract class Message {
                 return new SelectNormalActionGameMessage(NormalAction.valueOf(message[1]));
             case "TAKE_RESOURCES_FROM_THE_MARKET":
                 checkLength(message, 3);
-                return new TakeResourcesFromTheMarketGameMessage(RowColumn.valueOf(message[1]), IntegerToString.f(message[2]));
+                return new TakeResourcesFromTheMarketGameMessage(RowColumn.valueOf(message[1]), IntegerFromString.f(message[2]));
             case "ADD_RESOURCE_TO":
                 boolean weAre = false;
                 try {
@@ -196,32 +196,32 @@ public abstract class Message {
                     return new AddResourceToGameMessage(LeaderWarehouse.DISCARD, 0);
                 } else {
                     checkLength(message, 3);
-                    return new AddResourceToGameMessage(LeaderWarehouse.valueOf(message[1]), IntegerToString.f(message[2]));
+                    return new AddResourceToGameMessage(LeaderWarehouse.valueOf(message[1]), IntegerFromString.f(message[2]));
                 }
             case "CHANGE_WHITE_MARBLE_WITH":
                 checkLength(message, 2);
-                return new ChangeWhiteMarbleWithGameMessage(IntegerToString.f(message[1]));
+                return new ChangeWhiteMarbleWithGameMessage(IntegerFromString.f(message[1]));
             case "BUY_DEVELOPMENT_CARD":
                 checkLength(message, 3);
-                return new BuyDevelopmentCardGameMessage(IntegerToString.f(message[1]), IntegerToString.f(message[2]));
+                return new BuyDevelopmentCardGameMessage(IntegerFromString.f(message[1]), IntegerFromString.f(message[2]));
             case "PAY_WITH_STRONGBOX":
                 checkLength(message, 2);
                 return new PayWithStrongboxGameMessage(Resource.valueOf(message[1]));
             case "PAY_WITH_WAREHOUSE_DEPOTS":
                 checkLength(message, 2);
-                return new PayWithWarehouseDepotsGameMessage(IntegerToString.f(message[1]));
+                return new PayWithWarehouseDepotsGameMessage(IntegerFromString.f(message[1]));
             case "PAY_WITH_EXTRA_STORAGE_LEADER_CARD":
                 checkLength(message, 2);
-                return new PayWithExtraStorageLeaderCardGameMessage(IntegerToString.f(message[1]));
+                return new PayWithExtraStorageLeaderCardGameMessage(IntegerFromString.f(message[1]));
             case "PLACE_DEVELOPMENT_CARD":
                 checkLength(message, 2);
-                return new PlaceDevelopmentCardGameMessage(IntegerToString.f(message[1]));
+                return new PlaceDevelopmentCardGameMessage(IntegerFromString.f(message[1]));
             case "SELECT_PRODUCTION_DEVELOPMENT_CARD":
                 checkLength(message, 2);
-                return new SelectProductionDevelopmentCardGameMessage(IntegerToString.f(message[1]));
+                return new SelectProductionDevelopmentCardGameMessage(IntegerFromString.f(message[1]));
             case "SELECT_PRODUCTION_POWER_LEADER_CARD":
                 checkLength(message, 2);
-                return new SelectProductionPowerLeaderCardGameMessage(IntegerToString.f(message[1]));
+                return new SelectProductionPowerLeaderCardGameMessage(IntegerFromString.f(message[1]));
             case "SELECT_DEFAULT_PRODUCTION_POWER":
                 checkLength(message, 1);
                 return new SelectDefaultProductionPowerGameMessage();
@@ -236,19 +236,19 @@ public abstract class Message {
                 return new DrawSoloActionTokenGameMessage();
             case "SELECT_A_WAREHOUSE_DEPOTS_SLOT":
                 checkLength(message, 2);
-                return new SelectAWarehouseDepotsSlotGameMessage(IntegerToString.f(message[1]));
+                return new SelectAWarehouseDepotsSlotGameMessage(IntegerFromString.f(message[1]));
             case "MOVE_RESOURCES_IN_WAREHOUSE_DEPOTS":
                 checkLength(message, 2);
-                return new MoveResourcesInWarehouseDepotsGameMessage(IntegerToString.f(message[1]));
+                return new MoveResourcesInWarehouseDepotsGameMessage(IntegerFromString.f(message[1]));
             case "MOVE_RESOURCES_WAREHOUSE_TO_ES_LC":
                 checkLength(message, 2);
-                return new MoveResourcesWarehouseToESLCGameMessage(IntegerToString.f(message[1]));
+                return new MoveResourcesWarehouseToESLCGameMessage(IntegerFromString.f(message[1]));
             case "MOVE_RESOURCE_ES_LC_TO_WAREHOUSE":
                 checkLength(message, 2);
-                return new MoveResourceESLCToWEarehouseGameMessage(IntegerToString.f(message[1]));
+                return new MoveResourceESLCToWEarehouseGameMessage(IntegerFromString.f(message[1]));
             case "SELECT_TWO_CARDS_TO_KEEP":
                 checkLength(message, 3);
-                return new SelectTwoCardsToKeepGameMessage(IntegerToString.f(message[1]), IntegerToString.f(message[2]));
+                return new SelectTwoCardsToKeepGameMessage(IntegerFromString.f(message[1]), IntegerFromString.f(message[2]));
         }
         return null;
     }

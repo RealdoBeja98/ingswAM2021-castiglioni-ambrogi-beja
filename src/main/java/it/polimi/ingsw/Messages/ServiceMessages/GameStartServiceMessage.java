@@ -43,7 +43,8 @@ public class GameStartServiceMessage extends ServiceMessage {
     public GameStartServiceMessage(Game game){
         String market = game.getTable().getMarket().export();
         String developmentDeck = game.getTable().getDevelopmentDeck().export();
-        Pair<ArrayList<String>, String> returnPlayersAndCardsInHandFirst = getPlayersAndCardsInHandFirst(game);
+
+        Pair<ArrayList<String>, String> returnPlayersAndCardsInHandFirst = getPlayersAndCardsInHandFirst(game); //FIXME linea che causa problemi, dopo il setup iniziale non ci sonoo più questi valori, devi passare le carte scelte allora probabilmente fai un metodo simile a questo per la riconnessione
         ArrayList<String> playersAndCardsInHandFirst = returnPlayersAndCardsInHandFirst.getKey();
         String whoHasTheInkwell = returnPlayersAndCardsInHandFirst.getValue();
         all = market + "#" + developmentDeck;
