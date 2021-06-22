@@ -89,6 +89,7 @@ public class Launcher {
             }
         }else{
             System.out.println("Please write the correct number parameters!");
+            return;
         }
 
 
