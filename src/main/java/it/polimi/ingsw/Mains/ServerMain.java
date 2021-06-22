@@ -1,11 +1,10 @@
 package it.polimi.ingsw.Mains;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
@@ -29,6 +28,8 @@ public class ServerMain {
             System.out.println(hostName);
             portNumber = Integer.parseInt(args[2]);
         } else {
+            readMyJSONAsText("ServerInit.json");
+            /*
             JSONParser jsonParser = new JSONParser();
             try (FileReader reader = new FileReader("src/main/resources/ServerInit.json")) {
                 Object obj = jsonParser.parse(reader);
@@ -47,7 +48,53 @@ public class ServerMain {
                 System.out.println("ERROR: couldn't find the correct fields in the file");
                 return;
             }
+            */
         }
+    }
+
+    /**
+     * Helper method for method setHostAndPort
+     * @param fname the json file
+     */
+    private void readMyJSONAsText(String fname) {
+
+        InputStream is = null;
+        is = this.getClass().getClassLoader().getResourceAsStream(fname);
+        BufferedReader buf = new BufferedReader(new InputStreamReader(is));
+
+        String line = null;
+        try {
+            line = buf.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        StringBuilder sb = new StringBuilder();
+
+        while (line != null) {
+            sb.append(line).append("\n");
+            try {
+                line = buf.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        String fileAsString = sb.toString();
+        // eventually.. System.out.println("Contents : " + fileAsString);
+
+        JSONParser jsonParser = new JSONParser();
+        Object obj = null;
+        try {
+            obj = jsonParser.parse(fileAsString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        JSONObject j = (JSONObject) ((JSONArray)obj).get(0);
+        hostName = (String) (j.get("IP"));
+        System.out.println(hostName);
+        portNumber = (int) (long) (j.get("PORT"));
+        System.out.println(portNumber);
     }
 
     /**

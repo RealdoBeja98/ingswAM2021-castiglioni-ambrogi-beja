@@ -10,8 +10,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -36,7 +35,7 @@ public class DevelopmentDeck{
     public DevelopmentDeck(int gameIndex){
         this.gameIndex = gameIndex;
         deck = new DevelopmentCard[maxLevels][line][deep];
-        addCard();
+        addCards();
     }
 
     /**
@@ -261,11 +260,14 @@ public class DevelopmentDeck{
      * @return the list of the development cards composing the DevelopmentDeck, of type ArrayList<DevelopmentCard>
      */
     private ArrayList<DevelopmentCard> obtainDevelopmentCardsToAdd(){
+        return readMyJSONAsText("DevelopmentCardsList.json");
+        /*
         ArrayList<DevelopmentCard> developmentCardsToAdd = new ArrayList<>();
         JSONParser jsonParser = new JSONParser();
-        try (FileReader reader = new FileReader("src/main/resources/DevelopmentCardsList.json"))
+        try (FileReader reader = new FileReader("DevelopmentCardsList.json"))
         {
             Object obj = jsonParser.parse(reader);
+            Object obj2 = jsonParser.parse("");//
             JSONArray json = (JSONArray) obj;
             for(Object i : json) {
                 Resource[] cost = addCost(i);
@@ -283,6 +285,66 @@ public class DevelopmentDeck{
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
+        return developmentCardsToAdd;
+        */
+    }
+
+    /**
+     * Helper method for method obtainDevelopmentCardsToAdd
+     * @param fname the json file
+     * @return the list of the development cards composing the DevelopmentDeck, of type ArrayList<DevelopmentCard>
+     */
+    private ArrayList<DevelopmentCard> readMyJSONAsText(String fname) {
+
+        ArrayList<DevelopmentCard> developmentCardsToAdd = new ArrayList<>();
+
+        InputStream is = null;
+        is = this.getClass().getClassLoader().getResourceAsStream(fname);
+        BufferedReader buf = new BufferedReader(new InputStreamReader(is));
+
+        String line = null;
+        try {
+            line = buf.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        StringBuilder sb = new StringBuilder();
+
+        while (line != null) {
+            sb.append(line).append("\n");
+            try {
+                line = buf.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        String fileAsString = sb.toString();
+        // eventually.. System.out.println("Contents : " + fileAsString);
+
+        JSONParser jsonParser = new JSONParser();
+        Object obj = null;
+        try {
+            obj = jsonParser.parse(fileAsString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        JSONArray json = (JSONArray) obj;
+        for(Object i : json) {
+            Resource[] cost = addCost(i);
+            int[] costNumber = addCostNumber(i);
+            Type type = Type.valueOf((String)((JSONObject) i).get("type"));
+            int level = ObtainIntValueFromLong.f((Long) ((JSONObject) i).get("level"));
+            Resource[] requirements = addRequirements(i);
+            int[] costRequirements = addCostRequirements(i);
+            Resource[] products = addProducts(i);
+            int[] costProducts = addCostProducts(i);
+            int victoryPoints = ObtainIntValueFromLong.f((Long) ((JSONObject) i).get("victoryPoints"));
+            DevelopmentCard developmentCard = new DevelopmentCard(cost, costNumber, type, level, requirements, costRequirements, products, costProducts, victoryPoints);
+            developmentCardsToAdd.add(developmentCard);
+        }
+
         return developmentCardsToAdd;
     }
 
@@ -315,7 +377,7 @@ public class DevelopmentDeck{
     /**
      * This method fills all the decks with cards
      */
-    private void addCard(){
+    private void addCards(){
         ArrayList<DevelopmentCard> developmentCardsToAdd = obtainDevelopmentCardsToAdd();
         int level = DevelopmentDeck.maxLevels -1;
         while(level >= 0){

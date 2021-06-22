@@ -962,6 +962,7 @@ class  PlayerTest {
         assertSame(rebuiltStrongBox.getServant(), 99);
         assertSame(rebuiltStrongBox.getShield(), 98);
         assertSame(rebuiltStrongBox.getStone(), 97);
+        assertFalse(strings[2].equals(" & & & &"));
         assertTrue(strings[2].equals(" & &"));
         assertTrue(strings[3].equals(" & &"));
         assertTrue(strings[4].equals("C!C!C!0"));

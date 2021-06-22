@@ -6,7 +6,6 @@ import it.polimi.ingsw.Mains.ClientMain;
 import it.polimi.ingsw.Messages.ServiceMessage;
 import it.polimi.ingsw.View.Gui;
 import it.polimi.ingsw.View.View;
-
 import java.io.PrintWriter;
 
 /**

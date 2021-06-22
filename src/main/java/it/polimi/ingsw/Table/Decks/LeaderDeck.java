@@ -3,10 +3,9 @@ import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Enums.Type;
 import it.polimi.ingsw.Table.Decks.Leader.*;
 import it.polimi.ingsw.Table.Market.Marbles.*;
-import java.io.FileReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.io.IOException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -83,6 +82,8 @@ public class LeaderDeck {
      * @param deck: an ArrayList where the cards are stored
      */
     private void putCards(ArrayList<LeaderCard> deck){
+        readMyJSONAsText("LeaderCardsList.json");
+        /*
         JSONParser jsonParser = new JSONParser();
         try(FileReader reader = new FileReader("src/main/resources/LeaderCardsList.json")){
             Object obj = jsonParser.parse(reader);
@@ -93,6 +94,52 @@ public class LeaderDeck {
             }
         } catch (IOException | ParseException e) {
             e.printStackTrace();
+        }
+        */
+    }
+
+    /**
+     * Helper method for method putCards
+     * @param fname the json file
+     */
+    private void readMyJSONAsText(String fname) {
+
+        InputStream is = null;
+        is = this.getClass().getClassLoader().getResourceAsStream(fname);
+        BufferedReader buf = new BufferedReader(new InputStreamReader(is));
+
+        String line = null;
+        try {
+            line = buf.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        StringBuilder sb = new StringBuilder();
+
+        while (line != null) {
+            sb.append(line).append("\n");
+            try {
+                line = buf.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        String fileAsString = sb.toString();
+        // eventually.. System.out.println("Contents : " + fileAsString);
+
+        JSONParser jsonParser = new JSONParser();
+        Object obj = null;
+        try {
+            obj = jsonParser.parse(fileAsString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        JSONArray json = (JSONArray) obj;
+        for(Object i : json) {
+            int victoryPoints = (int)((Long) ((JSONObject) i).get("victoryPoints")).longValue();
+            putACard(i, victoryPoints);
         }
     }
 

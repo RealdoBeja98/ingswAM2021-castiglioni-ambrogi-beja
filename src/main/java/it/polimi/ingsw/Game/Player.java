@@ -1362,22 +1362,30 @@ public class Player {
     }
 
     /**
-     * This method exports the state of the player in a string; useful during reconnection
-     * @return the string representing the state of the player
+     * This method is to export cardsInHandFirst in a String
+     * @return the string representing the cardsInHandFirst
      */
-    public String exportState(){
-        //nickname
-        //cardsInHandFirst          //FIXME questo blocco ha un problema
+    private String exportCardsInHandFirst(){
         String cardsInHandFirstString = "";
-        for(LeaderCard singleCardInHandFirst : cardsInHandFirst){
-            String exportedSingleCardInHandFirst = " ";
-            if(singleCardInHandFirst != null){
-                exportedSingleCardInHandFirst = singleCardInHandFirst.export();
+        if(cardsInHandFirst == null){
+            cardsInHandFirstString = " & & & &";
+        } else {
+            for(LeaderCard singleCardInHandFirst : cardsInHandFirst){
+                String exportedSingleCardInHandFirst = " ";
+                if(singleCardInHandFirst != null){
+                    exportedSingleCardInHandFirst = singleCardInHandFirst.export();
+                }
+                cardsInHandFirstString = new StringBuilder().append(cardsInHandFirstString).append(exportedSingleCardInHandFirst + "&").toString();
             }
-            cardsInHandFirstString = new StringBuilder().append(cardsInHandFirstString).append(exportedSingleCardInHandFirst + "&").toString();
         }
+        return cardsInHandFirstString;
+    }
 
-        //cardsInHand
+    /**
+     * This method is to export cardsInHand in a String
+     * @return the string representing the cardsInHand
+     */
+    private String exportCardsInHand(){
         String cardsInHandString = "";
         for(LeaderCard singleCardInHand : cardsInHand){
             String exportedSingleCardInHand = " ";
@@ -1386,7 +1394,14 @@ public class Player {
             }
             cardsInHandString = new StringBuilder().append(cardsInHandString).append(exportedSingleCardInHand + "&").toString();
         }
-        //cardsOnTable
+        return cardsInHandString;
+    }
+
+    /**
+     * This method is to export cardsOnTable in a String
+     * @return the string representing the cardsOnTable
+     */
+    private String exportCardsOnTable(){
         String cardsOnTableString = "";
         for(LeaderCard singleCardOnTable : cardsOnTable){
             String exportedSingleCardOnTable = " ";
@@ -1395,6 +1410,23 @@ public class Player {
             }
             cardsOnTableString = new StringBuilder().append(cardsOnTableString).append(exportedSingleCardOnTable + "&").toString();
         }
+        return cardsOnTableString;
+    }
+
+    /**
+     * This method exports the state of the player in a string; useful during reconnection
+     * @return the string representing the state of the player
+     */
+    public String exportState(){
+        //nickname
+        //cardsInHandFirst
+        //System.out.println("Prima del blocco");//
+        String cardsInHandFirstString = exportCardsInHandFirst();
+        //System.out.println("Dopo il blocco");//
+        //cardsInHand
+        String cardsInHandString = exportCardsInHand();
+        //cardsOnTable
+        String cardsOnTableString = exportCardsOnTable();
         //faithTrack
         String faithTrackString = personalBoard.getFaithTrack().export();
         //warehouseDepots
@@ -1413,6 +1445,7 @@ public class Player {
         if(selectedHisTwoFirstCards){
             selectedHisTwoFirstCardsString = "1";
         }
+        //System.out.println("Dopo tutto quanto");//
         return nickname + "]" + cardsInHandFirstString + "]" + cardsInHandString + "]" + cardsOnTableString + "]" + faithTrackString + "]" + warehouseDepotsString + "]" + strongBoxString + "]" + slotsDevelopmentCards + "]" + inkwellString + "]" + selectedHisTwoFirstCardsString;
     }
 
