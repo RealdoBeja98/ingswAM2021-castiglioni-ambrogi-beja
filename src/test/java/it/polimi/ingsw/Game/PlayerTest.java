@@ -4,6 +4,7 @@ import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Enums.RowColumn;
 import it.polimi.ingsw.Enums.Type;
 import it.polimi.ingsw.Exceptions.*;
+import it.polimi.ingsw.PersonalBoard.StrongBox.StrongBox;
 import it.polimi.ingsw.Table.Decks.Development.DevelopmentCard;
 import it.polimi.ingsw.Table.Decks.Leader.*;
 import it.polimi.ingsw.Table.Market.Marbles.*;
@@ -931,6 +932,42 @@ class PlayerTest {
            fail();
         }
         assertSame(93, player.calculateVictoryPoints());
+    }
+
+    /**
+     * This method tests exporting a WarehouseDepots
+     */
+    @Test
+    void testExport(){
+        Game game = new Game(1);
+        try {
+            game.addPlayer("Carlo");
+        } catch (NameAlreadyRegisteredException | GameAlreadyStartedException e) {
+            fail();
+        }
+        Player player = game.getPlayers().get(0);
+        try {
+            player.getPersonalBoard().getStrongBox().add(Resource.COIN,100);
+            player.getPersonalBoard().getStrongBox().add(Resource.SERVANT,99);
+            player.getPersonalBoard().getStrongBox().add(Resource.SHIELD,98);
+            player.getPersonalBoard().getStrongBox().add(Resource.STONE,97);
+        } catch (NotAResourceForStrongBoxException e) {
+            fail();
+        }
+        String exportedPlayer = player.exportState();
+        String[] strings = exportedPlayer.split("]");
+        assertTrue(strings[0].equals(player.getNickname()));
+        StrongBox rebuiltStrongBox = new StrongBox(strings[6]);
+        assertSame(rebuiltStrongBox.getCoin(), 100);
+        assertSame(rebuiltStrongBox.getServant(), 99);
+        assertSame(rebuiltStrongBox.getShield(), 98);
+        assertSame(rebuiltStrongBox.getStone(), 97);
+        assertTrue(strings[2].equals(" & &"));
+        assertTrue(strings[3].equals(" & &"));
+        assertTrue(strings[4].equals("C!C!C!0"));
+        assertTrue(strings[5].equals(" ! ! ! ! ! !"));
+        assertTrue(strings[7].equals(" / / / / / / / / /"));
+        assertTrue(strings[9].equals("0"));
     }
 
 }

@@ -7,6 +7,7 @@ it/polimi/ingsw/Table/Market/Marbles/Marble.class
 it/polimi/ingsw/Messages/ErrorMessages/OccupiedSlotWDErrorMessage.class
 it/polimi/ingsw/Messages/ForwardMessages/PayedWithStrongboxForwardMessage.class
 it/polimi/ingsw/Exceptions/AlreadyDiscardedThisLeaderCardException.class
+it/polimi/ingsw/PersonalBoard/Faith/FaithTrack$1.class
 it/polimi/ingsw/Messages/GameMessages/PlayLeaderCardGameMessage.class
 it/polimi/ingsw/Messages/ErrorMessages/NotStrongboxErrorMessage.class
 it/polimi/ingsw/Messages/UpdateSoloActionTokenMessage.class
@@ -109,7 +110,6 @@ it/polimi/ingsw/Mains/GuiThread$4.class
 it/polimi/ingsw/Messages/ErrorMessages/GameEndedErrorMessage.class
 it/polimi/ingsw/Messages/ErrorMessages/InvalidMovementErrorMessage.class
 it/polimi/ingsw/Exceptions/IndexOutOfDevelopmentDeckException.class
-it/polimi/ingsw/Mains/ClientLauncher.class
 it/polimi/ingsw/Messages/GameMessages/SelectProductionDevelopmentCardGameMessage.class
 it/polimi/ingsw/Messages/ErrorMessages/InvalidPositionErrorMessage.class
 it/polimi/ingsw/Table/Decks/Leader/ProductionPowerLeaderCard$1.class
@@ -143,7 +143,6 @@ it/polimi/ingsw/Messages/GameMessages/BuyDevelopmentCardGameMessage.class
 it/polimi/ingsw/Enums/InWhichStatePlayer.class
 it/polimi/ingsw/Messages/GameMessages/DrawSoloActionTokenGameMessage.class
 it/polimi/ingsw/Exceptions/NoLeaderCardToPlayException.class
-it/polimi/ingsw/Mains/ClientLauncher$1.class
 it/polimi/ingsw/Exceptions/ActionNotAllowedException.class
 it/polimi/ingsw/View/Gui$6.class
 it/polimi/ingsw/Messages/ForwardMessages/PlacedDevelopmentCardForwardMessage.class
@@ -180,7 +179,6 @@ it/polimi/ingsw/Messages/ForwardMessages/ShowMarketMessage.class
 it/polimi/ingsw/Messages/GameMessages/ToErrorTypoGameMessage.class
 it/polimi/ingsw/Messages/ErrorMessages/NotEnoughResourcesErrorMessage.class
 it/polimi/ingsw/View/Cli.class
-it/polimi/ingsw/Utilities/IntegerToString.class
 it/polimi/ingsw/Messages/GameMessages/DiscardLeaderCardGameMessage.class
 it/polimi/ingsw/PersonalBoard/Warehouse/WarehouseDepots.class
 it/polimi/ingsw/Game/Turn$1.class
@@ -214,6 +212,7 @@ it/polimi/ingsw/Table/Decks/LeaderDeck.class
 it/polimi/ingsw/Messages/ErrorMessages/FaithMarbleErrorMessage.class
 it/polimi/ingsw/Table/Decks/Development/DevelopmentCard.class
 it/polimi/ingsw/Exceptions/GameEndedException.class
+it/polimi/ingsw/Messages/ServiceMessages/GameReconnectingServiceMessage.class
 it/polimi/ingsw/Exceptions/EmptySlotYetException.class
 it/polimi/ingsw/Table/Table.class
 it/polimi/ingsw/Messages/ErrorMessages/AlreadySelectedSomethingErrorMessage.class

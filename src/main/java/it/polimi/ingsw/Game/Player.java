@@ -34,6 +34,7 @@ public class Player {
     private int selectedWarehouseDepotsSlot = 0;
     private int gameIndex;
     private boolean disconnected = false;
+    private boolean selectedHisTwoFirstCards = false;
 
     /**
      * Constructor method of this class
@@ -79,6 +80,7 @@ public class Player {
         cardsInHand[0] = cardsInHandFirst[card1 - 1];
         cardsInHand[1] = cardsInHandFirst[card2 - 1];
         cardsInHandFirst = null;
+        selectedHisTwoFirstCards = true;
     }
 
     /**
@@ -1357,6 +1359,60 @@ public class Player {
         String s5 = nickname;
         String result = s1 + "/" + s2 + "/" + s3 + "/" + s4 + "/" + s5;
         return result;
+    }
+
+    /**
+     * This method exports the state of the player in a string; useful during reconnection
+     * @return the string representing the state of the player
+     */
+    public String exportState(){
+        //nickname
+        //cardsInHandFirst
+        String cardsInHandFirstString = "";
+        for(LeaderCard singleCardInHandFirst : cardsInHandFirst){
+            String exportedSingleCardInHandFirst = " ";
+            if(singleCardInHandFirst != null){
+                exportedSingleCardInHandFirst = singleCardInHandFirst.export();
+            }
+            cardsInHandFirstString = new StringBuilder().append(cardsInHandFirstString).append(exportedSingleCardInHandFirst + "&").toString();
+        }
+        //cardsInHand
+        String cardsInHandString = "";
+        for(LeaderCard singleCardInHand : cardsInHand){
+            String exportedSingleCardInHand = " ";
+            if(singleCardInHand != null){
+                exportedSingleCardInHand = singleCardInHand.export();
+            }
+            cardsInHandString = new StringBuilder().append(cardsInHandString).append(exportedSingleCardInHand + "&").toString();
+        }
+        //cardsOnTable
+        String cardsOnTableString = "";
+        for(LeaderCard singleCardOnTable : cardsOnTable){
+            String exportedSingleCardOnTable = " ";
+            if(singleCardOnTable != null){
+                exportedSingleCardOnTable = singleCardOnTable.export();
+            }
+            cardsOnTableString = new StringBuilder().append(cardsOnTableString).append(exportedSingleCardOnTable + "&").toString();
+        }
+        //faithTrack
+        String faithTrackString = personalBoard.getFaithTrack().export();
+        //warehouseDepots
+        String warehouseDepotsString = personalBoard.getWarehouseDepots().export();
+        //strongBox
+        String strongBoxString = personalBoard.getStrongBox().export();
+        //slotsDevelopmentCards
+        String slotsDevelopmentCards = personalBoard.getSlotsDevelopmentCards().export();
+        //inkwell
+        String inkwellString = "0";
+        if(inkwell){
+            inkwellString = "1";
+        }
+        //selectedHisTwoFirstCards
+        String selectedHisTwoFirstCardsString = "0";
+        if(selectedHisTwoFirstCards){
+            selectedHisTwoFirstCardsString = "1";
+        }
+        return nickname + "]" + cardsInHandFirstString + "]" + cardsInHandString + "]" + cardsOnTableString + "]" + faithTrackString + "]" + warehouseDepotsString + "]" + strongBoxString + "]" + slotsDevelopmentCards + "]" + inkwellString + "]" + selectedHisTwoFirstCardsString;
     }
 
 }

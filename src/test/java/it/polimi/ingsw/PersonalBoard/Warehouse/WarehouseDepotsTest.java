@@ -219,4 +219,22 @@ public class WarehouseDepotsTest {
         assertSame(test[1], Resource.COIN);
     }
 
+    /**
+     * This method tests exporting a WarehouseDepots
+     */
+    @Test
+    void testExport(){
+        WarehouseDepots warehouseDepots = new WarehouseDepots();
+        try {
+            warehouseDepots.addResource(Resource.COIN,0);
+        } catch (PositionAlreadyOccupiedException | ResourceAlreadyPlacedException | DifferentResourceInThisShelfException | IndexOutOfWarehouseDepotsException e) {
+            fail();
+        }
+        WarehouseDepots newWarehouseDepots = new WarehouseDepots(warehouseDepots.export());
+        for(int i = 0; i < 6; i++){
+            assertSame(warehouseDepots.getResource()[i], newWarehouseDepots.getResource()[i]);
+        }
+        assertTrue(warehouseDepots.export().equals(newWarehouseDepots.export()));
+    }
+
 }

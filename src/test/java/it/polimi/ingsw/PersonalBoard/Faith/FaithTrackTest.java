@@ -1,6 +1,5 @@
 package it.polimi.ingsw.PersonalBoard.Faith;
 import static org.junit.jupiter.api.Assertions.*;
-
 import it.polimi.ingsw.Exceptions.GameAlreadyStartedException;
 import it.polimi.ingsw.Exceptions.NameAlreadyRegisteredException;
 import it.polimi.ingsw.Game.Game;

@@ -9,6 +9,7 @@ import it.polimi.ingsw.Messages.ErrorMessages.NotYourTurnErrorMessage;
 import it.polimi.ingsw.Messages.ForwardMessages.ShowCurrentBoardMessage;
 import it.polimi.ingsw.Messages.Message;
 import it.polimi.ingsw.Messages.ForwardMessages.CurrentPlayerMessage;
+import it.polimi.ingsw.Messages.ServiceMessages.GameReconnectingServiceMessage;
 import it.polimi.ingsw.Messages.ServiceMessages.GameStartServiceMessage;
 import it.polimi.ingsw.Utilities.CloseCommunicationChannel;
 import it.polimi.ingsw.Utilities.IntegerFromString;
@@ -97,6 +98,15 @@ public class ClientHandler implements Runnable {
      */
     private void sendStartingMessages(PrintWriter out){
         out.println(new GameStartServiceMessage(game));
+        out.println(new CurrentPlayerMessage(game.getTurn().getCurrentPlayer().getNickname()));
+    }
+
+    /**
+     * This method sends the starting message to other players
+     * @param out sends message to the socket
+     */
+    private void sendReconnectingMessages(PrintWriter out){
+        out.println(new GameReconnectingServiceMessage(game));
         out.println(new CurrentPlayerMessage(game.getTurn().getCurrentPlayer().getNickname()));
     }
 
@@ -304,7 +314,8 @@ public class ClientHandler implements Runnable {
                 players.get(i).setDisconnected(false);
                 game.getPrintWriterList().set(i, out);
 
-                sendStartingMessages(out);
+                sendStartingMessages(out);//sostituire con: sendReconnectingMessages(out); ma anche sistemare gli errori che conseguono
+                //<--FIXME--> Il primo passo per la riconnessione del giocatore è sostituire questa riga sopra e poi risolvere il problema di: Error: Game don't exist, please create a new one with -n!
                 return true;
             }
         }

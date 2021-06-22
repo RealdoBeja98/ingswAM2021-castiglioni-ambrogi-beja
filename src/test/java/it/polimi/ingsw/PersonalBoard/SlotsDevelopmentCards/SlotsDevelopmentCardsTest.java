@@ -120,7 +120,7 @@ public class SlotsDevelopmentCardsTest {
     @Test
     void integrityTest(){
         SlotsDevelopmentCards slots = new SlotsDevelopmentCards(43);
-        DevelopmentCard[][]  test = slots.getSlot();
+        DevelopmentCard[][] test = slots.getSlot();
         assertNull(slots.getSlot()[0][0]);
         assertNull(slots.getActiveCards()[0]);
         test[0][0] = exampleDevelopmentCard(1);
@@ -129,4 +129,29 @@ public class SlotsDevelopmentCardsTest {
         test1[0] = exampleDevelopmentCard(1);
         assertNull(slots.getActiveCards()[0]);
     }
+
+    /**
+     * This method tests exporting a StrongBox
+     */
+    @Test
+    void exportTest(){
+        SlotsDevelopmentCards slots = new SlotsDevelopmentCards();
+        DevelopmentCard[][] test = slots.getSlot();
+        test[0][0] = exampleDevelopmentCard(1);
+        test[0][2] = null;
+        test[1][0] = exampleDevelopmentCard(2);
+        test[1][1] = exampleDevelopmentCard(1);
+        test[1][2] = exampleDevelopmentCard(1);
+        test[2][0] = exampleDevelopmentCard(2);
+        test[2][1] = exampleDevelopmentCard(3);
+        test[2][2] = exampleDevelopmentCard(1);
+        SlotsDevelopmentCards newSlotsDevelopmentCards = new SlotsDevelopmentCards(slots.export());
+        for(int i = 0; i < 3; i++){
+            for(int j = 0; j < 3; j++){
+                assertSame(slots.getSlot()[i][j], newSlotsDevelopmentCards.getSlot()[i][j]);
+            }
+        }
+        assertTrue(slots.export().equals(newSlotsDevelopmentCards.export()));
+    }
+
 }

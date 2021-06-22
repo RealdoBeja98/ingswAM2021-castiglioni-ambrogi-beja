@@ -274,4 +274,44 @@ public class SlotsDevelopmentCards {
         return false;
     }
 
+    /**
+     * This method exports the SlotsDevelopmentCards to a String
+     * @return a string with all the SlotsDevelopmentCards data, of type String
+     */
+    public String export(){
+        StringBuilder result = new StringBuilder();
+        for(DevelopmentCard[] groupOfSlot : slot){
+            for(DevelopmentCard developmentCard : groupOfSlot){
+                String toAdd = " ";
+                if(developmentCard != null){
+                    toAdd = developmentCard.export();
+                }
+                result.append(toAdd).append("/");
+            }
+        }
+        return result.toString();
+    }
+
+    /**
+     * Constructor method of this class from the exported string
+     * @param importedString: the string to import
+     */
+    public SlotsDevelopmentCards(String importedString){
+        this.gameIndex = unusefulGameIndex;
+        activeCards = new DevelopmentCard[numberOfSlots];
+        slot = new DevelopmentCard[numberOfSlots][maxCardsPerSlot];
+        String[] strings = importedString.split("/");
+        int k = 0;
+        for(int i = 0; i < numberOfSlots; i++){
+            for(int j = 0; j < maxCardsPerSlot; j++){
+                if(strings[k].equals(" ")){
+                    slot[i][j] = null;
+                } else {
+                    slot[i][j] = new DevelopmentCard(strings[k]);
+                    k++;
+                }
+            }
+        }
+    }
+
 }

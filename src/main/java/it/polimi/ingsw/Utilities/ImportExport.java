@@ -12,6 +12,9 @@ public class ImportExport {
      * @return a String, of type String
      */
     public static String exportResource(Resource resource){
+        if(resource == null){
+            return " ";
+        }
         switch (resource){
             case FAITH: return  "0";
             case COIN: return "1";

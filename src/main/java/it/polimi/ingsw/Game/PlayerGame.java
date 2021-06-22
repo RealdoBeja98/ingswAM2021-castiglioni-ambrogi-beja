@@ -168,6 +168,8 @@ public class PlayerGame {
     private ArrayList<PlayerPlayer> players;
     private Market market;
     private PrintWriter out;
+    private DevelopmentDeck developmentDeck;
+    private FaithTrackSP lorenzoTrack = null;
 
     /**
      * Getter of this class
@@ -196,10 +198,6 @@ public class PlayerGame {
     public DevelopmentDeck getDevelopmentDeck() {
         return developmentDeck;
     }
-
-    private DevelopmentDeck developmentDeck;
-
-    private FaithTrackSP lorenzoTrack = null;
 
     /**
      * Getter of this class
@@ -537,6 +535,75 @@ public class PlayerGame {
                 return;
             }
         }
+    }
+
+    /**
+     * Constructor of this class using the exported String from the game
+     */
+    public PlayerGame(String importedString){
+        String[] strings = importedString.split("}");
+        this.market = new Market(strings[0]);
+        this.developmentDeck = new DevelopmentDeck(strings[1]);
+        this.players = new ArrayList<>();
+        for(int i = 2; i < strings.length; i++){
+            String[] playerStrings = strings[i].split("]");
+            PlayerPlayer playerPlayer = new PlayerPlayer();
+            //nickname
+            playerPlayer.nickname = playerStrings[0];
+            //cardsInHandFirst
+            playerPlayer.cardsInHandFirst = new LeaderCard[4];
+            String[] cardsInHandFirstStrings = playerStrings[1].split("&");
+            for(int j = 0; j < 4; j++){
+                if(cardsInHandFirstStrings[j].equals(" ")){
+                    playerPlayer.cardsInHandFirst[j] = null;
+                } else {
+                    playerPlayer.cardsInHandFirst[j] = LeaderCard.importLeaderCard(cardsInHandFirstStrings[j]);
+                }
+            }
+            //cardsInHand
+            playerPlayer.cardsInHand = new LeaderCard[2];
+            String[] cardsInHandStrings = playerStrings[2].split("&");
+            for(int j = 0; j < 2; j++){
+                if(cardsInHandStrings[j].equals(" ")){
+                    playerPlayer.cardsInHand[j] = null;
+                } else {
+                    playerPlayer.cardsInHand[j] = LeaderCard.importLeaderCard(cardsInHandStrings[j]);
+                }
+            }
+            //cardsOnTable
+            playerPlayer.cardsOnTable = new LeaderCard[2];
+            String[] cardsOnTableStrings = playerStrings[3].split("&");
+            for(int j = 0; j < 2; j++){
+                if(cardsOnTableStrings[j].equals(" ")){
+                    playerPlayer.cardsOnTable[j] = null;
+                } else {
+                    playerPlayer.cardsOnTable[j] = LeaderCard.importLeaderCard(cardsOnTableStrings[j]);
+                }
+            }
+            //faithTrack
+            playerPlayer.faithTrack = new FaithTrack(playerStrings[4]);
+            allFaithTrack.add(playerPlayer.faithTrack);
+            //warehouseDepots
+            playerPlayer.warehouseDepots = new WarehouseDepots(playerStrings[5]);
+            //strongBox
+            playerPlayer.strongBox = new StrongBox(playerStrings[6]);
+            //slotsDevelopmentCards
+            playerPlayer.slotsDevelopmentCards = new SlotsDevelopmentCards(playerStrings[7]);
+            //inkwell
+            if(playerStrings[8].equals("0")){
+                playerPlayer.inkwell = false;
+            } else {
+                playerPlayer.inkwell = true;
+            }
+            //selectedHisTwoFirstCards
+            if(playerStrings[9].equals("0")){
+                playerPlayer.selectedHisTwoFirstCards = false;
+            } else {
+                playerPlayer.selectedHisTwoFirstCards = true;
+            }
+        }
+        //this method doesn't consider lorenzoTrack -> the reconnection feature doesn't work in single player game
+        //param out is to set using the method setOut
     }
 
 }

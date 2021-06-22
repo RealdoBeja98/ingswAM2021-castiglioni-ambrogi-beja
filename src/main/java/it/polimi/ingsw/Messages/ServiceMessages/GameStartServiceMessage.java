@@ -5,10 +5,8 @@ import it.polimi.ingsw.Game.Player;
 import it.polimi.ingsw.Game.PlayerGame;
 import it.polimi.ingsw.Mains.ClientMain;
 import it.polimi.ingsw.Messages.ServiceMessage;
-import it.polimi.ingsw.View.Cli;
 import it.polimi.ingsw.View.View;
 import javafx.util.Pair;
-
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
@@ -43,8 +41,7 @@ public class GameStartServiceMessage extends ServiceMessage {
     public GameStartServiceMessage(Game game){
         String market = game.getTable().getMarket().export();
         String developmentDeck = game.getTable().getDevelopmentDeck().export();
-
-        Pair<ArrayList<String>, String> returnPlayersAndCardsInHandFirst = getPlayersAndCardsInHandFirst(game); //FIXME linea che causa problemi, dopo il setup iniziale non ci sonoo più questi valori, devi passare le carte scelte allora probabilmente fai un metodo simile a questo per la riconnessione
+        Pair<ArrayList<String>, String> returnPlayersAndCardsInHandFirst = getPlayersAndCardsInHandFirst(game); //FIXME [quasi fixato] linea che causa problemi, dopo il setup iniziale non ci sonoo più questi valori, devi passare le carte scelte allora probabilmente fai un metodo simile a questo per la riconnessione
         ArrayList<String> playersAndCardsInHandFirst = returnPlayersAndCardsInHandFirst.getKey();
         String whoHasTheInkwell = returnPlayersAndCardsInHandFirst.getValue();
         all = market + "#" + developmentDeck;
@@ -70,7 +67,7 @@ public class GameStartServiceMessage extends ServiceMessage {
      * @param out: send messages to the socket
      */
     @Override
-    public void execute(Game game, PrintWriter out) {
+    public void execute(Game game, PrintWriter out){
         String[] strings = all.split("#");
         String market = strings[0];
         String developmentDeck = strings[1];

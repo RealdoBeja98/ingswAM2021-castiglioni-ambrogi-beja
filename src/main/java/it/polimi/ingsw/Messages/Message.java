@@ -112,6 +112,9 @@ public abstract class Message {
             case "GAME_START":
                 checkLength(message, 2);
                 return new GameStartServiceMessage(message[1]);
+            case "GAME_RECONNECTING":
+                checkLength(message, 2);
+                return new GameReconnectingServiceMessage(message[1]);
             case "SET_CURRENT_PLAYER":
                 checkLength(message, 2);
                 return new CurrentPlayerMessage(message[1]);

@@ -2,7 +2,6 @@ package it.polimi.ingsw.PersonalBoard.StrongBox;
 import it.polimi.ingsw.Exceptions.NegativeResourceException;
 import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Exceptions.NotAResourceForStrongBoxException;
-import it.polimi.ingsw.Utilities.MyInt;
 
 /**
  * This Class represents the strong box associated to a player
@@ -112,6 +111,26 @@ public class StrongBox {
                 break;
             default: throw new NotAResourceForStrongBoxException();
         }
+    }
+
+    /**
+     * This method exports the StrongBox to a String
+     * @return a string with all the StrongBox data, of type String
+     */
+    public String export(){
+        return coin + "!" + servant + "!" + shield + "!" + stone;
+    }
+
+    /**
+     * Constructor method of this class from the exported string
+     * @param importedString: the string to import
+     */
+    public StrongBox(String importedString){
+        String[] strings = importedString.split("!");
+        coin = Integer.parseInt(strings[0]);
+        servant = Integer.parseInt(strings[1]);
+        shield = Integer.parseInt(strings[2]);
+        stone = Integer.parseInt(strings[3]);
     }
 
 }

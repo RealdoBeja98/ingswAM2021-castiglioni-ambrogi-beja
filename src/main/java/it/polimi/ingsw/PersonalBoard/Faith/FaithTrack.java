@@ -203,4 +203,52 @@ public class FaithTrack {
         return copy;
     }
 
+    /**
+     * This method exports the FaithTrack to a String
+     * @return a string with all the FaithTrack data, of type String
+     */
+    public String export(){
+        String favourTilesString = "";
+        for(FavorTiles singleFavourTile : favorTiles){
+            String toAdd = "";
+            switch (singleFavourTile){
+                case DITCH:
+                    toAdd = "D";
+                    break;
+                case TURNED:
+                    toAdd = "T";
+                    break;
+                case COVERED:
+                    toAdd = "C";
+                    break;
+            }
+            favourTilesString = new StringBuilder().append(favourTilesString).append(toAdd + "!").toString();
+        }
+        return favourTilesString + faithMarker;
+    }
+
+    /**
+     * Constructor method of this class from the exported string
+     * @param importedString: the string to import
+     */
+    public FaithTrack(String importedString){
+        String[] strings = importedString.split("!");
+        for(int i = 0; i < 3; i++){
+            switch (strings[i]){
+                case "D":
+                    favorTiles[i] = FavorTiles.DITCH;
+                    break;
+                case "T":
+                    favorTiles[i] = FavorTiles.TURNED;
+                    break;
+                case "C":
+                    favorTiles[i] = FavorTiles.COVERED;
+                    break;
+                default: break;
+            }
+        }
+        faithMarker = Integer.parseInt(strings[3]);
+        this.gameIndex = unusefulGameIndex;
+    }
+
 }

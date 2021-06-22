@@ -3,7 +3,6 @@ import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Exceptions.NegativeResourceException;
 import it.polimi.ingsw.Exceptions.NotAResourceForStrongBoxException;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -53,4 +52,27 @@ public class StrongBoxTest {
         assertSame(strongBox.getCoin(),0);
         assertThrows(NotAResourceForStrongBoxException.class, () -> strongBox.remove(Resource.FAITH, 10));
     }
+
+    /**
+     * This method tests exporting a StrongBox
+     */
+    @Test
+    void export(){
+        StrongBox strongBox = new StrongBox();
+        try {
+            strongBox.add(Resource.COIN, 10);
+            strongBox.add(Resource.STONE, 20);
+            strongBox.add(Resource.SERVANT, 30);
+            strongBox.add(Resource.SHIELD, 40);
+        } catch (NotAResourceForStrongBoxException e) {
+            fail();
+        }
+        StrongBox newStrongBox = new StrongBox(strongBox.export());
+        assertSame(strongBox.getCoin(),newStrongBox.getCoin());
+        assertSame(strongBox.getStone(),newStrongBox.getStone());
+        assertSame(strongBox.getServant(),newStrongBox.getServant());
+        assertSame(strongBox.getShield(),newStrongBox.getShield());
+        assertTrue(strongBox.export().equals(newStrongBox.export()));
+    }
+
 }

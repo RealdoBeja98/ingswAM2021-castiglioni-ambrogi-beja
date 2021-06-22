@@ -1,6 +1,7 @@
 package it.polimi.ingsw.PersonalBoard.Warehouse;
 import it.polimi.ingsw.Exceptions.*;
 import it.polimi.ingsw.Enums.Resource;
+import it.polimi.ingsw.Utilities.ImportExport;
 
 /**
  * This Class represents the warehouse depots associated to a player
@@ -151,6 +152,31 @@ public class WarehouseDepots {
             throw new EmptySlotYetException();
         }
         resource[pos] = null;
+    }
+
+    /**
+     * This method exports the WarehouseDepots to a String
+     * @return a string with all the WarehouseDepots data, of type String
+     */
+    public String export(){
+        String exportedString = "";
+        for(Resource singleResource : resource){
+            String toAdd = ImportExport.exportResource(singleResource);
+            exportedString = new StringBuilder().append(exportedString).append(toAdd + "!").toString();
+        }
+        return exportedString;
+    }
+
+    /**
+     * Constructor method of this class from the exported string
+     * @param importedString: the string to import
+     */
+    public WarehouseDepots(String importedString){
+        resource = new Resource[6];
+        String[] strings = importedString.split("!");
+        for(int i = 0; i < 6; i++){
+            resource[i] = ImportExport.importResource(strings[i]);
+        }
     }
 
 }

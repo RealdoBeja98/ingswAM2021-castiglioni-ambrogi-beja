@@ -43,6 +43,7 @@
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Messages/ErrorMessages/NoResourceAErrorMessage.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Table/Decks/LeaderDeck.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Table/Decks/ActionTokenDeck.java
+/Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Messages/ServiceMessages/GameReconnectingServiceMessage.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Table/Decks/DevelopmentDeck.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Table/Decks/ResourceProduction.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Enums/Type.java
@@ -52,6 +53,7 @@
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Messages/ErrorMessages/WhiteMarbleErrorMessage.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Messages/ErrorMessages/RequirementsErrorMessage.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/DrawnFromEmptyDeckException.java
+/Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Utilities/IntegerFromString.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Messages/GameMessages/MoveResourceESLCToWEarehouseGameMessage.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/NotAResourceForStrongBoxException.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Table/Decks/Production.java
@@ -62,13 +64,13 @@
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Messages/GameMessages/PlayLeaderCardGameMessage.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Table/Market/Marbles/Marble.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Messages/ErrorMessages/NoWhiteMarbleErrorMessage.java
-/Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Mains/ClientLauncher.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Mains/MessageThread.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Messages/ErrorMessages/EmptyDeckErrorMessage.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Table/Table.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Enums/NormalAction.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/NotSatisfiedRequirementsForThisLeaderCardException.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/NullEnumException.java
+/Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Mains/Launcher.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Messages/ForwardMessages/ShowCurrentBoardMessage.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/ActionNotAllowedException.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/OccupiedSlotExtraStorageLeaderCardException.java
@@ -144,7 +146,6 @@
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Messages/ErrorMessages/GameEndedErrorMessage.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Messages/GameMessages/PayWithExtraStorageLeaderCardGameMessage.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/NoResourceToPayException.java
-/Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Utilities/IntegerToString.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Mains/ServerMain.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/ResourceAlreadyPlacedException.java
 /Users/carloambrogi/IdeaProjects/ingswAM2021-castiglioni-ambrogi-beja/src/main/java/it/polimi/ingsw/Exceptions/NameAlreadyRegisteredException.java

@@ -29,6 +29,10 @@ public class FaithTrackSP extends FaithTrack{
         super();
     }
 
+    public FaithTrackSP(String importedString){
+        super(importedString);
+    }
+
     /**
      * Lorenzo doesn't go on if the player has reached the last place of the FaithTrack
      * @param n: number of slot the player has to advance

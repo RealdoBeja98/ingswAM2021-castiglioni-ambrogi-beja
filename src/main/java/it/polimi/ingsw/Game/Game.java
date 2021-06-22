@@ -1,9 +1,7 @@
 package it.polimi.ingsw.Game;
-import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Exceptions.GameAlreadyStartedException;
 import it.polimi.ingsw.Exceptions.GameEndedException;
 import it.polimi.ingsw.Exceptions.NameAlreadyRegisteredException;
-import it.polimi.ingsw.Exceptions.NotAResourceForStrongBoxException;
 import it.polimi.ingsw.Table.Table;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -321,6 +319,7 @@ public class Game {
         return numberOfPlayer;
     }
 
+    //<--FIXME--> finire il JavaDock
 
     public void clientDisconnected(Player player, boolean gameStarted) {
         if (gameStarted) {
@@ -332,6 +331,21 @@ public class Game {
                 }
             }
         }
+    }
+
+    /**
+     * This method exports the state of the game in a string; useful during reconnection
+     * @return the string representing the state of the game
+     */
+    public String exportState(){
+        String marketString = table.getMarket().export();
+        String developmentDeckString = table.getDevelopmentDeck().export();
+        String result = marketString + "}" + developmentDeckString;
+        for(Player player : players){
+            String toAdd = player.exportState();
+            result = new StringBuilder().append(result).append("}" + toAdd).toString();
+        }
+        return result;
     }
 
 }
