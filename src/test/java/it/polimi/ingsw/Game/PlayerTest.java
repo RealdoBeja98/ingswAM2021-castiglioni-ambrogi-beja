@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Test class for the class: Player
  */
-class PlayerTest {
+class  PlayerTest {
 
     /**
      * This method tests setting the inkwell on a player

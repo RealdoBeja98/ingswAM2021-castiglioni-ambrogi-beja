@@ -3,6 +3,7 @@ import it.polimi.ingsw.Enums.*;
 import it.polimi.ingsw.Messages.GameMessages.*;
 import it.polimi.ingsw.Messages.Message;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -76,6 +77,9 @@ public class GuiThread extends Application implements Runnable{
      */
     @Override
     public void start(Stage stage) throws Exception {
+
+        stage.setOnCloseRequest(e -> timeToQuit());
+
         stage.setTitle("Masters of Renaissance" + " - " + ClientMain.getClientNick());
         Group root = new Group();
         Canvas canvas = new Canvas(1995, 1025);
@@ -99,6 +103,11 @@ public class GuiThread extends Application implements Runnable{
         Scene scene = new Scene(root, 1995, 1025);
         stage.setScene(scene);
         stage.show();
+    }
+
+    private void timeToQuit() {
+        out.println("quit");
+        Platform.exit();
     }
 
     //<--FIXME--> i valori

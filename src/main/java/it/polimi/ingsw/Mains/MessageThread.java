@@ -17,6 +17,7 @@ public class MessageThread implements Runnable{
     private PrintWriter out;
     private BufferedReader in;
     private final static String constQuit = "quit";
+    private final static String constDisconnected = "disconnected";
 
     /**
      * Constructor of the class
@@ -67,7 +68,11 @@ public class MessageThread implements Runnable{
                         messageServerMessage.execute(null, null);
                     } else if (messageServerMessage.toString().substring(messageServerMessage.toString().length()-4).equals(constQuit)) {
                         anotherPlayerQuit(messageServerMessage);
-                    } else {
+                    } else if (messageServerMessage.toString().substring(messageServerMessage.toString().length()-12).equals(constDisconnected)) {
+                        //anotherPlayerQuit(messageServerMessage);
+                        System.out.println("disconnected here ");
+                    }
+                    else {
                         View.printMessage(messageServerMessage);
                     }
             }

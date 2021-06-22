@@ -133,6 +133,7 @@ public class ClientHandler implements Runnable {
      */
     private boolean scanf(BufferedReader in, PrintWriter out, PingPong pingPong) throws IOException {
         String line = in.readLine();
+
         if(line == null){
             return false;
         }
@@ -314,8 +315,8 @@ public class ClientHandler implements Runnable {
                 players.get(i).setDisconnected(false);
                 game.getPrintWriterList().set(i, out);
 
-                sendStartingMessages(out);//sostituire con: sendReconnectingMessages(out); ma anche sistemare gli errori che conseguono
-                //<--FIXME--> Il primo passo per la riconnessione del giocatore è sostituire questa riga sopra e poi risolvere il problema di: Error: Game don't exist, please create a new one with -n!
+                sendReconnectingMessages(out);
+
                 return true;
             }
         }

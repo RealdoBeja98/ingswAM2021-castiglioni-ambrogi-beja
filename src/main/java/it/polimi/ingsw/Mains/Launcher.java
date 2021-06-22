@@ -79,13 +79,18 @@ public class Launcher {
     }
 
     public static void main(String[] args) {
-        if(args[0].equals("server")){
-            if(checkServerParam(args)){
+        if(args.length != 0){
+            if(args[0].equals("server")){
+                if(checkServerParam(args)){
+                    return;
+                }
+                startServer(args);
                 return;
             }
-            startServer(args);
-            return;
+        }else{
+            System.out.println("Please write the correct number parameters!");
         }
+
 
         if(checkClientParam(args)){
             return;

@@ -1367,7 +1367,7 @@ public class Player {
      */
     public String exportState(){
         //nickname
-        //cardsInHandFirst
+        //cardsInHandFirst          //FIXME questo blocco ha un problema
         String cardsInHandFirstString = "";
         for(LeaderCard singleCardInHandFirst : cardsInHandFirst){
             String exportedSingleCardInHandFirst = " ";
@@ -1376,6 +1376,7 @@ public class Player {
             }
             cardsInHandFirstString = new StringBuilder().append(cardsInHandFirstString).append(exportedSingleCardInHandFirst + "&").toString();
         }
+
         //cardsInHand
         String cardsInHandString = "";
         for(LeaderCard singleCardInHand : cardsInHand){
