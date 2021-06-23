@@ -2,10 +2,7 @@ package it.polimi.ingsw.Mains;
 import it.polimi.ingsw.Exceptions.*;
 import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Game.Player;
-import it.polimi.ingsw.Messages.ErrorMessages.GameDontExistErrorMessage;
-import it.polimi.ingsw.Messages.ErrorMessages.GameStartedErrorMessage;
-import it.polimi.ingsw.Messages.ErrorMessages.NameTakenErrorMessage;
-import it.polimi.ingsw.Messages.ErrorMessages.NotYourTurnErrorMessage;
+import it.polimi.ingsw.Messages.ErrorMessages.*;
 import it.polimi.ingsw.Messages.ForwardMessages.ShowCurrentBoardMessage;
 import it.polimi.ingsw.Messages.Message;
 import it.polimi.ingsw.Messages.ForwardMessages.CurrentPlayerMessage;
@@ -321,7 +318,7 @@ public class ClientHandler implements Runnable {
             }
         }
         System.out.println("Player doesn't exist or didn't disconnect, rejecting the player");
-        Message.sendMessage(out, new GameDontExistErrorMessage()); //FIXME change this error message with a  new one
+        Message.sendMessage(out, new PlayerExistenceErrorMessage());
         return false;
     }
 

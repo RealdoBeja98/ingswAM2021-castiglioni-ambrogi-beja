@@ -45,6 +45,7 @@ public abstract class Message {
     private static Message fromStringShortMessages(String string){
         switch(string){
             case "ERROR_NO_CARDS_DISCARD": return new NoCardDiscardErrorMessage();
+            case "ERROR_PLAYER_EXISTENCE": return new PlayerExistenceErrorMessage();
             case "ERROR_NOT_YOUR_TURN": return new NotYourTurnErrorMessage();
             case "ERROR_INVALID_ACTION": return new InvalidActionErrorMessage();
             case "ERROR_ALREADY_DISCARDED_POSITION": return new AlreadyDiscardedPositionErrorMessage();
