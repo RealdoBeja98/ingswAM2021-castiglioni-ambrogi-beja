@@ -15,6 +15,9 @@ import java.util.ArrayList;
  */
 public class Cli extends View{
 
+    /**
+     * This method shows the first 4 cards when the game starts
+     */
     @Override
     public void showStartingLC() {
         System.out.println("╔═════════════════════════════════════════════════════════════════════════════════════════════════════════╗");

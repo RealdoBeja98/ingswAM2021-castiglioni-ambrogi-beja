@@ -1,3 +1,6 @@
 # Project exclude paths
 /target/
-/shade/AM04.jar
+/shade/
+/.idea/
+ingswAM2021-castiglioni-ambrogi-beja.iml
+
