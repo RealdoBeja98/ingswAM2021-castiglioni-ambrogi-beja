@@ -44,3 +44,9 @@ java -jar AM04.jar localhost 25565 -o 0 carlo -GUI (join the game 0 created by a
 
 IF THERE ARE TROUBLE RUNNING THE GUI USE:
 java --module-path [path to javaFX] --add-modules javafx.controls -jar [path to the jar] [parameters]
+a .bat for default server is already present in the utilities folder.
+
+RECOMMENDED:
+use Windows power shell to run server/GUI
+use Ubuntu console for Windows to run CLI
+for macOS and Unix-like device there should be no problem
