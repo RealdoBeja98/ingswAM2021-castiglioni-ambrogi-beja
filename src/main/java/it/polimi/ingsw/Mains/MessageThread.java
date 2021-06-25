@@ -34,7 +34,7 @@ public class MessageThread implements Runnable{
      * @param messageServerMessage server message
      */
     private void anotherPlayerQuit(Message messageServerMessage){
-        String whoQuited = messageServerMessage.toString().substring(0, messageServerMessage.toString().length() - 5);
+        String whoQuited = messageServerMessage.toString().substring(0, messageServerMessage.toString().length() - (constQuit.length() + 1));
         ClientMain.getPlayerGame().quitAPlayer(whoQuited);
         View.printMessage(messageServerMessage);
     }
@@ -70,9 +70,9 @@ public class MessageThread implements Runnable{
                         anotherPlayerQuit(messageServerMessage);
                     } else if (messageServerMessage.toString().substring(messageServerMessage.toString().length()-12).equals(constDisconnected)) {
                         //anotherPlayerQuit(messageServerMessage);
-                        System.out.println("disconnected here ");
-                    }
-                    else {
+                        String whoDisconnected = messageServerMessage.toString().substring(0, messageServerMessage.toString().length() - (constDisconnected.length() + 1));
+                        View.printMessage("disconnected here " + whoDisconnected);
+                    } else {
                         View.printMessage(messageServerMessage);
                     }
             }

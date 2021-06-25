@@ -63,7 +63,7 @@ public class Launcher {
             System.out.println("Invalid joining choice!");
             return true;
         }
-        if(!args[2].equals("-n") && (strToInt(args[3]) < 1 || strToInt(args[3]) > 4)){
+        if(args[2].equals("-n") && (strToInt(args[3]) < 1 || strToInt(args[3]) > 4)){
             System.out.println("Invalid number of player, choose between 1 and 4!");
             return true;
         }
