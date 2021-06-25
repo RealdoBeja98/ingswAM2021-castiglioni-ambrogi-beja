@@ -22,6 +22,7 @@ public class ClientHandler implements Runnable {
     private final Socket socket;
     private Game game;
     private String nickname;
+    private boolean reconnected = false;
 
     /**
      * This class represents the player loby and entrance parameters
@@ -103,6 +104,8 @@ public class ClientHandler implements Runnable {
      * @param out sends message to the socket
      */
     private void sendReconnectingMessages(PrintWriter out){
+        //Message.sendMessage(out, new GameReconnectingServiceMessage(game));
+        //Message.sendMessage(out, new CurrentPlayerMessage(game.getTurn().getCurrentPlayer().getNickname()));
         out.println(new GameReconnectingServiceMessage(game));
         out.println(new CurrentPlayerMessage(game.getTurn().getCurrentPlayer().getNickname()));
     }
@@ -217,6 +220,7 @@ public class ClientHandler implements Runnable {
                 }
             }
             if(line.equals("-r")) {
+                reconnected = true;
                 if(!reconnecting(line, in, out)){
                     return;
                 }
@@ -226,7 +230,12 @@ public class ClientHandler implements Runnable {
                 return;
             }
 
-            sendStartingMessages(out);
+            if(!reconnected){
+                sendStartingMessages(out);
+            }else{
+                sendReconnectingMessages(out);
+            }
+
             PingPong pingPong = launchPingPong(in, out);
 
             while (true) {
@@ -312,7 +321,7 @@ public class ClientHandler implements Runnable {
                 players.get(i).setDisconnected(false);
                 game.getPrintWriterList().set(i, out);
 
-                sendReconnectingMessages(out);
+                //sendReconnectingMessages(out);
 
                 return true;
             }

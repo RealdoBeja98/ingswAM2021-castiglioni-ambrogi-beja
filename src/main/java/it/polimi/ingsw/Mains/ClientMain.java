@@ -157,7 +157,7 @@ public class ClientMain {
      * @param in reads message send by the socket
      * @throws IOException error message
      */
-    private void setNameInTheServer(BufferedReader in) throws IOException {
+    private void setNameInTheServer(BufferedReader in, PrintWriter out) throws IOException {
         String line = in.readLine();
         Message lineMessage = Message.fromString(line);
         if (lineMessage.isEqual(new NameTakenErrorMessage())) {
@@ -176,6 +176,18 @@ public class ClientMain {
         }
         if (line.equals("Reconnecting")) {
             View.printMessage("Reconnecting!");
+
+            line = in.readLine();
+            Message messageServerMessage = Message.fromString(line);
+            messageServerMessage.execute(null, out);
+            System.out.println("Successfully rejoined the game!");
+            line = in.readLine();
+            messageServerMessage = Message.fromString(line);
+            messageServerMessage.execute(null, null);
+            System.out.println("Current player: " + currentP);
+
+
+
             return;
         }
         View.printMessage("Joined the game!");
@@ -260,7 +272,7 @@ public class ClientMain {
 
             joiningGame(in);
 
-            setNameInTheServer(in);
+            setNameInTheServer(in, out);
 
             MessageThread messageThread = new MessageThread(out, in);
             Thread mt = new Thread(messageThread);
