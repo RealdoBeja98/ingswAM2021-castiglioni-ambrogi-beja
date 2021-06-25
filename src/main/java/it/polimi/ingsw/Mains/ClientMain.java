@@ -4,6 +4,7 @@ import it.polimi.ingsw.Messages.ErrorMessages.GameDontExistErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.GameStartedErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.NameTakenErrorMessage;
 import it.polimi.ingsw.Messages.Message;
+import it.polimi.ingsw.PersonalBoard.Faith.FaithTrackSP;
 import it.polimi.ingsw.View.Cli;
 import it.polimi.ingsw.View.View;
 import javafx.scene.canvas.Canvas;
@@ -25,7 +26,7 @@ public class ClientMain {
     private static boolean guiSet = false;
     private static Canvas canvas = null;
     private static ClientMain instance;
-    public final static Object lock = new Object();//temporaneamente pubblico: sost con referential getter o con private
+    private final static Object lock = new Object();
 
     /**
      * Getter of object getLock
@@ -230,6 +231,8 @@ public class ClientMain {
      * @throws IOException error message
      */
     public void main(String[] args) throws IOException {
+
+        FaithTrackSP.setForClient();
 
         ClientMain.instance = this;
 

@@ -35,7 +35,7 @@ public class BaseMarble extends Marble{
      */
     @Override
     public void putResource(ExtraStorageLeaderCard leaderCard) throws DifferentStorageException, OccupiedSlotExtraStorageLeaderCardException {
-        if(leaderCard.getStorageType() == whatIAm){
+        if(leaderCard.getStorageType() != null && leaderCard.getStorageType() == whatIAm){
             leaderCard.addResource();
         }
         else{

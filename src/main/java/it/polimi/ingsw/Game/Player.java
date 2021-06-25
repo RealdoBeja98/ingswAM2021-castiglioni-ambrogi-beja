@@ -569,6 +569,9 @@ public class Player {
         }
         switch (where){
             case LEADERCARD:
+                if(cardsOnTable[pos-1] == null){
+                    throw new DifferentStorageException();
+                }
                 marblesFromTheMarket.get(0).putResource((ExtraStorageLeaderCard) cardsOnTable[pos-1]);
                 break;
             case WAREHOUSEDEPOTS:

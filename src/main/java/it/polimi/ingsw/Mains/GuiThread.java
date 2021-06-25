@@ -50,11 +50,11 @@ public class GuiThread extends Application implements Runnable{
         if(!ClientMain.getGuiSet()){
             return;
         }
-        synchronized (ClientMain.lock){
+        synchronized (ClientMain.getLock()){
             //System.out.println("ClientMain wait");
             while (!GuiThread.isSetBackground){
                 try {
-                    ClientMain.lock.wait();
+                    ClientMain.getLock().wait();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

@@ -66,9 +66,9 @@ public class MessageThread implements Runnable{
                         messageServerMessage.execute(null, null);
                     } else if (messageServerMessage instanceof UpdateSoloActionTokenMessage) {
                         messageServerMessage.execute(null, null);
-                    } else if (messageServerMessage.toString().substring(messageServerMessage.toString().length()-4).equals(constQuit)) {
+                    } else if (messageServerMessage.toString().length() >= constQuit.length() && messageServerMessage.toString().substring(messageServerMessage.toString().length()-constQuit.length()).equals(constQuit)) {
                         anotherPlayerQuit(messageServerMessage);
-                    } else if (messageServerMessage.toString().substring(messageServerMessage.toString().length()-12).equals(constDisconnected)) {
+                    } else if (messageServerMessage.toString().length() >= constDisconnected.length() && messageServerMessage.toString().substring(messageServerMessage.toString().length()-constDisconnected.length()).equals(constDisconnected)) {
                         //anotherPlayerQuit(messageServerMessage);
                         String whoDisconnected = messageServerMessage.toString().substring(0, messageServerMessage.toString().length() - (constDisconnected.length() + 1));
                         View.printMessage("disconnected here " + whoDisconnected);

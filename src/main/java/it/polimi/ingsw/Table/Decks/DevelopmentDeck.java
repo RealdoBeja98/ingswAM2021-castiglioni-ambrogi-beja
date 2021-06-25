@@ -150,6 +150,12 @@ public class DevelopmentDeck{
      * @param column: is the column associated to the action token drawn
      */
     private void discardFromColumn(int column) {
+        /*
+        Game game2 = Game.get(gameIndex);
+        if(game2 != null){
+            game2.endGameImmediately();
+        }
+        */
         int[][] decksTrack = numbersOfCardsLeft();
         int row = 2;
         for(int i = 0; i < 3; i++){
