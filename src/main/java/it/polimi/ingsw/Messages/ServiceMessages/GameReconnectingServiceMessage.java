@@ -40,6 +40,7 @@ public class GameReconnectingServiceMessage extends ServiceMessage { //fixme sta
      */
     @Override
     public void execute(Game game, PrintWriter out){
+        System.out.println("Eseguo execute di GameReconnectingServiceMessage");
         PlayerGame playerGame = new PlayerGame(all);
         ClientMain.setPlayerGame(playerGame);
         playerGame.setOut(out);

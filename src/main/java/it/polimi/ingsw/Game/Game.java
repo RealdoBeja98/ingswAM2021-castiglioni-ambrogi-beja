@@ -343,12 +343,10 @@ public class Game {
         String marketString = table.getMarket().export();
         String developmentDeckString = table.getDevelopmentDeck().export();
         String result = marketString + "}" + developmentDeckString;
-
         for(Player player : players){
             String toAdd = player.exportState();
             result = new StringBuilder().append(result).append("}" + toAdd).toString();
         }
-
         return result;
     }
 

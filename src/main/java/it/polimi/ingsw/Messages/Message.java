@@ -99,7 +99,7 @@ public abstract class Message {
      * @param message: is the string representing the message
      * @return the message; of type Message
      */
-    private static Message fromStringLongMessages(String[] message){
+    private static Message fromStringLongMessages(String[] message, String integerString){
         switch (message[0]){
             case "UPDATE_MARKET":
                 checkLength(message, 4);
@@ -114,8 +114,7 @@ public abstract class Message {
                 checkLength(message, 2);
                 return new GameStartServiceMessage(message[1]);
             case "GAME_RECONNECTING":
-                checkLength(message, 2);
-                return new GameReconnectingServiceMessage(message[1]);
+                return new GameReconnectingServiceMessage(integerString.substring("GAME_RECONNECTING".length() + 1));
             case "SET_CURRENT_PLAYER":
                 checkLength(message, 2);
                 return new CurrentPlayerMessage(message[1]);
@@ -269,7 +268,7 @@ public abstract class Message {
         }
         String[] message = string.split(" ");
         try {
-            Message longMessage = fromStringLongMessages(message);
+            Message longMessage = fromStringLongMessages(message, string);
             if(longMessage != null){
                 return longMessage;
             }

@@ -297,7 +297,6 @@ public class ClientHandler implements Runnable {
         return addingPlayer(in, out);
     }
 
-
     private boolean reconnecting(String line, BufferedReader in, PrintWriter out) throws IOException {
         line = in.readLine();
         int numGM = IntegerFromString.f(line);
@@ -313,6 +312,7 @@ public class ClientHandler implements Runnable {
         }
 
         line = in.readLine();
+        nickname = line;
         out.println("Reconnecting");
 
         ArrayList<Player> players = game.getPlayers();

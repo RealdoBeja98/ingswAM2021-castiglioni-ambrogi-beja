@@ -232,7 +232,9 @@ public class FaithTrack {
      * @param importedString: the string to import
      */
     public FaithTrack(String importedString){
+        FaithTrack.initializeBonusFaithMarker();
         String[] strings = importedString.split("!");
+        favorTiles = new FavorTiles[3];
         for(int i = 0; i < 3; i++){
             switch (strings[i]){
                 case "D":

@@ -601,6 +601,7 @@ public class PlayerGame {
             } else {
                 playerPlayer.selectedHisTwoFirstCards = true;
             }
+            players.add(playerPlayer);
         }
         //this method doesn't consider lorenzoTrack -> the reconnection feature doesn't work in single player game
         //param out is to set using the method setOut
