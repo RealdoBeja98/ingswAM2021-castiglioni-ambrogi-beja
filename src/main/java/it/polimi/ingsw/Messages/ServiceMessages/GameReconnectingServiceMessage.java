@@ -40,14 +40,20 @@ public class GameReconnectingServiceMessage extends ServiceMessage { //fixme sta
      */
     @Override
     public void execute(Game game, PrintWriter out){
-        System.out.println("Eseguo execute di GameReconnectingServiceMessage");
         PlayerGame playerGame = new PlayerGame(all);
         ClientMain.setPlayerGame(playerGame);
         playerGame.setOut(out);
-        System.out.println("GAME RECONNECTING!");
         View w = View.get();
         if(w instanceof Gui){
             ((Gui)w).reloadView();
+        }else{
+            if(true){ //FIXME mettere al posto di true se ci troviamo nella fase iniziale
+                w.showStartingLC();
+            }else{
+                w.showMarket();
+                w.showDevCard();
+                w.showPersonalBoard();
+            }
         }
     }
 

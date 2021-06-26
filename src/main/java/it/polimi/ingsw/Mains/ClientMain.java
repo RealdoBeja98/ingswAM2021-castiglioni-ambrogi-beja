@@ -213,6 +213,7 @@ public class ClientMain {
                         if(!guiSet && ClientMain.getPlayerGame() != null){
                             cliGameUpdate();
                         }
+                        break;
                     default:
                         out.println(clientMessage);
                         if (clientMessage.equals("quit")) {
