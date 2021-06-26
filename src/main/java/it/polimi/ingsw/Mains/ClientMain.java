@@ -3,6 +3,7 @@ import it.polimi.ingsw.Game.PlayerGame;
 import it.polimi.ingsw.Messages.ErrorMessages.GameDontExistErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.GameStartedErrorMessage;
 import it.polimi.ingsw.Messages.ErrorMessages.NameTakenErrorMessage;
+import it.polimi.ingsw.Messages.ErrorMessages.PlayerExistenceErrorMessage;
 import it.polimi.ingsw.Messages.Message;
 import it.polimi.ingsw.PersonalBoard.Faith.FaithTrackSP;
 import it.polimi.ingsw.View.Cli;
@@ -157,28 +158,33 @@ public class ClientMain {
      * @param in reads message send by the socket
      * @throws IOException error message
      */
-    private void setNameInTheServer(BufferedReader in, PrintWriter out) throws IOException {
+    private boolean setNameInTheServer(BufferedReader in, PrintWriter out) throws IOException {
         String line = in.readLine();
         Message lineMessage = Message.fromString(line);
         if (lineMessage.isEqual(new NameTakenErrorMessage())) {
             (new NameTakenErrorMessage()).execute();
-            return;
+            return false;
         }
         if (lineMessage.isEqual(new GameStartedErrorMessage())) {
             (new GameStartedErrorMessage()).execute();
-            return;
+            return false;
         }
         if (line.equals("You have the inkwell!")) {
             View.printMessage("Joined the game!");
             View.printMessage("You have the inkwell!");
             line = in.readLine();
-            return;
+            return true;
         }
+
         if (line.equals("Reconnecting")) {
             View.printMessage("Reconnecting!");
 
             line = in.readLine();
             Message messageServerMessage = Message.fromString(line);
+            if(messageServerMessage.isEqual(new PlayerExistenceErrorMessage())){
+                (new PlayerExistenceErrorMessage()).execute();
+                return false;
+            }
             messageServerMessage.execute(null, out);
             System.out.println("Successfully rejoined the game!");
             line = in.readLine();
@@ -188,9 +194,10 @@ public class ClientMain {
 
 
 
-            return;
+            return true;
         }
         View.printMessage("Joined the game!");
+        return true;
     }
 
     /**
@@ -273,7 +280,9 @@ public class ClientMain {
 
             joiningGame(in);
 
-            setNameInTheServer(in, out);
+            if(!setNameInTheServer(in, out)){
+                return;
+            }
 
             MessageThread messageThread = new MessageThread(out, in);
             Thread mt = new Thread(messageThread);
