@@ -47,7 +47,7 @@ public class GameReconnectingServiceMessage extends ServiceMessage { //fixme sta
         if(w instanceof Gui){
             ((Gui)w).reloadView();
         }else{
-            if(true){ //FIXME mettere al posto di true se ci troviamo nella fase iniziale
+            if(ClientMain.getPlayerGame().gameReallyStarted()){ //FIXME [fixato] mettere al posto di true se ci troviamo nella fase iniziale
                 w.showStartingLC();
             }else{
                 w.showMarket();
