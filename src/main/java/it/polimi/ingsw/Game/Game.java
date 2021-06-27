@@ -4,7 +4,9 @@ import it.polimi.ingsw.Exceptions.GameAlreadyStartedException;
 import it.polimi.ingsw.Exceptions.GameEndedException;
 import it.polimi.ingsw.Exceptions.NameAlreadyRegisteredException;
 import it.polimi.ingsw.Exceptions.NotAResourceForStrongBoxException;
+import it.polimi.ingsw.Mains.LocalMain;
 import it.polimi.ingsw.Table.Table;
+import it.polimi.ingsw.View.View;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -105,10 +107,10 @@ public class Game {
 /*
         for(int wp =0; wp<players.size();wp++){
             try {
-                players.get(wp).getPersonalBoard().getStrongBox().add(Resource.COIN, 100);
-                players.get(wp).getPersonalBoard().getStrongBox().add(Resource.STONE, 100);
-                players.get(wp).getPersonalBoard().getStrongBox().add(Resource.SERVANT, 100);
-                players.get(wp).getPersonalBoard().getStrongBox().add(Resource.SHIELD, 100);
+                players.get(wp).getPersonalBoard().getStrongBox().add(Resource.COIN, 50);
+                players.get(wp).getPersonalBoard().getStrongBox().add(Resource.STONE, 50);
+                players.get(wp).getPersonalBoard().getStrongBox().add(Resource.SERVANT, 50);
+                players.get(wp).getPersonalBoard().getStrongBox().add(Resource.SHIELD, 50);
             } catch (NotAResourceForStrongBoxException e) {
                 e.printStackTrace();
             }
@@ -143,9 +145,12 @@ public class Game {
      * It's used in single player mode in witch there are some case in witch the game could terminate immediately
      */
     public void endGameImmediately(){
+        endGame();
         notifyScore();
         for(PrintWriter ii : printWriterList){
-            ii.println("GAME_ENDED");
+            if(ii != null){
+                ii.println("GAME_ENDED");
+            }
         }
         System.out.println("Game " + gameIndex + " ended!");
     }
@@ -271,15 +276,30 @@ public class Game {
     private void notifyScoreSinglePlayer(){
         if(Game.get(gameIndex).getTable().getDevelopmentDeck().allCardOfATypeFinished()){
             for(int o = 0; o < printWriterList.size(); o++){
-                printWriterList.get(o).println("You have lost because there is enough a type of DevelopmentCard finished in the DevelopmentDeck");
+                String phrase = "You have lost because there is enough a type of DevelopmentCard finished in the DevelopmentDeck";
+                if(LocalMain.getIsLocal()){
+                    View.printMessage(phrase);
+                } else {
+                    printWriterList.get(o).println(phrase);
+                }
             }
         } else if(Game.get(gameIndex).getPlayers().get(0).getPersonalBoard().getLorenzoTrack().getFaithMarker() == 24){
             for(int o = 0; o < printWriterList.size(); o++){
-                printWriterList.get(o).println("You have lost because Lorenzo has reached the last place of faithTrack!");
+                String phrase = "You have lost because Lorenzo has reached the last place of faithTrack!";
+                if(LocalMain.getIsLocal()){
+                    View.printMessage(phrase);
+                } else {
+                    printWriterList.get(o).println(phrase);
+                }
             }
         } else {
             for(int o = 0; o < printWriterList.size(); o++){
-                printWriterList.get(o).println("Victory!!!");
+                String phrase = "Victory!!!";
+                if(LocalMain.getIsLocal()){
+                    View.printMessage(phrase);
+                } else {
+                    printWriterList.get(o).println(phrase);
+                }
             }
         }
     }
@@ -293,8 +313,12 @@ public class Game {
             points[i] = players.get(i).calculateVictoryPoints();
         }
         for(int y = 0; y < printWriterList.size(); y++){
-            for(int z = 0; z < players.size(); z++){
-                printWriterList.get(y).println(players.get(z).getNickname() + " scored: " + points[z] + " points");
+            if(LocalMain.getIsLocal()){
+                View.printMessage(players.get(0).getNickname() + " scored: " + points[0] + " points");
+            } else {
+                for(int z = 0; z < players.size(); z++){
+                    printWriterList.get(y).println(players.get(z).getNickname() + " scored: " + points[z] + " points");
+                }
             }
         }
         int max = points[0];

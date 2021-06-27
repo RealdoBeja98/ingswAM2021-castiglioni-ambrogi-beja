@@ -2,9 +2,11 @@ package it.polimi.ingsw.Messages.GameMessages;
 
 import it.polimi.ingsw.Exceptions.MessageException;
 import it.polimi.ingsw.Game.Game;
+import it.polimi.ingsw.Mains.LocalMain;
 import it.polimi.ingsw.Messages.ConfirmedActionMessage;
 import it.polimi.ingsw.Messages.GameMessage;
 import it.polimi.ingsw.Messages.Message;
+import it.polimi.ingsw.View.View;
 
 import java.io.PrintWriter;
 
@@ -31,6 +33,9 @@ public class EndTurnGameMessage extends GameMessage {
             game.getTurn().endTurnCommand();
             Message.sendMessage(out, new ConfirmedActionMessage());
             System.out.println(identifier);
+            if(LocalMain.getIsLocal()){
+                View.printMessage("A new turn begin!");
+            }
         } catch (MessageException e) {
             Message.sendMessage(out, e.getErrorMessage());
         }

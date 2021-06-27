@@ -2,6 +2,7 @@ package it.polimi.ingsw.PersonalBoard.Faith;
 
 import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Mains.ClientMain;
+import it.polimi.ingsw.Mains.LocalMain;
 
 /**
  * This class represents the FaithTrack of Lorenzo
@@ -40,7 +41,11 @@ public class FaithTrackSP extends FaithTrack{
     @Override
     public void goOn(int n){
         if(!FaithTrackSP.isSetForClient){
-            if(!(Game.get(gameIndex).getPlayers().get(0).getPersonalBoard().getFaithTrack().getFaithMarker() == faithTrackCells)){
+            int consideringGameIndex = gameIndex;
+            if(LocalMain.getIsLocal()){
+                consideringGameIndex = 0;
+            }
+            if(!(Game.get(consideringGameIndex).getPlayers().get(0).getPersonalBoard().getFaithTrack().getFaithMarker() == faithTrackCells)){
                 super.goOn(n);
             }
         } else {

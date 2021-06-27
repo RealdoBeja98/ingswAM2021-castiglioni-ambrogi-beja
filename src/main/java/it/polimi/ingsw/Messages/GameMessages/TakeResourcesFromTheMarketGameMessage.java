@@ -37,7 +37,7 @@ public class TakeResourcesFromTheMarketGameMessage extends GameMessage {
     private void sendMarblesFromTheMarket(Game game, PrintWriter out){
         int size = game.getTurn().getCurrentPlayer().getMarblesFromTheMarket().size();
         for (int i = 0; i < size; i++) {
-            out.println(game.getTurn().getCurrentPlayer().getMarblesFromTheMarket().get(i));
+            Message.printOut(out, game.getTurn().getCurrentPlayer().getMarblesFromTheMarket().get(i).toString());
         }
     }
 
@@ -49,7 +49,7 @@ public class TakeResourcesFromTheMarketGameMessage extends GameMessage {
     private void sendFirstMarbleFromTheMarket(Game game, PrintWriter out){
         int size = game.getTurn().getCurrentPlayer().getMarblesFromTheMarket().size();
         if(size >= 1){
-            out.println("Marble from the market to add: " + game.getTurn().getCurrentPlayer().getMarblesFromTheMarket().get(0));
+            Message.printOut(out, "Marble from the market to add: " + game.getTurn().getCurrentPlayer().getMarblesFromTheMarket().get(0));
         }
     }
 

@@ -680,6 +680,10 @@ public class Turn {
         gameEnded = true;
     }
 
+    public boolean getGameEnded(){
+        return gameEnded;
+    }
+
     public void endTurnCommand() throws ActionNotAllowedException, GameEndedException {
         if(currentPlayer.isHimFirstTurn()){
             throw new ActionNotAllowedException();

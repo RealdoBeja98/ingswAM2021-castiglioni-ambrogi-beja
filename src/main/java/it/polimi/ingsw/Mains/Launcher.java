@@ -82,6 +82,19 @@ public class Launcher {
         return false;
     }
 
+    private static boolean checkLocalParam(String[] args){
+        if(!args[2].equals("-GUI") && !args[2].equals("-CLI")){
+            System.out.println("Invalid interface!");
+            return false;
+        }
+        return true;
+    }
+
+    private static void startLocal(String[] args){
+        LocalMain localMain = new LocalMain();
+        localMain.main(args);
+    }
+
     public static void main(String[] args) {
         if(args.length != 0){
             if(args[0].equals("server")){
@@ -96,6 +109,14 @@ public class Launcher {
             return;
         }
 
+        if(args[0].equals("local")){
+            if(checkLocalParam(args)){
+                startLocal(args);
+                return;
+            }
+            System.out.println("Invalid local match");
+            return;
+        }
 
         if(checkClientParam(args)){
             return;

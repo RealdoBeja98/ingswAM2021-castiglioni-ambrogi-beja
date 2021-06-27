@@ -4,12 +4,14 @@ import it.polimi.ingsw.Enums.NormalAction;
 import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Enums.RowColumn;
 import it.polimi.ingsw.Game.Game;
+import it.polimi.ingsw.Mains.LocalMain;
 import it.polimi.ingsw.Messages.ErrorMessages.*;
 import it.polimi.ingsw.Messages.ForwardMessages.*;
 import it.polimi.ingsw.Messages.GameMessages.*;
 import it.polimi.ingsw.Messages.ServiceMessages.*;
 import it.polimi.ingsw.Table.Decks.Token.ActionToken;
 import it.polimi.ingsw.Utilities.IntegerFromString;
+import it.polimi.ingsw.View.View;
 
 import java.io.PrintWriter;
 
@@ -284,7 +286,43 @@ public abstract class Message {
      * @param message message
      */
     public static void sendMessage(PrintWriter dest, Message message){
+        if(dest == null){
+            if(Game.get(0).getTurn().getGameEnded()){
+                return;
+            }
+            message.execute(Game.get(0), null);
+            return;
+        }
         dest.println(message.identifier);
+    }
+
+    /**
+     * This method is to print out an UpdateSoloActionTokenMessage
+     * @param out: sends message to socket
+     * @param updateSoloActionTokenMessage: the UpdateSoloActionTokenMessage to send
+     */
+    public static void printOutUpdateSoloActionToken(PrintWriter out, UpdateSoloActionTokenMessage updateSoloActionTokenMessage){
+        if(LocalMain.getIsLocal()){
+            updateSoloActionTokenMessage.execute(Game.get(0), null);
+            return;
+        }
+        printOut(out, updateSoloActionTokenMessage.toString());
+    }
+
+    /**
+     * This method is to print out a string
+     * @param out: sends message to socket
+     * @param string: the string to send
+     */
+    public static void printOut(PrintWriter out, String string){
+        if(out == null){
+            if(Game.get(0).getTurn().getGameEnded()){
+                return;
+            }
+            View.printMessage(string);
+            return;
+        }
+        out.println(string);
     }
 
     /**

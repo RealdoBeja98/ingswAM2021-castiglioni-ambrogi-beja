@@ -4,8 +4,8 @@ import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Mains.ClientMain;
 import it.polimi.ingsw.Table.Decks.Token.ActionToken;
 import it.polimi.ingsw.View.View;
-
 import java.io.PrintWriter;
+
 /**
  * Class of the update solo action
  */

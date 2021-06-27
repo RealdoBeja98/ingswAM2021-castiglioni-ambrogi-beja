@@ -1,6 +1,9 @@
 package it.polimi.ingsw.Messages;
 
 import it.polimi.ingsw.Game.Game;
+import it.polimi.ingsw.Mains.LocalMain;
+import it.polimi.ingsw.View.View;
+
 import java.io.PrintWriter;
 
 /**
@@ -16,7 +19,11 @@ public class ConfirmedActionMessage extends Message{
 
     @Override
     public void execute(Game game, PrintWriter out) {
-        System.out.println(this);
+        if(LocalMain.getIsLocal()){
+            View.printMessage(this);
+        } else {
+            System.out.println(this);
+        }
     }
 
 }

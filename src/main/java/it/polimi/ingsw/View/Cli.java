@@ -3,6 +3,7 @@ import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Enums.Type;
 import it.polimi.ingsw.Game.PlayerGame;
 import it.polimi.ingsw.Mains.ClientMain;
+import it.polimi.ingsw.Mains.LocalMain;
 import it.polimi.ingsw.PersonalBoard.Faith.FaithTrackSP;
 import it.polimi.ingsw.Table.Decks.Development.DevelopmentCard;
 import it.polimi.ingsw.Table.Decks.Leader.*;
@@ -141,7 +142,7 @@ public class Cli extends View{
     public void showPBCurrent() {
         ArrayList<PlayerGame.PlayerPlayer> players = ClientMain.getPlayerGame().getPlayers();
         for(PlayerGame.PlayerPlayer n : players){
-            if(n.getNickname().equals(ClientMain.getCurrentP())){
+            if(LocalMain.getIsLocal() || n.getNickname().equals(ClientMain.getCurrentP())){
                 printBoard(n);
             }
         }

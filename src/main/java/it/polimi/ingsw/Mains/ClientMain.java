@@ -7,6 +7,7 @@ import it.polimi.ingsw.Messages.ErrorMessages.PlayerExistenceErrorMessage;
 import it.polimi.ingsw.Messages.Message;
 import it.polimi.ingsw.PersonalBoard.Faith.FaithTrackSP;
 import it.polimi.ingsw.View.Cli;
+import it.polimi.ingsw.View.Gui;
 import it.polimi.ingsw.View.View;
 import javafx.scene.canvas.Canvas;
 import java.io.BufferedReader;
@@ -100,6 +101,9 @@ public class ClientMain {
      * @return returns the current player
      */
     public static String getCurrentP() {
+        if(LocalMain.getIsLocal()){
+            return LocalMain.getNickname();
+        }
         return currentP;
     }
 
@@ -108,15 +112,25 @@ public class ClientMain {
      * @return string of the name
      */
     public static String getClientNick() {
+        if(LocalMain.getIsLocal()){
+            return LocalMain.getNickname();
+        }
         return clientNick;
     }
 
     /**
-     * Setter of the Gui
+     * Getter of the Gui
      * @return Gui
      */
     public static boolean getGuiSet(){
         return guiSet;
+    }
+
+    /**
+     * This method is to set the gui on
+     */
+    public static void setGuiSet(){
+        ClientMain.guiSet = true;
     }
 
     /**
@@ -260,7 +274,7 @@ public class ClientMain {
         int portNumber = Integer.parseInt(args[1]);
         clientNick = args[4];
 
-        if (args[5].equals("-GUI")) {
+        if(args[5].equals("-GUI")){
             try {
                 initializeGui();
             } catch (InterruptedException e) {

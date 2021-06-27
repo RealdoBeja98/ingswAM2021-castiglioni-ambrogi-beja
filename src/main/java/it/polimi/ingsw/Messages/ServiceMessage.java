@@ -1,4 +1,5 @@
 package it.polimi.ingsw.Messages;
+
 /**
  * Class of the service message
  */

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.Mains;
 import it.polimi.ingsw.Enums.*;
+import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Messages.GameMessages.*;
 import it.polimi.ingsw.Messages.Message;
 import javafx.application.Application;
@@ -28,6 +29,7 @@ public class GuiThread extends Application implements Runnable{
     private static boolean cardPrinted = false;
     private final static Object lock = new Object();
     private static boolean isSetBackground = false;
+    private static Stage myStage;
 
     /**
      * Prints the card
@@ -86,11 +88,16 @@ public class GuiThread extends Application implements Runnable{
         GraphicsContext gc = canvas.getGraphicsContext2D();
         Image img = new Image("Misc/BackGround.png");
         ClientMain.setCanvas(canvas);
-        synchronized (GuiThread.lock){
-            //System.out.println("Guitherad wait");
-            while(out == null){
-                GuiThread.lock.wait();
+        if(!LocalMain.getIsLocal()){
+            synchronized (GuiThread.lock){
+                //System.out.println("Guitherad wait");
+                while(out == null){
+                    GuiThread.lock.wait();
+                }
             }
+        } else {
+            ClientMain.setGuiSet();
+            LocalMain.notifyLocalMain();
         }
         gc.drawImage(img, 0, 0, 1995, 1025);
         //System.out.println("Background set");
@@ -103,10 +110,11 @@ public class GuiThread extends Application implements Runnable{
         Scene scene = new Scene(root, 1995, 1025);
         stage.setScene(scene);
         stage.show();
+        myStage = stage;
     }
 
     private void timeToQuit() {
-        out.println("quit");
+        printOut(out, "quit");
         Platform.exit();
     }
 
@@ -224,7 +232,7 @@ public class GuiThread extends Application implements Runnable{
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e)
             {
-                out.println(message);
+                printOut(out, message);
             }
         };
         setButton(b, event, x, y);
@@ -245,8 +253,14 @@ public class GuiThread extends Application implements Runnable{
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e)
             {
-                out.println(message);
+                if(!LocalMain.getIsLocal()){
+                    printOut(out, message);
+                }
                 stage.close();
+                if(LocalMain.getIsLocal()){
+                    System.out.println("You quit");
+                    System.exit(0);
+                }
             }
         };
         setButton(b, event, x, y);
@@ -287,10 +301,10 @@ public class GuiThread extends Application implements Runnable{
             public void handle(ActionEvent e)
             {
                 if(state == 10){
-                    out.println(new SelectProductionDevelopmentCardGameMessage(pos));
+                    printOut(out, new SelectProductionDevelopmentCardGameMessage(pos));
                     state = 0;
                 }else if(state == 11){
-                    out.println(new PlaceDevelopmentCardGameMessage(pos));
+                    printOut(out, new PlaceDevelopmentCardGameMessage(pos));
                     state = 0;
                 }
             }
@@ -313,16 +327,16 @@ public class GuiThread extends Application implements Runnable{
             public void handle(ActionEvent e){
                 switch (state){
                     case 1:
-                        out.println(new AddResourceToGameMessage(LeaderWarehouse.WAREHOUSEDEPOTS, pos));
+                        printOut(out, new AddResourceToGameMessage(LeaderWarehouse.WAREHOUSEDEPOTS, pos));
                         break;
                     case 2:
-                        out.println(new SelectAWarehouseDepotsSlotGameMessage(pos));
+                        printOut(out, new SelectAWarehouseDepotsSlotGameMessage(pos));
                         break;
                     case 3:
-                        out.println(new MoveResourcesInWarehouseDepotsGameMessage(pos));
+                        printOut(out, new MoveResourcesInWarehouseDepotsGameMessage(pos));
                         break;
                     case 6:
-                        out.println(new PayWithWarehouseDepotsGameMessage(pos));
+                        printOut(out, new PayWithWarehouseDepotsGameMessage(pos));
                         break;
                 }
                 state = 0;
@@ -368,28 +382,28 @@ public class GuiThread extends Application implements Runnable{
                 if(leaderCardState != null){
                     switch (leaderCardState){
                         case DISCARD_LEADER_CARD:
-                            out.println(new DiscardLeaderCardGameMessage(pos));
+                            printOut(out, new DiscardLeaderCardGameMessage(pos));
                             break;
                         case PLAY_LEADER_CARD:
-                            out.println(new PlayLeaderCardGameMessage(pos));
+                            printOut(out, new PlayLeaderCardGameMessage(pos));
                             break;
                         case ADD_RESOURCE_TO_LEADER_CARD:
-                            out.println(new AddResourceToGameMessage(LeaderWarehouse.LEADERCARD, pos));
+                            printOut(out, new AddResourceToGameMessage(LeaderWarehouse.LEADERCARD, pos));
                             break;
                         case CHANGE_WHITE_MARBLE_WITH:
-                            out.println(new ChangeWhiteMarbleWithGameMessage(pos));
+                            printOut(out, new ChangeWhiteMarbleWithGameMessage(pos));
                             break;
                         case PAY_WITH_EXTRA_STORAGE_LEADER_CARD:
-                            out.println(new PayWithExtraStorageLeaderCardGameMessage(pos));
+                            printOut(out, new PayWithExtraStorageLeaderCardGameMessage(pos));
                             break;
                         case SELECT_PRODUCTION_POWER_LEADER_CARD:
-                            out.println(new SelectProductionPowerLeaderCardGameMessage(pos));
+                            printOut(out, new SelectProductionPowerLeaderCardGameMessage(pos));
                             break;
                         case MOVE_RESOURCES_WAREHOUSE_TO_ES_LC:
-                            out.println(new MoveResourcesWarehouseToESLCGameMessage(pos));
+                            printOut(out, new MoveResourcesWarehouseToESLCGameMessage(pos));
                             break;
                         case MOVE_RESOURCE_ES_LC_TO_WAREHOUSE:
-                            out.println(new MoveResourceESLCToWEarehouseGameMessage(pos));
+                            printOut(out, new MoveResourceESLCToWEarehouseGameMessage(pos));
                             break;
                     }
                     leaderCardState = null;
@@ -465,10 +479,10 @@ public class GuiThread extends Application implements Runnable{
         Button ok = new Button("OK");
         EventHandler<ActionEvent> finalEvent = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
-                if(val[0] != 0 && val[1] != 0 && ClientMain.getClientNick().equals(ClientMain.getCurrentP())){
+                if(val[0] != 0 && val[1] != 0 && (ClientMain.getClientNick().equals(ClientMain.getCurrentP()) || LocalMain.getIsLocal())){
                     ok.setVisible(false);
                     gc.drawImage(img, 0, 0, 1995, 1025);
-                    out.println(new SelectTwoCardsToKeepGameMessage(val[0], val[1]));
+                    printOut(out, new SelectTwoCardsToKeepGameMessage(val[0], val[1]));
                 }
             }
         };
@@ -479,6 +493,44 @@ public class GuiThread extends Application implements Runnable{
         root.getChildren().add(c3);
         root.getChildren().add(c4);
         root.getChildren().add(ok);
+    }
+
+    /**
+     * This method is to print out a message
+     * @param out: sends message to socket
+     * @param message: the message to send
+     */
+    private void printOut(PrintWriter out, Message message){
+        printOut(out, message.toString());
+    }
+
+    /**
+     * This method is to print out a string
+     * @param out: sends message to socket
+     * @param string: the string to send
+     */
+    private void printOut(PrintWriter out, String string){
+        if(LocalMain.getIsLocal()){
+            Message message = Message.fromString(string);
+            message.execute(Game.get(0), null);
+            return;
+        }
+        out.println(string);
+    }
+
+    /**
+     * This method is to close the window of the gui
+     */
+    public static void closeWindow(){
+        if(myStage == null){
+            return;
+        }
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                myStage.close();
+            }
+        }     );
     }
 
 }

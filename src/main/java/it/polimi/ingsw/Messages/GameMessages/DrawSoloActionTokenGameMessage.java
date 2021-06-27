@@ -2,10 +2,13 @@ package it.polimi.ingsw.Messages.GameMessages;
 
 import it.polimi.ingsw.Exceptions.MessageException;
 import it.polimi.ingsw.Game.Game;
+import it.polimi.ingsw.Mains.LocalMain;
 import it.polimi.ingsw.Messages.GameMessage;
 import it.polimi.ingsw.Messages.Message;
 import it.polimi.ingsw.Messages.UpdateSoloActionTokenMessage;
 import it.polimi.ingsw.Table.Decks.Token.ActionToken;
+import it.polimi.ingsw.View.Gui;
+import it.polimi.ingsw.View.View;
 
 import java.io.PrintWriter;
 
@@ -30,7 +33,15 @@ public class DrawSoloActionTokenGameMessage extends GameMessage {
     public void execute(Game game, PrintWriter out) {
         try {
             ActionToken actionToken = game.getTurn().drawSoloActionToken();
-            out.println(new UpdateSoloActionTokenMessage(actionToken));
+            Message.printOutUpdateSoloActionToken(out, new UpdateSoloActionTokenMessage(actionToken));
+            /*
+            if(LocalMain.getIsLocal() && View.get() instanceof Gui){
+                View w = View.get();
+                w.showSoloActionToken(actionToken);
+                w.showDevCard();
+                w.showPBCurrent();
+            }
+            */
             System.out.println(identifier);
         } catch (MessageException e) {
             Message.sendMessage(out, e.getErrorMessage());

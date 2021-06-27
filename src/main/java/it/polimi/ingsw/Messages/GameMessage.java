@@ -1,10 +1,12 @@
 package it.polimi.ingsw.Messages;
 import it.polimi.ingsw.Game.Game;
 import java.io.PrintWriter;
+
 /**
  * Class of the game message
  */
 public abstract class GameMessage extends Message{
+
     /**
      * This method forward the message to console
      * @param game game instance
@@ -27,6 +29,10 @@ public abstract class GameMessage extends Message{
     protected void forwardAll(Game game, ForwardMessage forwardMessage){
         String message = forwardMessage.toString();
         for(PrintWriter i : game.getPrintWriterList()){
+            if(i == null){
+                forwardMessage.execute(game, null);
+                return;
+            }
             i.println(message);
         }
     }

@@ -1,6 +1,8 @@
 package it.polimi.ingsw.View;
 
+import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Mains.ClientMain;
+import it.polimi.ingsw.Mains.LocalMain;
 import it.polimi.ingsw.Messages.Message;
 import it.polimi.ingsw.Table.Decks.Token.ActionToken;
 import javafx.scene.canvas.GraphicsContext;
@@ -23,6 +25,11 @@ public abstract class View {
      * @param message message to print
      */
     public static void printMessage(Message message){
+        if(LocalMain.getIsLocal()){
+            if(Game.get(0).getTurn().getGameEnded()){
+                return;
+            }
+        }
         printMessage(message.toString());
     }
 

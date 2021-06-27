@@ -2,7 +2,6 @@ package it.polimi.ingsw.Messages.ForwardMessages;
 import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Mains.ClientMain;
 import it.polimi.ingsw.Messages.ForwardMessage;
-import it.polimi.ingsw.Messages.ServiceMessage;
 import java.io.PrintWriter;
 
 /**

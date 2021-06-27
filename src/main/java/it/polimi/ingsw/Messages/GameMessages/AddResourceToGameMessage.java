@@ -39,7 +39,7 @@ public class AddResourceToGameMessage extends GameMessage {
     private void sendNextMarbleFromTheMarket(Game game, PrintWriter out){
         int size = game.getTurn().getCurrentPlayer().getMarblesFromTheMarket().size();
         if(size >= 1){
-            out.println("Marble from the market to add: " + game.getTurn().getCurrentPlayer().getMarblesFromTheMarket().get(0));
+            Message.printOut(out, "Marble from the market to add: " + game.getTurn().getCurrentPlayer().getMarblesFromTheMarket().get(0));
         }
     }
 

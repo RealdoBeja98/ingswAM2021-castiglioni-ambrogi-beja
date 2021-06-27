@@ -14,6 +14,7 @@ public class FaithTrack {
     private final static int[] popstate = {8, 16, 24};
     private final static int[] thresholds = {5, 12, 19};
     private final static int[] bonusFavourTiles = {2, 3, 4};
+    private final static int startingSpace = 0;
     private static final int unusefulGameIndex = -1;
     private int faithMarker;
     private FavorTiles[] favorTiles;
@@ -44,7 +45,7 @@ public class FaithTrack {
     public FaithTrack(int gameIndex){
         FaithTrack.initializeBonusFaithMarker();
         this.gameIndex = gameIndex;
-        faithMarker = 0;
+        faithMarker = startingSpace;
         favorTiles = new FavorTiles[3];
         for(int i = 0; i < 3; i++){
             favorTiles[i] = FavorTiles.COVERED;
@@ -57,7 +58,7 @@ public class FaithTrack {
     public FaithTrack(){
         FaithTrack.initializeBonusFaithMarker();
         this.gameIndex = unusefulGameIndex;
-        faithMarker = 0;
+        faithMarker = startingSpace;
         favorTiles = new FavorTiles[3];
         for(int i = 0; i < 3; i++){
             favorTiles[i] = FavorTiles.COVERED;

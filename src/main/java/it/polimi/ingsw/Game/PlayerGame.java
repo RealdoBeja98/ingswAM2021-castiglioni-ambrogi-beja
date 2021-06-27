@@ -5,6 +5,8 @@ import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Enums.RowColumn;
 import it.polimi.ingsw.Enums.Type;
 import it.polimi.ingsw.Exceptions.*;
+import it.polimi.ingsw.Messages.ForwardMessages.ShowCurrentBoardMessage;
+import it.polimi.ingsw.Messages.Message;
 import it.polimi.ingsw.PersonalBoard.Faith.FaithTrack;
 import it.polimi.ingsw.PersonalBoard.Faith.FaithTrackSP;
 import it.polimi.ingsw.PersonalBoard.SlotsDevelopmentCards.SlotsDevelopmentCards;
@@ -300,7 +302,12 @@ public class PlayerGame {
         }
         if(numberOfFaithMarbles > 0){
             getPlayerPlayerFromNickname(nickname).faithTrack.goOn(numberOfFaithMarbles);
-            out.println("NOTIFY_PB_ALL");
+            if(out == null){
+                Message message = new ShowCurrentBoardMessage();
+                message.execute(Game.get(0), null);
+            } else {
+                out.println("NOTIFY_PB_ALL");
+            }
         }
     }
 

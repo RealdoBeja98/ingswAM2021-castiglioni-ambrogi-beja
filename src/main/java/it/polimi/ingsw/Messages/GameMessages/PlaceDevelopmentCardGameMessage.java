@@ -29,12 +29,12 @@ public class PlaceDevelopmentCardGameMessage extends GameMessage {
     private void sendNextResourceToPay(Game game, PrintWriter out){
         if(game.getTurn().getCurrentPlayer().somethingToPay()){
             try {
-                out.println("Next to pay: " + game.getTurn().getCurrentPlayer().nextToPay().toString());
+                Message.printOut(out, "Next to pay: " + game.getTurn().getCurrentPlayer().nextToPay().toString());
             } catch (NoResourceToPayException e) {
                 e.printStackTrace();
             }
         } else if(game.getTurn().getCurrentPlayer().genericResourcesToObtain()){
-            out.println("Generic resource to obtain");
+            Message.printOut(out, "Generic resource to obtain");
         }
     }
 
