@@ -23,6 +23,10 @@ To start the client:
 
 java -jar AM04.jar [server_ip] [server_port] [joining_method] [number_of_player/game_number] [nickname] [graphic_method]
 
+To start game in local use:
+
+java -jar AM04.jar local [nickname] [graphic_method]
+
 joining method:
 • -n create a new game
 • -o join an existing game
@@ -50,3 +54,10 @@ RECOMMENDED:
 use Windows power shell to run server/GUI
 use Ubuntu console for Windows to run CLI
 for macOS and Unix-like device there should be no problem
+
+IMPORTANT NOTE:
+to test disconnection are either required 2 pc, and disconnect the ethernet cable in one of them.
+the other way is to use IntelliJ and in CLI use the Disconnect function (recommended).
+this is due to the fact that we chose to separate crashing the command shell and disconnection.
+the use of the cli is derived by IntelliJ internal system, where disconnecting leave alive the threads,
+in CLI the disconnection kills the main thread and keep the wanted behaviour.
