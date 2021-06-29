@@ -5,6 +5,7 @@ import it.polimi.ingsw.Exceptions.DrawnFromEmptyDeckException;
 import it.polimi.ingsw.Exceptions.IndexOutOfDevelopmentDeckException;
 import it.polimi.ingsw.Game.Game;
 import it.polimi.ingsw.Table.Decks.Development.DevelopmentCard;
+import it.polimi.ingsw.Utilities.GetUrl;
 import it.polimi.ingsw.Utilities.ObtainIntValueFromLong;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -266,67 +267,10 @@ public class DevelopmentDeck{
      * @return the list of the development cards composing the DevelopmentDeck, of type ArrayList<DevelopmentCard>
      */
     private ArrayList<DevelopmentCard> obtainDevelopmentCardsToAdd(){
-        return readMyJSONAsText("DevelopmentCardsList.json");
-        /*
-        ArrayList<DevelopmentCard> developmentCardsToAdd = new ArrayList<>();
-        JSONParser jsonParser = new JSONParser();
-        try (FileReader reader = new FileReader("DevelopmentCardsList.json"))
-        {
-            Object obj = jsonParser.parse(reader);
-            Object obj2 = jsonParser.parse("");//
-            JSONArray json = (JSONArray) obj;
-            for(Object i : json) {
-                Resource[] cost = addCost(i);
-                int[] costNumber = addCostNumber(i);
-                Type type = Type.valueOf((String)((JSONObject) i).get("type"));
-                int level = ObtainIntValueFromLong.f((Long) ((JSONObject) i).get("level"));
-                Resource[] requirements = addRequirements(i);
-                int[] costRequirements = addCostRequirements(i);
-                Resource[] products = addProducts(i);
-                int[] costProducts = addCostProducts(i);
-                int victoryPoints = ObtainIntValueFromLong.f((Long) ((JSONObject) i).get("victoryPoints"));
-                DevelopmentCard developmentCard = new DevelopmentCard(cost, costNumber, type, level, requirements, costRequirements, products, costProducts, victoryPoints);
-                developmentCardsToAdd.add(developmentCard);
-            }
-        } catch (IOException | ParseException e) {
-            e.printStackTrace();
-        }
-        return developmentCardsToAdd;
-        */
-    }
-
-    /**
-     * Helper method for method obtainDevelopmentCardsToAdd
-     * @param fname the json file
-     * @return the list of the development cards composing the DevelopmentDeck, of type ArrayList<DevelopmentCard>
-     */
-    private ArrayList<DevelopmentCard> readMyJSONAsText(String fname) {
 
         ArrayList<DevelopmentCard> developmentCardsToAdd = new ArrayList<>();
 
-        InputStream is = null;
-        is = this.getClass().getClassLoader().getResourceAsStream(fname);
-        BufferedReader buf = new BufferedReader(new InputStreamReader(is));
-
-        String line = null;
-        try {
-            line = buf.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        StringBuilder sb = new StringBuilder();
-
-        while (line != null) {
-            sb.append(line).append("\n");
-            try {
-                line = buf.readLine();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        String fileAsString = sb.toString();
-        // eventually.. System.out.println("Contents : " + fileAsString);
+        String fileAsString = GetUrl.UrlFromText("DevelopmentCardsList.json");
 
         JSONParser jsonParser = new JSONParser();
         Object obj = null;

@@ -579,6 +579,7 @@ public class Gui extends View{
                 break;
         }
         String fullName = "SoloActionToken/" + name + ".png";
+
         drawLittleSquare(gc, 320, 955, fullName,40, 40);
     }
 
