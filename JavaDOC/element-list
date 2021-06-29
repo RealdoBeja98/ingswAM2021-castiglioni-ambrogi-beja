@@ -1,7 +1,12 @@
-it.polimi.ingsw
 it.polimi.ingsw.Enums
 it.polimi.ingsw.Exceptions
 it.polimi.ingsw.Game
+it.polimi.ingsw.Mains
+it.polimi.ingsw.Messages
+it.polimi.ingsw.Messages.ErrorMessages
+it.polimi.ingsw.Messages.ForwardMessages
+it.polimi.ingsw.Messages.GameMessages
+it.polimi.ingsw.Messages.ServiceMessages
 it.polimi.ingsw.PersonalBoard
 it.polimi.ingsw.PersonalBoard.Faith
 it.polimi.ingsw.PersonalBoard.SlotsDevelopmentCards
@@ -14,3 +19,5 @@ it.polimi.ingsw.Table.Decks.Leader
 it.polimi.ingsw.Table.Decks.Token
 it.polimi.ingsw.Table.Market
 it.polimi.ingsw.Table.Market.Marbles
+it.polimi.ingsw.Utilities
+it.polimi.ingsw.View

@@ -32,6 +32,7 @@ public class DevelopmentDeck{
 
     /**
      * Constructor method of this class
+     * @param gameIndex: the number of the game
      */
     public DevelopmentDeck(int gameIndex){
         this.gameIndex = gameIndex;

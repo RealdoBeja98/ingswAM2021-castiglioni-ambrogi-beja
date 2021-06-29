@@ -51,7 +51,7 @@ public class ActionTokenDeck {
 
     /**
      * Getter of the parameter deck
-     * @return a copy of the deck of action token, of type ArrayList<ActionToken>
+     * @return a copy of the deck of action token, of type ArrayList of ActionToken
      */
     public ArrayList<ActionToken> getDeck() {
         return (ArrayList<ActionToken>)deck.clone();

@@ -52,9 +52,9 @@ public class SlotsDevelopmentCards {
      * the array of cards on top
      * @param pos: column where the card is going to be added
      * @param card: card that is going to be added
-     * @throws PositionInvalidException: propagates this exception, generated if the position requested is occupied or
+     * @throws PositionInvalidException propagates this exception, generated if the position requested is occupied or
      *                                   there are no card under with lower level in the same position
-     * @throws IndexOutOfSlotDevelopmentCardsException: if you are out of bound of slots for development cards
+     * @throws IndexOutOfSlotDevelopmentCardsException if you are out of bound of slots for development cards
      */
     public void addDevelopmentCard(int pos, DevelopmentCard card) throws PositionInvalidException, IndexOutOfSlotDevelopmentCardsException {
         int levelOfCard = card.getLevel();

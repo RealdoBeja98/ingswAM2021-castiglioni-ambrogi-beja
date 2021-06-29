@@ -461,7 +461,7 @@ public class Player {
      * the first position was selected using selectAWarehouseDepotsSlot and saved in var selectedWarehouseDepotsSlot of type int
      * @param pos2: to choose the second position of the slot of the WarehouseDepots
      * @throws NotAdmittedMovementException if the movement is invalid
-     * @throws IndexOutOfWarehouseDepotsException: if you are out of bounds of the WarehouseDepots
+     * @throws IndexOutOfWarehouseDepotsException if you are out of bounds of the WarehouseDepots
      */
     public void moveResourcesInWarehouseDepots(int pos2) throws NotAdmittedMovementException, IndexOutOfWarehouseDepotsException {
         int pos1 = selectedWarehouseDepotsSlot;
@@ -503,7 +503,7 @@ public class Player {
      * @throws ResourceAlreadyPlacedException if the resource passed to the warehouseDepots is yet present on a different shelf
      * @throws DifferentResourceInThisShelfException if there are different resources types already placed in the chosen shelf
      * @throws EmptySlotExtraStorageLeaderCardException if the selected ExtraStorageLeaderCard is yet empty
-     * @throws IndexOutOfWarehouseDepotsException: if you are out of bounds of the WarehouseDepots
+     * @throws IndexOutOfWarehouseDepotsException if you are out of bounds of the WarehouseDepots
      */
     public void moveResourcesToWarehouseDepotsFromExtraStorageLeaderCard(int pos) throws PositionInvalidException, NotAnExtraStorageLeaderCardException, PositionAlreadyOccupiedException, ResourceAlreadyPlacedException, DifferentResourceInThisShelfException, EmptySlotExtraStorageLeaderCardException, IndexOutOfWarehouseDepotsException {
         if(pos < 1 || pos > 2){
@@ -555,7 +555,7 @@ public class Player {
      * @throws DifferentResourceInThisShelfException if you place in WarehouseDepots the resource in a shelf where there is yet another resource of another type
      * @throws UnexpectedWhiteMarbleException if it's unexpectedly found you are going to place a white marble
      * @throws UnexpectedFaithMarbleException if it's unexpectedly found you are going to place a faith marble
-     * @throws IndexOutOfWarehouseDepotsException: if you are out of bounds of the WarehouseDepots
+     * @throws IndexOutOfWarehouseDepotsException if you are out of bounds of the WarehouseDepots
      */
     public void addResource(LeaderWarehouse where, int pos) throws NoResourceToAddException, DifferentStorageException, OccupiedSlotExtraStorageLeaderCardException, PositionAlreadyOccupiedException, ResourceAlreadyPlacedException, DifferentResourceInThisShelfException, UnexpectedWhiteMarbleException, UnexpectedFaithMarbleException, IndexOutOfWarehouseDepotsException {
         if(marblesFromTheMarket.isEmpty()) {
@@ -1246,7 +1246,7 @@ public class Player {
      * @param pos: to choose the position of the DevelopmentCard on SlotDevelopmentCard
      * @throws NoDevelopmentCardToObtainException if the place you chose has no development card,
      * @throws PositionInvalidException if the position you chose does not exists
-     * @throws IndexOutOfSlotDevelopmentCardsException: if you are out of bound of slots for development cards
+     * @throws IndexOutOfSlotDevelopmentCardsException if you are out of bound of slots for development cards
      */
     public void placeDevelopmentCard(int pos) throws NoDevelopmentCardToObtainException, PositionInvalidException, IndexOutOfSlotDevelopmentCardsException {
         if(obtainedDevelopmentCard == null){

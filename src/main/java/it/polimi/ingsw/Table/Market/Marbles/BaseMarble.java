@@ -30,8 +30,8 @@ public class BaseMarble extends Marble{
      * This method receives an already placed leader card of the current player then calls addResource on it,
      * passing what type is this marble
      * @param leaderCard: tells the method which card of the current player to use
-     * @throws DifferentStorageException : if the storage passed has a different type of this marble
-     * @throws OccupiedSlotExtraStorageLeaderCardException: propagates this exception, generated if the leader card slots are full
+     * @throws DifferentStorageException if the storage passed has a different type of this marble
+     * @throws OccupiedSlotExtraStorageLeaderCardException propagates this exception, generated if the leader card slots are full
      */
     @Override
     public void putResource(ExtraStorageLeaderCard leaderCard) throws DifferentStorageException, OccupiedSlotExtraStorageLeaderCardException {

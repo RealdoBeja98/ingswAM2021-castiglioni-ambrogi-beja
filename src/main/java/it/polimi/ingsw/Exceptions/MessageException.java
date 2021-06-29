@@ -13,7 +13,6 @@ public abstract class MessageException extends Exception{
 
     /**
      * this method is to get the ErrorMessage associated to this exception
-     * @return: an ErrorMessage; of type ErrorMessage
      */
     public abstract ErrorMessage getErrorMessage();
 

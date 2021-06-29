@@ -32,11 +32,11 @@ public class WarehouseDepots {
      * array resource in the slot pointed by the second
      * @param r: type of resource to be added
      * @param pos: position of the array
-     * @throws PositionAlreadyOccupiedException: if the position chosen is already occupied
-     * @throws ResourceAlreadyPlacedException: if the resource passed is present on a different shelf
-     * @throws DifferentResourceInThisShelfException: if there are different resources types already
+     * @throws PositionAlreadyOccupiedException if the position chosen is already occupied
+     * @throws ResourceAlreadyPlacedException if the resource passed is present on a different shelf
+     * @throws DifferentResourceInThisShelfException if there are different resources types already
      *                                                placed in the chosen shelf
-     * @throws IndexOutOfWarehouseDepotsException: if you are out of bounds of the WarehouseDepots
+     * @throws IndexOutOfWarehouseDepotsException if you are out of bounds of the WarehouseDepots
      */
     public void addResource(Resource r, int pos) throws PositionAlreadyOccupiedException, ResourceAlreadyPlacedException, DifferentResourceInThisShelfException, IndexOutOfWarehouseDepotsException {
         if(pos >= 6 || pos < 0){
@@ -80,8 +80,8 @@ public class WarehouseDepots {
      * in the first with the second
      * @param startPos: represents the first position
      * @param finalPos: represents the second position
-     * @throws NotAdmittedMovementException: if the result is not respecting the warehouse rules
-     * @throws IndexOutOfWarehouseDepotsException: if you are out of bounds of the WarehouseDepots
+     * @throws NotAdmittedMovementException if the result is not respecting the warehouse rules
+     * @throws IndexOutOfWarehouseDepotsException if you are out of bounds of the WarehouseDepots
      */
     public void moveResource(int startPos, int finalPos) throws NotAdmittedMovementException, IndexOutOfWarehouseDepotsException {
         if(finalPos >= 6 || finalPos < 0 || startPos >= 6 || startPos < 0){

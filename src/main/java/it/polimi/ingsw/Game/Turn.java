@@ -272,7 +272,7 @@ public class Turn {
      * @throws DifferentResourceInThisShelfException if you place in the WarehouseDepots a different resource from the one already present in the shelf
      * @throws UnexpectedWhiteMarbleException if there is an unexpected white marble
      * @throws UnexpectedFaithMarbleException if there is an unexpected faith marble
-     * @throws IndexOutOfWarehouseDepotsException: if you are out of bounds of the WarehouseDepots
+     * @throws IndexOutOfWarehouseDepotsException if you are out of bounds of the WarehouseDepots
      */
     public void addResource(LeaderWarehouse where, int pos) throws NoResourceToAddException, DifferentStorageException, OccupiedSlotExtraStorageLeaderCardException, PositionAlreadyOccupiedException, ResourceAlreadyPlacedException, DifferentResourceInThisShelfException, UnexpectedWhiteMarbleException, UnexpectedFaithMarbleException, ActionNotAllowedException, IndexOutOfWarehouseDepotsException {
         if(currentPlayer.isHimFirstTurn()){
@@ -368,7 +368,7 @@ public class Turn {
     * @throws PositionInvalidException if the position you chose does not exists
     * @throws GameEndedException if the game is finished and it's time to show final points
     * @throws ActionNotAllowedException if action is different from BUY_DEVELOPMENT_CARD
-    * @throws IndexOutOfSlotDevelopmentCardsException: if you are out of bound of slots for development cards
+    * @throws IndexOutOfSlotDevelopmentCardsException if you are out of bound of slots for development cards
     */
     public void placeDevelopmentCard(int pos) throws NoDevelopmentCardToObtainException, PositionInvalidException, GameEndedException, ActionNotAllowedException, IndexOutOfSlotDevelopmentCardsException {
         if(currentPlayer.isHimFirstTurn()){
@@ -625,7 +625,7 @@ public class Turn {
      * the first position was selected using selectAWarehouseDepotsSlot and saved in var selectedWarehouseDepotsSlot of type int
      * @param pos2: to choose the second position of the slot of the WarehouseDepots
      * @throws NotAdmittedMovementException if the movement is invalid
-     * @throws IndexOutOfWarehouseDepotsException: if you are out of bounds of the WarehouseDepots
+     * @throws IndexOutOfWarehouseDepotsException if you are out of bounds of the WarehouseDepots
      * @throws ActionNotAllowedException if you are in the other states
      */
     public void moveResourcesInWarehouseDepots(int pos2) throws NotAdmittedMovementException, IndexOutOfWarehouseDepotsException, ActionNotAllowedException {
@@ -663,7 +663,7 @@ public class Turn {
      * @throws ResourceAlreadyPlacedException if the resource passed to the warehouseDepots is yet present on a different shelf
      * @throws DifferentResourceInThisShelfException if there are different resources types already placed in the chosen shelf
      * @throws EmptySlotExtraStorageLeaderCardException if the selected ExtraStorageLeaderCard is yet empty
-     * @throws IndexOutOfWarehouseDepotsException: if you are out of bounds of the WarehouseDepots
+     * @throws IndexOutOfWarehouseDepotsException if you are out of bounds of the WarehouseDepots
      * @throws ActionNotAllowedException if you are in the other states
      */
     public void moveResourcesToWarehouseDepotsFromExtraStorageLeaderCard(int pos) throws PositionInvalidException, NotAnExtraStorageLeaderCardException, PositionAlreadyOccupiedException, ResourceAlreadyPlacedException, DifferentResourceInThisShelfException, EmptySlotExtraStorageLeaderCardException, IndexOutOfWarehouseDepotsException, ActionNotAllowedException {

@@ -59,7 +59,7 @@ public class StrongBox {
      * This method receives a resource and a position, and then increase the relative internal counter
      * @param r: the resource type
      * @param n: the resource number
-     * @throws NotAResourceForStrongBoxException: if the resource passed is not supposed to be stored in the strong box
+     * @throws NotAResourceForStrongBoxException if the resource passed is not supposed to be stored in the strong box
      */
     public void add(Resource r, int n) throws NotAResourceForStrongBoxException{
         switch (r) {
@@ -99,8 +99,8 @@ public class StrongBox {
      * This method receives a resource and a position, and then decrease the relative internal counter
      * @param r: the resource type
      * @param n: the resource number
-     * @throws NegativeResourceException: if the internal counter drop below zero
-     * @throws NotAResourceForStrongBoxException: if the resource passed is not supposed to be stored in the strong box
+     * @throws NegativeResourceException if the internal counter drop below zero
+     * @throws NotAResourceForStrongBoxException if the resource passed is not supposed to be stored in the strong box
      */
     public void remove(Resource r, int n) throws NegativeResourceException, NotAResourceForStrongBoxException {
         switch (r) {

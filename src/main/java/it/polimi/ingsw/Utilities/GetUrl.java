@@ -9,7 +9,7 @@ public class GetUrl {
 
     /**
      * Helper method for getting an URL
-     * @param: filename the json file
+     * @param filename: the json file
      * @return an URL, of type String
      */
     public static String UrlFromText(String filename){
