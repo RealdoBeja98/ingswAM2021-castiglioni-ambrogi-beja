@@ -237,7 +237,7 @@ public class Gui extends View{
      * @param l2 leader card 2
      */
     private void drawCards(GraphicsContext gc, int x, int y, String name, int l1, int l2) {
-        Image img = new Image(name);
+        Image img = loadImage(name);
         gc.drawImage(img, x, y, l1, l2);
     }
 
@@ -295,7 +295,7 @@ public class Gui extends View{
     }
 
     /**
-     * this methos draws a square
+     * this methods draws a square
      * @param gc graphics
      * @param x position
      * @param y position
@@ -304,8 +304,21 @@ public class Gui extends View{
      * @param l2 position
      */
     public void drawLittleSquare(GraphicsContext gc, int x, int y, String name, int l1, int l2) {
-        Image img = new Image(name);
+        Image img = loadImage(name);
         gc.drawImage(img, x, y, l1, l2);
+    }
+
+    /**
+     * This methods creates new images
+     * @param name: of the image
+     * @return the image, of type Image
+     */
+    private Image loadImage(String name){
+        Image pb = new Image(name);
+        if(pb == null){
+            System.out.println("cannot find: " + name);
+        }
+        return pb;
     }
 
     /**
@@ -316,17 +329,21 @@ public class Gui extends View{
      * @param y position
      */
     private void drawBoard(PlayerGame.PlayerPlayer n, GraphicsContext gc, int x, int y){
-        Image pb = new Image("Misc/PersonalBoard.png");
+        Image pb = loadImage("Misc/PersonalBoard.png");
         gc.drawImage(pb, x, y, 560, 490);
+
+        Image imgInk = null;
         if(n.getInkwell()){
-            Image inkwell = new Image("Misc/Inkwell.png");
-            gc.drawImage(inkwell, x, y, 20, 20);
+            imgInk = loadImage("Misc/Inkwell.png");
         } else {
-            Image noInkwell = new Image("Misc/NoInkwell.png");
-            gc.drawImage(noInkwell, x, y, 20, 20);
+            imgInk = loadImage("Misc/NoInkwell.png");
         }
-        Image whiteBackGround = new Image("Misc/WhiteBackGround.png");
+        gc.drawImage(imgInk, x, y, 20, 20);
+
+        Image whiteBackGround = loadImage("Misc/WhiteBackground.png");
         gc.drawImage(whiteBackGround, x+20, y, 110, 20);
+
+
         String nickname = n.getNickname();
         gc.fillText(nickname, x+20, y+14);
         int faithNumber = n.getFaithTrack().getFaithMarker();
@@ -349,11 +366,11 @@ public class Gui extends View{
      * @param y position
      */
     private void drawLorenzoBoard(GraphicsContext gc, int x, int y){
-        Image pb = new Image("Misc/PersonalBoard.png");
+        Image pb = loadImage("Misc/PersonalBoard.png");
         gc.drawImage(pb, x, y, 560, 490);
-        Image noInkwell = new Image("Misc/NoInkwell.png");
+        Image noInkwell = loadImage("Misc/NoInkwell.png");
         gc.drawImage(noInkwell, x, y, 20, 20);
-        Image whiteBackGround = new Image("Misc/WhiteBackGround.png");
+        Image whiteBackGround = loadImage("Misc/WhiteBackground.png");
         gc.drawImage(whiteBackGround, x+20, y, 110, 20);
         String nickname = "Lorenzo";
         gc.fillText(nickname, x+20, y+14);
@@ -380,7 +397,7 @@ public class Gui extends View{
      */
     private void drawLorenzoFaith(GraphicsContext gc, int x, int y, int faithNumber){
         drawFaithMarker("Misc/BlackCrossToken.png", gc, x, y, faithNumber);
-        Image cross = new Image("Misc/cross.png");
+        Image cross = loadImage("Misc/cross.png");
         gc.drawImage(cross, x+10, y+168, 540, 310);
     }
 
@@ -388,64 +405,64 @@ public class Gui extends View{
 
     /**
      * this method draws the faith marker
-     * @param image image
+     * @param imageName imageName
      * @param gc graphics
      * @param x position
      * @param y position
      * @param faithNumber number
      */
-    private void drawFaithMarker(String image, GraphicsContext gc, int x, int y, int faithNumber){
-        Image faith = new Image(image);
+    private void drawFaithMarker(String imageName, GraphicsContext gc, int x, int y, int faithNumber){
+        Image faithImage = loadImage(imageName);
         if(faithNumber == 0){
-            gc.drawImage(faith, x+25, y+100, 17, 24);
+            gc.drawImage(faithImage, x+25, y+100, 17, 24);
         }if(faithNumber == 1){
-            gc.drawImage(faith, x+55, y+100, 17, 24);
+            gc.drawImage(faithImage, x+55, y+100, 17, 24);
         }if(faithNumber == 2){
-            gc.drawImage(faith, x+80, y+100, 17, 24);
+            gc.drawImage(faithImage, x+80, y+100, 17, 24);
         }if(faithNumber == 3){
-            gc.drawImage(faith, x+80, y+66, 17, 24);
+            gc.drawImage(faithImage, x+80, y+66, 17, 24);
         }if(faithNumber == 4){
-            gc.drawImage(faith, x+80, y+32, 17, 24);
+            gc.drawImage(faithImage, x+80, y+32, 17, 24);
         }if(faithNumber == 5){
-            gc.drawImage(faith, x+107, y+32, 17, 24);
+            gc.drawImage(faithImage, x+107, y+32, 17, 24);
         }if(faithNumber == 6){
-            gc.drawImage(faith, x+135, y+32, 17, 24);
+            gc.drawImage(faithImage, x+135, y+32, 17, 24);
         }if(faithNumber == 7){
-            gc.drawImage(faith, x+163, y+32, 17, 24);
+            gc.drawImage(faithImage, x+163, y+32, 17, 24);
         }if(faithNumber == 8){
-            gc.drawImage(faith, x+190, y+32, 17, 24);
+            gc.drawImage(faithImage, x+190, y+32, 17, 24);
         }if(faithNumber == 9){
-            gc.drawImage(faith, x+217, y+32, 17, 24);
+            gc.drawImage(faithImage, x+217, y+32, 17, 24);
         }if(faithNumber == 10){
-            gc.drawImage(faith, x+217, y+66, 17, 24);
+            gc.drawImage(faithImage, x+217, y+66, 17, 24);
         }if(faithNumber == 11){
-            gc.drawImage(faith, x+217, y+100, 17, 24);
+            gc.drawImage(faithImage, x+217, y+100, 17, 24);
         }if(faithNumber == 12){
-            gc.drawImage(faith, x+244, y+100, 17, 24);
+            gc.drawImage(faithImage, x+244, y+100, 17, 24);
         }if(faithNumber == 13){
-            gc.drawImage(faith, x+272, y+100, 17, 24);
+            gc.drawImage(faithImage, x+272, y+100, 17, 24);
         }if(faithNumber == 14){
-            gc.drawImage(faith, x+300, y+100, 17, 24);
+            gc.drawImage(faithImage, x+300, y+100, 17, 24);
         }if(faithNumber == 15){
-            gc.drawImage(faith, x+327, y+100, 17, 24);
+            gc.drawImage(faithImage, x+327, y+100, 17, 24);
         }if(faithNumber == 16){
-            gc.drawImage(faith, x+354, y+100, 17, 24);
+            gc.drawImage(faithImage, x+354, y+100, 17, 24);
         }if(faithNumber == 17){
-            gc.drawImage(faith, x+354, y+66, 17, 24);
+            gc.drawImage(faithImage, x+354, y+66, 17, 24);
         }if(faithNumber == 18){
-            gc.drawImage(faith, x+354, y+32, 17, 24);
+            gc.drawImage(faithImage, x+354, y+32, 17, 24);
         }if(faithNumber == 19){
-            gc.drawImage(faith, x+381, y+32, 17, 24);
+            gc.drawImage(faithImage, x+381, y+32, 17, 24);
         }if(faithNumber == 20){
-            gc.drawImage(faith, x+409, y+32, 17, 24);
+            gc.drawImage(faithImage, x+409, y+32, 17, 24);
         }if(faithNumber == 21){
-            gc.drawImage(faith, x+438, y+32, 17, 24);
+            gc.drawImage(faithImage, x+438, y+32, 17, 24);
         }if(faithNumber == 22){
-            gc.drawImage(faith, x+464, y+32, 17, 24);
+            gc.drawImage(faithImage, x+464, y+32, 17, 24);
         }if(faithNumber == 23){
-            gc.drawImage(faith, x+491, y+32, 17, 24);
+            gc.drawImage(faithImage, x+491, y+32, 17, 24);
         }if(faithNumber == 24){
-            gc.drawImage(faith, x+518, y+32, 17, 24);
+            gc.drawImage(faithImage, x+518, y+32, 17, 24);
         }
     }
 
@@ -485,7 +502,7 @@ public class Gui extends View{
                     break;
                 default: break;
             }
-            Image image = new Image(fullName);
+            Image image = loadImage(fullName);
             gc.drawImage(image, x+xx, y+yy, 33, 40);
         }
     }
@@ -768,7 +785,7 @@ public class Gui extends View{
             return;
         }
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        Image img = new Image("Misc/SemiBackGround.png");
+        Image img = loadImage("Misc/SemiBackGround.png");
         gc.drawImage(img, 610, 0, 1995, 1025);
         Platform.runLater(new Runnable() {
             @Override
