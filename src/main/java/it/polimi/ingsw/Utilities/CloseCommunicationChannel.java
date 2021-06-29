@@ -18,6 +18,9 @@ public class CloseCommunicationChannel {
      * This method closes the communication for player whose not in the game
      * @param in reads the message coming from socket
      * @param out sends message to socket
+     * @param game game instance
+     * @param nickname string
+     * @param socket socket
      */
     public static void f(BufferedReader in, PrintWriter out, String nickname, Game game, Socket socket) {
         try {

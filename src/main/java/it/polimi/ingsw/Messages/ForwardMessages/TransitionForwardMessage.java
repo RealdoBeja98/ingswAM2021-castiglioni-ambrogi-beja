@@ -17,6 +17,11 @@ public class TransitionForwardMessage extends ForwardMessage {
         identifier = "TRANSITION_MESSAGE";
     }
 
+    /**
+     * Overrides the method execute
+     * @param game game instance
+     * @param out sends message in socket
+     */
     @Override
     public void execute(Game game, PrintWriter out) {
         View w = View.get();

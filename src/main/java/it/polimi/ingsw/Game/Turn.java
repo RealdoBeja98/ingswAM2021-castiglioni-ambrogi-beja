@@ -442,7 +442,7 @@ public class Turn {
      * the warehousedepots. When action is chosen it cheks if
      * resource are of the same type or not.It checks if the player is in the right turn
      * to pay with the resources in the ware house depots.
-     * @param pos:Location of the resource to pay from werehousedepots
+     * @param pos:Location of the resource to pay from warehousedepots
      * @throws ActionNotAllowedException if you are in the other states
      * @throws GameEndedException if the game is finished and it's time to show final points
      * @throws NoResourceToPayException if you haven't anything to pay
@@ -680,10 +680,19 @@ public class Turn {
         gameEnded = true;
     }
 
+    /**
+     * This method returns to true or false if game has ended
+     * @return true or false if game has ended
+     */
     public boolean getGameEnded(){
         return gameEnded;
     }
 
+    /**
+     * This method sets the command of ending the turn of a player
+     * @throws ActionNotAllowedException action not allowed if you in another state of the turn
+     * @throws GameEndedException game ended exception
+     */
     public void endTurnCommand() throws ActionNotAllowedException, GameEndedException {
         if(currentPlayer.isHimFirstTurn()){
             throw new ActionNotAllowedException();

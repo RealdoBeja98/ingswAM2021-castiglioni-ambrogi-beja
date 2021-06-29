@@ -26,7 +26,7 @@ public class GameReconnectingServiceMessage extends ServiceMessage { //fixme sta
 
     /**
      * Constructor of the message
-     * @param all: a sting that codifies the state of the game
+     * @param all: a string that codifies the state of the game
      */
     public GameReconnectingServiceMessage(String all){
         this.all = all;

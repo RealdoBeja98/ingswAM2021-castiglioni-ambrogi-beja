@@ -321,7 +321,7 @@ public class Player {
 
     /**
      * This method tell if the player is able to pay at least a leader card in his hand
-     * @return if the player the player is able to pay at least a leader card in his hand
+     * @return if the player is able to pay at least a leader card in his hand
      */
     public boolean canYouPlayAtLeastALeaderCard(){
         for(LeaderCard i : cardsInHand){
@@ -553,8 +553,8 @@ public class Player {
      * @throws PositionAlreadyOccupiedException if you select a position yet occupied of the WarehouseDepots
      * @throws ResourceAlreadyPlacedException if you place in WarehouseDepots a type of resource you yet placed in another shelf
      * @throws DifferentResourceInThisShelfException if you place in WarehouseDepots the resource in a shelf where there is yet another resource of another type
-     * @throws UnexpectedWhiteMarbleException if it's unexpectly found you are going to place a white marble
-     * @throws UnexpectedFaithMarbleException if it's unexpectly found you are going to place a faith marble
+     * @throws UnexpectedWhiteMarbleException if it's unexpectedly found you are going to place a white marble
+     * @throws UnexpectedFaithMarbleException if it's unexpectedly found you are going to place a faith marble
      * @throws IndexOutOfWarehouseDepotsException: if you are out of bounds of the WarehouseDepots
      */
     public void addResource(LeaderWarehouse where, int pos) throws NoResourceToAddException, DifferentStorageException, OccupiedSlotExtraStorageLeaderCardException, PositionAlreadyOccupiedException, ResourceAlreadyPlacedException, DifferentResourceInThisShelfException, UnexpectedWhiteMarbleException, UnexpectedFaithMarbleException, IndexOutOfWarehouseDepotsException {

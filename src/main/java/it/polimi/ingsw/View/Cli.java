@@ -138,6 +138,9 @@ public class Cli extends View{
         }
     }
 
+    /**
+     * this method shows the current personal board of the players
+     */
     @Override
     public void showPBCurrent() {
         ArrayList<PlayerGame.PlayerPlayer> players = ClientMain.getPlayerGame().getPlayers();
@@ -151,6 +154,9 @@ public class Cli extends View{
         }
     }
 
+    /**
+     * This method prints the faith track of lorenzo
+     */
     private void printLorenzoFaithTrack(){
         FaithTrackSP lorenzoFaithTrack = ClientMain.getPlayerGame().getLorenzoTrack();
         System.out.println("╔════════════════════════════════════════════════════════════════════════════════════════════════════════════╗");
@@ -214,6 +220,10 @@ public class Cli extends View{
         System.out.println("╚════════════════════════════════════════════════════════════════════════════════════════════════════════════╝");
     }
 
+    /**
+     * This method prints the board
+     * @param n number of the player
+     */
     private void printBoard(PlayerGame.PlayerPlayer n) {
         System.out.println("╔════════════════════════════════════════════════════════════════════════════════════════════════════════════╗");
         System.out.println("║╔══════════════════════════════════════════════════════════════════════════════════════════════════════════╗║");
@@ -659,6 +669,10 @@ public class Cli extends View{
         }
     }
 
+    /**
+     * Overrides the show solo action token
+     * @param actionToken action token
+     */
     @Override
     public void showSoloActionToken(ActionToken actionToken) {
         System.out.println("UPDATE_SOLO_ACTION_TOKEN " + actionToken.getWhatIAm());

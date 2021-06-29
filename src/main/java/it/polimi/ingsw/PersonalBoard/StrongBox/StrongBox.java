@@ -79,6 +79,13 @@ public class StrongBox {
         }
     }
 
+    /**
+     * This method subtract the resources
+     * @param resource resource
+     * @param n position
+     * @return resource numbers
+     * @throws NegativeResourceException if subtraction goes below 0
+     */
     private int subtract(int resource, int n) throws NegativeResourceException {
         if (resource - n < 0) {
             throw new NegativeResourceException();

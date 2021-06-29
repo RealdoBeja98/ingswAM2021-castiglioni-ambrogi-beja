@@ -57,6 +57,9 @@ public class PingPong implements Runnable{
         exist = false;
     }
 
+    /**
+     * Overrides the method run
+     */
     @Override
     public void run() {
         while(true){
@@ -93,8 +96,8 @@ public class PingPong implements Runnable{
 
     /**
      * This method represents the forward messages
-     * @param message
-     * @param toExclude
+     * @param message string
+     * @param toExclude string to exclude
      */
     private void forward(String message, PrintWriter toExclude){
         for(PrintWriter i : game.getPrintWriterList()){

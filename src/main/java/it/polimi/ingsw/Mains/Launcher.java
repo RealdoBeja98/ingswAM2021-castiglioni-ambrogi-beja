@@ -7,11 +7,19 @@ import java.io.IOException;
  */
 public class Launcher {
 
+    /**
+     * This method starts the server
+     * @param args string
+     */
     private static void startServer(String[] args){
         ServerMain server = new ServerMain();
         server.main(args);
     }
 
+    /**
+     * This method starts the client
+     * @param args string
+     */
     private static void startClient(String[] args){
         ClientMain clientMain = new ClientMain();
         try {
@@ -34,6 +42,11 @@ public class Launcher {
         }
     }
 
+    /**
+     * This method checks from the server the string given
+     * @param args string
+     * @return true or false
+     */
     private static boolean checkServerParam(String[] args){
         if(args.length != 1 && args.length != 3){
             System.out.println("Invalid number of parameter!");
@@ -50,6 +63,11 @@ public class Launcher {
         return false;
     }
 
+    /**
+     * This method checks the client parameter
+     * @param args string
+     * @return true or false
+     */
     private static boolean checkClientParam(String[] args){
         if(args.length != 6){
             System.out.println("Invalid number of parameter!");
@@ -82,6 +100,11 @@ public class Launcher {
         return false;
     }
 
+    /**
+     * This method checks the mode given by player
+     * @param args string
+     * @return true or false
+     */
     private static boolean checkLocalParam(String[] args){
         if(!args[2].equals("-GUI") && !args[2].equals("-CLI")){
             System.out.println("Invalid interface!");
@@ -90,11 +113,19 @@ public class Launcher {
         return true;
     }
 
+    /**
+     * This method starts the local game
+     * @param args string
+     */
     private static void startLocal(String[] args){
         LocalMain localMain = new LocalMain();
         localMain.main(args);
     }
 
+    /**
+     * Main method which player can give all the parameters needed
+     * @param args string
+     */
     public static void main(String[] args) {
         if(args.length != 0){
             if(args[0].equals("server")){

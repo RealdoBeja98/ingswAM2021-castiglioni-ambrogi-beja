@@ -21,6 +21,7 @@ public class ActionTokenDeck {
 
     /**
      * This method fills all the decks with cards
+     * @param deck array list of deck
      */
     private void putCards(ArrayList<ActionToken> deck) {
         deck.add(new BlackCross1Token());

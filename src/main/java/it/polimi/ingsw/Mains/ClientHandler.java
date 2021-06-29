@@ -25,13 +25,20 @@ public class ClientHandler implements Runnable {
     private boolean reconnected = false;
 
     /**
-     * This class represents the player loby and entrance parameters
+     * This class represents the player lobby and entrance parameters
      * @param socket
      */
     public ClientHandler(Socket socket) {
         this.socket = socket;
     }
 
+    /**
+     * This method creates a new game
+     * @param line string
+     * @param in reads message coming from the socket
+     * @param out sends message to the socket
+     * @return true or false for the game created
+     */
     private boolean createNewGame(String line, BufferedReader in, PrintWriter out){
         boolean create = false;
         try {
@@ -263,7 +270,7 @@ public class ClientHandler implements Runnable {
      * @param in reads the message which comes from the socket
      * @param out sends message to a socket
      * @return addingPlayer the player which was successfully entered the game
-     * @throws IOException
+     * @throws IOException Signals that an I/O exception of some sort has occurred.
      */
     private boolean creatingGame(String line, BufferedReader in, PrintWriter out) throws IOException {
         line = in.readLine();
@@ -275,11 +282,11 @@ public class ClientHandler implements Runnable {
     }
 
     /**
-     * This method let
-     * @param line
+     * This method lets the player to join his previous game
+     * @param line string
      * @param in reads the message which comes from the socket
      * @param out sends message to a socket
-     * @return
+     * @return true or false
      * @throws IOException
      */
     private boolean joiningGame(String line, BufferedReader in, PrintWriter out) throws IOException {
@@ -297,6 +304,14 @@ public class ClientHandler implements Runnable {
         return addingPlayer(in, out);
     }
 
+    /**
+     * This method makes possible reconnecting the player with the game which he left
+     * @param line string
+     * @param in reads the message which comes from the socket
+     * @param out sends message to a socket
+     * @return true or false
+     * @throws IOException
+    */
     private boolean reconnecting(String line, BufferedReader in, PrintWriter out) throws IOException {
         line = in.readLine();
         int numGM = IntegerFromString.f(line);
@@ -361,7 +376,7 @@ public class ClientHandler implements Runnable {
     /**
      * Is handy for the forward messages
      * @param message forward message
-     * @param toExclude
+     * @param toExclude string to exclude
      */
     private void forward(String message, PrintWriter toExclude){
         for(PrintWriter i : game.getPrintWriterList()){

@@ -13,7 +13,9 @@ public class WakeUpThread implements Runnable {
     private int returnValue;
 
     /**
-     * Constructor method of this class
+     * The constructor of the class
+     * @param in reads message coming from the socket
+     * @param out sends message to the socket
      */
     public WakeUpThread(BufferedReader in, PrintWriter out){
         this.in = in;

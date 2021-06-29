@@ -27,7 +27,7 @@ public class PayedWithExtraStorageLeaderCardForwardMessage extends ForwardMessag
     }
 
     /**
-     * This method removes the resource to extrastorage leader card
+     * This method removes the resource to extra storage leader card
      * @param game game instance
      * @param out sends message to socket
      */
