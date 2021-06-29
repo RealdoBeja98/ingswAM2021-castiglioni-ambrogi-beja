@@ -25,7 +25,9 @@ import java.util.ArrayList;
  * Class of the Player Game
  */
 public class PlayerGame {
-
+    /**
+     * Class of Player Player
+     */
     public class PlayerPlayer {
 
         private String nickname;
@@ -41,6 +43,7 @@ public class PlayerGame {
 
         /**
          * Getter of this class
+         * @return name of player
          */
         public String getNickname() {
             return nickname;
@@ -48,6 +51,7 @@ public class PlayerGame {
 
         /**
          * Getter of this class
+         * @return cardsInHandFirst cards in hand first
          */
         public LeaderCard[] getCardsInHandFirst() {
             return cardsInHandFirst;
@@ -55,6 +59,7 @@ public class PlayerGame {
 
         /**
          * Getter of this class
+         * @return cardsInHand cards in hand
          */
         public LeaderCard[] getCardsInHand() {
             return cardsInHand;
@@ -62,6 +67,7 @@ public class PlayerGame {
 
         /**
          * Getter of this class
+         * @return cardsOnTable cards on table
          */
         public LeaderCard[] getCardsOnTable() {
             return cardsOnTable;
@@ -69,6 +75,7 @@ public class PlayerGame {
 
         /**
          * Getter of this class
+         * @return faithTrack faithTrack
          */
         public FaithTrack getFaithTrack() {
             return faithTrack;
@@ -76,6 +83,7 @@ public class PlayerGame {
 
         /**
          * Getter of this class
+         * @return warehouseDepots warehouseDepots
          */
         public WarehouseDepots getWarehouseDepots() {
             return warehouseDepots;
@@ -83,6 +91,7 @@ public class PlayerGame {
 
         /**
          * Getter of this class
+         * @return strongBox strongBOX
          */
         public StrongBox getStrongBox() {
             return strongBox;
@@ -90,6 +99,7 @@ public class PlayerGame {
 
         /**
          * Getter of this class
+         * @return slotsDevelopmentCards slots for developmentcards
          */
         public SlotsDevelopmentCards getSlotsDevelopmentCards() {
             return slotsDevelopmentCards;
@@ -97,6 +107,7 @@ public class PlayerGame {
 
         /**
          * Getter of this class
+         * @return inkwell inkwell
          */
         public boolean getInkwell(){
             return  inkwell;
@@ -175,6 +186,7 @@ public class PlayerGame {
 
     /**
      * Getter of this class
+     * @return allFaithTrack returns all faith track
      */
     public static ArrayList<FaithTrack> getAllFaithTrack(){
         return allFaithTrack;
@@ -182,6 +194,7 @@ public class PlayerGame {
 
     /**
      * Getter of this class
+     * @return players.clone() player clones
      */
     public ArrayList<PlayerPlayer> getPlayers() {
         return (ArrayList<PlayerPlayer>) players.clone();
@@ -189,6 +202,7 @@ public class PlayerGame {
 
     /**
      * Getter of this class
+     * @return market market
      */
     public Market getMarket() {
         return market;
@@ -196,6 +210,7 @@ public class PlayerGame {
 
     /**
      * Getter of this class
+     * @return developmentDeck development deck
      */
     public DevelopmentDeck getDevelopmentDeck() {
         return developmentDeck;
@@ -203,6 +218,7 @@ public class PlayerGame {
 
     /**
      * Getter of this class
+     * @return lorenzoTrack return lorenzo's track
      */
     public FaithTrackSP getLorenzoTrack(){
         return lorenzoTrack;
@@ -210,6 +226,7 @@ public class PlayerGame {
 
     /**
      * Getter of this class
+     * @param out sends message to socket
      */
     public void setOut(PrintWriter out) {
         this.out = out;
@@ -217,6 +234,10 @@ public class PlayerGame {
 
     /**
      * Constructor of this class
+     * @param developmentDeck development deck
+     * @param market market
+     * @param playersAndCardsInHand players and card in hand
+     * @param whoHasTheInkwell  who has the inkwell
      */
     public PlayerGame(String market, String developmentDeck, ArrayList<String> playersAndCardsInHand, String whoHasTheInkwell){
         this.market = new Market(market);
@@ -326,7 +347,7 @@ public class PlayerGame {
 
     /**
      * This method lets you to discard a development card
-     * @param type
+     * @param type type
      */
     public void discardDevelopmentDeck(Type type){
         developmentDeck.discard(type);
@@ -514,7 +535,7 @@ public class PlayerGame {
 
     /**
      * This method lets other player to advance in one faith track when a player quits
-     * @param nicknameOfExcludedPlayer
+     * @param nicknameOfExcludedPlayer player who got excluded
      */
     public void allOtherPlayersGoOnFaithTrack(String nicknameOfExcludedPlayer){
         for(PlayerPlayer i : players){
@@ -527,6 +548,9 @@ public class PlayerGame {
         }
     }
 
+    /**
+     * This method lets lorenzo to go on in one move
+     */
     public void lorenzoGoOn(){
         lorenzoTrack.goOn(1);
     }
@@ -546,6 +570,7 @@ public class PlayerGame {
 
     /**
      * Constructor of this class using the exported String from the game
+     * @param importedString importedString string
      */
     public PlayerGame(String importedString){
         String[] strings = importedString.split("}");

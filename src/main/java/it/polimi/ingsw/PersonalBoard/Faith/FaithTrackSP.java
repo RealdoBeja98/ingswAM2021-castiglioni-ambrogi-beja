@@ -21,6 +21,7 @@ public class FaithTrackSP extends FaithTrack{
 
     /**
      * Constructor method of this class
+     * @param gameIndex game index
      */
     public FaithTrackSP(int gameIndex) {
         super(gameIndex);

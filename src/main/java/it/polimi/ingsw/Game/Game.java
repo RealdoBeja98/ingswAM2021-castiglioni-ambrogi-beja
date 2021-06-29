@@ -28,6 +28,7 @@ public class Game {
 
     /**
      * Constructor method of this class
+     * @param numberOfPlayer number of player
      */
     public Game(int numberOfPlayer){
         this.numberOfPlayer = numberOfPlayer;

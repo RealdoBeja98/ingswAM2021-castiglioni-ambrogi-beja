@@ -19,6 +19,7 @@ public class PersonalBoard {
 
     /**
      * Constructor method of this class
+     * @param gameIndex game index int
      */
     public PersonalBoard(int gameIndex){
         this.gameIndex = gameIndex;

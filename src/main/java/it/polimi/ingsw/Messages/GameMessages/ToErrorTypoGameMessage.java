@@ -11,7 +11,9 @@ import java.io.PrintWriter;
  * This is a class of game message
  */
 public class ToErrorTypoGameMessage extends GameMessage {
-
+    /**
+     * Constructor of the class game message
+     */
     public ToErrorTypoGameMessage(){
         identifier = "TO_ERROR_TYPO";
     }

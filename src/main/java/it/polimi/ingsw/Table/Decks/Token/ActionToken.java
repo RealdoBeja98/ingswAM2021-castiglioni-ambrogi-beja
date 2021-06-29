@@ -6,7 +6,9 @@ import it.polimi.ingsw.Table.Decks.Card;
  * This Class is an abstraction of an action token
  */
 public abstract class ActionToken extends Card {
-
+    /**
+     * variable what i am of type type
+     */
     protected Type whatIAm;
 
     /**

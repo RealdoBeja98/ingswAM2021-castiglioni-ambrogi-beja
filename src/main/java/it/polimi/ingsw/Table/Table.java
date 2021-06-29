@@ -16,6 +16,7 @@ public class Table {
 
     /**
      * Constructor method of this class
+     * @param gameIndex game index int
      */
     public Table(int gameIndex){
         developmentDeck = new DevelopmentDeck(gameIndex);

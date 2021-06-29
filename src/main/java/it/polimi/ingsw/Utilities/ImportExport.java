@@ -4,6 +4,9 @@ import it.polimi.ingsw.Enums.Resource;
 import it.polimi.ingsw.Enums.Type;
 import it.polimi.ingsw.Table.Market.Marbles.*;
 
+/**
+ * class of import export
+ */
 public class ImportExport {
 
     /**

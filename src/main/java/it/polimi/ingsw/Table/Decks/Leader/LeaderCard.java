@@ -6,8 +6,13 @@ import it.polimi.ingsw.Table.Decks.Card;
  * This Class is an abstraction of a leader card
  */
 public abstract class LeaderCard extends Card {
-
+    /**
+     * variable victory point int
+     */
     protected int victoryPoints;
+    /**
+     * variable what i am leadercard type
+     */
     protected LeaderCardType whatIAm;
 
     /**

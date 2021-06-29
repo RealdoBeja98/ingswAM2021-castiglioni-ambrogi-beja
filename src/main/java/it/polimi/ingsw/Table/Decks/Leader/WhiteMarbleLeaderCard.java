@@ -15,6 +15,9 @@ public class WhiteMarbleLeaderCard extends LeaderCard {
 
     /**
      * Constructor method of this class
+     * @param costOfLeaderCard cost of leader card
+     * @param victoryPoints victory points
+     * @param whiteMarble white marble
      */
     public WhiteMarbleLeaderCard(int victoryPoints, Type[] costOfLeaderCard, Marble whiteMarble){
         this.whatIAm = LeaderCardType.WHITE;

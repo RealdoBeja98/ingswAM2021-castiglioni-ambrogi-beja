@@ -16,6 +16,9 @@ public class ProductionPowerLeaderCard extends LeaderCard implements Production 
 
     /**
      * Constructor method of this class
+     *@param costOfLeaderCard cost of leader card
+     *@param victoryPoints victory points
+     *@param requirement  requirement
      */
     public ProductionPowerLeaderCard(int victoryPoints, Type costOfLeaderCard, Resource requirement) {
         this.whatIAm = LeaderCardType.PRODUCTIONPOWER;

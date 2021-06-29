@@ -9,6 +9,9 @@ import it.polimi.ingsw.Messages.GameMessage;
 import it.polimi.ingsw.Messages.Message;
 import java.io.PrintWriter;
 
+/**
+ * Class of Pay with something game message
+ */
 public abstract class PayWithSomethingGameMessage extends GameMessage {
 
     /**

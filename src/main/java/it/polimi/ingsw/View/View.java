@@ -11,7 +11,10 @@ import javafx.scene.canvas.GraphicsContext;
  * This Class is an abstraction of the graphic interface
  */
 public abstract class View {
-
+    /**
+     * Getter of view
+     * @return gui gui
+     */
     public static View get(){
         if(ClientMain.getGuiSet()){
             return new Gui(ClientMain.getCanvas());
@@ -86,6 +89,7 @@ public abstract class View {
 
     /**
      * abstract method: see implementation in son classes for the details
+     * @param actionToken action token
      */
     public abstract void showSoloActionToken(ActionToken actionToken);
 

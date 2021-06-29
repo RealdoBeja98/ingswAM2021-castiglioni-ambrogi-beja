@@ -18,6 +18,9 @@ public class FaithTrack {
     private static final int unusefulGameIndex = -1;
     private int faithMarker;
     private FavorTiles[] favorTiles;
+    /**
+     *gameindex protected integer
+     */
     protected final int gameIndex;
     private static ArrayList<Pair<Integer, Integer>> bonusFaithMarker = null;
 
@@ -41,6 +44,7 @@ public class FaithTrack {
 
     /**
      * Constructor method of this class
+     * @param gameIndex game index integer
      */
     public FaithTrack(int gameIndex){
         FaithTrack.initializeBonusFaithMarker();

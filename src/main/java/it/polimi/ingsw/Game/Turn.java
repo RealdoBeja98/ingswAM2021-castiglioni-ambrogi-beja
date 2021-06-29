@@ -202,6 +202,7 @@ public class Turn {
     /**
      * This method advances the turn if the player choose to do a normal action
      * @throws ActionNotAllowedException if this action isn't allowed in this moment
+     * @param selectedNormalAction selected normal action
      */
     public void selectNormalAction(NormalAction selectedNormalAction) throws ActionNotAllowedException {
         if(currentPlayer.isHimFirstTurn()){
@@ -294,7 +295,7 @@ public class Turn {
      * @param where position
      * @throws NoResourceToAddException no resources  to add
      * @throws DifferentStorageException different storage type
-     * @throws OccupiedSlotExtraStorageLeaderCardException
+     * @throws OccupiedSlotExtraStorageLeaderCardException occupied slot
      * @throws PositionAlreadyOccupiedException if the position isn't 1 or 2
      * @throws ResourceAlreadyPlacedException resource already placed
      * @throws DifferentResourceInThisShelfException different resource already placed here
@@ -593,6 +594,7 @@ public class Turn {
     /**
      * this method is to draw a SoloActionToken and to execute its effect
      * @throws ActionNotAllowedException if you are in the other states
+     * @return currentPlayer.drawSoloActionToken() returns the solo action token
      */
     public ActionToken drawSoloActionToken() throws ActionNotAllowedException {
         if(currentPlayer.isHimFirstTurn()){

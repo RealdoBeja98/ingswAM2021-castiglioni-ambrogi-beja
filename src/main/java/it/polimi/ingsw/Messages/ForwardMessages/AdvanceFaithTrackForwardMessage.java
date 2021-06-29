@@ -16,7 +16,7 @@ public class AdvanceFaithTrackForwardMessage extends ForwardMessage {
 
     /**
      * Constructor of the class
-     * @param excludedPlayer
+     * @param excludedPlayer exluded player
      */
     public AdvanceFaithTrackForwardMessage(String excludedPlayer){
         identifier = "ADVANCE_FAITH_TRACK";

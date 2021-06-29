@@ -15,6 +15,10 @@ public class SelectProductionPowerLeaderCardGameMessage extends GameMessage {
 
     private int leaderCardPosition;
 
+    /**
+     * This method print the message after you have completed the specific turn
+     * @param leaderCardPosition integer
+     */
     public SelectProductionPowerLeaderCardGameMessage(int leaderCardPosition){
         identifier = "SELECT_PRODUCTION_POWER_LEADER_CARD";
         this.leaderCardPosition = leaderCardPosition;

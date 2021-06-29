@@ -11,6 +11,7 @@ public abstract class GameMessage extends Message{
      * This method forward the message to console
      * @param game game instance
      * @param forwardMessage forward message
+     * @param toExclude printwriter to exclude
      */
     protected void forward(Game game, ForwardMessage forwardMessage, PrintWriter toExclude){
         String message = forwardMessage.toString();

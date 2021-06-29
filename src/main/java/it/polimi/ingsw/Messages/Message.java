@@ -19,7 +19,9 @@ import java.io.PrintWriter;
  * Class of the  message
  */
 public abstract class Message {
-
+    /**
+     * variable identifier of type string
+     */
     protected String identifier;
 
     /**
@@ -271,6 +273,7 @@ public abstract class Message {
      * This method catches the arriving message and makes tho controlling part and in the end
      * sends to socket the proper message
      * @param string string message
+     * @return ToErrorTypoGameMessage(string) error message
      */
     public static Message fromString(String string){
         Message shortMessage = fromStringShortMessages(string);
@@ -337,6 +340,7 @@ public abstract class Message {
     /**
      * This methods cheCks for a particular message
      * @param other STRING
+     * @return false boolean
      */
     public boolean isEqual(Message other){
         if(this.identifier.equals(other.identifier)){

@@ -42,8 +42,8 @@ public class UpdateObtainedMultipleResourceForwardMessage extends ForwardMessage
     /**
      * This method lets you to have multiple resources when you chose from the market, and go 1 forward if you
      * obtained a faith
-     * @param game
-     * @param out
+     * @param game game instance
+     * @param out sends message to the socket
      */
     @Override
     public void execute(Game game, PrintWriter out) {

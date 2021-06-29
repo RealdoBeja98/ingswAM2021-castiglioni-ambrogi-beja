@@ -16,6 +16,9 @@ public class DiscountLeaderCard extends LeaderCard {
 
     /**
      * Constructor method of this class
+     * @param victoryPoints victory points
+     * @param costOfLeaderCard cost of leader card
+     * @param discount discount
      */
     public DiscountLeaderCard(int victoryPoints, Resource discount, Type[] costOfLeaderCard){
         this.whatIAm = LeaderCardType.DISCOUNT;

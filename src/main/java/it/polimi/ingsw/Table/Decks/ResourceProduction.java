@@ -18,6 +18,18 @@ public class ResourceProduction {
 
     /**
      * Constructor method of this class
+     * @param requiredCoin  required coin
+     * @param requiredServant required servant
+     * @param requiredShield required shield
+     * @param requiredStone required stone
+     * @param requiredGeneric required  generic
+     * @param productionCoin production  coin
+     * @param productionServant production servant
+     * @param productionShield production shield
+     * @param productionStone production stone
+     * @param productionGeneric production generic
+     * @param productionFaith production faith
+     *
      */
     public ResourceProduction(int requiredCoin, int requiredServant, int requiredShield,
                               int requiredStone, int requiredGeneric, int productionCoin,

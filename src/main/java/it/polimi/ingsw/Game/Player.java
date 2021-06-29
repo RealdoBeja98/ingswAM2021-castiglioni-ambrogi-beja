@@ -533,7 +533,8 @@ public class Player {
 
     /**
      * This method returns the first marble to add from the market.
-     * @return the first marble to add from the market.
+     * @return marblesFromTheMarket.get(0) the first marble to add from the market.
+     * @throws NoMarbleToAddFromTheMarketException no marble to add from the market exception
      */
     public Marble whichResourceToAdd() throws NoMarbleToAddFromTheMarketException {
         if(marblesFromTheMarket.isEmpty()){
@@ -868,7 +869,8 @@ public class Player {
 
     /**
      * This method tell show the next resource to pay
-     * @return the next resource to pay
+     * @return  payingResources.get(0) the next resource to pay
+     * @throws NoResourceToPayException no resource to pay exception
      */
     public Resource nextToPay() throws NoResourceToPayException {
         if(payingResources.isEmpty()){
@@ -1266,6 +1268,7 @@ public class Player {
 
     /**
      * this method is to draw a SoloActionToken and to execute its effect
+     * @return token of action token
      */
     public ActionToken drawSoloActionToken(){
         ActionToken token = Game.get(gameIndex).getTable().getActionTokenDeck().draw();

@@ -21,6 +21,7 @@ public class SlotsDevelopmentCards {
 
     /**
      * Constructor method of this class
+     * @param gameIndex game index int
      */
     public SlotsDevelopmentCards(int gameIndex){
         this.gameIndex = gameIndex;

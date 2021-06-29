@@ -16,6 +16,9 @@ public class ExtraStorageLeaderCard extends LeaderCard {
 
     /**
      * Constructor method of this class
+     * @param costOfLeaderCard cost of leader card
+     * @param storageType type of storage
+     * @param victoryPoints victory points
      */
     public ExtraStorageLeaderCard(int victoryPoints, Resource costOfLeaderCard, Resource storageType) {
         this.whatIAm = LeaderCardType.STORAGE;

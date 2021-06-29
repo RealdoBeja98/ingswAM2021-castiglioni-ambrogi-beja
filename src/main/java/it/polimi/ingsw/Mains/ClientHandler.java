@@ -26,7 +26,7 @@ public class ClientHandler implements Runnable {
 
     /**
      * This class represents the player lobby and entrance parameters
-     * @param socket
+     * @param socket socket
      */
     public ClientHandler(Socket socket) {
         this.socket = socket;

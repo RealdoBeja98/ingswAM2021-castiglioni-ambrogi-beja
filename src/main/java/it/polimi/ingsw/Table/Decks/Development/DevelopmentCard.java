@@ -24,6 +24,16 @@ public class DevelopmentCard extends Card implements Production {
 
     /**
      * Constructor method of this class
+     * @param victoryPoints victory points
+     * @param costProducts cost products
+     * @param products products
+     * @param costRequirements cost of requirements
+     * @param requirements requirements
+     * @param level level
+     * @param type type
+     * @param cost cost
+     * @param costNumber cost number
+     *
      */
     public DevelopmentCard(Resource[] cost, int[] costNumber, Type type, int level,
                            Resource[] requirements, int[] costRequirements, Resource[] products,

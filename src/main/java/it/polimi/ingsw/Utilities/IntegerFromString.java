@@ -1,5 +1,8 @@
 package it.polimi.ingsw.Utilities;
 
+/**
+ * class of integer from string
+ */
 public class IntegerFromString {
 
     /**

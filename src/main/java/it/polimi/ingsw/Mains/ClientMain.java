@@ -32,6 +32,7 @@ public class ClientMain {
 
     /**
      * Getter of object getLock
+     * @return ClientMain.lock object lock
      */
     public static Object getLock(){
         return ClientMain.lock;
@@ -39,6 +40,7 @@ public class ClientMain {
 
     /**
      * Getter of clientMain getInstance
+     * @return ClientMain.instance instance of client main
      */
     public static ClientMain getInstance(){
         return ClientMain.instance;

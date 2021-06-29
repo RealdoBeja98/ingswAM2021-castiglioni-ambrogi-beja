@@ -1,6 +1,9 @@
 package it.polimi.ingsw.Messages.ErrorMessages;
 import it.polimi.ingsw.Messages.ErrorMessage;
 
+/**
+ * class of player existence errar message
+ */
 public class PlayerExistenceErrorMessage extends ErrorMessage {
     /**
      * constructor of class
