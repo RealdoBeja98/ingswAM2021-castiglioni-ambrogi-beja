@@ -224,6 +224,11 @@ public class ClientMain {
         w.showPersonalBoard();
     }
 
+    /**
+     *This method read the message and makes changes in cli mode
+     * @param stdIn string
+     * @param out sends message to the socket
+     */
     private void scanf(BufferedReader stdIn, PrintWriter out){
         String clientMessage;
         try {
@@ -248,6 +253,11 @@ public class ClientMain {
         }
     }
 
+    /**
+     * This method passes the args to server
+     * @param args string
+     * @param out sends message to the socket
+     */
     private void passArgsToServer(String[] args, PrintWriter out){
         int i = 2;
         String init;

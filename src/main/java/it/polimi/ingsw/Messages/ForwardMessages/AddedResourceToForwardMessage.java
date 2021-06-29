@@ -34,6 +34,11 @@ public class AddedResourceToForwardMessage extends ForwardMessage {
         this.place = place;
     }
 
+    /**
+     * Overrides the method execute
+     * @param game game instance
+     * @param out sends message to the socket
+     */
     @Override
     public void execute(Game game, PrintWriter out) {
         switch (leaderWarehouse){

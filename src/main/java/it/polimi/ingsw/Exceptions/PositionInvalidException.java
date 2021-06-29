@@ -17,7 +17,7 @@ public class PositionInvalidException extends MessageException {
 
     /**
      * This method returns the message to other class
-     * @return
+     * @return message
      */
     @Override
     public String toString() {

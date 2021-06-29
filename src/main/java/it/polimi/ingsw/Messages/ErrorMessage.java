@@ -19,6 +19,9 @@ public abstract class ErrorMessage extends Message{
         View.printMessage(this);
     }
 
+    /**
+     * This method executes this error message
+     */
     public void execute(){
         System.out.println(this);
     }

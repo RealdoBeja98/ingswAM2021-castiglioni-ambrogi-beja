@@ -12,6 +12,9 @@ public class FaithTrackSP extends FaithTrack{
     private static boolean isSetForClient = false;
     private final static int faithTrackCells = 24;
 
+    /**
+     * Setter of the class
+     */
     public static void setForClient(){
         FaithTrackSP.isSetForClient = true;
     }
@@ -30,6 +33,10 @@ public class FaithTrackSP extends FaithTrack{
         super();
     }
 
+    /**
+     * Constructor of this class
+     * @param importedString string
+     */
     public FaithTrackSP(String importedString){
         super(importedString);
     }

@@ -113,6 +113,9 @@ public class GuiThread extends Application implements Runnable{
         myStage = stage;
     }
 
+    /**
+     * This method quits the player from the game and board in gui mode
+     */
     private void timeToQuit() {
         printOut(out, "quit");
         Platform.exit();
@@ -208,10 +211,10 @@ public class GuiThread extends Application implements Runnable{
 
     /**
      * This method is to set a botton with its event and its coordinates x and y
-     * @param b
-     * @param event
-     * @param x
-     * @param y
+     * @param b button
+     * @param event event in which happens
+     * @param x position
+     * @param y position
      */
     private void setButton(Button b, EventHandler<ActionEvent> event, int x, int y){
         b.setOnAction(event);

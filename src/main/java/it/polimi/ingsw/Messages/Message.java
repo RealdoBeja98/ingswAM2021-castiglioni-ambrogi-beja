@@ -22,10 +22,19 @@ public abstract class Message {
 
     protected String identifier;
 
+    /**
+     * Getter of the class
+     * @return return the string
+     */
     public String getIdentifier() {
         return identifier;
     }
 
+    /**
+     * Execute method
+     * @param game game instance
+     * @param out sends message to socket
+     */
     public abstract void execute(Game game, PrintWriter out);
 
     /**
@@ -326,8 +335,8 @@ public abstract class Message {
     }
 
     /**
-     * This methods cheks for a particular message
-     * @param other
+     * This methods cheCks for a particular message
+     * @param other STRING
      */
     public boolean isEqual(Message other){
         if(this.identifier.equals(other.identifier)){

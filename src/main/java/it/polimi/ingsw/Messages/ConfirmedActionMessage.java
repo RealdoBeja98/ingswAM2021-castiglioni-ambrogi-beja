@@ -17,6 +17,11 @@ public class ConfirmedActionMessage extends Message{
         identifier = "CONFIRMED_ACTION";
     }
 
+    /**
+     * Overrides the execute method
+     * @param game game instance
+     * @param out: send messages to the socket
+     */
     @Override
     public void execute(Game game, PrintWriter out) {
         if(LocalMain.getIsLocal()){

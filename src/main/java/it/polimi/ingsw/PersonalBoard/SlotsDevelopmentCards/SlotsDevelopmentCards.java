@@ -180,6 +180,7 @@ public class SlotsDevelopmentCards {
 
     /**
      * This method checks if you are able to add the card before buying it
+     * @param developmentCard development card
      * @return true if you can add the development card, of type int
      */
     public boolean checkAbleToAddThisDevelopmentCard(DevelopmentCard developmentCard){

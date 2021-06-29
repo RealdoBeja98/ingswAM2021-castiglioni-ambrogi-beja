@@ -25,8 +25,8 @@ public class UpdateSoloActionTokenMessage extends Message{
     /**
      * This method is for updating in solo player, and sending the proper messages from
      * the moves of the player
-     * @param game
-     * @param out
+     * @param game game instance
+     * @param out sends message to socket
      */
     @Override
     public void execute(Game game, PrintWriter out) {

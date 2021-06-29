@@ -14,16 +14,25 @@ import javafx.scene.image.Image;
 import javafx.application.Platform;
 import java.util.ArrayList;
 
-//<--FIXME--> Fare il javadock di questa classe
 
+/**
+ * Class of gui
+ */
 public class Gui extends View{
 
     private final Canvas canvas;
 
+    /**
+     * Constructor of this class
+     * @param canvas canvas
+     */
     public Gui(Canvas canvas){
         this.canvas = canvas;
     }
 
+    /**
+     * overrides the show starting lc
+     */
     @Override
     public void showStartingLC() {
         Platform.runLater(new Runnable() {
@@ -34,6 +43,9 @@ public class Gui extends View{
         }     );
     }
 
+    /**
+     * this method shows the starting leader card
+     */
     private void _showStartingLC() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         ArrayList<PlayerGame.PlayerPlayer> players = ClientMain.getPlayerGame().getPlayers();
@@ -51,6 +63,9 @@ public class Gui extends View{
 
     }
 
+    /**
+     * overrides the method showmarket
+     */
     @Override
     public void showMarket() {
         Platform.runLater(new Runnable() {
@@ -61,6 +76,9 @@ public class Gui extends View{
         }     );
     }
 
+    /**
+     * this method shows to player the market
+     */
     private void _showMarket() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         for(int i = 0; i < 3; i++){
@@ -75,6 +93,9 @@ public class Gui extends View{
         drawLittleSquare(gc, 450, 690, fullName, 80, 80);
     }
 
+    /**
+     * overrides the show development card
+     */
     @Override
     public void showDevCard() {
         Platform.runLater(new Runnable() {
@@ -85,6 +106,9 @@ public class Gui extends View{
         }     );
     }
 
+    /**
+     * This method shows the development card to others
+     */
     public void _showDevCard() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         for(int i = 0; i < 4; i++){
@@ -101,6 +125,9 @@ public class Gui extends View{
         }
     }
 
+    /**
+     * overrides the show personal board
+     */
     @Override
     public void showPersonalBoard() {
         Platform.runLater(new Runnable() {
@@ -111,6 +138,9 @@ public class Gui extends View{
         }     );
     }
 
+    /**
+     * this method shows the personal board
+     */
     public void _showPersonalBoard() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         int navigatorBoard = 0;
@@ -138,6 +168,9 @@ public class Gui extends View{
 
     //<--FIXME--> sitemare costanti e switch
 
+    /**
+     *overrides the current personal board
+     */
     @Override
     public void showPBCurrent() {
         Platform.runLater(new Runnable() {
@@ -149,6 +182,10 @@ public class Gui extends View{
     }
 
     //<--FIXME--> almeno uno switch; usa un array delle posizioni
+
+    /**
+     * this method shows the current personal board
+     */
     private void _showPBCurrent() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         int navigatorBoard = 0;
@@ -182,15 +219,33 @@ public class Gui extends View{
         }
     }
 
+    /**
+     * this method prints the faith track of lorenza
+     * @param gc graphics
+     */
     private void printLorenzoFaithTrack(GraphicsContext gc){
         drawLorenzoBoard(gc, 1360, 0);
     }
 
+    /**
+     * this method lets you to draw cards
+     * @param gc graphics
+     * @param x position
+     * @param y position
+     * @param name name of the card
+     * @param l1 leader card 1
+     * @param l2 leader card 2
+     */
     private void drawCards(GraphicsContext gc, int x, int y, String name, int l1, int l2) {
         Image img = new Image(name);
         gc.drawImage(img, x, y, l1, l2);
     }
 
+    /**
+     * this method lets you to choose the marbles
+     * @param marble marble
+     * @return string with name of marble chosen
+     */
     private String selectMarble(Resource marble) {
         String name= "NullMarble";
         if(marble == null){
@@ -214,6 +269,11 @@ public class Gui extends View{
         return "Marbles/" + name + ".png";
     }
 
+    /**
+     * This method lets you chose the resource
+     * @param resource resource
+     * @return string with the name of the resource chosen
+     */
     private String selectResource(Resource resource) {
         String name;
         if(resource == null){
@@ -234,11 +294,27 @@ public class Gui extends View{
         return "Resources/" + name + ".png";
     }
 
+    /**
+     * this methos draws a square
+     * @param gc graphics
+     * @param x position
+     * @param y position
+     * @param name name
+     * @param l1 position
+     * @param l2 position
+     */
     public void drawLittleSquare(GraphicsContext gc, int x, int y, String name, int l1, int l2) {
         Image img = new Image(name);
         gc.drawImage(img, x, y, l1, l2);
     }
 
+    /**
+     * this method draws the board
+     * @param n current player
+     * @param gc graphics
+     * @param x position
+     * @param y position
+     */
     private void drawBoard(PlayerGame.PlayerPlayer n, GraphicsContext gc, int x, int y){
         Image pb = new Image("Misc/PersonalBoard.png");
         gc.drawImage(pb, x, y, 560, 490);
@@ -266,6 +342,12 @@ public class Gui extends View{
         drawActualScoreVictoryPointsString(n, gc, x, y);
     }
 
+    /**
+     * this method draws the lorenzo's board
+     * @param gc graphics
+     * @param x position
+     * @param y position
+     */
     private void drawLorenzoBoard(GraphicsContext gc, int x, int y){
         Image pb = new Image("Misc/PersonalBoard.png");
         gc.drawImage(pb, x, y, 560, 490);
@@ -278,10 +360,24 @@ public class Gui extends View{
         drawLorenzoFaith(gc, x, y, ClientMain.getPlayerGame().getLorenzoTrack().getFaithMarker());
     }
 
+    /**
+     * this method draws the faith
+     * @param gc graphics
+     * @param x position
+     * @param y position
+     * @param faithNumber number of faith
+     */
     private void drawFaith(GraphicsContext gc, int x, int y, int faithNumber){
         drawFaithMarker("Misc/FaithMarker.png", gc, x, y, faithNumber);
     }
 
+    /**
+     * this method draws the lorenzo's faith
+     * @param gc graphics
+     * @param x position
+     * @param y position
+     * @param faithNumber number of faith
+     */
     private void drawLorenzoFaith(GraphicsContext gc, int x, int y, int faithNumber){
         drawFaithMarker("Misc/BlackCrossToken.png", gc, x, y, faithNumber);
         Image cross = new Image("Misc/cross.png");
@@ -289,6 +385,15 @@ public class Gui extends View{
     }
 
     //<--FIXME--> fare json per caricare questi valori
+
+    /**
+     * this method draws the faith marker
+     * @param image image
+     * @param gc graphics
+     * @param x position
+     * @param y position
+     * @param faithNumber number
+     */
     private void drawFaithMarker(String image, GraphicsContext gc, int x, int y, int faithNumber){
         Image faith = new Image(image);
         if(faithNumber == 0){
@@ -344,6 +449,13 @@ public class Gui extends View{
         }
     }
 
+    /**
+     * this method draws the favor tiles
+     * @param gc graphics
+     * @param x position
+     * @param y position
+     * @param favorTiles favor tiles
+     */
     private void drawFavorTiles(GraphicsContext gc, int x, int y, FavorTiles[] favorTiles){
         for(int i = 0; i < 3; i++){
             String name = "FavourTile" + (i+1) + "D";
@@ -379,6 +491,14 @@ public class Gui extends View{
     }
 
     //<--FIXME--> fare mappe; fullName è un invariante per le quadre
+
+    /**
+     * this method draws the warehouse depots
+     * @param n player
+     * @param gc graphics
+     * @param x position
+     * @param y position
+     */
     private void drawWarehouseDepots(PlayerGame.PlayerPlayer n, GraphicsContext gc, int x, int y){
         Resource[] resource = n.getWarehouseDepots().getResource();
         if(resource[0] != null){
@@ -403,6 +523,14 @@ public class Gui extends View{
     }
 
     //<--FIXME--> fare questo più elegante
+
+    /**
+     * this method draws the active cards
+     * @param n player
+     * @param gc graphics
+     * @param x position
+     * @param y position
+     */
     private void drawActiveCards(PlayerGame.PlayerPlayer n, GraphicsContext gc, int x, int y) {
         DevelopmentCard[][] visualize = n.getSlotsDevelopmentCards().getSlot();
         if(visualize[2][0] != null){
@@ -444,6 +572,13 @@ public class Gui extends View{
         }
     }
 
+    /**
+     * this method draws the scarded cards
+     * @param n player
+     * @param gc graphics
+     * @param x position
+     * @param y position
+     */
     private void drawDiscardedCards(PlayerGame.PlayerPlayer n, GraphicsContext gc, int x, int y){
         String name = "NullLeaderCard";
         String fullName = "LeaderCard/" + name + ".png";
@@ -453,6 +588,13 @@ public class Gui extends View{
         drawCards(gc, x+ 560, y+ 355, "Labels/DiscardedCard.png", 70, 25);
     }
 
+    /**
+     * this method draws the ards on table
+     * @param n player
+     * @param gc graphics
+     * @param x position
+     * @param y position
+     */
     private void drawCardsOnTable(PlayerGame.PlayerPlayer n, GraphicsContext gc, int x, int y){
         LeaderCard[] cardsOnTable = n.getCardsOnTable();
         if(cardsOnTable[0] != null){
@@ -493,6 +635,13 @@ public class Gui extends View{
 
     //<--FIXME--> risolvere codici duplicati (anche i nomi delle label sono duplicati)
 
+    /**
+     * this method draws the cards in hand
+     * @param n player
+     * @param gc graphics
+     * @param x position
+     * @param y position
+     */
     private void drawCardsInHand(PlayerGame.PlayerPlayer n, GraphicsContext gc, int x, int y){
         LeaderCard[] cardsInHand = n.getCardsInHand();
         if(cardsInHand[0] != null){
@@ -517,6 +666,13 @@ public class Gui extends View{
         }
     }
 
+    /**
+     * this method draws the trong box
+     * @param n player
+     * @param gc graphics
+     * @param x position
+     * @param y position
+     */
     private void drawStrongbox(PlayerGame.PlayerPlayer n, GraphicsContext gc, int x, int y){
         int coin = n.getStrongBox().getCoin();
         int stone = n.getStrongBox().getStone();
@@ -532,11 +688,24 @@ public class Gui extends View{
         drawNumber(gc, x+35, y+440, shield);
     }
 
+    /**
+     * this method draws the actual score of victory points
+     * @param n player
+     * @param gc graphics
+     * @param x position
+     * @param y position
+     */
     private void drawActualScoreVictoryPointsString(PlayerGame.PlayerPlayer n, GraphicsContext gc, int x, int y){
         int actualScoreVictoryPoints = n.calculateVictoryPoints();
         drawNumber(gc, x+520, y+470, actualScoreVictoryPoints);
     }
 
+    /**
+     * this method draws the number
+     * @param gc graphics
+     * @param x position
+     * @param y position
+     */
     private void drawNumber(GraphicsContext gc, int x, int y, int number){
         int c2 = number % 10;
         int c1 = number / 10;
@@ -544,6 +713,10 @@ public class Gui extends View{
         drawLittleSquare(gc, x+20, y+0, "Numbers/" + c2 + ".png", 20, 20);
     }
 
+    /**
+     * overrides the solo action token
+     * @param actionToken action token
+     */
     @Override
     public void showSoloActionToken(ActionToken actionToken) {
         Platform.runLater(new Runnable() {
@@ -554,6 +727,10 @@ public class Gui extends View{
         }     );
     }
 
+    /**
+     * this method shows the solo action token
+     * @param actionToken action token
+     */
     private void _showSoloActionToken(ActionToken actionToken) {
         System.out.println("UPDATE_SOLO_ACTION_TOKEN" + " " + actionToken.getWhatIAm());
         GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -583,6 +760,9 @@ public class Gui extends View{
         drawLittleSquare(gc, 320, 955, fullName,40, 40);
     }
 
+    /**
+     * reload the view
+     */
     public void reloadView(){
         if(!ClientMain.getPlayerGame().gameReallyStarted()){
             return;

@@ -340,13 +340,17 @@ public class Game {
 
     /**
      * This method gets number of player
+     * @return numberOfPlayers integer
      */
     public int getNumberOfPlayer(){
         return numberOfPlayer;
     }
 
-    //<--FIXME--> finire il JavaDock
-
+    /**
+     * This method tells the disconnected client
+     * @param player instance of player
+     * @param gameStarted if the game has started
+     */
     public void clientDisconnected(Player player, boolean gameStarted) {
         if (gameStarted) {
             if (player.getNickname().equals(Game.get(gameIndex).getTurn().getCurrentPlayer().getNickname())) {
