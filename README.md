@@ -61,3 +61,8 @@ the other way is to use IntelliJ and in CLI use the Disconnect function (recomme
 this is due to the fact that we chose to separate crashing the command shell and disconnection.
 the use of the cli is derived by IntelliJ internal system, where disconnecting leave alive the threads,
 in CLI the disconnection kills the main thread and keep the wanted behaviour.
+
+ADVANCED FUNCTIONALITIES:
+- Multiple games
+- Local solo game (single mode game without connecting to the server)
+- Reconnection during a game (disconnected players can reconnect to the game; game continues skipping turns of disconnected players)
