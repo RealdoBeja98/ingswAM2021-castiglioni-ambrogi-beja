@@ -76,7 +76,7 @@ public class PingPong implements Runnable{
             long now = (new Timestamp(System.currentTimeMillis())).getTime();
             //System.out.println("nickname: " + nickname + " lastUpdate: " + lastUpdate + " now: " + now);
             if (now - lastUpdate > timeToWaitBeforeClosingCommunicationChannel) {
-                //<--FIXME--> mi disconnetto qui
+                //disconnecting here
                 //game.removePlayer(nickname);//player is also removed from the game
                 ArrayList<Player> players = game.getPlayers();
 

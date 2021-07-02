@@ -11,7 +11,7 @@ import java.io.PrintWriter;
 /**
  * Class of the game reconnecting service message
  */
-public class GameReconnectingServiceMessage extends ServiceMessage { //fixme sta classe non funziona
+public class GameReconnectingServiceMessage extends ServiceMessage {
 
     private String all;
 
