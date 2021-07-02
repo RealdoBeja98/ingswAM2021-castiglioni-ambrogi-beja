@@ -121,7 +121,7 @@ public class GuiThread extends Application implements Runnable{
         Platform.exit();
     }
 
-    //<--FIXME--> i valori
+    //<--FIXME--> [sorry prof non è bellissima ma funziona] i valori
 
     /**
      * This methods creates the buttons for the turn

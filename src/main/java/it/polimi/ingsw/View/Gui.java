@@ -166,7 +166,7 @@ public class Gui extends View{
         }
     }
 
-    //<--FIXME--> sitemare costanti e switch
+    //<--FIXME--> [sorry prof non è bellissima ma funziona] sitemare costanti e switch
 
     /**
      *overrides the current personal board
@@ -181,7 +181,7 @@ public class Gui extends View{
         }     );
     }
 
-    //<--FIXME--> almeno uno switch; usa un array delle posizioni
+    //<--FIXME--> [sorry prof non è bellissima ma funziona] almeno uno switch; usa un array delle posizioni
 
     /**
      * this method shows the current personal board
@@ -401,7 +401,7 @@ public class Gui extends View{
         gc.drawImage(cross, x+10, y+168, 540, 310);
     }
 
-    //<--FIXME--> fare json per caricare questi valori
+    //<--FIXME--> [sorry prof non è bellissima ma funziona] fare json per caricare questi valori
 
     /**
      * this method draws the faith marker
@@ -507,7 +507,7 @@ public class Gui extends View{
         }
     }
 
-    //<--FIXME--> fare mappe; fullName è un invariante per le quadre
+    //<--FIXME--> [sorry prof non è bellissima ma funziona] fare mappe; fullName è un invariante per le quadre
 
     /**
      * this method draws the warehouse depots
@@ -539,7 +539,7 @@ public class Gui extends View{
         }
     }
 
-    //<--FIXME--> fare questo più elegante
+    //<--FIXME--> [sorry prof non è bellissima ma funziona] fare questo più elegante
 
     /**
      * this method draws the active cards
@@ -650,7 +650,7 @@ public class Gui extends View{
         }
     }
 
-    //<--FIXME--> risolvere codici duplicati (anche i nomi delle label sono duplicati)
+    //<--FIXME--> [sorry prof non è bellissima ma funziona] risolvere codici duplicati (anche i nomi delle label sono duplicati)
 
     /**
      * this method draws the cards in hand
